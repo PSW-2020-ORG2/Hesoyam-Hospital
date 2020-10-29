@@ -1,0 +1,14 @@
+// File:    IManagerRepository.cs
+// Author:  Windows 10
+// Created: 23. maj 2020 14:08:58
+// Purpose: Definition of Interface IManagerRepository
+
+using SIMS.Model.UserModel;
+using System;
+
+namespace SIMS.Repository.Abstract.UsersAbstractRepository
+{
+    public interface IManagerRepository : IRepository<Manager, UserID>
+    {
+    }
+}
