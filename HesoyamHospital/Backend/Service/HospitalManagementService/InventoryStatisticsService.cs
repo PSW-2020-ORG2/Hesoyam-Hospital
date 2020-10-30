@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Service.HospitalManagementService
 {
-    class InventoryStatisticsService : IService<StatsInventory, long>
+    public class InventoryStatisticsService : IService<StatsInventory, long>
     {
 
         private InventoryStatisticsRepository _inventoryStatisticsRepository;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Service.UsersService
 {
-    class UserService : IService<User, UserID>, IUserService<User>
+    public class UserService : IService<User, UserID>, IUserService<User>
     {
         private UserRepository _userRepository;
 

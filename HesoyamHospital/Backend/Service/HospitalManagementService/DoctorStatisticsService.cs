@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Service.HospitalManagementService
 {
-    class DoctorStatisticsService : IService<StatsDoctor, UserID>
+    public class DoctorStatisticsService : IService<StatsDoctor, UserID>
     {
 
         private DoctorStatisticRepository _doctorStatisticRepository;
