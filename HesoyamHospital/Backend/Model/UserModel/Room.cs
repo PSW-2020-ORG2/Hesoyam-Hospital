@@ -13,7 +13,7 @@ namespace Backend.Model.UserModel
 {
     public class Room: IIdentifiable<long>
     {
-        private long _id;
+        public long id { get; set; }
         private string _roomNumber;
         private bool _occupied;
         private int _floor;
@@ -21,7 +21,7 @@ namespace Backend.Model.UserModel
 
         public Room(long id)
         {
-            _id = id;
+            id = id;
         }
         
 
@@ -35,7 +35,7 @@ namespace Backend.Model.UserModel
 
         public Room(long id, string roomNumber, bool occupied, int floor, RoomType roomType)
         {
-            _id = id;
+            id = id;
             _roomNumber = roomNumber;
             _occupied = occupied;
             _floor = floor;
@@ -51,22 +51,22 @@ namespace Backend.Model.UserModel
         {
             var room = obj as Room;
             return room != null &&
-                   _id == room._id;
+                   id == room.id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + id.GetHashCode();
         }
 
         public long GetId()
         {
-            return _id;
+            return id;
         }
 
         public void SetId(long id)
         {
-            _id = id;
+            id = id;
         }
     }
 }

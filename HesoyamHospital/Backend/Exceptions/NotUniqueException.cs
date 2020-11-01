@@ -6,7 +6,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Backend.Repository.CSVFileRepository.UsersRepository
+namespace Backend.Repository.MySQLRepository.UsersRepository
 {
     [Serializable]
     internal class NotUniqueException : Exception

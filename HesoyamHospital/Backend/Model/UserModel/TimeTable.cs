@@ -7,14 +7,16 @@ using Backend.Repository.Abstract;
 using Backend.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Model.UserModel
 {
     public class TimeTable : IIdentifiable<long>
     {
-        private long _id;
+        public long id { get; set; }
+        [NotMapped]
         private Dictionary<WorkingDaysEnum, TimeInterval> _workingHours;
-
+        [NotMapped]
         public Dictionary<WorkingDaysEnum, TimeInterval> WorkingHours { get => _workingHours; set => _workingHours = value; }
 
         public TimeTable(Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
@@ -24,7 +26,7 @@ namespace Backend.Model.UserModel
 
         public TimeTable(long id, Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
         {
-            _id = id;
+            id = id;
             _workingHours = workingHours;
         }
 
@@ -35,7 +37,7 @@ namespace Backend.Model.UserModel
 
         public TimeTable(long id)
         {
-            _id = id;
+            id = id;
         }
 
         public bool Edit()
@@ -62,24 +64,24 @@ namespace Backend.Model.UserModel
 
         public long GetId()
         {
-            return _id;
+            return id;
         }
 
         public void SetId(long id)
         {
-            _id = id;
+            id = id;
         }
 
         public override bool Equals(object obj)
         {
             var table = obj as TimeTable;
             return table != null &&
-                   _id == table._id;
+                   id == table.id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + id.GetHashCode();
         }
     }
 }

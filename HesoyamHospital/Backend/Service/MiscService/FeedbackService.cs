@@ -9,7 +9,7 @@ using System.Linq;
 using Backend.Exceptions;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MiscAbstractRepository;
-using Backend.Repository.CSVFileRepository.MiscRepository;
+using Backend.Repository.MySQLRepository.MiscRepository;
 
 namespace Backend.Service.MiscService
 {

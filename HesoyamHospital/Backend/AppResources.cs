@@ -6,15 +6,12 @@ using Backend.Model.DoctorModel;
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.CSVFileRepository.Csv.Converter.HospitalManagementConverter;
-using Backend.Repository.CSVFileRepository.Csv.Converter.MedicalConverter;
-using Backend.Repository.CSVFileRepository.Csv.Converter.MiscConverter;
-using Backend.Repository.CSVFileRepository.Csv.Converter.UsersConverter;
-using Backend.Repository.CSVFileRepository.Csv.Stream;
-using Backend.Repository.CSVFileRepository.HospitalManagementRepository;
-using Backend.Repository.CSVFileRepository.MedicalRepository;
-using Backend.Repository.CSVFileRepository.MiscRepository;
-using Backend.Repository.CSVFileRepository.UsersRepository;
+using Backend.Repository.MySQLRepository;
+using Backend.Repository.MySQLRepository.MySQL.Stream;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.MiscRepository;
+using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Repository.Sequencer;
 using Backend.Service.HospitalManagementService;
 using Backend.Service.MedicalService;
@@ -200,82 +197,76 @@ namespace Backend
 
         private void LoadRepositories()
         {
-            userRepository = new UserRepository(new CSVStream<User>(userFile, new UserConverter()), new ComplexSequencer());
+            userRepository = new UserRepository(new MySQLStream<User>(), new ComplexSequencer());
             // USER OK
 
 
-            roomRepository = new RoomRepository(new CSVStream<Room>(roomFile, new RoomConverter()), new LongSequencer());
+            roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
             // ROOM OK
 
-            inventoryItemRepository = new InventoryItemRepository(new CSVStream<InventoryItem>(inventoryItemFile, new InventoryItemConverter()), new LongSequencer(), roomRepository);
+            inventoryItemRepository = new InventoryItemRepository(new MySQLStream<InventoryItem>(), new LongSequencer());
 
-            timeTableRepository = new TimeTableRepository(new CSVStream<TimeTable>(timeTableFile, new TimeTableConverter()), new LongSequencer());
+            timeTableRepository = new TimeTableRepository(new MySQLStream<TimeTable>(), new LongSequencer());
             // TIMETABLE OK
-            hospitalRepository = new HospitalRepository(new CSVStream<Hospital>(hospitalFile, new HospitalConverter()), new LongSequencer(), roomRepository);
+            hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             // HOSPITAL OK
 
-            secretaryRepository = new SecretaryRepository(new CSVStream<Secretary>(secretaryFile, new SecretaryConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
+            secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
             // SECRETARY OK
-            managerRepository = new ManagerRepository(new CSVStream<Manager>(managerFile, new ManagerConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
+            managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new ComplexSequencer(), timeTableRepository, hospitalRepository, userRepository);
             // MANAGER OK
-            doctorRepository = new DoctorRepository(new CSVStream<Doctor>(doctorFile, new DoctorConverter()), new ComplexSequencer(), timeTableRepository, hospitalRepository, roomRepository, userRepository);
+            doctorRepository = new DoctorRepository(new MySQLStream<Doctor>(), new ComplexSequencer(), timeTableRepository, hospitalRepository, roomRepository, userRepository);
             // DOCTOR OK
-            patientRepository = new PatientRepository(new CSVStream<Patient>(patientFile, new PatientConverter()), new ComplexSequencer(), doctorRepository, userRepository);
+            patientRepository = new PatientRepository(new MySQLStream<Patient>(), new ComplexSequencer(), doctorRepository, userRepository);
             // PATIENT OK
 
 
-
-            hospitalRepository.DoctorRepository = doctorRepository;
-            hospitalRepository.ManagerRepository = managerRepository;
-            hospitalRepository.SecretaryRepository = secretaryRepository;
-
-
             //Misc repositories
-            locationRepository = new LocationRepository(new CSVStream<Location>(locationFile, new LocationConverter()), new LongSequencer());
+            locationRepository = new LocationRepository(new MySQLStream<Location>(), new LongSequencer());
             // LOCATION OK
-            notificationRepository = new NotificationRepository(new CSVStream<Notification>(notificationFile, new NotificationConverter()), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
+            notificationRepository = new NotificationRepository(new MySQLStream<Notification>(), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
             // NOTIFICATION OK
-            messageRepository = new MessageRepository(new CSVStream<Message>(messageFile, new MessageConverter()), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
+            messageRepository = new MessageRepository(new MySQLStream<Message>(), new LongSequencer(), patientRepository, doctorRepository, managerRepository, secretaryRepository);
             // MESSAGE OK
-            articleRepository = new ArticleRepository(new CSVStream<Article>(articleFile, new ArticleConverter()), new LongSequencer(), doctorRepository, managerRepository, secretaryRepository);
+            articleRepository = new ArticleRepository(new MySQLStream<Article>(), new LongSequencer(), doctorRepository, managerRepository, secretaryRepository);
             //ARTICLE OK
-            questionRepository = new QuestionRepository(new CSVStream<Question>(questionFile, new QuestionConverter()), new LongSequencer());
+            questionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
             // QUESTION OK
-            doctorQuestionRepository = new QuestionRepository(new CSVStream<Question>(doctorQuestionFile, new QuestionConverter()), new LongSequencer());
+            doctorQuestionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
             //DOCTOR QUESTION OK
-            feedbackRepository = new FeedbackRepository(new CSVStream<Feedback>(feedbackFile, new FeedbackConverter()), new LongSequencer(), questionRepository, patientRepository, doctorRepository, managerRepository, secretaryRepository);
-            doctorFeedbackRepository = new DoctorFeedbackRepository(new CSVStream<DoctorFeedback>(doctorFeedbackFile, new DoctorFeedbackConverter()), new LongSequencer(), doctorQuestionRepository, patientRepository, doctorRepository);
+            feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer(), questionRepository, patientRepository, doctorRepository, managerRepository, secretaryRepository);
+            doctorFeedbackRepository = new DoctorFeedbackRepository(new MySQLStream<DoctorFeedback>(), new LongSequencer(), doctorQuestionRepository, patientRepository, doctorRepository);
 
 
             //Hospital management repositories
-            symptomRepository = new SymptomRepository(new CSVStream<Symptom>(symptomsFile, new SymptomConverter()), new LongSequencer());
+            symptomRepository = new SymptomRepository(new MySQLStream<Symptom>(), new LongSequencer());
             //SYMPTOM REPO OK
-            diseaseRepository = new DiseaseRepository(new CSVStream<Disease>(diseaseFile, new DiseaseConverter()), new LongSequencer(), medicineRepository, symptomRepository);
+            diseaseRepository = new DiseaseRepository(new MySQLStream<Disease>(), new LongSequencer(), medicineRepository, symptomRepository);
             //DISEASE REPO OK
-            ingredientRepository = new IngredientRepository(new CSVStream<Ingredient>(ingredientFile, new IngredientConverter()), new LongSequencer());
+            ingredientRepository = new IngredientRepository(new MySQLStream<Ingredient>(), new LongSequencer());
             //INGREDIENT REPO OK
-            medicineRepository = new MedicineRepository(new CSVStream<Medicine>(medicineFile, new MedicineConverter()), new LongSequencer(), ingredientRepository, diseaseRepository);
+            medicineRepository = new MedicineRepository(new MySQLStream<Medicine>(), new LongSequencer(), ingredientRepository, diseaseRepository);
             //MEDICINE REPO OK
 
 
-            prescriptionRepository = new PrescriptionRepository(new CSVStream<Prescription>(prescriptionFile, new PrescriptionConverter()), new LongSequencer(), doctorRepository, medicineRepository);
+            prescriptionRepository = new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer(), doctorRepository, medicineRepository);
             //PRESCRIPTION REPO OK
 
             //Medical repositories
 
-            allergyRepository = new AllergyRepository(new CSVStream<Allergy>(allergyFile, new AllergyConverter()), new LongSequencer(), ingredientRepository, symptomRepository);
+            allergyRepository = new AllergyRepository(new MySQLStream<Allergy>(), new LongSequencer(), ingredientRepository, symptomRepository);
             //ALLERGY REPO OK
 
-            appointmentRepository = new AppointmentRepository(new CSVStream<Appointment>(appointmentsFile, new AppointmentConverter()), new LongSequencer(), patientRepository, doctorRepository, roomRepository);
+            appointmentRepository = new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer(), patientRepository, doctorRepository, roomRepository);
             //GERGO REPO OK?
-            therapyRepository = new TherapyRepository(new CSVStream<Therapy>(therapyFile, new TherapyConverter()), new LongSequencer(), medicalRecordRepository, medicalRecordRepository, prescriptionRepository, diagnosisRepository);
+            therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer(), medicalRecordRepository, medicalRecordRepository, prescriptionRepository, diagnosisRepository);
 
             //med record
-            medicalRecordRepository = new MedicalRecordRepository(new CSVStream<MedicalRecord>(medicalRecordFile, new MedicalRecordConverter()), new LongSequencer(), patientRepository, diagnosisRepository, allergyRepository);
+            medicalRecordRepository = new MedicalRecordRepository(new MySQLStream<MedicalRecord>(), new LongSequencer(), patientRepository, diagnosisRepository, allergyRepository);
             //u medical record moras da set diagnosis repo
-            diagnosisRepository = new DiagnosisRepository(new CSVStream<Diagnosis>(diagnosisFile, new DiagnosisConverter()), new LongSequencer(), therapyRepository, diseaseRepository, medicalRecordRepository);
+            diagnosisRepository = new DiagnosisRepository(new MySQLStream<Diagnosis>(), new LongSequencer(), therapyRepository, diseaseRepository, medicalRecordRepository);
             //therapy
-            // therapyRepository = new TherapyRepository(new CSVStream<Therapy>(therapyFile,new TherapyConverter()),new LongSequencer(),medicalRecordRepository, )
+            // therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(therapyFile,new TherapyConverter()),new LongSequencer(),medicalRecordRepository, )
 
             diseaseRepository.MedicineEagerCSVRepository = medicineRepository;
             medicineRepository.DiseaseRepository = diseaseRepository;
@@ -291,16 +282,16 @@ namespace Backend
 
             //ODAVDDE RADITI OSTALE
 
-            doctorStatisticRepository = new DoctorStatisticRepository(new CSVStream<StatsDoctor>(doctorStatisticsFile, new DoctorStatisticsConverter(",")), new LongSequencer(), doctorRepository);
+            doctorStatisticRepository = new DoctorStatisticRepository(new MySQLStream<StatsDoctor>(), new LongSequencer());
             // Doc Stats OK
 
-            inventoryStatisticRepository = new InventoryStatisticsRepository(new CSVStream<StatsInventory>(inventoryStatisticsFile, new InventoryStatisticsConverter(",")), new LongSequencer(), medicineRepository, inventoryItemRepository);
+            inventoryStatisticRepository = new InventoryStatisticsRepository(new MySQLStream<StatsInventory>(), new LongSequencer());
             // InventoryStats OK
 
-            roomStatisticRepository = new RoomStatisticsRepository(new CSVStream<StatsRoom>(roomStatisticsFile, new RoomStatisticsConverter(",")), new LongSequencer(), roomRepository);
+            roomStatisticRepository = new RoomStatisticsRepository(new MySQLStream<StatsRoom>(), new LongSequencer(), roomRepository);
             // RoomStats OK
 
-            inventoryRepository = new InventoryRepository(new CSVStream<Inventory>(inventoryFile, new InventoryConverter(",", ";")), new LongSequencer(), inventoryItemRepository, medicineRepository);
+            inventoryRepository = new InventoryRepository(new MySQLStream<Inventory>(), new LongSequencer());
 
         }
 

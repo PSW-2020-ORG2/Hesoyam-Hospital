@@ -10,8 +10,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendBase", "BackendBase\BackendBase.csproj", "{593E3EE5-1CA5-46BF-8113-46380DEF0CAE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{49226B60-869E-428E-8C7F-C573E3DDFC9F}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{593E3EE5-1CA5-46BF-8113-46380DEF0CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{593E3EE5-1CA5-46BF-8113-46380DEF0CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{593E3EE5-1CA5-46BF-8113-46380DEF0CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{593E3EE5-1CA5-46BF-8113-46380DEF0CAE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F}.Release|Any CPU.ActiveCfg = Release|Any CPU

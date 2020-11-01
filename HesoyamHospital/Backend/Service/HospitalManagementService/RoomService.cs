@@ -11,8 +11,8 @@ using System.Text.RegularExpressions;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
-using Backend.Repository.CSVFileRepository.HospitalManagementRepository;
-using Backend.Repository.CSVFileRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Util;
 
 namespace Backend.Service.HospitalManagementService

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using Backend.Exceptions;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
-using Backend.Repository.CSVFileRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Util;
 
 namespace Backend.Service.HospitalManagementService

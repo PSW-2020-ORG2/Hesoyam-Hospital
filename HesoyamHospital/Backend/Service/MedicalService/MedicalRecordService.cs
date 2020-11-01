@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Repository.CSVFileRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Exceptions;
 
 namespace Backend.Service.MedicalService

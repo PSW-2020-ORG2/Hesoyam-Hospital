@@ -12,6 +12,7 @@ namespace Backend.Model.UserModel
         private TimeTable _timeTable;
         private Hospital _hospital;
 
+        public Employee() : base() { }
         public Employee(UserID id) : base(id) { }
 
         public Employee(TimeTable timeTable, 

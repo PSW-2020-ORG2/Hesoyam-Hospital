@@ -1,1 +1,0 @@
-WPF should be implemented in this directory.

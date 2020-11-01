@@ -11,6 +11,7 @@ namespace Backend.Model.UserModel
 {
     public class UserID : IComparable
     {
+        public long id { get; set; }
         private char _code;
         private int _number;
 
@@ -21,6 +22,8 @@ namespace Backend.Model.UserModel
 
         public int Number { get => _number; set => _number = value; }
         public char Code { get => _code; set => _code = value; }
+
+        public UserID() { }
 
         public UserID(string id)
         {

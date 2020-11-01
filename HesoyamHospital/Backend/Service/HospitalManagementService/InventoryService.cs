@@ -10,7 +10,7 @@ using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
-using Backend.Repository.CSVFileRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 
 namespace Backend.Service.HospitalManagementService
 {

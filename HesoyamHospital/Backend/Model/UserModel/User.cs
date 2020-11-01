@@ -15,10 +15,12 @@ namespace Backend.Model.UserModel
         private string _password;
         private DateTime _dateCreated;
         private bool _deleted;
-        private UserID _userID;
+        public UserID UserID { get; set; }
+        public long id { get; set; }
 
+        public User() : base() { }
         public User(UserID id) : base() {
-            _userID = id;
+            UserID = id;
         }
 
         public User(string userName,
@@ -59,7 +61,7 @@ namespace Backend.Model.UserModel
                     string email2) 
             : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _userID = id;
+            UserID = id;
             _userName = userName;
             _password = password;
             _dateCreated = dateCreated;
@@ -85,7 +87,7 @@ namespace Backend.Model.UserModel
         }
 
         public UserType GetUserType()
-            => _userID.GetUserType();
+            => UserID.GetUserType();
 
         public User(UserID id,
                     string username,
@@ -94,7 +96,7 @@ namespace Backend.Model.UserModel
                     bool deleted)
             : base()
         {
-            _userID = id;
+            UserID = id;
             _userName = username;
             _password = password;
             _dateCreated = dateCreated;
@@ -103,12 +105,12 @@ namespace Backend.Model.UserModel
 
         public UserID GetId()
         {
-            return _userID;
+            return UserID;
         }
 
         public void SetId(UserID id)
         {
-            _userID = id;
+            UserID = id;
         }
 
         public string UserName { get => _userName; set => _userName = value; }
@@ -120,12 +122,12 @@ namespace Backend.Model.UserModel
         {
             User otherUser = obj as User;
             if (otherUser == null) return false;
-            return _userID.Equals(otherUser.GetId());
+            return UserID.Equals(otherUser.GetId());
         }
 
         public override int GetHashCode()
         {
-            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(_userID);
+            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(UserID);
         }
     }
 }

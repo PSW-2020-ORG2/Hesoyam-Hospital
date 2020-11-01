@@ -1,7 +1,7 @@
 ﻿using Backend.Exceptions;
 using Backend.Model.ManagerModel;
 using Backend.Model.UserModel;
-using Backend.Repository.CSVFileRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.UsersService;
 using System;
 using System.Collections.Generic;

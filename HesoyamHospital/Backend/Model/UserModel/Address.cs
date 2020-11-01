@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Address
 
 using System;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Backend.Model.UserModel
 {
@@ -11,7 +12,8 @@ namespace Backend.Model.UserModel
     {
         private string _address; //street
         private Location _location;
-
+        public long Id { get; set; }
+        public Address() { }
         public Address(string address, Location location)
         {
             _address = address;

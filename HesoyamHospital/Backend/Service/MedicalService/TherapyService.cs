@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.CSVFileRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Util;
 
 using System.Linq;

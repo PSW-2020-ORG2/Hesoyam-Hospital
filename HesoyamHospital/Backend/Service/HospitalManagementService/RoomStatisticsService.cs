@@ -1,5 +1,5 @@
 ﻿using Backend.Model.ManagerModel;
-using Backend.Repository.CSVFileRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

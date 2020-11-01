@@ -13,7 +13,7 @@ namespace Backend.Model.UserModel
     public class Hospital : IIdentifiable<long>
     {
         private string _name;
-        private long _id;
+        public long id { get; set; }
         private string _telephone;
         private string _website;
 
@@ -22,9 +22,13 @@ namespace Backend.Model.UserModel
         private List<Room> _room;
         private List<Employee> _employee;
 
+        public Hospital()
+        {
+
+        }
         public Hospital(long id)
         {
-            _id = id;
+            id = id;
         }
 
         public Hospital(string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
@@ -39,7 +43,7 @@ namespace Backend.Model.UserModel
 
         public Hospital(long id, string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
         {
-            _id = id;
+            id = id;
             _name = name;
             _telephone = telephone;
             _website = website;
@@ -60,7 +64,7 @@ namespace Backend.Model.UserModel
 
         public Hospital(long id, string name, Address address, string telephone, string website)
         {
-            _id = id;
+            id = id;
             _name = name;
             _telephone = telephone;
             _website = website;
@@ -210,21 +214,21 @@ namespace Backend.Model.UserModel
         }
 
         public long GetId()
-            => _id;
+            => id;
 
         public void SetId(long id)
-            => _id = id;
+            => id = id;
 
         public override bool Equals(object obj)
         {
             var hospital = obj as Hospital;
             return hospital != null &&
-                   _id == hospital._id;
+                   id == hospital.id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + id.GetHashCode();
         }
 
         //Properties

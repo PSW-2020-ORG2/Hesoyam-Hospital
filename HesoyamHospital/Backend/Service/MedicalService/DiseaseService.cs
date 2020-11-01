@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Backend.Model.PatientModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Repository.CSVFileRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.MedicalRepository;
 using System.Text.RegularExpressions;
 using Backend.Util;
 using Backend.Exceptions;

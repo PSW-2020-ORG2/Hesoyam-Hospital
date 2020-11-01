@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using Backend.Exceptions;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.UsersAbstractRepository;
-using Backend.Repository.CSVFileRepository.UsersRepository;
+using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Util;
 
 namespace Backend.Service.UsersService

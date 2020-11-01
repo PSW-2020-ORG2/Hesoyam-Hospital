@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.UsersAbstractRepository;
-using Backend.Repository.CSVFileRepository.UsersRepository;
+using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Exceptions;
 using Backend.Util;
 
