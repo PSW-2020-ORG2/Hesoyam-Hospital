@@ -16,27 +16,14 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
     public class RoomStatisticsRepository : MySQLRepository<StatsRoom, long>, IRoomStatisticsRepository, IEagerRepository<StatsRoom, long>
     {
         private const string ENTITY_NAME = "Room Statistics Repository";
-        private IRoomRepository _roomRepository;
-        public RoomStatisticsRepository(IMySQLStream<StatsRoom> stream, ISequencer<long> sequencer, IRoomRepository roomRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<StatsRoom>())
+        private string[] INCLUDE_PROPERTIES = { "Room" };
+
+        public RoomStatisticsRepository(IMySQLStream<StatsRoom> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<StatsRoom>())
         {
-            _roomRepository = roomRepository;
         }
 
         public IEnumerable<StatsRoom> GetAllEager()
-        {
-            IEnumerable<StatsRoom> allStats = GetAll();
-            IEnumerable<Room> rooms = _roomRepository.GetAll();
-
-            BindStatsWithRooms(allStats, rooms);
-
-            return allStats;
-        }
-
-        public void BindStatsWithRooms(IEnumerable<StatsRoom> allStats, IEnumerable<Room> rooms)
-            => allStats.ToList().ForEach(stat => stat.Room = GetRoomById(rooms, stat.Room.GetId()));
-
-        private Room GetRoomById(IEnumerable<Room> rooms, long v)
-            => rooms.SingleOrDefault(room => room.GetId() == v);
+            => GetAllEager(INCLUDE_PROPERTIES);
 
         public StatsRoom GetEager(long id)
             => GetAllEager().SingleOrDefault(stat => stat.GetId() == id);

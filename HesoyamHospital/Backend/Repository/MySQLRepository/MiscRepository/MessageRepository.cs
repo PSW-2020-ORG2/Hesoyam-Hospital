@@ -21,17 +21,10 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
     public class MessageRepository : MySQLRepository<Message, long>, IMessageRepository, IEagerRepository<Message, long>
     {
         private const string ENTITY_NAME = "Message";
-        private IPatientRepository _patientRepository;
-        private IDoctorRepository _doctorRepository;
-        private IManagerRepository _managerRepository;
-        private ISecretaryRepository _secretaryRepository;
+        private string[] INCLUDE_PROPERTIES = { "Recipient", "Sender" };
 
-        public MessageRepository(IMySQLStream<Message> stream, ISequencer<long> sequencer, IPatientRepository patientRepository, IDoctorRepository doctorRepository, IManagerRepository managerRepository, ISecretaryRepository secretaryRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Message>())
+        public MessageRepository(IMySQLStream<Message> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Message>())
         {
-            _patientRepository = patientRepository;
-            _doctorRepository = doctorRepository;
-            _managerRepository = managerRepository;
-            _secretaryRepository = secretaryRepository;
         }
 
         public new Message Create(Message message)
@@ -39,20 +32,6 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
             message.Date = DateTime.Now;
             return base.Create(message);
         }
-
-        public void BindMessagesWithUsers(IEnumerable<Message> messages)
-        {
-            IEnumerable<User> patients = _patientRepository.GetAll();
-            IEnumerable<User> doctors = _doctorRepository.GetAll();
-            IEnumerable<User> managers = _managerRepository.GetAll();
-            IEnumerable<User> secretaries = _secretaryRepository.GetAll();
-            IEnumerable<User> users = patients.Concat(doctors).Concat(managers).Concat(secretaries);
-
-            messages.ToList().ForEach(m => { m.Recipient = GetUserById(users, m.Recipient); m.Sender = GetUserById(users, m.Sender); });
-        }
-
-        private User GetUserById(IEnumerable<User> users, User userId)
-            => userId == null ? null : users.SingleOrDefault(user => user.GetId().Equals(userId.GetId()));
 
         public IEnumerable<Message> GetSent(User user)
             => GetAllEager().ToList().Where(message => IsUserIdsEqual(message.Sender, user));
@@ -67,10 +46,6 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
             => GetAllEager().ToList().SingleOrDefault(message => message.GetId() == id);
 
         public IEnumerable<Message> GetAllEager()
-        {
-            IEnumerable<Message> messages = GetAll();
-            BindMessagesWithUsers(messages);
-            return messages;
-        }
+            => GetAllEager(INCLUDE_PROPERTIES);
     }
 }

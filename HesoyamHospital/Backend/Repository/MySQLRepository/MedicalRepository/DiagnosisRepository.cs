@@ -19,56 +19,25 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
     public class DiagnosisRepository : MySQLRepository<Diagnosis, long>, IDiagnosisRepository, IEagerRepository<Diagnosis, long>
     {
         private const string ENTITY_NAME = "Diagnosis";
-        private IEagerRepository<Therapy, long> _therapyEagerCSVRepository;
-        private IEagerRepository<Disease, long> _diseaseEagerCSVRepository;
-        private IMedicalRecordRepository _medicalRecordRepository;
+        private string[] INCLUDE_PROPERTIES = { "Therapies", "DiagnosedDisease", "ActiveTherapy", "InactiveTherapy", "Date" };
 
-        public DiagnosisRepository(IMySQLStream<Diagnosis> stream, ISequencer<long> sequencer, IEagerRepository<Therapy, long> therapyEagerCSVRepository, IEagerRepository<Disease, long> diseaseEagerCSVRepository, IMedicalRecordRepository medicalRecordRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Diagnosis>())
+        public DiagnosisRepository(IMySQLStream<Diagnosis> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Diagnosis>())
         {
-            _therapyEagerCSVRepository = therapyEagerCSVRepository;
-            _diseaseEagerCSVRepository = diseaseEagerCSVRepository;
-            _medicalRecordRepository = medicalRecordRepository;
         }
-
-      
 
         public IEnumerable<Diagnosis> GetAllEager()
-        {
-            IEnumerable<Diagnosis> diagnoses = GetAll();
-
-            Bind(diagnoses);
-
-            return diagnoses;
-        }
+            => GetAllEager(INCLUDE_PROPERTIES);
 
         public Diagnosis GetEager(long id)
             => GetAllEager().SingleOrDefault(diagnosis => diagnosis.GetId() == id);
 
-        private void Bind(IEnumerable<Diagnosis> diagnosis)
-        {
-            IEnumerable<Therapy> therapies = _therapyEagerCSVRepository.GetAllEager();
-            IEnumerable<Disease> diseases = _diseaseEagerCSVRepository.GetAllEager();
-
-            BindDiagnosisWithDisease(diagnosis, diseases);
-            BindDiagnosisWithTherapies(diagnosis, therapies);
-        }
-
-        private void BindDiagnosisWithTherapies(IEnumerable<Diagnosis> diagnosis, IEnumerable<Therapy> therapies)
-            => diagnosis.ToList().ForEach(diag =>
-            {
-                diag.Therapies = GetTherapiesByIDS(therapies, diag.Therapies.Select(therapy => therapy.GetId())).ToList();
-            });
-
-        private void BindDiagnosisWithDisease(IEnumerable<Diagnosis> diagnosis, IEnumerable<Disease> diseases)
-            => diagnosis.ToList().ForEach(diag => diag.DiagnosedDisease = GetDiseaseByID(diseases, diag.DiagnosedDisease.GetId()));
-
 
         public IEnumerable<Diagnosis> GetAllDiagnosisForPatient(Patient patient)
         {
+            var diagnosis = GetAllEager();
+            /* treba vratiti dijagnoze za pacijenta, a ne sve*/
 
-            MedicalRecord patientMedicalRecord = _medicalRecordRepository.GetPatientMedicalRecord(patient);
-
-            return patientMedicalRecord.PatientDiagnosis;
+            return GetAllEager();
         }
 
         public IEnumerable<Diagnosis> GetDiagnosisByMedicine(Medicine medicine)
@@ -92,21 +61,5 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             return retVal;
 
         }
-
-
- 
-
-        private Disease GetDiseaseByID(IEnumerable<Disease> diseases, long id)
-            => diseases.SingleOrDefault(disease => disease.GetId() == id);
-
-        private IEnumerable<Therapy> GetTherapiesByIDS(IEnumerable<Therapy> therapies, IEnumerable<long> ids)
-            => therapies.Where(therapy => ids.Contains(therapy.GetId()));
-
-        public TherapyRepository therapyRepository;
-        public DiseaseRepository diseaseRepository;
-
-        public IEagerRepository<Therapy, long> TherapyEagerCSVRepository { get => _therapyEagerCSVRepository; set => _therapyEagerCSVRepository = value; }
-        public IEagerRepository<Disease, long> DiseaseEagerCSVRepository { get => _diseaseEagerCSVRepository; set => _diseaseEagerCSVRepository = value; }
-        public IMedicalRecordRepository MedicalRecordRepository { get => _medicalRecordRepository; set => _medicalRecordRepository = value; }
-    }
+     }
 }

@@ -22,37 +22,11 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
     public class AppointmentRepository : MySQLRepository<Appointment, long>, IAppointmentRepository, IEagerRepository<Appointment, long>
     {
         private const string ENTITY_NAME = "Appointment";
-        private IEagerRepository<Patient,UserID> _patientRepository;
-        private IEagerRepository<Doctor,UserID> _doctorRepository;
-        private IRoomRepository _roomRepository;
+        private string[] INCLUDE_PROPERTIES = { "DoctorInAppointment", "Room", "Patient", "TimeInterval" };
 
-        public AppointmentRepository(IMySQLStream<Appointment> stream, ISequencer<long> sequencer, IEagerRepository<Patient,UserID> patientRepository, IEagerRepository<Doctor,UserID> doctorRepository, IRoomRepository roomRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Appointment>())
+        public AppointmentRepository(IMySQLStream<Appointment> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Appointment>())
         {
-            _patientRepository = patientRepository;
-            _doctorRepository = doctorRepository;
-            _roomRepository = roomRepository;
         }
-
-        private void Bind(IEnumerable<Appointment> appointments)
-        {
-            var patients = _patientRepository.GetAllEager();
-            BindAppointmentsWithPatient(appointments, patients);
-
-            var doctors = _doctorRepository.GetAllEager();
-            BindAppointmentsWithDoctor(appointments, doctors);
-
-            var rooms = _roomRepository.GetAll();
-            BindAppointmentsWithRoom(appointments, rooms);
-        }
-
-        private void BindAppointmentsWithDoctor(IEnumerable<Appointment> appointments, IEnumerable<Doctor> doctors)
-            => appointments.ToList().ForEach(appointment => appointment.DoctorInAppointment = GetDoctorById(doctors,appointment.DoctorInAppointment));
-
-        private void BindAppointmentsWithPatient(IEnumerable<Appointment> appointments, IEnumerable<Patient> patients)
-            => appointments.ToList().ForEach(appointment => appointment.Patient = GetPatientById(patients, appointment.Patient));
-
-        private void BindAppointmentsWithRoom(IEnumerable<Appointment> appointments, IEnumerable<Room> rooms)
-            => appointments.ToList().ForEach(appointment => appointment.Room = GetRoomById(rooms, appointment.Room));
 
         public IEnumerable<Appointment> GetPatientAppointments(Patient patient)
             => GetAllEager().Where(appointment => IsUserIdsEquals(appointment.Patient, patient));
@@ -79,43 +53,25 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
         {
             ISpecification<Appointment> specification = new AppointmentSpecificationConverter(appointmentFilter).GetSpecification();
             var appointments = Find(specification);
-            Bind(appointments);
-            return appointments;            
+            var eagerApps = GetAllEager();
+            IEnumerable<Appointment> result = new List<Appointment>();
+            foreach (var app in appointments)
+            {
+                foreach (var eagerApp in eagerApps)
+                {
+                    if (app.Id == eagerApp.Id)
+                    {
+                        result.Append(eagerApp);
+                    }
+                }
+            }
+            return result;
         }
 
         public Appointment GetEager(long id)
-        {
-            var appointment = GetByID(id);
-
-            var patients = _patientRepository.GetAllEager();
-            appointment.Patient = GetPatientById(patients, appointment.Patient);
-
-            var doctors = _doctorRepository.GetAllEager();
-            appointment.DoctorInAppointment = GetDoctorById(doctors, appointment.DoctorInAppointment);
-
-            var rooms = _roomRepository.GetAll();
-            appointment.Room = GetRoomById(rooms, appointment.Room);
-
-            return appointment;
-        }
+            => GetAllEager().SingleOrDefault(appointment => appointment.GetId() == id);
 
         public IEnumerable<Appointment> GetAllEager()
-        {
-            IEnumerable<Appointment> appointments = GetAll();
-            Bind(appointments);
-
-            return appointments;
-        }
-
-        private Doctor GetDoctorById(IEnumerable<Doctor> doctors, Doctor doctorId)
-            => doctorId == null ? null : doctors.SingleOrDefault(d => d.GetId().Equals(doctorId.GetId()));
-
-        private Patient GetPatientById(IEnumerable<Patient> patients, Patient patientId)
-            => patientId == null ? null : patients.SingleOrDefault(p => p.GetId().Equals(patientId.GetId()));
-
-        private Room GetRoomById(IEnumerable<Room> rooms, Room roomId)
-            => roomId == null ? null : rooms.SingleOrDefault(r => r.GetId() == roomId.GetId());
-
-        
+            => GetAllEager(INCLUDE_PROPERTIES);
     }
 }

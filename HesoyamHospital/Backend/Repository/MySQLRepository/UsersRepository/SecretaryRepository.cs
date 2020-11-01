@@ -18,16 +18,13 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
 {
     public class SecretaryRepository : MySQLRepository<Secretary, UserID>, ISecretaryRepository, IEagerRepository<Secretary, UserID>
     {
-        private readonly ITimeTableRepository _timeTableRepository;
-        private readonly IHospitalRepository _hospitalRepository;
         private readonly IUserRepository _userRepository;
         private const string ENTITY_NAME = "Secretary";
         private const string NOT_UNIQUE_ERROR = "Secretary username {0} is not unique!";
+        private string[] INCLUDE_PROPERTIES = { "Address", "UserID","Hospital", "TimeTable" };
 
-        public SecretaryRepository(IMySQLStream<Secretary> stream, ISequencer<UserID> sequencer, ITimeTableRepository timeTableRepository, IHospitalRepository hospitalRepository, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new SecretaryIdGeneratorStrategy())
+        public SecretaryRepository(IMySQLStream<Secretary> stream, ISequencer<UserID> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new SecretaryIdGeneratorStrategy())
         {
-            _timeTableRepository = timeTableRepository;
-            _hospitalRepository = hospitalRepository;
             _userRepository = userRepository;
         }
 
@@ -55,42 +52,10 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             => _userRepository.GetByUsername(userName) == null;
 
         public IEnumerable<Secretary> GetAllEager()
-        {
-            var secretaries = GetAll();
-            Bind(secretaries);
-            
-            return secretaries;
-        }
+            => GetAllEager(INCLUDE_PROPERTIES);
 
         public Secretary GetEager(UserID id)
-        {
-            var secretary = GetByID(id);
-            var timetables = _timeTableRepository.GetAll();
-            secretary.TimeTable = GetTimeTableById(secretary.TimeTable, timetables);
-            var hospitals = _hospitalRepository.GetAll();
-            secretary.Hospital = GetHospitalById(secretary.Hospital, hospitals);
-            return secretary;
-        }
+            => GetAllEager().SingleOrDefault(secretary => secretary.GetId() == id);
 
-        private Hospital GetHospitalById(Hospital hospitalId, IEnumerable<Hospital> hospitals)
-            => hospitalId == null ? null : hospitals.SingleOrDefault(h => h.GetId() == hospitalId.GetId());
-
-        private TimeTable GetTimeTableById(TimeTable timeTableId, IEnumerable<TimeTable> timetables)
-            => timeTableId == null ? null : timetables.SingleOrDefault(t => t.GetId() == timeTableId.GetId());
-
-        private void Bind(IEnumerable<Secretary> secretaries)
-        {
-            var timetables = _timeTableRepository.GetAll();
-            BindSecretariesWithTimetables(secretaries, timetables);
-
-            var hospitals = _hospitalRepository.GetAll();
-            BindSecretariesWithHospitals(secretaries, hospitals);
-        }
-
-        private void BindSecretariesWithTimetables(IEnumerable<Secretary> secretaries, IEnumerable<TimeTable> timetables)
-            => secretaries.ToList().ForEach(secretary => secretary.TimeTable = GetTimeTableById(secretary.TimeTable, timetables));
-
-        private void BindSecretariesWithHospitals(IEnumerable<Secretary> secretaries, IEnumerable<Hospital> hospitals)
-            => secretaries.ToList().ForEach(secretary => secretary.Hospital = GetHospitalById(secretary.Hospital, hospitals));
     }
 }

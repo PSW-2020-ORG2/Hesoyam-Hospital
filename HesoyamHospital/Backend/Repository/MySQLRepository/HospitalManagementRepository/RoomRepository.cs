@@ -21,6 +21,7 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
     {
         private const string ENTITY_NAME = "Room";
         private const string NOT_UNIQUE_ERROR = "Room name {0} is not unique!";
+
         public RoomRepository(IMySQLStream<Room> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Room>())
         {
         }

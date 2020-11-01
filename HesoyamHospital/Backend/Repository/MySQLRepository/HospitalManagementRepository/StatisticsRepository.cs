@@ -24,30 +24,6 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         {
         }
 
-        private void BindStatisticsWithDoctors(IEnumerable<StatsDoctor> statistics, IEnumerable<Doctor> doctors)
-            => statistics.ToList().ForEach(stat => stat.Doctor = GetDoctorById(doctors, stat.Doctor.GetId()));
-
-        private Doctor GetDoctorById(IEnumerable<Doctor> doctors, UserID id)
-            => doctors.SingleOrDefault(doctor => doctor.GetId().Equals(id));
-
-        private void BindStatisticsWithInventoryItems(IEnumerable<StatsInventory> statistics, IEnumerable<InventoryItem> inventoryItems)
-            => statistics.ToList().ForEach(stat => stat.InventoryItem = GetInventoryItemById(inventoryItems, stat.InventoryItem.GetId()));
-
-        private InventoryItem GetInventoryItemById(IEnumerable<InventoryItem> items, long id)
-            => items.SingleOrDefault(item => item.GetId() == id);
-
-        private void BindStatisticsWithMedicine(IEnumerable<StatsInventory> statistics, IEnumerable<Medicine> medicine)
-            => statistics.ToList().ForEach(stat => stat.Medicine = GetMedicineById(medicine, stat.Medicine.GetId()));
-
-        private Medicine GetMedicineById(IEnumerable<Medicine> medicine, long id)
-            => medicine.SingleOrDefault(med => med.Id == id);
-
-        private void BindStatisticsWithRoom(IEnumerable<StatsRoom> statistics, IEnumerable<Room> rooms)
-            => statistics.ToList().ForEach(stat => stat.Room = GetRoomById(rooms, stat.Room.GetId()));
-
-        private Room GetRoomById(IEnumerable<Room> rooms, long id)
-            => rooms.SingleOrDefault(room => room.GetId() == id);
-
         public IEnumerable<StatsDoctor> GetDoctorStatistics()
             => (IEnumerable<StatsDoctor>) GetAll().Where(stat => stat.GetType().Equals(new StatsDoctor(100).GetType()));
 
@@ -85,11 +61,6 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         {
             throw new NotImplementedException();
         }
-
-        public RoomRepository roomRepository;
-        public MedicineRepository medicineRepository;
-        public InventoryRepository inventoryRepository;
-        public DoctorRepository doctorRepository;
 
     }
 }

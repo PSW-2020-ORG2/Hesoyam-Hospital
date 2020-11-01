@@ -12,7 +12,7 @@ namespace Backend.Model.PatientModel
 {
     public class Therapy : IIdentifiable<long>
     {
-        private long _id;
+        public long _id { get; set; }
         private TimeInterval _timeInterval;
         private Prescription _prescription;
 

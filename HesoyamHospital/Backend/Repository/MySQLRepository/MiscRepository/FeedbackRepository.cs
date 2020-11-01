@@ -20,59 +20,16 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
     public class FeedbackRepository : MySQLRepository<Feedback, long>, IFeedbackRepository, IEagerRepository<Feedback, long>
     {
         private const string ENTITY_NAME = "Feedback";
-        private IQuestionRepository _questionRepository;
-        private IPatientRepository _patientRepository;
-        private IDoctorRepository _doctorRepository;
-        private IManagerRepository _managerRepository;
-        private ISecretaryRepository _secretaryRepository;
+        private string[] INCLUDE_PROPERTIES = { "User","Rating" };
 
-        public FeedbackRepository(IMySQLStream<Feedback> stream, ISequencer<long> sequencer, IQuestionRepository questionRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository, IManagerRepository managerRepository, ISecretaryRepository secretaryRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Feedback>())
+        public FeedbackRepository(IMySQLStream<Feedback> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Feedback>())
         {
-            _questionRepository = questionRepository;
-            _patientRepository = patientRepository;
-            _doctorRepository = doctorRepository;
-            _managerRepository = managerRepository;
-            _secretaryRepository = secretaryRepository;
         }
 
         public IEnumerable<Feedback> GetAllEager()
-        {
-            var feedbacks = GetAll();
-            BindFeedbackWithUsers(feedbacks);
-            BindFeedbackWithQuestions(feedbacks);
-
-            return feedbacks;
-        }
-
-        private void BindFeedbackWithQuestions(IEnumerable<Feedback> feedbacks)
-        {
-            var questions = _questionRepository.GetAll();
-            foreach(Feedback f in feedbacks)
-            {
-                Dictionary<Question, Rating> dict = new Dictionary<Question, Rating>();
-                foreach(Question question in f.Rating.Keys)
-                {
-                    dict.Add(questions.SingleOrDefault(q => q.GetId() == question.GetId()), f.Rating[question]);
-                }
-                f.Rating = dict;
-            }
-        }
-
-        private void BindFeedbackWithUsers(IEnumerable<Feedback> feedbacks)
-        {
-            IEnumerable<User> patients = _patientRepository.GetAll();
-            IEnumerable<User> doctors = _doctorRepository.GetAll();
-            IEnumerable<User> managers = _managerRepository.GetAll();
-            IEnumerable<User> secretaries = _secretaryRepository.GetAll();
-            IEnumerable<User> users = patients.Concat(doctors).Concat(managers).Concat(secretaries);
-
-            feedbacks.ToList().ForEach(f => f.User = GetUserById(users, f.User));
-        }
+            => GetAllEager(INCLUDE_PROPERTIES);
 
         public Feedback GetEager(long id)
             => GetAllEager().SingleOrDefault(feedback => feedback.GetId() == id);
-
-        private User GetUserById(IEnumerable<User> users, User userId)
-            => userId == null ? null : users.SingleOrDefault(user => user.GetId().Equals(userId.GetId()));
     }
 }

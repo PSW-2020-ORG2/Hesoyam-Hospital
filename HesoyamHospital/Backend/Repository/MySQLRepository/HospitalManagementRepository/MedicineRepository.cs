@@ -23,38 +23,10 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
     public class MedicineRepository : MySQLRepository<Medicine, long>, IMedicineRepository, IEagerRepository<Medicine, long>
     {
         private const string ENTITY_NAME = "Medicine";
-        IIngredientRepository _ingredientRepository;
-        IDiseaseRepository _diseaseRepository;
-        public MedicineRepository(IMySQLStream<Medicine> stream, ISequencer<long> sequencer, IIngredientRepository ingredientRepository, IDiseaseRepository diseaseRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Medicine>())
+        private string[] INCLUDE_PROPERTIES = { "Ingredient", "UsedFor" };
+
+        public MedicineRepository(IMySQLStream<Medicine> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Medicine>())
         {
-            _ingredientRepository = ingredientRepository;
-            _diseaseRepository = diseaseRepository;
-        }
-
-        private void BindMedicineWithDisease(IEnumerable<Medicine> medicine, IEnumerable<Disease> disease)
-            => medicine.ToList().ForEach(med => 
-            {
-                med.UsedFor = GetDiseasesByIds(disease, med.UsedFor.Select(dis => dis.Id));
-            });
-
-        private List<Disease> GetDiseasesByIds(IEnumerable<Disease> diseases, IEnumerable<long> ids)
-            => diseases.Where(dis => ids.Contains(dis.Id)).ToList();
-
-
-
-        private void BindMedicineWithIngredients(IEnumerable<Medicine> medicine, IEnumerable<Ingredient> ingredients)
-            => medicine.ToList().ForEach(med =>
-            {
-                med.Ingredient = GetIngredientsByIds(ingredients, med.Ingredient.Select(ingredient => ingredient.Id));
-            });
-
-        private List<Ingredient> GetIngredientsByIds(IEnumerable<Ingredient> ingredients, IEnumerable<long> ids)
-            => ingredients.Where(ingredient => ids.Contains(ingredient.Id)).ToList();
-
-        private void Bind(IEnumerable<Medicine> medicine)
-        {
-            BindMedicineWithDisease(medicine, _diseaseRepository.GetAll());
-            BindMedicineWithIngredients(medicine, _ingredientRepository.GetAll());
         }
 
         public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
@@ -70,8 +42,19 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         {
             ISpecification<Medicine> medicineSpecification = new MedicineSpecificationConverter(medicineFilter).GetSpecification();
             var meds = Find(medicineSpecification);
-            Bind(meds);
-            return meds;
+            var eagerMeds = GetAllEager();
+            IEnumerable<Medicine> result = new List<Medicine>();
+            foreach (var med in meds)
+            {
+                foreach (var eagerMed in eagerMeds)
+                {
+                    if (med.Id == eagerMed.Id)
+                    {
+                        result.Append(eagerMed);
+                    }
+                }
+            }
+            return result;
         }
 
         public IEnumerable<Medicine> GetMedicinePendingApproval()
@@ -81,17 +64,6 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
             => GetAllEager().SingleOrDefault(med => med.Id == id);
 
         public IEnumerable<Medicine> GetAllEager()
-        {
-            IEnumerable<Medicine> medicine = GetAll();
-            Bind(medicine);
-            return medicine;
-        }
-
-        public IngredientRepository ingredientRepository;
-        public MedicineSpecificationConverter medicineSpecificationConverter;
-        public DiseaseRepository diseaseRepository;
-
-        public IIngredientRepository IngredientRepository { get => _ingredientRepository; set => _ingredientRepository = value; }
-        public IDiseaseRepository DiseaseRepository { get => _diseaseRepository; set => _diseaseRepository = value; }
+            => GetAllEager(INCLUDE_PROPERTIES);
     }
 }

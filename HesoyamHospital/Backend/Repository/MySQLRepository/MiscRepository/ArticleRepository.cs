@@ -20,15 +20,10 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
     public class ArticleRepository : MySQLRepository<Article, long>, IArticleRepository, IEagerRepository<Article, long>
     {
         private const string ENTITY_NAME = "Article";
-        private IDoctorRepository _doctorRepository;
-        private IManagerRepository _managerRepository;
-        private ISecretaryRepository _secretaryRepository;
+        private string[] INCLUDE_PROPERTIES = { "Author" };
 
-        public ArticleRepository(IMySQLStream<Article> stream, ISequencer<long> sequencer, IDoctorRepository doctorRepository, IManagerRepository managerRepository, ISecretaryRepository secretaryRepository) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Article>())
+        public ArticleRepository(IMySQLStream<Article> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Article>())
         {
-            _doctorRepository = doctorRepository;
-            _managerRepository = managerRepository;
-            _secretaryRepository = secretaryRepository;
         }
 
         public new Article Create(Article article)
@@ -36,19 +31,6 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
             article.Date = DateTime.Now;
             return base.Create(article);
         }
-
-        private void BindArticlesWithAuthors(IEnumerable<Article> articles)
-        {
-            IEnumerable<Employee> doctors = _doctorRepository.GetAll();
-            IEnumerable<Employee> managers = _managerRepository.GetAll();
-            IEnumerable<Employee> secretaries = _secretaryRepository.GetAll();
-            IEnumerable<Employee> employees = doctors.Concat(managers).Concat(secretaries);
-
-            articles.ToList().ForEach(a => a.Author = GetEmployeeById(employees, a.Author));
-        }
-
-        private Employee GetEmployeeById(IEnumerable<Employee> employees, Employee author)
-            => author == null ? null : employees.SingleOrDefault(e => e.GetId().Equals(author.GetId()));
 
         public IEnumerable<Article> GetArticleByAuthor(Employee author)
             => GetAll().ToList().Where(article => IsAuthorIdsEqual(article.Author, author));
@@ -60,11 +42,7 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
             => GetAllEager().ToList().SingleOrDefault(article => article.GetId() == id);
 
         public IEnumerable<Article> GetAllEager()
-        {
-            var articles = GetAll();
-            BindArticlesWithAuthors(articles);
-            return articles;
-        }
+            => GetAllEager(INCLUDE_PROPERTIES);
 
     }
 }

@@ -18,8 +18,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
     {
         private const string ENTITY_NAME = "User";
 
-        public UserRepository(IMySQLStream<User> stream, ISequencer<UserID> sequencer)
-            : base(ENTITY_NAME, stream, sequencer, new UserIdGeneratorStrategy())
+        public UserRepository(IMySQLStream<User> stream, ISequencer<UserID> sequencer) : base(ENTITY_NAME, stream, sequencer, new UserIdGeneratorStrategy())
         {
         }
 

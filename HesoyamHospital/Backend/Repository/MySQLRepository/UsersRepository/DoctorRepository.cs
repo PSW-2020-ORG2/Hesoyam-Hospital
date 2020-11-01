@@ -23,18 +23,12 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
     public class DoctorRepository : MySQLRepository<Doctor, UserID>, IDoctorRepository, IEagerRepository<Doctor, UserID>
     {
         private const string ENTITY_NAME = "Doctor";
-        private readonly ITimeTableRepository _timeTableRepository;
-        private readonly IHospitalRepository _hospitalRepository;
-        private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
         private const string NOT_UNIQUE_ERROR = "Doctor username {0} is not unique!";
+        private string[] INCLUDE_PROPERTIES = { "Address", "UserID","Hospital", "TimeTable", "Office" };
 
-        public DoctorRepository(IMySQLStream<Doctor> stream, ISequencer<UserID> sequencer, ITimeTableRepository timeTableRepository, IHospitalRepository hospitalRepository, IRoomRepository roomRepository, IUserRepository userRepository)
-            : base(ENTITY_NAME, stream, sequencer, new DoctorIdGeneratorStrategy())
+        public DoctorRepository(IMySQLStream<Doctor> stream, ISequencer<UserID> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new DoctorIdGeneratorStrategy())
         {
-            _timeTableRepository = timeTableRepository;
-            _hospitalRepository = hospitalRepository;
-            _roomRepository = roomRepository;
             _userRepository = userRepository;
         }
 
@@ -67,61 +61,26 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         {
             ISpecification<Doctor> specification = new DoctorSpecificationConverter(filter).GetSpecification();
             var doctors = Find(specification);
-            Bind(doctors);
-            return doctors;
+            var eagerDocs = GetAllEager();
+            IEnumerable<Doctor> result = new List<Doctor>();
+            foreach (var doctor in doctors)
+            {
+                foreach (var eagerDoc in eagerDocs)
+                {
+                    if (doctor.id == eagerDoc.id)
+                    {
+                        result.Append(eagerDoc);
+                    }
+                }
+            }
+            return result;
         }
 
         public Doctor GetEager(UserID id)
-        {
-            var doctor = GetByID(id);
-
-            var hospitals = _hospitalRepository.GetAll();
-            doctor.Hospital = GetHospitalById(doctor.Hospital, hospitals);
-
-            var timetables = _timeTableRepository.GetAll();
-            doctor.TimeTable = GetTimeTableById(doctor.TimeTable, timetables);
-
-            var rooms = _roomRepository.GetAll();
-            doctor.Office = GetOfficeById(doctor.Office, rooms);
-
-            return doctor;
-        }
-
-        private Room GetOfficeById(Room officeId, IEnumerable<Room> rooms)
-            => officeId == null ? null : rooms.SingleOrDefault(r => r.GetId() == officeId.GetId());
-
-        private TimeTable GetTimeTableById(TimeTable timeTableId, IEnumerable<TimeTable> timetables)
-            => timeTableId == null ? null : timetables.SingleOrDefault(t => t.GetId() == timeTableId.GetId());
-
-        private Hospital GetHospitalById(Hospital hospitalId, IEnumerable<Hospital> hospitals)
-            => hospitalId == null ? null : hospitals.SingleOrDefault(h => h.GetId() == hospitalId.GetId());
+            => GetAllEager().SingleOrDefault(doctor => doctor.GetId() == id);
 
         public IEnumerable<Doctor> GetAllEager()
-        {
-            var doctors = GetAll();
-            Bind(doctors);
-            return doctors;
-        }
-        private void Bind(IEnumerable<Doctor> doctors)
-        {
-            var hospitals = _hospitalRepository.GetAll();
-            BindDoctorsWithHospitals(doctors, hospitals);
-
-            var timetables = _timeTableRepository.GetAll();
-            BindDoctorsWithTimeTables(doctors, timetables);
-
-            var rooms = _roomRepository.GetAll();
-            BindDoctorsWithRooms(doctors, rooms);
-        }
-
-        private void BindDoctorsWithRooms(IEnumerable<Doctor> doctors, IEnumerable<Room> rooms)
-            => doctors.ToList().ForEach(doctor => doctor.Office = GetOfficeById(doctor.Office, rooms));
-
-        private void BindDoctorsWithTimeTables(IEnumerable<Doctor> doctors, IEnumerable<TimeTable> timetables)
-            => doctors.ToList().ForEach(doctor => doctor.TimeTable = GetTimeTableById(doctor.TimeTable, timetables));
-
-        private void BindDoctorsWithHospitals(IEnumerable<Doctor> doctors, IEnumerable<Hospital> hospitals)
-            => doctors.ToList().ForEach(doctor => doctor.Hospital = GetHospitalById(doctor.Hospital, hospitals));
+            => GetAllEager(INCLUDE_PROPERTIES);
 
     }
 }
