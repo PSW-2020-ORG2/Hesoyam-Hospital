@@ -11,8 +11,13 @@ namespace Backend.Model.UserModel
     public class Content : IIdentifiable<long>
     {
         private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         private string _text;
+        public string Text { get => _text; set => _text = value; }
+
         private DateTime _dateCreated;
+        public DateTime Date { get => _dateCreated; set => _dateCreated = value; }
 
         public Content(string text, DateTime dateCreated)
         {
@@ -37,8 +42,6 @@ namespace Backend.Model.UserModel
             _id = id;
         }
 
-        public string Text { get { return _text; } }
-        public DateTime Date { get => _dateCreated; set => _dateCreated = value; }
 
         public long GetId()
         {

@@ -10,12 +10,15 @@ namespace Backend.Model.UserModel
 {
     public class Rating
     {
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         private int _stars;
+        public int Stars { get { return _stars; } set { _stars = value; } }
+
         private string _comment;
-
-        public int Stars { get { return _stars; } set { _stars = value; }}
-
         public string Comment { get => _comment; set => _comment = value; }
+
 
         public Rating(string comment, int stars)
         {

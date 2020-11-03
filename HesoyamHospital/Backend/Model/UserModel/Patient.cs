@@ -13,13 +13,24 @@ namespace Backend.Model.UserModel
     public class Patient : User
     {
         private PatientType _patientType;
+        public PatientType PatientType { get => _patientType; set => _patientType = value; }
+
         //public MedicalRecord medicalRecord;
+
         private EmergencyContact _emergencyContact;
+        public EmergencyContact EmergencyContact { get => _emergencyContact; set => _emergencyContact = value; }
+
+        private long _emergencyContactID;
+        public long EmergencyContactID { get => _emergencyContactID; set => _emergencyContactID = value; }
 
         private Doctor _selectedDoctor;
+        public Doctor SelectedDoctor { get => _selectedDoctor; set => _selectedDoctor = value; }
+
+        private long _selectedDoctorID;
+        public long SelectedDoctorID { get => _selectedDoctorID; set => _selectedDoctorID = value; }
 
         public Patient(long id) : base(id) { }
-
+        
         public Patient( string userName, 
                         string password, 
                         DateTime dateCreated, 
@@ -42,6 +53,8 @@ namespace Backend.Model.UserModel
             _patientType = patientType;
             _selectedDoctor = selectedDoctor;
             _emergencyContact = emergencyContact;
+            _selectedDoctorID = selectedDoctor.Id;
+            _emergencyContactID = emergencyContact.Id;
         }
 
         public Patient(string userName,
@@ -65,6 +78,8 @@ namespace Backend.Model.UserModel
             _patientType = patientType;
             _selectedDoctor = selectedDoctor;
             _emergencyContact = emergencyContact;
+            _selectedDoctorID = selectedDoctor.Id;
+            _emergencyContactID = emergencyContact.Id;
         }
 
         public Patient( long id,
@@ -91,10 +106,8 @@ namespace Backend.Model.UserModel
             _patientType = patientType;
             _selectedDoctor = selectedDoctor;
             _emergencyContact = emergencyContact;
+            _selectedDoctorID = selectedDoctor.Id;
+            _emergencyContactID = emergencyContact.Id;
         }
-
-        public PatientType PatientType { get => _patientType; }
-        public EmergencyContact EmergencyContact { get => _emergencyContact; }
-        public Doctor SelectedDoctor { get => _selectedDoctor; set => _selectedDoctor = value; }
     }
 }

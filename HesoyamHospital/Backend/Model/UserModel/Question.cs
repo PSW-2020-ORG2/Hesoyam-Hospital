@@ -10,7 +10,10 @@ namespace Backend.Model.UserModel
     public class Question : IIdentifiable<long>
     {
         private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         private string _text;
+        public string Text { get => _text; set => _text = value; }
 
         public Question(long id) { _id = id; }
 
@@ -19,11 +22,7 @@ namespace Backend.Model.UserModel
             _id = id;
             _text = text;
         }
-
         public Question(string text) { _text = text; }
-
-        public long Id { get => _id; set => _id = value; }
-        public string Text { get => _text; set => _text = value; }
 
         public override bool Equals(object obj)
         {

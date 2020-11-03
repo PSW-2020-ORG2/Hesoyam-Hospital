@@ -36,6 +36,7 @@ namespace Backend.Model.UserModel
 
         [NotMapped]
         private Dictionary<Question, Rating> _rating;
+        [NotMapped]
         public Dictionary<Question, Rating> Rating
         {
             get

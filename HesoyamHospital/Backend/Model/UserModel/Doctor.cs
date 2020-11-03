@@ -12,7 +12,14 @@ namespace Backend.Model.UserModel
     public class Doctor : Employee
     {
         private Room _office;
+        public Room Office { get => _office; set => _office = value; }
+
+        private long _roomID;
+        public long RoomId { get => _roomID; set => _roomID = value; }
+
         private DoctorType _docTypeEnum;
+        public DoctorType DoctorType { get => _docTypeEnum; set => _docTypeEnum = value; }
+
 
         public Doctor(  string userName, 
                         string password, 
@@ -35,6 +42,7 @@ namespace Backend.Model.UserModel
             : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
+            _roomID = office.Id;
             _docTypeEnum = doctorType;
         }
 
@@ -58,6 +66,7 @@ namespace Backend.Model.UserModel
             : base(timeTable, hospital, userName, password, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
+            _roomID = office.Id;
             _docTypeEnum = doctorType;
         }
 
@@ -84,12 +93,12 @@ namespace Backend.Model.UserModel
             : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
+            _roomID = office.Id;
             _docTypeEnum = doctorType;
         }
 
         public Doctor(long id) : base(id) { }
 
-        public Room Office { get => _office; set => _office = value; }
-        public DoctorType DoctorType { get => _docTypeEnum; }
+
     }
 }
