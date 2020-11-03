@@ -15,7 +15,11 @@ namespace Backend.Model.PatientModel
         public long _id { get; set; }
         private TimeInterval _timeInterval;
         private Prescription _prescription;
+        private long _timeIntervalID;
+        private long _prescriptionID;
 
+        public long TimeIntervalID { get => _timeIntervalID; set => _timeIntervalID = value; }
+        public long PrescriptionID { get => _prescriptionID; set => _prescriptionID = value; }
         public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
         public Prescription Prescription { get => _prescription; set => _prescription = value; }
 
@@ -29,12 +33,16 @@ namespace Backend.Model.PatientModel
             _id = id;
             _timeInterval = timeInterval;
             _prescription = prescription;
+            _prescriptionID = prescription.Id;
+            //_timeIntervalID = timeInterval.Id;
         }
 
         public Therapy(TimeInterval timeInterval, Prescription prescription)
         {
             _timeInterval = timeInterval;
             _prescription = prescription;
+            _prescriptionID = prescription.Id;
+            //_timeIntervalID = timeInterval.Id;
         }
 
         public long GetId()

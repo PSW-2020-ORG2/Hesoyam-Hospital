@@ -19,10 +19,28 @@ namespace Backend.Model.PatientModel
         private DoctorType _doctorAllowed;
         private int _numberOfAppointments;
         private bool _active;
-        public Patient _patient;
+        private Patient _patient;
+        private TimeInterval _timeInterval;
+        private long _timeIntervalID;
+        private List<Doctor> _handsOutLicence;
 
-        public TimeInterval _timeInterval;
-        public List<Doctor> _handsOutLicence;
+
+        public Patient Patient { get => _patient; set => _patient = value; }
+        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public long TimeIntervalID { get => _timeIntervalID; set => _timeIntervalID = value; }
+        public long Id { get => _id; set => _id = value; }
+
+        public List<Doctor> HandsOutLicence { get => _handsOutLicence; }
+        
+        public long GetId()
+        {
+            return _id;
+        }
+
+        public void SetId(long id)
+        {
+            _id = id;
+        }
 
         //TODO: Constructors
 
@@ -48,15 +66,7 @@ namespace Backend.Model.PatientModel
         }
 
 
-        public long GetId()
-        {
-            return _id;
-        }
-
-        public void SetId(long id)
-        {
-            _id = id;
-        }
+        
 
         public override bool Equals(object obj)
         {

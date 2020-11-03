@@ -33,7 +33,7 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         public Inventory SetInventoryItem(InventoryItem inventoryItem)
         {
 
-            Inventory toUpdate = GetAll().SingleOrDefault(inventory => inventory.inventoryItem.Contains(inventoryItem));
+            Inventory toUpdate = GetAll().SingleOrDefault(inventory => inventory.InventoryItem.Contains(inventoryItem));
             InventoryItem original = GetItemById(toUpdate.InventoryItem, inventoryItem.GetId());
             if(original != null)
             {
@@ -53,11 +53,11 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
 
         public void RemoveInventoryItem(InventoryItem inventoryItem)
         {
-            Inventory toUpdate = GetAll().SingleOrDefault(inventory => inventory.inventoryItem.Contains(inventoryItem));
+            Inventory toUpdate = GetAll().SingleOrDefault(inventory => inventory.InventoryItem.Contains(inventoryItem));
             InventoryItem original = GetItemById(toUpdate.InventoryItem, inventoryItem.GetId());
             if (original != null)
             {
-                toUpdate.inventoryItem.Remove(inventoryItem);
+                toUpdate.InventoryItem.Remove(inventoryItem);
                 Update(toUpdate);
 
             }

@@ -15,9 +15,58 @@ namespace Backend.Model.PatientModel
         private long _id;
         private BloodType _patientBloodType;
         private Patient _patient;
+        private long _patientID;
 
         private List<Diagnosis> _patientDiagnosis;
         public List<Allergy> _allergy;
+
+        public long Id { get => _id; set => _id = value; }
+
+        public Patient Patient { get => _patient; set => _patient = value; }
+        public long PatientID { get => _patientID; set => _patientID = value; }
+        public long GetId()
+        => _id;
+
+        public void SetId(long id)
+            => _id = id;
+
+        public List<Diagnosis> PatientDiagnosis
+        {
+            get
+            {
+                if (_patientDiagnosis == null)
+                    _patientDiagnosis = new List<Diagnosis>();
+                return _patientDiagnosis;
+            }
+            set
+            {
+                RemoveAllPatientDiagnosis();
+                if (value != null)
+                {
+                    foreach (Diagnosis oDiagnosis in value)
+                        AddPatientDiagnosis(oDiagnosis);
+                }
+            }
+        }
+
+        public List<Allergy> Allergy
+        {
+            get
+            {
+                if (_allergy == null)
+                    _allergy = new List<Allergy>();
+                return _allergy;
+            }
+            set
+            {
+                RemoveAllAllergy();
+                if (value != null)
+                {
+                    foreach (Allergy oAllergy in value)
+                        AddAllergy(oAllergy);
+                }
+            }
+        }
 
         public MedicalRecord(long id)
         {
@@ -64,24 +113,7 @@ namespace Backend.Model.PatientModel
         /// Property for collection of Diagnosis
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Diagnosis> PatientDiagnosis
-        {
-            get
-            {
-                if (_patientDiagnosis == null)
-                    _patientDiagnosis = new List<Diagnosis>();
-                return _patientDiagnosis;
-            }
-            set
-            {
-                RemoveAllPatientDiagnosis();
-                if (value != null)
-                {
-                    foreach (Diagnosis oDiagnosis in value)
-                        AddPatientDiagnosis(oDiagnosis);
-                }
-            }
-        }
+        
 
         /// <summary>
         /// Add a new Diagnosis in the collection
@@ -125,24 +157,6 @@ namespace Backend.Model.PatientModel
         /// Property for collection of Allergy
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Allergy> Allergy
-        {
-            get
-            {
-                if (_allergy == null)
-                    _allergy = new List<Allergy>();
-                return _allergy;
-            }
-            set
-            {
-                RemoveAllAllergy();
-                if (value != null)
-                {
-                    foreach (Allergy oAllergy in value)
-                        AddAllergy(oAllergy);
-                }
-            }
-        }
 
         /// <summary>
         /// Add a new Allergy in the collection
@@ -181,11 +195,7 @@ namespace Backend.Model.PatientModel
                 _allergy.Clear();
         }
 
-        public long GetId()
-            => _id;
-
-        public void SetId(long id)
-            => _id = id;
+    
 
         public override bool Equals(object obj)
         {
@@ -209,9 +219,6 @@ namespace Backend.Model.PatientModel
             get { return _patientBloodType; }
             set { _patientBloodType = value; }
         }
-
-        public long Id { get => _id; set => _id = value; }
         
-        public Patient Patient { get => _patient; set => _patient = value; }
     }
 }

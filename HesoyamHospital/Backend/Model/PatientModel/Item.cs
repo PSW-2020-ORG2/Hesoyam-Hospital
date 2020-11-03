@@ -15,6 +15,17 @@ namespace Backend.Model.PatientModel
         private int _minNumber;
         private long _id;
 
+        public string Name { get => _name; set => _name = value; }
+        public int InStock { get => _inStock; set => _inStock = value; }
+        public int MinNumber { get => _minNumber; set => _minNumber = value; }
+        public long Id { get => _id; set => _id = value; }
+
+        public long GetId()
+            => _id;
+
+        public void SetId(long id)
+            => _id = id;
+
         public Item(long id)
         {
             _id = id;
@@ -35,10 +46,6 @@ namespace Backend.Model.PatientModel
             _minNumber = minNumber;
         }
 
-        public string Name { get => _name; set => _name = value; }
-        public int InStock { get => _inStock; set => _inStock = value; }
-        public int MinNumber { get => _minNumber; set => _minNumber = value; }
-        public long Id { get => _id; set => _id = value; }
 
         public override bool Equals(object obj)
         {
@@ -52,10 +59,5 @@ namespace Backend.Model.PatientModel
             return 1969571243 + _id.GetHashCode();
         }
 
-        public long GetId()
-            => _id;
-
-        public void SetId(long id)
-            => _id = id;
     }
 }
