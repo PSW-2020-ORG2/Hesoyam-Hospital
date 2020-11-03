@@ -9,15 +9,19 @@ namespace Backend.Util
 {
     public class TimeInterval
     {
-        private DateTime _startTime;
-        private DateTime _endTime;
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
 
+        private DateTime _startTime;
         public DateTime StartTime { get => _startTime; set => _startTime = value; }
+
+        private DateTime _endTime;
         public DateTime EndTime { get => _endTime; set => _endTime = value; }
 
         public TimeInterval(DateTime startTime, DateTime endTime)
         {
             //TODO: Enforce endTime >= startTime
+            
             _startTime = startTime;
             _endTime = endTime;
         }
