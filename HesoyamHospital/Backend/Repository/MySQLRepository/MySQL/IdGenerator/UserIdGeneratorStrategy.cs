@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Backend.Repository.MySQLRepository.MySQL.IdGenerator
 {
-    class UserIdGeneratorStrategy : IIdGeneratorStrategy<User, UserID>
+    class UserIdGeneratorStrategy : IIdGeneratorStrategy<User, long>
     {
-        public UserID GetMaxId(IEnumerable<User> entities)
+        public long GetMaxId(IEnumerable<User> entities)
         {
             //TODO: User ID Generator Note:
             //UserRepository never calls this method because every patient's, manager's, secretary's and doctor's ID is generated in their respective generators.
-            return new UserID("x0");
+            return 0;
         }
     }
 }

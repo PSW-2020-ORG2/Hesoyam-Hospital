@@ -8,7 +8,7 @@ using System;
 
 namespace Backend.Repository.Abstract.UsersAbstractRepository
 {
-    public interface IManagerRepository : IRepository<Manager, UserID>
+    public interface IManagerRepository : IRepository<Manager, long>
     {
     }
 }

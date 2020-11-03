@@ -61,7 +61,8 @@ namespace Backend.Model.UserModel
             _docTypeEnum = doctorType;
         }
 
-        public Doctor(  UserID id, 
+        public Doctor(  long id,
+                        UserID uid, 
                         string userName, 
                         string password, 
                         DateTime dateCreated, 
@@ -80,13 +81,13 @@ namespace Backend.Model.UserModel
                         Hospital hospital, 
                         Room office, 
                         DoctorType doctorType) 
-            : base(id, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
             _docTypeEnum = doctorType;
         }
 
-        public Doctor(UserID id) : base(id) { }
+        public Doctor(long id) : base(id) { }
 
         public Room Office { get => _office; set => _office = value; }
         public DoctorType DoctorType { get => _docTypeEnum; }

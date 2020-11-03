@@ -13,74 +13,24 @@ namespace Backend.Model.UserModel
     public class Hospital : IIdentifiable<long>
     {
         private string _name;
-        public long id { get; set; }
-        private string _telephone;
-        private string _website;
+        public string Name { get => _name; set => _name = value; }
 
-        public Address _address;
+        private long _id;
+        public long Id { get => _id ; set => _id = value; }
+
+        private string _telephone;
+        public string Telephone { get => _telephone; set => _telephone = value; }
+
+        private string _website;
+        public string Website { get => _website; set => _website = value; }
+
+        private Address _address;
+        public Address Address { get => _address; set => _address = value; }
+
+        private long _addressID;
+        public long AddressID { get => _addressID; set => _addressID = value; }
 
         private List<Room> _room;
-        private List<Employee> _employee;
-
-        public Hospital()
-        {
-
-        }
-        public Hospital(long id)
-        {
-            id = id;
-        }
-
-        public Hospital(string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
-        {
-            _name = name;
-            _telephone = telephone;
-            _website = website;
-            _room = room;
-            _employee = employee;
-            _address = address;
-        }
-
-        public Hospital(long id, string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
-        {
-            id = id;
-            _name = name;
-            _telephone = telephone;
-            _website = website;
-            _room = room;
-            _employee = employee;
-            _address = address;
-        }
-
-        public Hospital(string name, Address address, string telephone, string website)
-        {
-            _name = name;
-            _telephone = telephone;
-            _website = website;
-            _address = address;
-            _room = new List<Room>();
-            _employee = new List<Employee>();
-        }
-
-        public Hospital(long id, string name, Address address, string telephone, string website)
-        {
-            id = id;
-            _name = name;
-            _telephone = telephone;
-            _website = website;
-            _address = address;
-            _room = new List<Room>();
-            _employee = new List<Employee>();
-        }
-
-
-
-
-
-        /// <summary>
-        /// Property for collection of Room
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
         public List<Room> Room
         {
             get
@@ -100,49 +50,7 @@ namespace Backend.Model.UserModel
             }
         }
 
-        /// <summary>
-        /// Add a new Room in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddRoom(Room newRoom)
-        {
-            if (newRoom == null)
-                return;
-            if (_room == null)
-                _room = new List<Room>();
-            if (!_room.Contains(newRoom))
-                _room.Add(newRoom);
-        }
-
-        /// <summary>
-        /// Remove an existing Room from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveRoom(Room oldRoom)
-        {
-            if (oldRoom == null)
-                return;
-            if (_room != null)
-                if (_room.Contains(oldRoom))
-                    _room.Remove(oldRoom);
-        }
-
-        /// <summary>
-        /// Remove all instances of Room from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllRoom()
-        {
-            if (_room != null)
-                _room.Clear();
-        }
-
- 
-
-        /// <summary>
-        /// Property for collection of Employee
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
+        private List<Employee> _employee;
         public List<Employee> Employee
         {
             get
@@ -162,10 +70,86 @@ namespace Backend.Model.UserModel
             }
         }
 
-        /// <summary>
-        /// Add a new Employee in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
+        public Hospital()
+        {
+
+        }
+        public Hospital(long id)
+        {
+            _id = id;
+        }
+
+        public Hospital(string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
+        {
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _room = room;
+            _employee = employee;
+            _address = address;
+            _addressID = address.Id;
+        }
+
+        public Hospital(long id, string name, Address address, string telephone, string website, List<Room> room, List<Employee> employee)
+        {
+            _id = id;
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _room = room;
+            _employee = employee;
+            _address = address;
+            _addressID = address.Id;
+        }
+
+        public Hospital(string name, Address address, string telephone, string website)
+        {
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _address = address;
+            _addressID = address.Id;
+            _room = new List<Room>();
+            _employee = new List<Employee>();
+        }
+
+        public Hospital(long id, string name, Address address, string telephone, string website)
+        {
+            _id = id;
+            _name = name;
+            _telephone = telephone;
+            _website = website;
+            _address = address;
+            _addressID = address.Id;
+            _room = new List<Room>();
+            _employee = new List<Employee>();
+        }
+
+        public void AddRoom(Room newRoom)
+        {
+            if (newRoom == null)
+                return;
+            if (_room == null)
+                _room = new List<Room>();
+            if (!_room.Contains(newRoom))
+                _room.Add(newRoom);
+        }
+
+        public void RemoveRoom(Room oldRoom)
+        {
+            if (oldRoom == null)
+                return;
+            if (_room != null)
+                if (_room.Contains(oldRoom))
+                    _room.Remove(oldRoom);
+        }
+
+        public void RemoveAllRoom()
+        {
+            if (_room != null)
+                _room.Clear();
+        }
+
         public void AddEmployee(Employee newEmployee)
         {
             if (newEmployee == null)
@@ -179,10 +163,6 @@ namespace Backend.Model.UserModel
             }
         }
 
-        /// <summary>
-        /// Remove an existing Employee from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
         public void RemoveEmployee(Employee oldEmployee)
         {
             if (oldEmployee == null)
@@ -195,10 +175,6 @@ namespace Backend.Model.UserModel
                 }
         }
 
-        /// <summary>
-        /// Remove all instances of Employee from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllEmployee()
         {
             if (_employee != null)
@@ -213,31 +189,20 @@ namespace Backend.Model.UserModel
             }
         }
 
-        public long GetId()
-            => id;
+        public long GetId() => _id;
 
-        public void SetId(long id)
-            => id = id;
+        public void SetId(long id) => _id = id;
 
         public override bool Equals(object obj)
         {
             var hospital = obj as Hospital;
             return hospital != null &&
-                   id == hospital.id;
+                   _id == hospital._id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + id.GetHashCode();
+            return 1969571243 + _id.GetHashCode();
         }
-
-        //Properties
-        public string Name { get => _name; set => _name = value; }
-
-        public Address Address { get => _address; set => _address = value; }
-
-        public string Telephone { get => _telephone; set => _telephone = value; }
-
-        public string Website { get => _website; set => _website = value; }
     }
 }

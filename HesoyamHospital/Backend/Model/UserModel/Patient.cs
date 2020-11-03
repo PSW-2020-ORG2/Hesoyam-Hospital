@@ -18,7 +18,7 @@ namespace Backend.Model.UserModel
 
         private Doctor _selectedDoctor;
 
-        public Patient(UserID id) : base(id) { }
+        public Patient(long id) : base(id) { }
 
         public Patient( string userName, 
                         string password, 
@@ -67,7 +67,8 @@ namespace Backend.Model.UserModel
             _emergencyContact = emergencyContact;
         }
 
-        public Patient( UserID id, 
+        public Patient( long id,
+                        UserID uid, 
                         string userName, 
                         string password, 
                         DateTime dateCreated, 
@@ -85,7 +86,7 @@ namespace Backend.Model.UserModel
                         EmergencyContact emergencyContact, 
                         PatientType patientType, 
                         Doctor selectedDoctor) 
-            : base(id, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(id, uid, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _patientType = patientType;
             _selectedDoctor = selectedDoctor;

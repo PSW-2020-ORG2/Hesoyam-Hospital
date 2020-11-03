@@ -3,33 +3,36 @@
 // Created: 22. maj 2020 12:12:12
 // Purpose: Definition of Class Address
 
+using Backend.Repository.Abstract;
 using System;
 using System.Diagnostics.Eventing.Reader;
 
 namespace Backend.Model.UserModel
 {
-    public class Address
+    public class Address : IIdentifiable<long>
     {
-        private string _address; //street
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
+
+        private string _street;
+        public string Street { get => _street; set => _street = value; }
+
         private Location _location;
-        public long Id { get; set; }
+        public virtual Location Location { get => _location; set => _location = value; }
+
+        private long _locationID;
+        public long LocationID { get => _locationID; set => _locationID = value; }
+
         public Address() { }
-        public Address(string address, Location location)
+        public Address(string street, Location location)
         {
-            _address = address;
+            _street = street;
             _location = location;
+            _locationID = location.Id;
         }
 
-        public string Street
-        {
-            get { return _address; }
-            set { _address = value;  }
-        }
-        
-        public virtual Location Location
-        {
-            get { return _location;  }
-            set { _location = value;  }
-        }
+        public long GetId() => _id;
+
+        public void SetId(long id) => _id = id;
     }
 }

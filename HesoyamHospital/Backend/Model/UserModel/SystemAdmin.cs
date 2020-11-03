@@ -6,7 +6,7 @@ namespace Backend.Model.UserModel
 {
     public class SystemAdmin : User
     {
-        public SystemAdmin(UserID id) : base(id)
+        public SystemAdmin(long id) : base(id)
         {
         }
 

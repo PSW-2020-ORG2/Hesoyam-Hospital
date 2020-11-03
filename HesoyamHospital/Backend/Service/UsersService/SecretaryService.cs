@@ -14,7 +14,7 @@ using Backend.Util;
 
 namespace Backend.Service.UsersService
 {
-    public class SecretaryService : IService<Secretary, UserID>
+    public class SecretaryService : IService<Secretary, long>
     {
         SecretaryRepository _secretaryRepository;
         UserValidation _userValidation;
@@ -37,7 +37,7 @@ namespace Backend.Service.UsersService
         public IEnumerable<Secretary> GetAll()
             => _secretaryRepository.GetAllEager();
 
-        public Secretary GetByID(UserID id)
+        public Secretary GetByID(long id)
             => _secretaryRepository.GetByID(id);
 
         public void Validate(Secretary user)

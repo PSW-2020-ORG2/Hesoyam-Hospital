@@ -14,7 +14,7 @@ using Backend.Util;
 
 namespace Backend.Service.UsersService
 {
-    public class ManagerService : IService<Manager, UserID>
+    public class ManagerService : IService<Manager, long>
     {
         ManagerRepository _managerRepository;
         UserValidation _userValidation;
@@ -37,7 +37,7 @@ namespace Backend.Service.UsersService
         public IEnumerable<Manager> GetAll()
             => _managerRepository.GetAll();
 
-        public Manager GetByID(UserID id)
+        public Manager GetByID(long id)
             => _managerRepository.GetByID(id);
 
         public void Validate(Manager user)

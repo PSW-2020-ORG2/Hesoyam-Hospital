@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Backend.Repository.MySQLRepository.MySQL.IdGenerator
 {
-    class DoctorIdGeneratorStrategy : IIdGeneratorStrategy<Doctor, UserID>
+    class DoctorIdGeneratorStrategy : IIdGeneratorStrategy<Doctor, long>
     {
-        public UserID GetMaxId(IEnumerable<Doctor> entities)
-            => entities.Count() == 0 ? UserID.defaultDoctor : entities.Max(entity => entity.GetId());
+        public long GetMaxId(IEnumerable<Doctor> entities)
+            => entities.Count() == 0 ? 0 : entities.Max(entity => entity.GetId());
     }
 }

@@ -16,14 +16,14 @@ using System.Linq;
 
 namespace Backend.Repository.MySQLRepository.UsersRepository
 {
-    public class SecretaryRepository : MySQLRepository<Secretary, UserID>, ISecretaryRepository, IEagerRepository<Secretary, UserID>
+    public class SecretaryRepository : MySQLRepository<Secretary, long>, ISecretaryRepository, IEagerRepository<Secretary, long>
     {
         private readonly IUserRepository _userRepository;
         private const string ENTITY_NAME = "Secretary";
         private const string NOT_UNIQUE_ERROR = "Secretary username {0} is not unique!";
         private string[] INCLUDE_PROPERTIES = { "Address", "UserID","Hospital", "TimeTable" };
 
-        public SecretaryRepository(IMySQLStream<Secretary> stream, ISequencer<UserID> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new SecretaryIdGeneratorStrategy())
+        public SecretaryRepository(IMySQLStream<Secretary> stream, ISequencer<long> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new SecretaryIdGeneratorStrategy())
         {
             _userRepository = userRepository;
         }
@@ -54,7 +54,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         public IEnumerable<Secretary> GetAllEager()
             => GetAllEager(INCLUDE_PROPERTIES);
 
-        public Secretary GetEager(UserID id)
+        public Secretary GetEager(long id)
             => GetAllEager().SingleOrDefault(secretary => secretary.GetId() == id);
 
     }

@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Backend.Repository.MySQLRepository.UsersRepository
 {
-    public class PatientRepository : MySQLRepository<Patient, UserID>, IPatientRepository, IEagerRepository<Patient, UserID>
+    public class PatientRepository : MySQLRepository<Patient, long>, IPatientRepository, IEagerRepository<Patient, long>
     {
         private const string ENTITY_NAME = "Patient";
         private const string NOT_UNIQUE_ERROR = "Patient username {0} is not unique!";
@@ -23,7 +23,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         private readonly DoctorRepository _doctorRepository;
         private string[] INCLUDE_PROPERTIES = { "Address", "UserID","Hospital", "TimeTable", "EmergencyContact", "SelectedDoctor" };
 
-        public PatientRepository(IMySQLStream<Patient> stream, ISequencer<UserID> sequencer, DoctorRepository doctorRepository, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new PatientIdGeneratorStrategy())
+        public PatientRepository(IMySQLStream<Patient> stream, ISequencer<long> sequencer, DoctorRepository doctorRepository, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new PatientIdGeneratorStrategy())
         {
             _doctorRepository = doctorRepository;
             _userRepository = userRepository;
@@ -57,7 +57,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             => GetAllEager(INCLUDE_PROPERTIES);
 
 
-        public Patient GetEager(UserID id)
+        public Patient GetEager(long id)
             => GetAllEager().SingleOrDefault(patient => patient.GetId() == id);
 
         private Doctor GetDoctorByID(Doctor doctorId, IEnumerable<Doctor> doctors)

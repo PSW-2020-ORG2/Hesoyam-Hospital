@@ -10,10 +10,14 @@ namespace Backend.Model.UserModel
 {
     public class Location : IIdentifiable<long>
     {
-        public long id { get; set; }
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
 
         private string _country;
+        public string Country { get => _country; set => _country = value; }
+
         private string _city;
+        public string City { get => _city; set => _city = value; }
 
         public Location(string country, string city)
         {
@@ -23,47 +27,29 @@ namespace Backend.Model.UserModel
 
         public Location(long id, string country, string city)
         {
-            id = id;
+            _id = id;
             _country = country;
             _city = city;
         }
 
         public Location(long id)
         {
-            id = id;
+            _id = id;
         }
 
-        public string Country
-        {
-            get { return _country;  }
-            set { _country = value;  }
-        }
-        
-        public string City
-        {
-            get { return _city; }
-            set { _city = value; }
-        }
+        public long GetId() => _id;
 
-        public long GetId()
-        {
-            return id;
-        }
-
-        public void SetId(long id)
-        {
-            id = id;
-        }
+        public void SetId(long id) => _id = id;
 
         public override bool Equals(object obj)
         {
             return obj is Location location &&
-                   id == location.id;
+                   _id == location._id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + id.GetHashCode();
+            return 1969571243 + _id.GetHashCode();
         }
     }
 }

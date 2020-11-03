@@ -9,7 +9,7 @@ namespace Backend.Model.UserModel
 {
     public class Secretary : Employee
     {
-        public Secretary(UserID id) : base(id) { }
+        public Secretary(long id) : base(id) { }
 
         public Secretary(   string userName,
                             string password,
@@ -52,7 +52,8 @@ namespace Backend.Model.UserModel
 
         }
 
-        public Secretary(   UserID id,
+        public Secretary(   long id,
+                            UserID uid,
                             string userName, 
                             string password, 
                             DateTime dateCreated, 
@@ -69,7 +70,7 @@ namespace Backend.Model.UserModel
                             string email2, 
                             TimeTable timeTable, 
                             Hospital hospital) 
-            : base(id, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
 
         }

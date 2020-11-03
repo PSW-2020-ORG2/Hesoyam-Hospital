@@ -9,7 +9,7 @@ using Backend.Model.UserModel;
 
 namespace Backend.Repository.Abstract.UsersAbstractRepository
 {
-    public interface IPatientRepository : IRepository<Patient, UserID>
+    public interface IPatientRepository : IRepository<Patient, long>
     {
         IEnumerable<Patient> GetPatientByType(PatientType patientType);
 

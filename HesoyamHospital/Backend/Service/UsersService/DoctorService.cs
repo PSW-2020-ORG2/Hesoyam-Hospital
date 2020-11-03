@@ -19,7 +19,7 @@ using Backend.Util;
 
 namespace Backend.Service.UsersService
 {
-    public class DoctorService : IService<Doctor, UserID>
+    public class DoctorService : IService<Doctor, long>
     {
         private UserRepository _userRepository;
         private DoctorRepository _doctorRepository;
@@ -86,7 +86,7 @@ namespace Backend.Service.UsersService
         public IEnumerable<Doctor> GetAll()
             => _doctorRepository.GetAllEager();
 
-        public Doctor GetByID(UserID id)
+        public Doctor GetByID(long id)
             => _doctorRepository.GetEager(id);
 
         public Doctor Create(Doctor entity)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Service.UsersService
 {
-    public class UserService : IService<User, UserID>, IUserService<User>
+    public class UserService : IService<User, long>, IUserService<User>
     {
         private UserRepository _userRepository;
 
@@ -29,7 +29,7 @@ namespace Backend.Service.UsersService
         public IEnumerable<User> GetAll()
             => _userRepository.GetAll();
 
-        public User GetByID(UserID id)
+        public User GetByID(long id)
             => _userRepository.GetByID(id);
 
         public void Login(string username, string password)

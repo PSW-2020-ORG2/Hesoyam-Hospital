@@ -4,23 +4,36 @@
 // Purpose: Definition of Class User
 
 using Backend.Repository.Abstract;
+using Castle.Components.DictionaryAdapter;
 using System;
 using System.Collections.Generic;
 
 namespace Backend.Model.UserModel
 {
-    public class User : Person, IIdentifiable<UserID>
+    public class User : Person, IIdentifiable<long>
     {
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         private string _userName;
+        public string UserName { get => _userName; set => _userName = value; }
+
         private string _password;
+        public string Password { get => _password; set => _password = value; }
+
         private DateTime _dateCreated;
+        public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
+
         private bool _deleted;
-        public UserID UserID { get; set; }
-        public long id { get; set; }
+        public bool Deleted { get => _deleted; set => _deleted = value; }
+
+        private UserID _uid;
+        public UserID Uid { get => _uid; set => _uid = value; }
 
         public User() : base() { }
-        public User(UserID id) : base() {
-            UserID = id;
+
+        public User(long id) : base() {
+            _id = id;
         }
 
         public User(string userName,
@@ -44,7 +57,8 @@ namespace Backend.Model.UserModel
             _dateCreated = dateCreated;
         }
 
-        public User(UserID id, 
+        public User(long id,
+                    UserID uid,
                     string userName, 
                     string password, 
                     DateTime dateCreated, 
@@ -61,7 +75,8 @@ namespace Backend.Model.UserModel
                     string email2) 
             : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            UserID = id;
+            _id = id;
+            _uid = uid;
             _userName = userName;
             _password = password;
             _dateCreated = dateCreated;
@@ -86,48 +101,39 @@ namespace Backend.Model.UserModel
             _password = password;
         }
 
-        public UserType GetUserType()
-            => UserID.GetUserType();
-
-        public User(UserID id,
+        public User(long id,
+                    UserID uid,
                     string username,
                     string password,
                     DateTime dateCreated,
                     bool deleted)
             : base()
         {
-            UserID = id;
+            _id = id;
+            _uid = uid;
             _userName = username;
             _password = password;
             _dateCreated = dateCreated;
             _deleted = deleted;
         }
 
-        public UserID GetId()
-        {
-            return UserID;
-        }
+        public UserType GetUserType()
+            => _uid.GetUserType();
 
-        public void SetId(UserID id)
-        {
-            UserID = id;
-        }
+        public long GetId() => _id;
 
-        public string UserName { get => _userName; set => _userName = value; }
-        public string Password { get => _password; set => _password = value; }
-        public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
-        public bool Deleted { get => _deleted; set => _deleted = value; }
+        public void SetId(long id) => _id = id;
 
         public override bool Equals(object obj)
         {
             User otherUser = obj as User;
             if (otherUser == null) return false;
-            return UserID.Equals(otherUser.GetId());
+            return _id.Equals(otherUser.GetId());
         }
 
         public override int GetHashCode()
         {
-            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(UserID);
+            return 328612020 + EqualityComparer<UserID>.Default.GetHashCode(_uid);
         }
     }
 }

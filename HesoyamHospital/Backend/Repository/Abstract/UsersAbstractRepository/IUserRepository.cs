@@ -8,7 +8,7 @@ using System;
 
 namespace Backend.Repository.Abstract.UsersAbstractRepository
 {
-    public interface IUserRepository : IRepository<User, UserID>
+    public interface IUserRepository : IRepository<User, long>
     {
         User GetByUsername(string username);
 

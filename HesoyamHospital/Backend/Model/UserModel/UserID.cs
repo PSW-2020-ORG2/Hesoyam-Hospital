@@ -4,24 +4,28 @@
 // Purpose: Definition of Class UserID
 
 using Backend.Exceptions;
+using Backend.Repository.Abstract;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Backend.Model.UserModel
 {
-    public class UserID : IComparable
+    public class UserID : IComparable, IIdentifiable<long>
     {
-        public long id { get; set; }
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         private char _code;
+        public char Code { get => _code; set => _code = value; }
+
         private int _number;
+        public int Number { get => _number; set => _number = value; }
 
         public static UserID defaultDoctor = new UserID("d0");
         public static UserID defaultPatient = new UserID("p0");
         public static UserID defaultSecretary = new UserID("s0");
         public static UserID defaultManager = new UserID("m0");
-
-        public int Number { get => _number; set => _number = value; }
-        public char Code { get => _code; set => _code = value; }
 
         public UserID() { }
 
@@ -68,8 +72,6 @@ namespace Backend.Model.UserModel
             return Code == otherId.Code && Number == otherId.Number;
         }
 
-
-
         public UserID increment()
         {
             _number++;
@@ -92,5 +94,9 @@ namespace Backend.Model.UserModel
         {
             return 999769 * _code.GetHashCode() + _number.GetHashCode();
         }
+
+        public long GetId() => _id;
+
+        public void SetId(long id) => _id = id;
     }
 }

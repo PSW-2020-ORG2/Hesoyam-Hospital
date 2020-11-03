@@ -20,14 +20,14 @@ using System.Linq;
 
 namespace Backend.Repository.MySQLRepository.UsersRepository
 {
-    public class DoctorRepository : MySQLRepository<Doctor, UserID>, IDoctorRepository, IEagerRepository<Doctor, UserID>
+    public class DoctorRepository : MySQLRepository<Doctor, long>, IDoctorRepository, IEagerRepository<Doctor, long>
     {
         private const string ENTITY_NAME = "Doctor";
         private readonly IUserRepository _userRepository;
         private const string NOT_UNIQUE_ERROR = "Doctor username {0} is not unique!";
         private string[] INCLUDE_PROPERTIES = { "Address", "UserID","Hospital", "TimeTable", "Office" };
 
-        public DoctorRepository(IMySQLStream<Doctor> stream, ISequencer<UserID> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new DoctorIdGeneratorStrategy())
+        public DoctorRepository(IMySQLStream<Doctor> stream, ISequencer<long> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new DoctorIdGeneratorStrategy())
         {
             _userRepository = userRepository;
         }
@@ -67,7 +67,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             {
                 foreach (var eagerDoc in eagerDocs)
                 {
-                    if (doctor.id == eagerDoc.id)
+                    if (doctor.GetId() == eagerDoc.GetId())
                     {
                         result.Append(eagerDoc);
                     }
@@ -76,7 +76,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             return result;
         }
 
-        public Doctor GetEager(UserID id)
+        public Doctor GetEager(long id)
             => GetAllEager().SingleOrDefault(doctor => doctor.GetId() == id);
 
         public IEnumerable<Doctor> GetAllEager()

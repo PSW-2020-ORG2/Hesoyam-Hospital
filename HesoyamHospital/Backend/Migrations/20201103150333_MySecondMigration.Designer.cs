@@ -3,44 +3,21 @@ using System;
 using Backend.Repository.MySQLRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201103150333_MySecondMigration")]
+    partial class MySecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("Backend.Model.ManagerModel.InventoryItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("InStock")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<long?>("RoomId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("InventoryItems");
-                });
 
             modelBuilder.Entity("Backend.Model.UserModel.Address", b =>
                 {
@@ -244,13 +221,6 @@ namespace Backend.Migrations
                     b.HasIndex("TimeTableID");
 
                     b.HasDiscriminator().HasValue("Employee");
-                });
-
-            modelBuilder.Entity("Backend.Model.ManagerModel.InventoryItem", b =>
-                {
-                    b.HasOne("Backend.Model.UserModel.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId");
                 });
 
             modelBuilder.Entity("Backend.Model.UserModel.Address", b =>

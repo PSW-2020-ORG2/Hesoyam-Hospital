@@ -197,7 +197,7 @@ namespace Backend
 
         private void LoadRepositories()
         {
-            userRepository = new UserRepository(new MySQLStream<User>(), new ComplexSequencer());
+            userRepository = new UserRepository(new MySQLStream<User>(), new LongSequencer());
             // USER OK
 
 
@@ -211,13 +211,13 @@ namespace Backend
             hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             // HOSPITAL OK
 
-            secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new ComplexSequencer(), userRepository);
+            secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
             // SECRETARY OK
-            managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new ComplexSequencer(), userRepository);
+            managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new LongSequencer(), userRepository);
             // MANAGER OK
-            doctorRepository = new DoctorRepository(new MySQLStream<Doctor>(), new ComplexSequencer(), userRepository);
+            doctorRepository = new DoctorRepository(new MySQLStream<Doctor>(), new LongSequencer(), userRepository);
             // DOCTOR OK
-            patientRepository = new PatientRepository(new MySQLStream<Patient>(), new ComplexSequencer(), doctorRepository, userRepository);
+            patientRepository = new PatientRepository(new MySQLStream<Patient>(), new LongSequencer(), doctorRepository, userRepository);
             // PATIENT OK
 
 

@@ -13,7 +13,9 @@ namespace Backend.Model.UserModel
 {
     public class TimeTable : IIdentifiable<long>
     {
-        public long id { get; set; }
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         [NotMapped]
         private Dictionary<WorkingDaysEnum, TimeInterval> _workingHours;
         [NotMapped]
@@ -26,7 +28,7 @@ namespace Backend.Model.UserModel
 
         public TimeTable(long id, Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
         {
-            id = id;
+            _id = id;
             _workingHours = workingHours;
         }
 
@@ -37,7 +39,7 @@ namespace Backend.Model.UserModel
 
         public TimeTable(long id)
         {
-            id = id;
+            _id = id;
         }
 
         public bool Edit()
@@ -62,26 +64,20 @@ namespace Backend.Model.UserModel
             }
         }
 
-        public long GetId()
-        {
-            return id;
-        }
+        public long GetId() => _id;
 
-        public void SetId(long id)
-        {
-            id = id;
-        }
+        public void SetId(long id) => _id = id;
 
         public override bool Equals(object obj)
         {
             var table = obj as TimeTable;
             return table != null &&
-                   id == table.id;
+                   _id == table._id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + id.GetHashCode();
+            return 1969571243 + _id.GetHashCode();
         }
     }
 }
