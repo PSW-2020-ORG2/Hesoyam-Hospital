@@ -89,6 +89,7 @@ namespace Backend.Model.PatientModel
             _patientBloodType = bloodType;
             _patientDiagnosis = new List<Diagnosis>();
             _allergy = new List<Allergy>();
+            _patientID = patient.Id;
         }
 
         public MedicalRecord(Patient patient,BloodType bloodType,List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
@@ -97,6 +98,7 @@ namespace Backend.Model.PatientModel
             _patientBloodType = bloodType;
             _patientDiagnosis = patientDiagnosis;
             _allergy = patientAllergies;
+            _patientID = patient.Id;
         }
 
         public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
@@ -106,6 +108,7 @@ namespace Backend.Model.PatientModel
             _patientBloodType = bloodType;
             _patientDiagnosis = patientDiagnosis;
             _allergy = patientAllergies;
+            _patientID = patient.Id;
         }
 
 

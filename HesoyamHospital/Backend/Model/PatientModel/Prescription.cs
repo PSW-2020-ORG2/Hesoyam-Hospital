@@ -57,6 +57,7 @@ namespace Backend.Model.PatientModel
             _status = status;
             _doctor = doctor;
             _medicine = medicine;
+            _doctorID = doctor.Id;
         }
 
         public Prescription(PrescriptionStatus status, Doctor doctor,Dictionary<Medicine,TherapyDose> medicine)
@@ -64,6 +65,7 @@ namespace Backend.Model.PatientModel
             _status = status;
             _doctor = doctor;
             _medicine = medicine;
+            _doctorID = doctor.Id;
         }
 
         public Prescription(Dictionary<Medicine, TherapyDose> medicines)

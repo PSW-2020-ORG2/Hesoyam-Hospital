@@ -34,7 +34,7 @@ namespace Backend.Model.PatientModel
             _timeInterval = timeInterval;
             _prescription = prescription;
             _prescriptionID = prescription.Id;
-            //_timeIntervalID = timeInterval.Id;
+            _timeIntervalID = timeInterval.Id;
         }
 
         public Therapy(TimeInterval timeInterval, Prescription prescription)
@@ -42,7 +42,7 @@ namespace Backend.Model.PatientModel
             _timeInterval = timeInterval;
             _prescription = prescription;
             _prescriptionID = prescription.Id;
-            //_timeIntervalID = timeInterval.Id;
+            _timeIntervalID = timeInterval.Id;
         }
 
         public long GetId()
