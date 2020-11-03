@@ -13,7 +13,6 @@ namespace Backend.Model.PatientModel
     public class Diagnosis : IIdentifiable<long>
     {
         private long _id;
-
         public long Id { get => _id; set => _id = value; }
 
         private DateTime _date;
@@ -54,7 +53,7 @@ namespace Backend.Model.PatientModel
                 return Therapies.Where(therapy => therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
             }
         }
-        public IEnumerable<Therapy> _inactiveTherapy;
+        private IEnumerable<Therapy> _inactiveTherapy;
         public IEnumerable<Therapy> InactiveTherapy
         {
             get
