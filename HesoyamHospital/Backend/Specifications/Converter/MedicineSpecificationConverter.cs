@@ -24,7 +24,7 @@ namespace Backend.Specifications.Converter
 
         private ISpecification<Medicine> GetSpecificationByDisease(Disease disease)
         {
-            return new ExpressionSpecification<Medicine>(o => o.UsedFor == null ? false : o.UsedFor.Contains(disease));
+            return new ExpressionSpecification<Medicine>(o => o.UsedFor == null ? false : o.UsedFor.Contains(new DiseaseMedicine(disease, o)));
         }
 
         private ISpecification<Medicine> GetSpecificationByType(MedicineType type)

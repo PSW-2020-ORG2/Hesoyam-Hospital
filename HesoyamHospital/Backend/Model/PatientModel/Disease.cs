@@ -38,14 +38,14 @@ namespace Backend.Model.PatientModel
             set { _diseaseType = value; }
         }
 
-        private List<Medicine> _administratedFor;
+        private List<DiseaseMedicine> _administratedFor;
 
-        public List<Medicine> AdministratedFor
+        public List<DiseaseMedicine> AdministratedFor
         {
             get
             {
                 if (_administratedFor == null)
-                    _administratedFor = new List<Medicine>();
+                    _administratedFor = new List<DiseaseMedicine>();
                 return _administratedFor;
             }
             set
@@ -53,8 +53,8 @@ namespace Backend.Model.PatientModel
                 RemoveAllAdministratedFor();
                 if (value != null)
                 {
-                    foreach (Medicine oMedicine in value)
-                        AddAdministratedFor(oMedicine);
+                    foreach (DiseaseMedicine oMedicine in value)
+                        AddAdministratedFor(oMedicine.Medicine);
                 }
             }
         }
@@ -78,17 +78,12 @@ namespace Backend.Model.PatientModel
             }
         }
 
-
-
-
-
-
         public Disease(long id)
         {
             _id = id;
         }
 
-        public Disease(long id, string name, string overview, bool isChronic, DiseaseType diseaseType, List<Symptom> symptoms, List<Medicine> administratedFor = null)
+        public Disease(long id, string name, string overview, bool isChronic, DiseaseType diseaseType, List<Symptom> symptoms, List<DiseaseMedicine> administratedFor = null)
         {
             _id = id;
             _name = name;
@@ -99,12 +94,12 @@ namespace Backend.Model.PatientModel
             _symptoms = symptoms;
 
             if (administratedFor == null)
-                _administratedFor = new List<Medicine>();
+                _administratedFor = new List<DiseaseMedicine>();
             else
                 _administratedFor = administratedFor;
         }
 
-        public Disease(string name, string overview, bool isChronic, DiseaseType diseaseType,List<Symptom> symptoms,List<Medicine> administratedFor = null)
+        public Disease(string name, string overview, bool isChronic, DiseaseType diseaseType,List<Symptom> symptoms,List<DiseaseMedicine> administratedFor = null)
         {
             _name = name;
             _overview = overview;
@@ -114,36 +109,22 @@ namespace Backend.Model.PatientModel
             _symptoms = symptoms;
 
             if (administratedFor == null)
-                _administratedFor = new List<Medicine>();
+                _administratedFor = new List<DiseaseMedicine>();
             else
                 _administratedFor = administratedFor;
         }
 
-        /// <summary>
-        /// Property for DiseaseType
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-       
-
-        /// <summary>
-        /// Property for collection of Medicine
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        
-
-        /// <summary>
-        /// Add a new Medicine in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
         public void AddAdministratedFor(Medicine newMedicine)
         {
             if (newMedicine == null)
                 return;
             if (_administratedFor == null)
-                _administratedFor = new List<Medicine>();
-            if (!_administratedFor.Contains(newMedicine))
+                _administratedFor = new List<DiseaseMedicine>();
+            bool contains = false;
+            if(_administratedFor.Find(dm => dm.Medicine.Equals(newMedicine)) == null)
             {
-                _administratedFor.Add(newMedicine);
+                DiseaseMedicine dm = new DiseaseMedicine(this, newMedicine);
+                _administratedFor.Add(dm);
                 newMedicine.AddUsedFor(this);
             }
         }
@@ -157,9 +138,11 @@ namespace Backend.Model.PatientModel
             if (oldMedicine == null)
                 return;
             if (_administratedFor != null)
-                if (_administratedFor.Contains(oldMedicine))
+                if (_administratedFor.Find(dm => dm.Medicine.Equals(oldMedicine)) == null)
                 {
-                    _administratedFor.Remove(oldMedicine);
+                    DiseaseMedicine removeDm = _administratedFor.Find(dm => dm.Medicine.Equals(oldMedicine));
+                    if(removeDm != null)
+                        _administratedFor.Remove(removeDm);
                     oldMedicine.RemoveUsedFor(this);
                 }
         }
@@ -173,8 +156,8 @@ namespace Backend.Model.PatientModel
             if (_administratedFor != null)
             {
                 List<Medicine> tmpAdministratedFor = new List<Medicine>();
-                foreach (Medicine oldMedicine in _administratedFor)
-                    tmpAdministratedFor.Add(oldMedicine);
+                foreach (DiseaseMedicine oldMedicine in _administratedFor)
+                    tmpAdministratedFor.Add(oldMedicine.Medicine);
                 _administratedFor.Clear();
                 foreach (Medicine oldMedicine in tmpAdministratedFor)
                     oldMedicine.RemoveUsedFor(this);
@@ -182,18 +165,6 @@ namespace Backend.Model.PatientModel
             }
         }
 
-
-        /// <summary>
-        /// Property for collection of Symptom
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        
-
-       
-        /// <summary>
-        /// Add a new Symptom in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
         public void AddSymptoms(Symptom newSymptom)
         {
             if (newSymptom == null)

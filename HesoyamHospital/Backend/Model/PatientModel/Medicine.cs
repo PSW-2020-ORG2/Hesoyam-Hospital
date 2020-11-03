@@ -17,7 +17,7 @@ namespace Backend.Model.PatientModel
         private MedicineType _medicineType;
 
         private List<Ingredient> _ingredient;
-        private List<Disease> _usedFor;
+        private List<DiseaseMedicine> _usedFor;
 
         public List<Ingredient> Ingredient
         {
@@ -41,17 +41,12 @@ namespace Backend.Model.PatientModel
         public double Strength { get => _strength; set => _strength = value; }
         public bool IsValid { get => _isValid; set => _isValid = value; }
         public MedicineType MedicineType { get => _medicineType; set => _medicineType = value; }
-
-        /// <summary>
-        /// Property for collection of Disease
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Disease> UsedFor
+        public List<DiseaseMedicine> UsedFor
         {
             get
             {
                 if (_usedFor == null)
-                    _usedFor = new List<Disease>();
+                    _usedFor = new List<DiseaseMedicine>();
                 return _usedFor;
             }
             set
@@ -59,8 +54,8 @@ namespace Backend.Model.PatientModel
                 RemoveAllUsedFor();
                 if (value != null)
                 {
-                    foreach (Disease oDisease in value)
-                        AddUsedFor(oDisease);
+                    foreach (DiseaseMedicine oDisease in value)
+                        AddUsedFor(oDisease.Disease);
                 }
             }
         }
@@ -74,11 +69,11 @@ namespace Backend.Model.PatientModel
             _medicineType = MedicineType;
             _isValid = false;
             _ingredient = new List<Ingredient>();
-            _usedFor = new List<Disease>();
+            _usedFor = new List<DiseaseMedicine>();
         }
 
 
-        public Medicine(string name, double strength, MedicineType medicineType,bool isValid,List<Disease> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
+        public Medicine(string name, double strength, MedicineType medicineType,bool isValid,List<DiseaseMedicine> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
             _strength = strength;
             _medicineType = MedicineType;
@@ -87,7 +82,7 @@ namespace Backend.Model.PatientModel
             _usedFor = usedFor;
         }
 
-        public Medicine(long id, string name, double strength, MedicineType medicineType, bool isValid, List<Disease> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
+        public Medicine(long id, string name, double strength, MedicineType medicineType, bool isValid, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
         {
             _strength = strength;
             _medicineType = MedicineType;
@@ -150,10 +145,11 @@ namespace Backend.Model.PatientModel
             if (newDisease == null)
                 return;
             if (_usedFor == null)
-                _usedFor = new List<Disease>();
-            if (!_usedFor.Contains(newDisease))
+                _usedFor = new List<DiseaseMedicine>();
+            if (_usedFor.Find(dm => dm.Disease.Equals(newDisease)) == null)
             {
-                _usedFor.Add(newDisease);
+                DiseaseMedicine dm = new DiseaseMedicine(newDisease, this);
+                _usedFor.Add(dm);
                 newDisease.AddAdministratedFor(this);
             }
         }
@@ -167,9 +163,11 @@ namespace Backend.Model.PatientModel
             if (oldDisease == null)
                 return;
             if (_usedFor != null)
-                if (_usedFor.Contains(oldDisease))
+                if (_usedFor.Find(dm => dm.Disease.Equals(oldDisease)) == null)
                 {
-                    _usedFor.Remove(oldDisease);
+                    DiseaseMedicine removeDm = _usedFor.Find(dm => dm.Disease.Equals(oldDisease));
+                    if(removeDm != null)
+                    _usedFor.Remove(removeDm);
                     oldDisease.RemoveAdministratedFor(this);
                 }
         }
@@ -183,8 +181,8 @@ namespace Backend.Model.PatientModel
             if (_usedFor != null)
             {
                 System.Collections.ArrayList tmpUsedFor = new System.Collections.ArrayList();
-                foreach (Disease oldDisease in _usedFor)
-                    tmpUsedFor.Add(oldDisease);
+                foreach (DiseaseMedicine oldDisease in _usedFor)
+                    tmpUsedFor.Add(oldDisease.Disease);
                 _usedFor.Clear();
                 foreach (Disease oldDisease in tmpUsedFor)
                     oldDisease.RemoveAdministratedFor(this);

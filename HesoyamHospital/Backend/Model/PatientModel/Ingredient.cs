@@ -12,7 +12,6 @@ namespace Backend.Model.PatientModel
     public class Ingredient : IIdentifiable<long>
     {
         private string _name;
-        
         public string Name { get => _name; set => _name = value; }
 
         private long _id;
@@ -29,12 +28,6 @@ namespace Backend.Model.PatientModel
             _id = id;
             _name = name;
         }
-
-        public Ingredient(string name)
-        {
-            _name = name;
-        }
-
        
         public long GetId()
             => _id;

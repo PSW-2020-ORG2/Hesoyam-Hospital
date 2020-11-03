@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +19,6 @@ namespace Backend.Repository.MySQLRepository
         }
 
         public DbSet<Hospital> Hospitals { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Employee> Employees {get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,13 +31,13 @@ namespace Backend.Repository.MySQLRepository
                    .Build();
                 var connectionString = configuration.GetConnectionString("MyDbConnectionString");
                 */
-                optionsBuilder.UseMySql("server = localhost; port = 3306; database = mydb; user = root; password = root");
+                optionsBuilder.UseMySql("server = localhost; port = 3306; database = mydb1; user = root; password = root");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            //modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
         }
     }
 }

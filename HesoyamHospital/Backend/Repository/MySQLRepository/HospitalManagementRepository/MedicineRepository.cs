@@ -30,7 +30,7 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         }
 
         public IEnumerable<Medicine> GetMedicineForDisease(Disease disease)
-            => GetAll().Where(med => med.UsedFor.Contains(disease));
+            => GetAll().Where(med => med.UsedFor.Contains(new DiseaseMedicine(disease, med)));
 
         public IEnumerable<Medicine> GetMedicineByIngredient(Ingredient ingredient)
             => GetAll().Where(med => med.Ingredient.Contains(ingredient));

@@ -18,7 +18,7 @@ namespace Backend.Model.UserModel
         public string Street { get => _street; set => _street = value; }
 
         private Location _location;
-        public virtual Location Location { get => _location; set => _location = value; }
+        public Location Location { get => _location; set => _location = value; }
 
         private long _locationID;
         public long LocationID { get => _locationID; set => _locationID = value; }
