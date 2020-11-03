@@ -8,20 +8,10 @@ using System;
 
 namespace Backend.Model.ManagerModel
 {
-    public abstract class Stats: IIdentifiable<long>
+    public abstract class Stats : IIdentifiable<long>
     {
         private long _id;
-
-        public Stats(long id)
-        {
-            _id = id;
-        }
-
-        public Stats()
-        {
-
-        }
-
+        public long Id { get => _id; set => _id = value; }
         public long GetId()
         {
             return _id;
@@ -30,6 +20,15 @@ namespace Backend.Model.ManagerModel
         public void SetId(long id)
         {
             _id = id;
+        }
+        public Stats(long id)
+        {
+            _id = id;
+        }
+
+        public Stats()
+        {
+
         }
 
         public override bool Equals(object obj)

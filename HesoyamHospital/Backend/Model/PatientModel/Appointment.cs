@@ -7,29 +7,62 @@ using Backend.Model.UserModel;
 using System;
 using Backend.Repository.Abstract;
 using Backend.Util;
+using Backend.Exceptions;
 
 namespace Backend.Model.PatientModel
 {
     public class Appointment : IIdentifiable<long>
     {
         private long _id;
+        public long Id { get => _id; set => _id = value; }
+
         private bool _canceled;
+        public bool Canceled { get => _canceled; set => _canceled = value; }
 
         private AppointmentType _appointmentType;
+        public AppointmentType AppointmentType { get => _appointmentType; set => _appointmentType = value; }
+
+
+        private long _timeIntervalID;
+        public long TimeIntervalID { get => _timeIntervalID; set => _timeIntervalID = value; }
+
         private TimeInterval _timeInterval;
+        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+
+        private long _patientID;
+        public long PatientID { get => _patientID; set => _patientID = value; }
+
         private Patient _patient;
+        public Patient Patient { get => _patient; set => _patient = value; }
+
+        private long _doctorInAppointmentID;
+        public long DoctorInAppointmentID { get => _doctorInAppointmentID; set => _doctorInAppointmentID = value; }
+
         private Doctor _doctorInAppointment;
+        public Doctor DoctorInAppointment { get => _doctorInAppointment; set => _doctorInAppointment = value; }
+
+        private long _roomID;
+        public long RoomID { get => _roomID; set => _roomID = value; }
+
         public Room _room;
+        public Room Room { get => _room; set => _room = value; }
+
+      
+
 
         public Appointment(long id) => _id = id;
 
         public Appointment(long id, Doctor doctor, Patient patient, Room room, AppointmentType appointmentType, TimeInterval timeInterval)
         {
             _id = id;
+            _doctorInAppointmentID = doctor.Id;
             _doctorInAppointment = doctor;
+            _patientID = patient.Id;
             _patient = patient;
+            _roomID = room.Id;
             _room = room;
             _appointmentType = appointmentType;
+            _timeIntervalID = timeInterval.Id;
             _timeInterval = timeInterval;
             _canceled = false;
         }
@@ -37,6 +70,10 @@ namespace Backend.Model.PatientModel
         public Appointment(long id, Doctor doctor, Patient patient, Room room, AppointmentType appointmentType, TimeInterval timeInterval, bool canceled)
         {
             _id = id;
+            _doctorInAppointmentID = doctor.Id;
+            _roomID = room.Id;
+            _timeIntervalID = timeInterval.Id;
+            _patientID = patient.Id;
             _doctorInAppointment = doctor;
             _patient = patient;
             _room = room;
@@ -47,6 +84,10 @@ namespace Backend.Model.PatientModel
 
         public Appointment(Doctor doctor,Patient patient,Room room,AppointmentType appointmentType,TimeInterval timeInterval)
         {
+            _doctorInAppointmentID = doctor.Id;
+            _roomID = room.Id;
+            _timeIntervalID = timeInterval.Id;
+            _patientID = patient.Id;
             _doctorInAppointment = doctor;
             _patient = patient;
             _room = room;
@@ -56,14 +97,7 @@ namespace Backend.Model.PatientModel
         }
 
 
-        public long Id { get => _id; set => _id = value; }
-        public bool Canceled { get => _canceled; set => _canceled = value; }
-        public AppointmentType AppointmentType { get => _appointmentType; set => _appointmentType = value; }
-        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
-        public Patient Patient { get => _patient; set => _patient = value; }
-        public Room Room { get => _room; set => _room = value; }
-        public Doctor DoctorInAppointment { get => _doctorInAppointment; set => _doctorInAppointment = value; }
-
+      
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;

@@ -12,14 +12,22 @@ namespace Backend.Model.DoctorModel
     public class DoctorFeedback : Feedback
     {
         private Doctor _doctor;
-
-        public DoctorFeedback(User user, string comment, Dictionary<Question, Rating> rating, Doctor doctor) : base(user, comment, rating) => _doctor = doctor;
-        public DoctorFeedback(long id, User user, string comment, Dictionary<Question, Rating> rating, Doctor doctor) : base(id, user, comment, rating) => _doctor = doctor;
+        public Doctor Doctor { get => _doctor; set => _doctor = value; }
+        private long _doctorID;
+        public long DoctorID { get => _doctorID; set => _doctorID = value; }
+        public DoctorFeedback(User user, string comment, Dictionary<Question, Rating> rating, Doctor doctor) : base(user, comment, rating) { 
+            _doctor = doctor;
+            _doctorID = doctor.Id;
+        }
+        public DoctorFeedback(long id, User user, string comment, Dictionary<Question, Rating> rating, Doctor doctor) : base(id, user, comment, rating) {
+            _doctor = doctor;
+            _doctorID = doctor.Id;
+        }
 
         public DoctorFeedback(long id) : base(id)
         {
         }
 
-        public Doctor Doctor { get => _doctor; set => _doctor = value; }
+       
     }
 }

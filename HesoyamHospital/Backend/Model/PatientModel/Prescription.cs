@@ -8,16 +8,45 @@ using System;
 using Backend.Repository.Abstract;
 using System.Collections.Generic;
 using Backend.Model.UserModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Model.PatientModel
 {
     public class Prescription : IIdentifiable<long>
-   {
+    {
         private long _id;
         private PrescriptionStatus _status;
         private Doctor _doctor;
-        private Dictionary<Medicine,TherapyDose> _medicine;
+        private long _doctorID;
 
+        [NotMapped]
+        private Dictionary<Medicine, TherapyDose> _medicine;
+
+        public long DoctorID { get => _doctorID; set => _doctorID = value; }
+        public long Id { get => _id; set => _id = value; }
+
+        [NotMapped]
+        public Dictionary<Medicine, TherapyDose> Medicine
+        {
+            get
+            {
+                if (_medicine == null)
+                    _medicine = new Dictionary<Medicine, TherapyDose>();
+                return _medicine;
+            }
+            set
+            {
+                RemoveAllMedicine();
+                if (value != null)
+                {
+                    foreach (Medicine oMedicine in value.Keys)
+                        AddMedicine(oMedicine, _medicine[oMedicine]);
+                }
+            }
+        }
+
+        public PrescriptionStatus Status { get => _status; set => _status = value; }
+        public Doctor Doctor { get => _doctor; set => _doctor = value; }
         public Prescription(long id)
         {
             _id = id;
@@ -28,6 +57,7 @@ namespace Backend.Model.PatientModel
             _status = status;
             _doctor = doctor;
             _medicine = medicine;
+            _doctorID = doctor.Id;
         }
 
         public Prescription(PrescriptionStatus status, Doctor doctor,Dictionary<Medicine,TherapyDose> medicine)
@@ -35,6 +65,7 @@ namespace Backend.Model.PatientModel
             _status = status;
             _doctor = doctor;
             _medicine = medicine;
+            _doctorID = doctor.Id;
         }
 
         public Prescription(Dictionary<Medicine, TherapyDose> medicines)
@@ -49,27 +80,7 @@ namespace Backend.Model.PatientModel
       /// Property for collection of Medicine
       /// </summary>
       /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      public Dictionary<Medicine, TherapyDose> Medicine
-      {
-         get
-         {
-                if (_medicine == null)
-                    _medicine = new Dictionary<Medicine, TherapyDose>();
-            return _medicine;
-         }
-         set
-         {
-            RemoveAllMedicine();
-            if (value != null)
-            {
-               foreach (Medicine oMedicine in value.Keys)
-                  AddMedicine(oMedicine, _medicine[oMedicine]);
-            }
-         }
-      }
-
-        public PrescriptionStatus Status { get => _status; set => _status = value; }
-        public Doctor Doctor { get => _doctor; set => _doctor = value; }
+      
 
         /// <summary>
         /// Add a new Medicine in the collection

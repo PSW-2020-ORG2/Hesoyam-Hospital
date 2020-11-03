@@ -16,6 +16,17 @@ namespace Backend.Model.PatientModel
         private string _name;
         private string _shortDescription;
 
+        public long Id { get => _id; set => _id = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string ShortDescription { get => _shortDescription; set => _shortDescription = value; }
+
+        public long GetId()
+            => _id;
+
+        public void SetId(long id)
+            => _id = id;
+
+
         public Symptom(long id){
             _id = id;
         }
@@ -32,16 +43,6 @@ namespace Backend.Model.PatientModel
             _name = name;
             _shortDescription = shortDescription;
         }
-
-
-        public string Name { get => _name; set => _name = value; }
-        public string ShortDescription { get => _shortDescription; set => _shortDescription = value; }
-
-        public long GetId()
-            => _id;
-
-        public void SetId(long id)
-            => _id = id;
 
         public override bool Equals(object obj)
         {

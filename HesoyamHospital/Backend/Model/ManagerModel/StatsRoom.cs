@@ -16,6 +16,9 @@ namespace Backend.Model.ManagerModel
         private int _avgAppointmentTime;
 
         private Room _room;
+        private long _roomID;
+
+        public long RoomID { get => _roomID; set => _roomID = value; }
 
         public int AvgAppointmentTime { get { return _avgAppointmentTime; } set { _avgAppointmentTime = value; } }
         public double Usage { get { return _usage; } set { } }
@@ -51,6 +54,7 @@ namespace Backend.Model.ManagerModel
             _timeOccupied = timeOccupied;
             _avgAppointmentTime = avgAppointmentTime;
             _room = room;
+            _roomID = room.Id;
         }
 
         public StatsRoom(long id, double usage, double timeOccupied, int avgAppointmentTime, Room room) : base(id)
@@ -59,6 +63,7 @@ namespace Backend.Model.ManagerModel
             _timeOccupied = timeOccupied;
             _avgAppointmentTime = avgAppointmentTime;
             _room = room;
+            _roomID = room.Id;
         }
 
         public StatsRoom(long id): base(id)

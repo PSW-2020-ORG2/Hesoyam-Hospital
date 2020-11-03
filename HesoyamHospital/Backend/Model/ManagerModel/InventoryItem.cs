@@ -12,17 +12,21 @@ namespace Backend.Model.ManagerModel
     public class InventoryItem : Item
     {
         private Room _room;
-
         public Room Room { get { return _room; } set { } }
+
+        private long _roomID;
+        public long RoomID { get => _roomID; set => _roomID = value; }
 
         public InventoryItem(string name, int inStock, int minNumber, Room room) : base(name, inStock, minNumber)
         {
             _room = room;
+            _roomID = room.Id;
         }
 
         public InventoryItem(long id,string name, int inStock, int minNumber, Room room) : base(id ,name, inStock, minNumber)
         {
             _room = room;
+            _roomID = room.Id;
         }
 
         public InventoryItem(long id) : base(id) { }

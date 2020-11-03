@@ -13,9 +13,55 @@ namespace Backend.Model.PatientModel
     public class Diagnosis : IIdentifiable<long>
     {
         private long _id;
-        private List<Therapy> _therapies;
+
+        public long Id { get => _id; set => _id = value; }
+
         private DateTime _date;
+        public DateTime Date { get => _date; set => _date = value; }
+
+        private long _diagnosedDiseaseID;
+        public long DiagnosedDiseaseID { get => _diagnosedDiseaseID; set => _diagnosedDiseaseID = value; }
+
+
         private Disease _diagnosedDisease;
+        public Disease DiagnosedDisease { get => _diagnosedDisease; set => _diagnosedDisease = value; }
+
+        private List<Therapy> _therapies;
+
+        public List<Therapy> Therapies
+        {
+            get
+            {
+                if (_therapies == null)
+                    _therapies = new List<Therapy>();
+                return _therapies;
+            }
+            set
+            {
+                RemoveAllTherapies();
+                if (value != null)
+                {
+                    foreach (Therapy oTherapy in value)
+                        AddTherapy(oTherapy);
+                }
+            }
+        }
+        private IEnumerable<Therapy> _activeTherapy;
+        public IEnumerable<Therapy> ActiveTherapy
+        {
+            get
+            {
+                return Therapies.Where(therapy => therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
+            }
+        }
+        public IEnumerable<Therapy> _inactiveTherapy;
+        public IEnumerable<Therapy> InactiveTherapy
+        {
+            get
+            {
+                return Therapies.Where(therapy => !therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
+            }
+        }
 
         public Diagnosis(long id)
         {
@@ -26,7 +72,8 @@ namespace Backend.Model.PatientModel
         {
             //Constructor used when first created by Doctor.
             _diagnosedDisease = disease;
-            _date = DateTime.Now;
+            _diagnosedDiseaseID = disease.Id;
+             _date = DateTime.Now;
 
             if (therapies == null)
                 _therapies = new List<Therapy>();
@@ -39,6 +86,7 @@ namespace Backend.Model.PatientModel
         {
             _id = id;
             _diagnosedDisease = disease;
+            _diagnosedDiseaseID = disease.Id;
             _date = DateTime.Now;
             if (therapies == null)
                 therapies = new List<Therapy>();
@@ -48,6 +96,7 @@ namespace Backend.Model.PatientModel
             //Constructor used for complete initialization(eg. reading from the database)
             _id = id;
             _diagnosedDisease = disease;
+            _diagnosedDiseaseID = disease.Id;
             _date = issuedOn;
 
             if (therapies == null)
@@ -56,21 +105,7 @@ namespace Backend.Model.PatientModel
                 _therapies = therapies;
         }
 
-        public IEnumerable<Therapy> ActiveTherapy
-        {
-            get
-            {
-                return Therapies.Where(therapy => therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
-            }
-        }
-
-        public IEnumerable<Therapy> InactiveTherapy
-        {
-            get
-            {
-                return Therapies.Where(therapy => !therapy.TimeInterval.IsDateTimeBetween(DateTime.Now));
-            }
-        }
+        
 
 
 
@@ -109,29 +144,9 @@ namespace Backend.Model.PatientModel
         /// Property for collection of Therapy
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Therapy> Therapies
-        {
-            get
-            {
-                if (_therapies == null)
-                    _therapies = new List<Therapy>();
-                return _therapies;
-            }
-            set
-            {
-                RemoveAllTherapies();
-                if (value != null)
-                {
-                    foreach (Therapy oTherapy in value)
-                        AddTherapy(oTherapy);
-                }
-            }
-        }
+        
 
-        //public long Id { get => _id; set => _id = value; }
-        public DateTime Date { get => _date; set => _date = value; }
-        public Disease DiagnosedDisease { get => _diagnosedDisease; set => _diagnosedDisease = value; }
-
+       
         /// <summary>
         /// Add a new Therapy in the collection
         /// </summary>

@@ -5,14 +5,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Model.PatientModel
 {
     public class TherapyDose
     {
-
+        [NotMapped]
         private Dictionary<TherapyTime, double> _dosage;
 
+        [NotMapped]
         public Dictionary<TherapyTime, double> Dosage { get => _dosage; set => _dosage = value; }
 
         public TherapyDose(Dictionary<TherapyTime,double> dosage)

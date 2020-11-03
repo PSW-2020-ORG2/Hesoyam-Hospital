@@ -13,7 +13,9 @@ namespace Backend.Model.ManagerModel
         private double _numberOfAppointments;
         private string _avgAppointmentTime;
         private Doctor _doctor;
+        private long _doctorID;
 
+        public long DoctorId { get => _doctorID; set => _doctorID = value; }
 
         public double NumberOfAppointments {get {return _numberOfAppointments ;} set { _numberOfAppointments = value; }}
 
@@ -26,6 +28,7 @@ namespace Backend.Model.ManagerModel
             _numberOfAppointments = numberOfAppointments;
             _avgAppointmentTime = avgAppointmentTime;
             _doctor = doctor;
+            _doctorID = doctor.Id;
         }
 
         public StatsDoctor(long id, double numberOfAppointments, string avgAppointmentTime, Doctor doctor) : base(id)
@@ -33,6 +36,7 @@ namespace Backend.Model.ManagerModel
             _numberOfAppointments = numberOfAppointments;
             _avgAppointmentTime = avgAppointmentTime;
             _doctor = doctor;
+            _doctorID = doctor.Id;
         }
 
         public StatsDoctor(long id): base(id)

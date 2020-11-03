@@ -19,6 +19,51 @@ namespace Backend.Model.PatientModel
         private List<Ingredient> _ingredient;
         private List<Disease> _usedFor;
 
+        public List<Ingredient> Ingredient
+        {
+            get
+            {
+                if (_ingredient == null)
+                    _ingredient = new List<Ingredient>();
+                return _ingredient;
+            }
+            set
+            {
+                RemoveAllIngredient();
+                if (value != null)
+                {
+                    foreach (Ingredient oIngredient in value)
+                        AddIngredient(oIngredient);
+                }
+            }
+        }
+
+        public double Strength { get => _strength; set => _strength = value; }
+        public bool IsValid { get => _isValid; set => _isValid = value; }
+        public MedicineType MedicineType { get => _medicineType; set => _medicineType = value; }
+
+        /// <summary>
+        /// Property for collection of Disease
+        /// </summary>
+        /// <pdGenerated>Default opposite class collection property</pdGenerated>
+        public List<Disease> UsedFor
+        {
+            get
+            {
+                if (_usedFor == null)
+                    _usedFor = new List<Disease>();
+                return _usedFor;
+            }
+            set
+            {
+                RemoveAllUsedFor();
+                if (value != null)
+                {
+                    foreach (Disease oDisease in value)
+                        AddUsedFor(oDisease);
+                }
+            }
+        }
 
         public Medicine(long id) : base(id)
         {
@@ -57,25 +102,7 @@ namespace Backend.Model.PatientModel
         /// Property for collection of Ingredient
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Ingredient> Ingredient
-        {
-            get
-            {
-                if (_ingredient == null)
-                    _ingredient = new List<Ingredient>();
-                return _ingredient;
-            }
-            set
-            {
-                RemoveAllIngredient();
-                if (value != null)
-                {
-                    foreach (Ingredient oIngredient in value)
-                        AddIngredient(oIngredient);
-                }
-            }
-        }
-
+      
         /// <summary>
         /// Add a new Ingredient in the collection
         /// </summary>
@@ -113,33 +140,6 @@ namespace Backend.Model.PatientModel
                 _ingredient.Clear();
         }
 
-
-        /// <summary>
-        /// Property for collection of Disease
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Disease> UsedFor
-        {
-            get
-            {
-                if (_usedFor == null)
-                    _usedFor = new List<Disease>();
-                return _usedFor;
-            }
-            set
-            {
-                RemoveAllUsedFor();
-                if (value != null)
-                {
-                    foreach (Disease oDisease in value)
-                        AddUsedFor(oDisease);
-                }
-            }
-        }
-
-        public double Strength { get => _strength; set => _strength = value; }
-        public bool IsValid { get => _isValid; set => _isValid = value; }
-        public MedicineType MedicineType { get => _medicineType; set => _medicineType = value; }
 
         /// <summary>
         /// Add a new Disease in the collection

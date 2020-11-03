@@ -13,61 +13,25 @@ namespace Backend.Model.PatientModel
     public class Allergy : IIdentifiable<long>
     {
         private string _name;
-        private long _id;
-
-        private Ingredient _allergicToIngredient;
-        private List<Symptom> _symptoms;
-
-        public Allergy(long id)
-        {
-            _id = id;
-            _name = "";
-            _symptoms = new List<Symptom>();
-            _allergicToIngredient = null; 
-        }
-
-        public Allergy(long id,string name, Ingredient allergicToIngredient, List<Symptom> symptomList = null)
-        {
-            _id = id;
-            _name = name;
-            _allergicToIngredient = allergicToIngredient;
-            if (symptomList == null)
-                _symptoms = new List<Symptom>();
-            else
-                _symptoms = symptomList;
-        }
-
-        public Allergy(string name,Ingredient allergicToIngredient,List<Symptom> symptomList = null)
-        {
-            _name = name;
-            _allergicToIngredient = allergicToIngredient;
-            if (symptomList == null)
-                _symptoms = new List<Symptom>();
-            else
-                _symptoms = symptomList;
-        }
-
-        public Allergy(string name, Ingredient allergicToIngredient)
-        {
-            _name = name;
-            _allergicToIngredient = allergicToIngredient;
-            _symptoms = new List<Symptom>();
-        }
-
-
-        public Ingredient AllergicToIngredient
-        {
-            get { return _allergicToIngredient; }
-            set { _allergicToIngredient = value; }
-        }
-
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
 
-        /// <summary>
+        private Ingredient _allergicToIngredient;
+        public Ingredient AllergicToIngredient
+        {
+            get { return _allergicToIngredient; }
+            set { _allergicToIngredient = value; }
+        }
+        private long _ingredientID;
+        public long IngredientID { get => _ingredientID; set => _ingredientID = value; }
+
+        private List<Symptom> _symptoms;
+
         /// Property for collection of Symptom
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
@@ -89,6 +53,51 @@ namespace Backend.Model.PatientModel
                 }
             }
         }
+        public Allergy(long id)
+        {
+            _id = id;
+            _name = "";
+            _symptoms = new List<Symptom>();
+            _allergicToIngredient = null;
+            
+        }
+
+        public Allergy(long id,string name, Ingredient allergicToIngredient, List<Symptom> symptomList = null)
+        {
+            _id = id;
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            if (symptomList == null)
+                _symptoms = new List<Symptom>();
+            else
+                _symptoms = symptomList;
+            _ingredientID = allergicToIngredient.Id;
+        }
+
+        public Allergy(string name,Ingredient allergicToIngredient,List<Symptom> symptomList = null)
+        {
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            if (symptomList == null)
+                _symptoms = new List<Symptom>();
+            else
+                _symptoms = symptomList;
+            _ingredientID = allergicToIngredient.Id;
+        }
+
+        public Allergy(string name, Ingredient allergicToIngredient)
+        {
+            _name = name;
+            _allergicToIngredient = allergicToIngredient;
+            _symptoms = new List<Symptom>();
+            _ingredientID = allergicToIngredient.Id;
+        }
+
+
+       
+
+        /// <summary>
+        
 
         /// <summary>
         /// Add a new Symptom in the collection

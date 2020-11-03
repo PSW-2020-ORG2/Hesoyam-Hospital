@@ -14,7 +14,10 @@ namespace Backend.Model.ManagerModel
 
         private Medicine _medicine;
         private InventoryItem _inventoryItem;
-
+        private long _medicineID;
+        private long _inventoryItemID;
+        public long MedicineID { get => _medicineID; set => _medicineID = value; }
+        public long InventoryItemID { get => _inventoryItemID; set => _inventoryItemID = value; }
         public double Usage { get { return _usage; } set { _usage = value; } }
 
         public Medicine Medicine { get { return _medicine; } set { _medicine = value; } }
@@ -26,6 +29,8 @@ namespace Backend.Model.ManagerModel
             _usage = usage;
             _medicine = medicine;
             _inventoryItem = inventoryItem;
+            _medicineID = medicine.Id;
+            _inventoryItemID = inventoryItem.Id;
         }
 
         public StatsInventory(long id, double usage, Medicine medicine, InventoryItem inventoryItem) : base(id)
@@ -33,6 +38,8 @@ namespace Backend.Model.ManagerModel
             _usage = usage;
             _medicine = medicine;
             _inventoryItem = inventoryItem;
+            _medicineID = medicine.Id;
+            _inventoryItemID = inventoryItem.Id;
         }
 
         public StatsInventory(long id): base(id)

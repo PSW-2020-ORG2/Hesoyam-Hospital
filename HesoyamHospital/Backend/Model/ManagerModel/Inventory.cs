@@ -14,28 +14,39 @@ namespace Backend.Model.ManagerModel
     public class Inventory: IIdentifiable<long>
     {
         private long _id;
-        public List<InventoryItem> inventoryItem;
-        public List<Medicine> medicine;
 
-        public Inventory(long id)
+        public long Id { get => _id; set => _id = value; }
+        public long GetId()
+        {
+            return _id;
+        }
+
+        public void SetId(long id)
         {
             _id = id;
-            inventoryItem = new List<InventoryItem>();
-            medicine = new List<Medicine>();
         }
 
-        public Inventory(long id, List<InventoryItem> inventoryItem, List<Medicine> medicine)
+        private List<InventoryItem> _inventoryItem;
+        public List<InventoryItem> InventoryItem
         {
-            this._id = id;
-            this.inventoryItem = inventoryItem;
-            this.medicine = medicine;
+            get
+            {
+                if (_inventoryItem == null)
+                    _inventoryItem = new List<InventoryItem>();
+                return _inventoryItem;
+            }
+            set
+            {
+                RemoveAllInventoryItem();
+                if (value != null)
+                {
+                    foreach (InventoryItem oInventoryItem in value)
+                        AddInventoryItem(oInventoryItem);
+                }
+            }
         }
-      
+        public List<Medicine> medicine;
 
-        /// <summary>
-        /// Property for collection of Model.Patient.Medicine
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
         public List<Medicine> Medicine
         {
             get
@@ -54,6 +65,27 @@ namespace Backend.Model.ManagerModel
                 }
             }
         }
+
+        public Inventory(long id)
+        {
+            _id = id;
+            _inventoryItem = new List<InventoryItem>();
+            medicine = new List<Medicine>();
+        }
+
+        public Inventory(long id, List<InventoryItem> inventoryItem, List<Medicine> medicine)
+        {
+            this._id = id;
+            this._inventoryItem = inventoryItem;
+            this.medicine = medicine;
+        }
+      
+
+        /// <summary>
+        /// Property for collection of Model.Patient.Medicine
+        /// </summary>
+        /// <pdGenerated>Default opposite class collection property</pdGenerated>
+       
 
         /// <summary>
         /// Add a new Model.Patient.Medicine in the collection
@@ -97,24 +129,7 @@ namespace Backend.Model.ManagerModel
         /// Property for collection of InventoryItem
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<InventoryItem> InventoryItem
-        {
-            get
-            {
-                if (inventoryItem == null)
-                    inventoryItem = new List<InventoryItem>();
-                return inventoryItem;
-            }
-            set
-            {
-                RemoveAllInventoryItem();
-                if (value != null)
-                {
-                    foreach (InventoryItem oInventoryItem in value)
-                        AddInventoryItem(oInventoryItem);
-                }
-            }
-        }
+        
 
         /// <summary>
         /// Add a new InventoryItem in the collection
@@ -124,10 +139,10 @@ namespace Backend.Model.ManagerModel
         {
             if (newInventoryItem == null)
                 return;
-            if (inventoryItem == null)
-                inventoryItem = new List<InventoryItem>();
-            if (!inventoryItem.Contains(newInventoryItem))
-                inventoryItem.Add(newInventoryItem);
+            if (_inventoryItem == null)
+                _inventoryItem = new List<InventoryItem>();
+            if (!_inventoryItem.Contains(newInventoryItem))
+                _inventoryItem.Add(newInventoryItem);
         }
 
         /// <summary>
@@ -138,9 +153,9 @@ namespace Backend.Model.ManagerModel
         {
             if (oldInventoryItem == null)
                 return;
-            if (inventoryItem != null)
-                if (inventoryItem.Contains(oldInventoryItem))
-                    inventoryItem.Remove(oldInventoryItem);
+            if (_inventoryItem != null)
+                if (_inventoryItem.Contains(oldInventoryItem))
+                    _inventoryItem.Remove(oldInventoryItem);
         }
 
         /// <summary>
@@ -149,19 +164,11 @@ namespace Backend.Model.ManagerModel
         /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllInventoryItem()
         {
-            if (inventoryItem != null)
-                inventoryItem.Clear();
+            if (_inventoryItem != null)
+                _inventoryItem.Clear();
         }
 
-        public long GetId()
-        {
-            return _id;
-        }
-
-        public void SetId(long id)
-        {
-            _id = id;
-        }
+       
 
         public override bool Equals(object obj)
         {
