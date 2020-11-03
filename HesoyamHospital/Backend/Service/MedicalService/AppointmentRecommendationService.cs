@@ -164,6 +164,7 @@ namespace Backend.Service.MedicalService
             DateTime start = shift.StartTime > time.StartTime ? shift.StartTime : time.StartTime;
             // if doctor's shift is earlier than specified end of time interval, use doctor's shift
             DateTime end = shift.EndTime < time.EndTime ? shift.EndTime : time.EndTime;
+            
 
             return new TimeIterator(_duration, new TimeInterval(start, end));
         }

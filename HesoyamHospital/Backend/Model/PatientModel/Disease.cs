@@ -13,63 +13,31 @@ namespace Backend.Model.PatientModel
     public class Disease : IIdentifiable<long>
     {
         private long _id;
+        public long Id { get => _id; set => _id = value; }
         private string _name;
+        public string Name { get => _name; set => _name = value; }
         private string _overview;
+        public string Overview { get => _overview; set => _overview = value; }
+
         private bool _isChronic;
+        public bool IsChronic { get => _isChronic; set => _isChronic = value; }
+
+        private long _diseaseTypeID;
+        public long DiseaseTypeID
+        {
+            get { return _diseaseTypeID; }
+            set { _diseaseTypeID = value; }
+        }
+
         private DiseaseType _diseaseType;
-        private List<Medicine> _administratedFor;
-        private List<Symptom> _symptoms;
-
-
-        public Disease(long id)
-        {
-            _id = id;
-        }
-
-        public Disease(long id, string name, string overview, bool isChronic, DiseaseType diseaseType, List<Symptom> symptoms, List<Medicine> administratedFor = null)
-        {
-            _id = id;
-            _name = name;
-            _overview = overview;
-            _isChronic = isChronic;
-            _diseaseType = diseaseType;
-            _symptoms = symptoms;
-
-            if (administratedFor == null)
-                _administratedFor = new List<Medicine>();
-            else
-                _administratedFor = administratedFor;
-        }
-
-        public Disease(string name, string overview, bool isChronic, DiseaseType diseaseType,List<Symptom> symptoms,List<Medicine> administratedFor = null)
-        {
-            _name = name;
-            _overview = overview;
-            _isChronic = isChronic;
-            _diseaseType = diseaseType;
-            _symptoms = symptoms;
-
-            if (administratedFor == null)
-                _administratedFor = new List<Medicine>();
-            else
-                _administratedFor = administratedFor;
-        }
-
-        /// <summary>
-        /// Property for DiseaseType
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
         public DiseaseType DiseaseType
         {
             get { return _diseaseType; }
             set { _diseaseType = value; }
         }
 
+        private List<Medicine> _administratedFor;
 
-        /// <summary>
-        /// Property for collection of Medicine
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
         public List<Medicine> AdministratedFor
         {
             get
@@ -88,6 +56,78 @@ namespace Backend.Model.PatientModel
                 }
             }
         }
+        private List<Symptom> _symptoms;
+        public List<Symptom> Symptoms
+        {
+            get
+            {
+                if (_symptoms == null)
+                    _symptoms = new List<Symptom>();
+                return _symptoms;
+            }
+            set
+            {
+                RemoveAllSymptoms();
+                if (value != null)
+                {
+                    foreach (Symptom oSymptom in value)
+                        AddSymptoms(oSymptom);
+                }
+            }
+        }
+
+
+
+
+
+
+        public Disease(long id)
+        {
+            _id = id;
+        }
+
+        public Disease(long id, string name, string overview, bool isChronic, DiseaseType diseaseType, List<Symptom> symptoms, List<Medicine> administratedFor = null)
+        {
+            _id = id;
+            _name = name;
+            _overview = overview;
+            _isChronic = isChronic;
+            _diseaseTypeID = DiseaseType.Id;
+           _diseaseType = diseaseType;
+            _symptoms = symptoms;
+
+            if (administratedFor == null)
+                _administratedFor = new List<Medicine>();
+            else
+                _administratedFor = administratedFor;
+        }
+
+        public Disease(string name, string overview, bool isChronic, DiseaseType diseaseType,List<Symptom> symptoms,List<Medicine> administratedFor = null)
+        {
+            _name = name;
+            _overview = overview;
+            _isChronic = isChronic;
+            _diseaseTypeID = DiseaseType.Id;
+            _diseaseType = diseaseType;
+            _symptoms = symptoms;
+
+            if (administratedFor == null)
+                _administratedFor = new List<Medicine>();
+            else
+                _administratedFor = administratedFor;
+        }
+
+        /// <summary>
+        /// Property for DiseaseType
+        /// </summary>
+        /// <pdGenerated>Default opposite class property</pdGenerated>
+       
+
+        /// <summary>
+        /// Property for collection of Medicine
+        /// </summary>
+        /// <pdGenerated>Default opposite class collection property</pdGenerated>
+        
 
         /// <summary>
         /// Add a new Medicine in the collection
@@ -145,30 +185,9 @@ namespace Backend.Model.PatientModel
         /// Property for collection of Symptom
         /// </summary>
         /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public List<Symptom> Symptoms
-        {
-            get
-            {
-                if (_symptoms == null)
-                    _symptoms = new List<Symptom>();
-                return _symptoms;
-            }
-            set
-            {
-                RemoveAllSymptoms();
-                if (value != null)
-                {
-                    foreach (Symptom oSymptom in value)
-                        AddSymptoms(oSymptom);
-                }
-            }
-        }
+        
 
-        public long Id { get => _id; set => _id = value; }
-        public string Name { get => _name; set => _name = value; }
-        public string Overview { get => _overview; set => _overview = value; }
-        public bool IsChronic { get => _isChronic; set => _isChronic = value; }
-
+       
         /// <summary>
         /// Add a new Symptom in the collection
         /// </summary>
