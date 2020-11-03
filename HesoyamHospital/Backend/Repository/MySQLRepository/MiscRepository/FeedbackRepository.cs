@@ -20,7 +20,7 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
     public class FeedbackRepository : MySQLRepository<Feedback, long>, IFeedbackRepository, IEagerRepository<Feedback, long>
     {
         private const string ENTITY_NAME = "Feedback";
-        private string[] INCLUDE_PROPERTIES = { "User","Rating" };
+        private string[] INCLUDE_PROPERTIES = { "User" };
 
         public FeedbackRepository(IMySQLStream<Feedback> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Feedback>())
         {
