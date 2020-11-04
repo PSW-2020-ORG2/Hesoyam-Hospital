@@ -23,7 +23,7 @@ namespace Backend.Specifications.Converter
 
         private ISpecification<Therapy> GetSpecificationByDrugName(string drugName)
         {
-            return new ExpressionSpecification<Therapy>(o => o.Prescription.Medicine == null ? false : o.Prescription.Medicine.Keys.ToList<Medicine>().Select(m => m.Name.ToLower()).Contains(drugName.ToLower()));
+            return new ExpressionSpecification<Therapy>(o => o.Prescription.MedicalTherapies == null ? false : o.Prescription.MedicalTherapies.Select(m => m.Medicine.Name.ToLower()).Contains(drugName.ToLower()));
         }
 
         private ISpecification<Therapy> GetSpecificationByTimeInterval(TimeInterval timeInterval)
@@ -33,7 +33,7 @@ namespace Backend.Specifications.Converter
 
         private ISpecification<Therapy> GetSpecificationByTherapyTime(TherapyTime time)
         { 
-            return new ExpressionSpecification<Therapy>(o => o.Prescription.Medicine.Values.ToList<TherapyDose>().SelectMany<TherapyDose, TherapyTime>(t => t.Dosage.Keys).Contains<TherapyTime>(time));
+            return new ExpressionSpecification<Therapy>(o => o.Prescription.MedicalTherapies.Select(mt => mt.Dose.Dosage.Find(d => d.TherapyTime.Equals(time)) != null) != null);
         }
 
         private ISpecification<Therapy> GetSpecificationByTherapyTimes(IEnumerable<TherapyTime> time)

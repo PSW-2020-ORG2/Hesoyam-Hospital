@@ -12,7 +12,7 @@ namespace Backend.Model.ManagerModel
     public class InventoryItem : Item
     {
         private Room _room;
-        public Room Room { get { return _room; } set { } }
+        public Room Room { get { return _room; } set { _room = value; _roomID = value.Id; } }
 
         private long _roomID;
         public long RoomID { get => _roomID; set => _roomID = value; }

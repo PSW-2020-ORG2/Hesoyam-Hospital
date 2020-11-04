@@ -22,7 +22,7 @@ namespace Backend.Model.PatientModel
 
         public long Id { get => _id; set => _id = value; }
 
-        public Patient Patient { get => _patient; set => _patient = value; }
+        public Patient Patient { get => _patient; set { _patient = value; _patientID = value.Id; } }
         public long PatientID { get => _patientID; set => _patientID = value; }
         public long GetId()
         => _id;

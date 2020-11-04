@@ -16,17 +16,15 @@ namespace Backend.Model.UserModel
         private long _id;
         public long Id { get => _id; set => _id = value; }
 
-        [NotMapped]
-        private Dictionary<WorkingDaysEnum, TimeInterval> _workingHours;
-        [NotMapped]
-        public Dictionary<WorkingDaysEnum, TimeInterval> WorkingHours { get => _workingHours; set => _workingHours = value; }
+        private List<DailyWorkingHours> _workingHours;
+        public List<DailyWorkingHours> WorkingHours { get => _workingHours; set => _workingHours = value; }
 
-        public TimeTable(Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
+        public TimeTable(List<DailyWorkingHours> workingHours)
         {
             _workingHours = workingHours;
         }
 
-        public TimeTable(long id, Dictionary<WorkingDaysEnum, TimeInterval> workingHours)
+        public TimeTable(long id, List<DailyWorkingHours> workingHours)
         {
             _id = id;
             _workingHours = workingHours;
@@ -34,7 +32,7 @@ namespace Backend.Model.UserModel
 
         public TimeTable()
         {
-            _workingHours = new Dictionary<WorkingDaysEnum, TimeInterval>();
+            _workingHours = new List<DailyWorkingHours>();
         }
 
         public TimeTable(long id)
@@ -47,20 +45,21 @@ namespace Backend.Model.UserModel
             throw new NotImplementedException();
         }
 
-        public Dictionary<WorkingDaysEnum, TimeInterval> getWorkingHours()
+        public List<DailyWorkingHours> getWorkingHours()
         {
             return _workingHours;
         }
 
-        public void setWorkingHours(WorkingDaysEnum workingDaysEnum, TimeInterval timeInterval)
+        public void setWorkingHours(DailyWorkingHours newDailyWorkingHours)
         {
-            if (_workingHours.ContainsKey(workingDaysEnum))
+            DailyWorkingHours dwh = _workingHours.Find(d => d.Day == newDailyWorkingHours.Day);
+            if (dwh != null)
             {
-                _workingHours[workingDaysEnum] = timeInterval;
+                dwh.TimeInterval = newDailyWorkingHours.TimeInterval;
             }
             else
             {
-                _workingHours.Add(workingDaysEnum, timeInterval);
+                _workingHours.Add(newDailyWorkingHours);
             }
         }
 

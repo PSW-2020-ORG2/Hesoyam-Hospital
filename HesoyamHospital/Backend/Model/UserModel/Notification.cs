@@ -10,7 +10,7 @@ namespace Backend.Model.UserModel
     public class Notification : Content
     {
         private User _recipient;
-        public User Recipient { get => _recipient; set { _recipient = value; } }
+        public User Recipient { get => _recipient; set { _recipient = value; _recipientID = value.Id; } }
 
         private long _recipientID;
         public long RecipientID { get => _recipientID; set => _recipientID = value; }

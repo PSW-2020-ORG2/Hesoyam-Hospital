@@ -20,13 +20,15 @@ namespace Backend.Model.PatientModel
         private int _numberOfAppointments;
         private bool _active;
         private Patient _patient;
+        private long _patientId;
         private TimeInterval _timeInterval;
         private long _timeIntervalID;
         private List<Doctor> _handsOutLicence;
 
 
-        public Patient Patient { get => _patient; set => _patient = value; }
-        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public Patient Patient { get => _patient; set { _patient = value; _patientId = value.Id; } }
+        public long PatientId { get => _patientId; set => _patientId = value; }
+        public TimeInterval TimeInterval { get => _timeInterval; set { _timeInterval = value; _timeIntervalID = value.Id; } }
         public long TimeIntervalID { get => _timeIntervalID; set => _timeIntervalID = value; }
         public long Id { get => _id; set => _id = value; }
 

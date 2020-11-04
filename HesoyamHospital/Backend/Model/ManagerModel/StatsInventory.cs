@@ -20,9 +20,9 @@ namespace Backend.Model.ManagerModel
         public long InventoryItemID { get => _inventoryItemID; set => _inventoryItemID = value; }
         public double Usage { get { return _usage; } set { _usage = value; } }
 
-        public Medicine Medicine { get { return _medicine; } set { _medicine = value; } }
+        public Medicine Medicine { get { return _medicine; } set { _medicine = value; _medicineID = value.Id; } }
 
-        public InventoryItem InventoryItem { get { return _inventoryItem; } set { _inventoryItem = value; } }
+        public InventoryItem InventoryItem { get { return _inventoryItem; } set { _inventoryItem = value; _inventoryItemID = value.Id; } }
 
         public StatsInventory(double usage, Medicine medicine, InventoryItem inventoryItem): base()
         {

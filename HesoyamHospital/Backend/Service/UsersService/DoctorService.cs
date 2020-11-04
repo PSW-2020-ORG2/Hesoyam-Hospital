@@ -49,8 +49,8 @@ namespace Backend.Service.UsersService
 
             foreach (Doctor d in doctors)
             {
-                if(d.TimeTable.WorkingHours.ContainsKey(dayOfWeek))
-                    if (d.TimeTable.WorkingHours[dayOfWeek].IsTimeBetween(time))
+                if(d.TimeTable.WorkingHours.Find(dwh => dwh.Day == dayOfWeek) != null)
+                    if (d.TimeTable.WorkingHours.Find(dwh => dwh.Day == dayOfWeek).TimeInterval.IsTimeBetween(time))
                         workingDoctors.Add(d);
             }
 

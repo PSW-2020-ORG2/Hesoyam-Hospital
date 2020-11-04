@@ -23,7 +23,7 @@ namespace Backend.Model.PatientModel
 
 
         private Disease _diagnosedDisease;
-        public Disease DiagnosedDisease { get => _diagnosedDisease; set => _diagnosedDisease = value; }
+        public Disease DiagnosedDisease { get => _diagnosedDisease; set { _diagnosedDisease = value; _diagnosedDiseaseID = value.Id; } }
 
         private List<Therapy> _therapies;
 

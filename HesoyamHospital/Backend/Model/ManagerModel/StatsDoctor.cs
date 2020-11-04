@@ -21,7 +21,7 @@ namespace Backend.Model.ManagerModel
 
         public string AvgAppointmentTime { get { return _avgAppointmentTime; } set { _avgAppointmentTime = value; } }
 
-        public Doctor Doctor { get { return _doctor; } set { } }
+        public Doctor Doctor { get { return _doctor; } set { _doctor = value; _doctorID = value.Id; } }
 
         public StatsDoctor(double numberOfAppointments, string avgAppointmentTime, Doctor doctor): base()
         {

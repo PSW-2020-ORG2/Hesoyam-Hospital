@@ -15,108 +15,89 @@ namespace Backend.Model.PatientModel
     public class Prescription : IIdentifiable<long>
     {
         private long _id;
-        private PrescriptionStatus _status;
-        private Doctor _doctor;
-        private long _doctorID;
-
-        [NotMapped]
-        private Dictionary<Medicine, TherapyDose> _medicine;
-
-        public long DoctorID { get => _doctorID; set => _doctorID = value; }
         public long Id { get => _id; set => _id = value; }
 
-        [NotMapped]
-        public Dictionary<Medicine, TherapyDose> Medicine
+        private PrescriptionStatus _status;
+        public PrescriptionStatus Status { get => _status; set => _status = value; }
+
+        private Doctor _doctor;
+        public Doctor Doctor { get => _doctor; set { _doctor = value; _doctorID = value.Id; } }
+
+        private long _doctorID;
+        public long DoctorID { get => _doctorID; set => _doctorID = value; }
+
+        private List<MedicalTherapy> _medicalTherapies;
+        public List<MedicalTherapy> MedicalTherapies
         {
             get
             {
-                if (_medicine == null)
-                    _medicine = new Dictionary<Medicine, TherapyDose>();
-                return _medicine;
+                if (_medicalTherapies == null)
+                    _medicalTherapies = new List<MedicalTherapy>();
+                return _medicalTherapies;
             }
             set
             {
                 RemoveAllMedicine();
                 if (value != null)
                 {
-                    foreach (Medicine oMedicine in value.Keys)
-                        AddMedicine(oMedicine, _medicine[oMedicine]);
+                    foreach (MedicalTherapy mt in value)
+                        AddMedicine(mt);
                 }
             }
         }
 
-        public PrescriptionStatus Status { get => _status; set => _status = value; }
-        public Doctor Doctor { get => _doctor; set => _doctor = value; }
         public Prescription(long id)
         {
             _id = id;
         }
-        public Prescription(long id, PrescriptionStatus status, Doctor doctor,Dictionary<Medicine, TherapyDose> medicine)
+        public Prescription(long id, PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies)
         {
             _id = id;
             _status = status;
             _doctor = doctor;
-            _medicine = medicine;
+            _medicalTherapies = medicalTherapies;
             _doctorID = doctor.Id;
         }
 
-        public Prescription(PrescriptionStatus status, Doctor doctor,Dictionary<Medicine,TherapyDose> medicine)
+        public Prescription(PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies)
         {
             _status = status;
             _doctor = doctor;
-            _medicine = medicine;
+            _medicalTherapies = medicalTherapies;
             _doctorID = doctor.Id;
         }
 
-        public Prescription(Dictionary<Medicine, TherapyDose> medicines)
+        public Prescription(List<MedicalTherapy> medicalTherapies)
         {
             _status = PrescriptionStatus.ACTIVE;
-            _medicine = medicines;
+            _medicalTherapies = medicalTherapies;
         }
 
 
-      
-      /// <summary>
-      /// Property for collection of Medicine
-      /// </summary>
-      /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      
 
-        /// <summary>
-        /// Add a new Medicine in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddMedicine(Medicine newMedicine,TherapyDose therapyDose)
+        public void AddMedicine(MedicalTherapy mt)
       {
-         if (newMedicine == null)
+         if (mt == null)
             return;
-         if (this._medicine == null)
-            this._medicine = new Dictionary<Medicine, TherapyDose>();
-         if (!this._medicine.ContainsKey(newMedicine))
-            this._medicine.Add(newMedicine, therapyDose);
+         if (this._medicalTherapies == null)
+            this._medicalTherapies = new List<MedicalTherapy>();
+         if (!this._medicalTherapies.Contains(mt))
+            this._medicalTherapies.Add(mt);
       }
       
-      /// <summary>
-      /// Remove an existing Medicine from the collection
-      /// </summary>
-      /// <pdGenerated>Default Remove</pdGenerated>
-      public void RemoveMedicine(Medicine oldMedicine)
+      public void RemoveMedicine(MedicalTherapy mt)
       {
-         if (oldMedicine == null)
+         if (mt == null)
             return;
-         if (this._medicine != null)
-            if (this._medicine.ContainsKey(oldMedicine))
-               this._medicine.Remove(oldMedicine);
+         if (this._medicalTherapies != null)
+            if (this._medicalTherapies.Contains(mt))
+               this._medicalTherapies.Remove(mt);
       }
       
-      /// <summary>
-      /// Remove all instances of Medicine from the collection
-      /// </summary>
-      /// <pdGenerated>Default removeAll</pdGenerated>
       public void RemoveAllMedicine()
       {
-         if (_medicine != null)
-            _medicine.Clear();
+         if (_medicalTherapies != null)
+            _medicalTherapies.Clear();
       }
 
         public long GetId()

@@ -10,7 +10,7 @@ namespace Backend.Model.UserModel
     public class Employee : User
     {
         private TimeTable _timeTable;
-        public TimeTable TimeTable { get => _timeTable; set => _timeTable = value; }
+        public TimeTable TimeTable { get => _timeTable; set { _timeTable = value; _timeTableID = value.Id; } }
 
         private long _timeTableID;
         public long TimeTableID { get => _timeTableID; set => _timeTableID = value; }
@@ -35,6 +35,7 @@ namespace Backend.Model.UserModel
                     if (value != null)
                     {
                         _hospital = value;
+                        _hospitalID = value.Id;
                         _hospital.AddEmployee(this);
                     }
                 }

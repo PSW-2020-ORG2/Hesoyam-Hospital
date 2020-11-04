@@ -13,13 +13,13 @@ namespace Backend.Model.UserModel
         public bool Opened { get => _opened; set => _opened = value; }
 
         private User _recipient;
-        public User Recipient { get => _recipient; set { _recipient = value; } }
+        public User Recipient { get => _recipient; set { _recipient = value; _recipientID = value.Id; } }
 
         private long _recipientID;
         public long RecipientID { get => _recipientID; set => _recipientID = value; }
 
         private User _sender;
-        public User Sender { get => _sender; set { _sender = value; } }
+        public User Sender { get => _sender; set { _sender = value; _senderID = value.Id; } }
 
         private long _senderID;
         public long SenderID { get => _senderID; set => _senderID = value; }

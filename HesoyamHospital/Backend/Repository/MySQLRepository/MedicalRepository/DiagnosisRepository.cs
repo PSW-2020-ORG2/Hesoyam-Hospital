@@ -53,7 +53,7 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
 
                 foreach(Therapy therapy in therapiesForDiagnosis) 
                 {
-                    if (therapy.Prescription.Medicine.Keys.Contains(medicine)) //Prescription has information about medicine that is given to the patient.
+                    if (therapy.Prescription.MedicalTherapies.Find(mt => mt.Medicine.Equals(medicine)) != null) //Prescription has information about medicine that is given to the patient.
                         retVal.Add(diagnosis);
                 }
             }

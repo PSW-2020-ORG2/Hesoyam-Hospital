@@ -209,7 +209,7 @@ namespace Backend.Service.MedicalService
             WorkingDaysEnum day = GetDayOfWeek(date.DayOfWeek);
             TimeInterval shift = null;
 
-            doctor.TimeTable.getWorkingHours().TryGetValue(day, out shift);
+            shift = doctor.TimeTable.getWorkingHours().Find(dwh => dwh.Day == day).TimeInterval;
 
             return shift == null ? null : GetRealShift(date, shift);
         }

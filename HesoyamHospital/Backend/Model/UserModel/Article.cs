@@ -16,7 +16,7 @@ namespace Backend.Model.UserModel
         public string ShortDescription { get => _title; set => _title = value; }
 
         public Employee _author;
-        public Employee Author { get { return _author; } set { _author = value; } }
+        public Employee Author { get { return _author; } set { _author = value; _authorID = value.Id; } }
 
         private long _authorID;
         public long AuthorID { get => _authorID; set => _authorID = value; }

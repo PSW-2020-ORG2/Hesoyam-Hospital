@@ -39,9 +39,9 @@ namespace Backend.Service.MiscService
                 int starsSum = 0;
                 int counter1 = 0;
 
-                foreach (Rating rating in feedback.Rating.Values)
+                foreach (QuestionAnswer answer in feedback.Rating)
                 {
-                    starsSum += rating.Stars;
+                    starsSum += answer.Rating.Stars;
                     counter1++;
                 }
                 sum += starsSum;

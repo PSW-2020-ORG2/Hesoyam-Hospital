@@ -25,7 +25,7 @@ namespace Backend.Model.UserModel
         public string Website { get => _website; set => _website = value; }
 
         private Address _address;
-        public Address Address { get => _address; set => _address = value; }
+        public Address Address { get => _address; set { _address = value; _addressID = value.Id; } }
 
         private long _addressID;
         public long AddressID { get => _addressID; set => _addressID = value; }

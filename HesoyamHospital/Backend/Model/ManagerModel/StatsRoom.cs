@@ -44,6 +44,7 @@ namespace Backend.Model.ManagerModel
                 if (value != null)
                 {
                     _room = value;
+                    _roomID = value.Id;
                 }
             }
         }

@@ -18,13 +18,13 @@ namespace Backend.Model.UserModel
         //public MedicalRecord medicalRecord;
 
         private EmergencyContact _emergencyContact;
-        public EmergencyContact EmergencyContact { get => _emergencyContact; set => _emergencyContact = value; }
+        public EmergencyContact EmergencyContact { get => _emergencyContact; set { _emergencyContact = value; _emergencyContactID = value.Id; } }
 
         private long _emergencyContactID;
         public long EmergencyContactID { get => _emergencyContactID; set => _emergencyContactID = value; }
 
         private Doctor _selectedDoctor;
-        public Doctor SelectedDoctor { get => _selectedDoctor; set => _selectedDoctor = value; }
+        public Doctor SelectedDoctor { get => _selectedDoctor; set { _selectedDoctor = value; _selectedDoctorID = value.Id; } }
 
         private long _selectedDoctorID;
         public long SelectedDoctorID { get => _selectedDoctorID; set => _selectedDoctorID = value; }

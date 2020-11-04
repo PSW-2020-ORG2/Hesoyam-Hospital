@@ -40,7 +40,7 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.TimeInterval));
 
         public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
-            => GetAllEager().Where(therapy => therapy.Prescription.Medicine.Keys.Contains(medicine));
+            => GetAllEager().Where(therapy => therapy.Prescription.MedicalTherapies.Find(mt => mt.Medicine.Equals(medicine)) != null);
 
         public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
         {

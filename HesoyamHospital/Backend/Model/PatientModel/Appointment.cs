@@ -22,30 +22,29 @@ namespace Backend.Model.PatientModel
         private AppointmentType _appointmentType;
         public AppointmentType AppointmentType { get => _appointmentType; set => _appointmentType = value; }
 
-
         private long _timeIntervalID;
         public long TimeIntervalID { get => _timeIntervalID; set => _timeIntervalID = value; }
 
         private TimeInterval _timeInterval;
-        public TimeInterval TimeInterval { get => _timeInterval; set => _timeInterval = value; }
+        public TimeInterval TimeInterval { get => _timeInterval; set { _timeInterval = value; _timeIntervalID = value.Id; } }
 
         private long _patientID;
         public long PatientID { get => _patientID; set => _patientID = value; }
 
         private Patient _patient;
-        public Patient Patient { get => _patient; set => _patient = value; }
+        public Patient Patient { get => _patient; set { _patient = value; _patientID = value.Id; } }
 
         private long _doctorInAppointmentID;
         public long DoctorInAppointmentID { get => _doctorInAppointmentID; set => _doctorInAppointmentID = value; }
 
         private Doctor _doctorInAppointment;
-        public Doctor DoctorInAppointment { get => _doctorInAppointment; set => _doctorInAppointment = value; }
+        public Doctor DoctorInAppointment { get => _doctorInAppointment; set { _doctorInAppointment = value; _doctorInAppointmentID = value.Id; } }
 
         private long _roomID;
         public long RoomID { get => _roomID; set => _roomID = value; }
 
         public Room _room;
-        public Room Room { get => _room; set => _room = value; }
+        public Room Room { get => _room; set { _room = value; _roomID = value.Id; } }
 
       
 

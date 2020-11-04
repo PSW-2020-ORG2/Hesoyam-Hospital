@@ -25,50 +25,6 @@ namespace Backend
     {
         public User loggedInUser;
 
-        #region Files
-        //Hospital management files
-        private readonly string userFile = @"..\Backend\Files\UserFiles\users.txt";
-        private readonly string patientFile = @"..\Backend\Files\UserFiles\patients.txt";
-        private readonly string doctorFile = @"..\Backend\Files\UserFiles\doctors.txt";
-        private readonly string managerFile = @"..\Backend\Files\UserFiles\managers.txt";
-
-        private readonly string secretaryFile = @"..\Backend\Files\UserFiles\secretaries.txt";
-
-        private readonly string timeTableFile = @"..\Backend\Files\HospitalManagementFiles\timeTables.txt";
-        private readonly string hospitalFile = @"..\Backend\Files\HospitalManagementFiles\hospitals.txt";
-        private readonly string roomFile = @"..\Backend\Files\HospitalManagementFiles\rooms.txt";
-        private readonly string medicineFile = @"..\Backend\Files\HospitalManagementFiles\medicines.txt";
-        private readonly string inventoryItemFile = @"..\Backend\Files\HospitalManagementFiles\inventoryItems.txt";
-        private readonly string doctorStatisticsFile = @"..\Backend\Files\HospitalManagementFiles\doctorStatistics.txt";
-        private readonly string inventoryStatisticsFile = @"..\Backend\Files\HospitalManagementFiles\inventoryStatistics.txt";
-        private readonly string roomStatisticsFile = @"..\Backend\Files\HospitalManagementFiles\roomStatistics.txt";
-        private readonly string inventoryFile = @"..\Backend\Files\HospitalManagementFiles\inventories.txt";
-
-        //MiscFiles
-        private readonly string locationFile = @"..\Backend\Files\MiscFiles\locations.txt";
-        private readonly string notificationFile = @"..\Backend\Files\MiscFiles\notifications.txt";
-        private readonly string messageFile = @"..\Backend\Files\MiscFiles\messages.txt";
-        private readonly string articleFile = @"..\Backend\Files\MiscFiles\articles.txt";
-        private readonly string questionFile = @"..\Backend\Files\MiscFiles\questions.txt";
-        private readonly string doctorQuestionFile = @"..\Backend\Files\MiscFiles\doctorQuestions.txt";
-        private readonly string feedbackFile = @"..\Backend\Files\MiscFiles\feedbacks.txt";
-        private readonly string doctorFeedbackFile = @"..\Backend\Files\MiscFiles\doctorFeedbacks.txt";
-
-
-
-        //Medical repository files
-        private readonly string allergyFile = @"..\Backend\Files\MedicalFiles\allergies.txt";
-        private readonly string appointmentsFile = @"..\Backend\Files\MedicalFiles\appointments.txt";
-        private readonly string diagnosisFile = @"..\Backend\Files\MedicalFiles\diagnosis.txt";
-        private readonly string diseaseFile = @"..\Backend\Files\MedicalFiles\diseases.txt";
-        private readonly string ingredientFile = @"..\Backend\Files\MedicalFiles\ingredients.txt";
-        private readonly string medicalRecordFile = @"..\Backend\Files\MedicalFiles\medicalRecords.txt";
-        private readonly string prescriptionFile = @"..\Backend\Files\MedicalFiles\prescriptions.txt";
-        private readonly string symptomsFile = @"..\Backend\Files\MedicalFiles\symptoms.txt";
-        private readonly string therapyFile = @"..\Backend\Files\MedicalFiles\therapies.txt";
-
-        #endregion Files
-
         private static AppResources instance = null;
 
         #region Repositories
@@ -196,7 +152,7 @@ namespace Backend
         }
 
         private void LoadRepositories()
-        {
+        {/*
             userRepository = new UserRepository(new MySQLStream<User>(), new LongSequencer());
             // USER OK
 
@@ -208,9 +164,9 @@ namespace Backend
 
             timeTableRepository = new TimeTableRepository(new MySQLStream<TimeTable>(), new LongSequencer());
             // TIMETABLE OK
-            hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
+            */hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             // HOSPITAL OK
-
+            /*
             secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
             // SECRETARY OK
             managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new LongSequencer(), userRepository);
@@ -281,7 +237,7 @@ namespace Backend
             // RoomStats OK
 
             inventoryRepository = new InventoryRepository(new MySQLStream<Inventory>(), new LongSequencer());
-
+            */
         }
 
         public static AppResources getInstance()

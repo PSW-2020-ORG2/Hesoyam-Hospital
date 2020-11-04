@@ -3,23 +3,29 @@
 // Created: 24. maj 2020 10:53:22
 // Purpose: Definition of Class TherapyDose
 
+using Backend.Model.UserModel;
+using Backend.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Model.PatientModel
 {
-    public class TherapyDose
+    public class TherapyDose : IIdentifiable<long>
     {
-        [NotMapped]
-        private Dictionary<TherapyTime, double> _dosage;
+        private long _id;
+        public long Id { get => _id; set => _id = value; }
 
-        [NotMapped]
-        public Dictionary<TherapyTime, double> Dosage { get => _dosage; set => _dosage = value; }
+        private List<SingleTherapyDose> _dosage;
+        public List<SingleTherapyDose> Dosage { get => _dosage; set => _dosage = value; }
 
-        public TherapyDose(Dictionary<TherapyTime,double> dosage)
+        public TherapyDose(List<SingleTherapyDose> dosage)
         {
             _dosage = dosage;
         }
+
+        public long GetId() => _id;
+
+        public void SetId(long id) => _id = id;
     }
 }

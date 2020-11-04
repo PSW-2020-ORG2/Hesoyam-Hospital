@@ -17,7 +17,7 @@ namespace Backend.Model.UserModel
         public long Id {get => _id; set => _id = value;}
 
         private User _user;
-        public User User { get => _user; set => _user = value; }
+        public User User { get => _user; set { _user = value; _userId = value.Id; } }
 
         private long _userId;
         public long UserId { get => _userId; set => _userId = value; }
@@ -34,15 +34,13 @@ namespace Backend.Model.UserModel
         private string _comment;
         public string Comment { get => _comment; set => _comment = value; }
 
-        [NotMapped]
-        private Dictionary<Question, Rating> _rating;
-        [NotMapped]
-        public Dictionary<Question, Rating> Rating
+        private List<QuestionAnswer> _rating;
+        public List<QuestionAnswer> Rating
         {
             get
             {
                 if (_rating == null)
-                    _rating = new Dictionary<Question, Rating>();
+                    _rating = new List<QuestionAnswer>();
                 return _rating;
             }
             set
@@ -50,8 +48,8 @@ namespace Backend.Model.UserModel
                 RemoveAllRating();
                 if (value != null)
                 {
-                    foreach (Question q in value.Keys)
-                        AddRating(q, value[q]);
+                    foreach (QuestionAnswer qa in value)
+                        AddRating(qa);
                 }
             }
         }
@@ -64,7 +62,7 @@ namespace Backend.Model.UserModel
             _user = user;
             _userId = user.Id;
             _comment = comment;
-            _rating = new Dictionary<Question, Rating>();
+            _rating = new List<QuestionAnswer>();
         }
 
         public Feedback(long id, User user, string comment)
@@ -73,28 +71,28 @@ namespace Backend.Model.UserModel
             _user = user;
             _userId = user.Id;
             _comment = comment;
-            _rating = new Dictionary<Question, Rating>();
+            _rating = new List<QuestionAnswer>();
         }
 
-        public Feedback(User user, string comment, Dictionary<Question, Rating> rating)
+        public Feedback(User user, string comment, List<QuestionAnswer> rating)
         {
             _user = user;
             _userId = user.Id;
             _comment = comment;
             if (rating == null)
-                _rating = new Dictionary<Question, Rating>();
+                _rating = new List<QuestionAnswer>();
             else
                 _rating = rating;
         }
 
-        public Feedback(long id, User user, string comment, Dictionary<Question, Rating> rating)
+        public Feedback(long id, User user, string comment, List<QuestionAnswer> rating)
         {
             _id = id;
             _user = user;
             _userId = user.Id;
             _comment = comment;
             if (rating == null)
-                _rating = new Dictionary<Question, Rating>();
+                _rating = new List<QuestionAnswer>();
             else
                 _rating = rating;
         }
@@ -102,30 +100,30 @@ namespace Backend.Model.UserModel
         public Feedback(long id)
         {
             _id = id;
-            _rating = new Dictionary<Question, Rating>();
+            _rating = new List<QuestionAnswer>();
         }
 
 
         
-        public void AddRating(Question q, Rating r)
+        public void AddRating(QuestionAnswer qa)
         {
-            if (q == null)
+            if (qa == null)
                 return;
-            if (r == null)
-                r = new Rating();
+            if (qa.Rating == null)
+                qa.Rating = new Rating();
             if (_rating == null)
-                _rating = new Dictionary<Question, Rating>();
-            if (!_rating.ContainsKey(q))
-                _rating.Add(q, r);
+                _rating = new List<QuestionAnswer>();
+            if (_rating.Find(qatemp => qatemp.Question.Equals(qa.Question)) == null)
+                _rating.Add(qa);
         }
 
-        public void RemoveRating(Question q)
+        public void RemoveRating(QuestionAnswer qa)
         {
-            if (q == null)
+            if (qa == null)
                 return;
             if (_rating != null)
-                if (_rating.ContainsKey(q))
-                    _rating.Remove(q);
+                if (_rating.Contains(qa))
+                    _rating.Remove(qa);
         }
 
         public void RemoveAllRating()

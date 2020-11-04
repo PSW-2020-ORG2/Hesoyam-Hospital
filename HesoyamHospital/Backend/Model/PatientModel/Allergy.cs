@@ -25,10 +25,10 @@ namespace Backend.Model.PatientModel
         public Ingredient AllergicToIngredient
         {
             get { return _allergicToIngredient; }
-            set { _allergicToIngredient = value; }
+            set { _allergicToIngredient = value; _allergicToIngredientID = value.Id; }
         }
-        private long _ingredientID;
-        public long IngredientID { get => _ingredientID; set => _ingredientID = value; }
+        private long _allergicToIngredientID;
+        public long AllergicToIngredientID { get => _allergicToIngredientID; set => _allergicToIngredientID = value; }
 
         private List<Symptom> _symptoms;
 
@@ -71,7 +71,7 @@ namespace Backend.Model.PatientModel
                 _symptoms = new List<Symptom>();
             else
                 _symptoms = symptomList;
-            _ingredientID = allergicToIngredient.Id;
+            _allergicToIngredientID = allergicToIngredient.Id;
         }
 
         public Allergy(string name,Ingredient allergicToIngredient,List<Symptom> symptomList = null)
@@ -82,7 +82,7 @@ namespace Backend.Model.PatientModel
                 _symptoms = new List<Symptom>();
             else
                 _symptoms = symptomList;
-            _ingredientID = allergicToIngredient.Id;
+            _allergicToIngredientID = allergicToIngredient.Id;
         }
 
         public Allergy(string name, Ingredient allergicToIngredient)
@@ -90,7 +90,7 @@ namespace Backend.Model.PatientModel
             _name = name;
             _allergicToIngredient = allergicToIngredient;
             _symptoms = new List<Symptom>();
-            _ingredientID = allergicToIngredient.Id;
+            _allergicToIngredientID = allergicToIngredient.Id;
         }
 
 

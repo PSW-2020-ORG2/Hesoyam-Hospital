@@ -37,7 +37,7 @@ namespace Backend.Model.UserModel
         public string Email2 { get => _email2; set => _email2 = value; }
 
         private Address _address;
-        public Address Address { get => _address; set => _address = value; }
+        public Address Address { get => _address; set { _address = value; _addressID = value.Id; } }
 
         private long _addressID;
         public long AddressID { get => _addressID; set => _addressID = value; }
