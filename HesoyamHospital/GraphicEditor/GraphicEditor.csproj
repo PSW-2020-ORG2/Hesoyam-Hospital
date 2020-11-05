@@ -93,5 +93,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="icons\cantine.png" />
+    <Resource Include="icons\delivery-room.png" />
+    <Resource Include="icons\emergency-room.png" />
+    <Resource Include="icons\gynecology-room.png" />
+    <Resource Include="icons\hospital-room.png" />
+    <Resource Include="icons\intensive-care.png" />
+    <Resource Include="icons\laboratory.png" />
+    <Resource Include="icons\logohospital.png" />
+    <Resource Include="icons\medicine-storage.png" />
+    <Resource Include="icons\mri.png" />
+    <Resource Include="icons\nursery-room.png" />
+    <Resource Include="icons\oncallroom.png" />
+    <Resource Include="icons\operating-room.png" />
+    <Resource Include="icons\parking_invalid.png" />
+    <Resource Include="icons\physical-therapy.png" />
+    <Resource Include="icons\radiology.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
