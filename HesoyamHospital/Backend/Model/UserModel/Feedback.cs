@@ -103,7 +103,7 @@ namespace Backend.Model.UserModel
             _rating = new List<QuestionAnswer>();
         }
 
-
+        public Feedback() { }
         
         public void AddRating(QuestionAnswer qa)
         {
