@@ -21,3 +21,7 @@ div {
   font-size: larger;
   color: white;
 }
+
+.mat-row:hover {
+    background-color: rgb(250, 242, 231);
+}

@@ -13,7 +13,8 @@ namespace WebApplication.Dtos
         public string Comment { get; set; }
         public bool Anonymous { get; set; }
         public bool Public { get; set; }
-        
+        public bool Published { get; set; }
+
         public FeedbackDto() { }
     }
 }

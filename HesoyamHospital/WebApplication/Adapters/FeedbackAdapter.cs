@@ -17,6 +17,7 @@ namespace WebApplication.Adapters
             feedback.Comment = dto.Comment;
             feedback.Anonymous = dto.Anonymous;
             feedback.Public = dto.Public;
+            feedback.Published = dto.Published;
             return feedback;
                
         }
@@ -28,6 +29,7 @@ namespace WebApplication.Adapters
             dto.Comment = feedback.Comment;
             dto.Anonymous = feedback.Anonymous;
             dto.Public = feedback.Public;
+            dto.Published = feedback.Published;
             return dto;
         }
     }
