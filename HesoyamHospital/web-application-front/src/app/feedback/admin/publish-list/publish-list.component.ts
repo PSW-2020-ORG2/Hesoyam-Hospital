@@ -1,46 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { EventManager } from '@angular/platform-browser';
-
-
-export interface Feedback {
-  name: string;
-  position: number;
-  text: string;
-  publish: boolean;
-  published: boolean;
-}
-
-const ELEMENT_DATA: Feedback[] = [
-  {position: 1, name: 'Arda Alvarado', text:'Good hospital!', publish: true, published: false},
-  {position: 2, name: 'Aria Reed', text: "Nice", publish: true, published: false},
-  {position: 3, name: 'Gabriela Hamer', text: "Bad", publish: false, published: false},
-  {position: 4, name: 'Lucia Winter', text: "Super!!!", publish: false, published: false},
-  {position: 5, name: 'Mark Philips', text: "Good!", publish: true, published: false},
-  {position: 6, name: 'Anonymous', text: "Good!", publish: true, published: false}
-];
+import { FeedbackService } from 'src/app/feedback.service';
+import { Feedback } from 'src/app/feedback.service';
 
 @Component({
   selector: 'app-publish-list',
   templateUrl: './publish-list.component.html',
   styleUrls: ['./publish-list.component.css']
 })
+
 export class PublishListComponent implements OnInit {
 
-  displayButton = true;
-  
+  displayButton = true;  
   displayText = false;
-  constructor() { }
+  public element_data: Feedback[] = []; 
+  displayedColumns: string[] = ['id', 'name', 'text', 'public'];
+  public dataSource = this.element_data;
+
+  constructor(private _feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
+    this._feedbackService.getUnpublishedFeedbacks().subscribe(data => this.dataSource = data);
+    //this.dataSource = this.element_data;
   }
-  displayedColumns: string[] = ['position', 'name', 'text', 'publish'];
-  dataSource = ELEMENT_DATA;
+
 
   public OnClick(element) {
-    element.publish = false;
+    element.public = false;
     element.published = true;
     this.displayText = true;
-    alert("Feedback id: " + element.position)
+    alert("Feedback id: " + element.id);
+    this._feedbackService.publishFeedback(element.id).subscribe();
   }
 
 }

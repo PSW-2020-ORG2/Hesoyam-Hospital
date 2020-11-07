@@ -54,8 +54,11 @@ namespace Backend.Service.MiscService
         public void Publish(long id)
         {
            Feedback feedback= _feedbackRepository.GetEager(id);
-           feedback.Published = true;
-           _feedbackRepository.Update(feedback);
+            if (feedback != null)
+            {
+                feedback.Published = true;
+                _feedbackRepository.Update(feedback);
+            }
         }
 
         public IEnumerable<Feedback> GetAllUnpublished()

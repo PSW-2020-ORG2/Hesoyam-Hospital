@@ -164,7 +164,8 @@ namespace Backend
 
             timeTableRepository = new TimeTableRepository(new MySQLStream<TimeTable>(), new LongSequencer());
             // TIMETABLE OK
-            */hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
+            */
+            hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             // HOSPITAL OK
             /*
             secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
@@ -190,8 +191,9 @@ namespace Backend
             // QUESTION OK
             doctorQuestionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
             //DOCTOR QUESTION OK
+            */
             feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
-            
+            /*
             doctorFeedbackRepository = new DoctorFeedbackRepository(new MySQLStream<DoctorFeedback>(), new LongSequencer());
 
 
