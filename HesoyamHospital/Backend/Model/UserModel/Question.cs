@@ -15,7 +15,7 @@ namespace Backend.Model.UserModel
         private string _text;
         public string Text { get => _text; set => _text = value; }
 
-        public Question(long id) { _id = id; }
+        //public Question(long id) { _id = id; }
 
         public Question(long id, string text)
         {

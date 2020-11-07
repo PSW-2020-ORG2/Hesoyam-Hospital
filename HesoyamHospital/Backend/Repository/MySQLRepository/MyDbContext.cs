@@ -19,6 +19,7 @@ namespace Backend.Repository.MySQLRepository
         }
 
         public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

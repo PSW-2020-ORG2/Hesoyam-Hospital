@@ -16,43 +16,23 @@ namespace WebApplication.Controllers
     [ApiController]
     public class FeedbackController : ControllerBase
     {
-        private readonly MyDbContext dbContext;
-        public FeedbackController(MyDbContext context)
-        {
-            this.dbContext = context;
-        }
-
-
         [HttpGet("unpublished")]  //GET /api/feedback/unpublished
         public IActionResult GetUnpublishedFeedbacks()
         {
-
-            List<FeedbackDto> result =new  List<FeedbackDto>();
-            List<Feedback> allFeedbacks = AppResources.getInstance().feedbackService.GetAll().ToList();
-            foreach(Feedback feedback in allFeedbacks)
+            List<FeedbackDto> result = new List<FeedbackDto>();
+            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished().ToList();
+            foreach(Feedback feedback in feedbacks)
             {
-                if (feedback.Published == false)
-                {
-                    result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
-                }
+                result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
             }
-            
             return Ok(result);
         }
-        [HttpGet("{id?}")] // PUT /api/feedback/123
+
+        [HttpGet("{id?}")] // GET /api/feedback/123
         public IActionResult PublishFeedback(long id)
         {
-            Feedback feedback = AppResources.getInstance().feedbackService.GetAll().ToList().SingleOrDefault(feedback => feedback.Id == id);
-            if (feedback == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                feedback.Published = true;
-                dbContext.SaveChanges();
-                return Ok();
-            }
+            AppResources.getInstance().feedbackService.Publish(id);
+            return Ok();
         }
     }
 }

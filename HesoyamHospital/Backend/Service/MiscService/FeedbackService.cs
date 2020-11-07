@@ -51,6 +51,27 @@ namespace Backend.Service.MiscService
             _feedbackRepository.Update(entity);
         }
 
+        public void Publish(long id)
+        {
+           Feedback feedback= _feedbackRepository.GetEager(id);
+           feedback.Published = true;
+           _feedbackRepository.Update(feedback);
+        }
+
+        public IEnumerable<Feedback> GetAllUnpublished()
+        {
+            IEnumerable<Feedback> result = new List<Feedback>();
+            IEnumerable<Feedback> feedbacks = _feedbackRepository.GetAllEager();
+            foreach(Feedback feedback in feedbacks)
+            {
+                if (feedback.Published == false)
+                {
+                    result.Append(feedback);
+                }
+            }
+            return result;
+        }
+
         public void Validate(Feedback entity)
         {
             if (entity.User == null)
