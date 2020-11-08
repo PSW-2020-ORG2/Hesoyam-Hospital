@@ -14,12 +14,12 @@ export class PublishListComponent implements OnInit {
   displayText = false;
   public element_data: Feedback[] = []; 
   displayedColumns: string[] = ['id', 'name', 'text', 'public'];
-  public dataSource = this.element_data;
+  public dataSource: Feedback[] = [];
 
   constructor(private _feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    this._feedbackService.getUnpublishedFeedbacks().subscribe(data => this.dataSource = data);
+    this._feedbackService.getUnpublishedFeedbacks().subscribe((data) => this.dataSource = data);
   }
 
 

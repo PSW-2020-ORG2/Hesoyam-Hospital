@@ -68,13 +68,11 @@ namespace Backend.Service.MiscService
         {
             List<Feedback> result = new List<Feedback>();
             List<Feedback> feedbacks = _feedbackRepository.GetAllEager().ToList();
+
             foreach (Feedback feedback in feedbacks)
             {
                 long userID = feedback.UserId;
-                Console.WriteLine(userID);
                 User user = _userRepository.GetByID(userID);
-                Console.WriteLine("IME USERA: ");
-                Console.WriteLine(user.Name);
                 feedback.User = user;
             }
 

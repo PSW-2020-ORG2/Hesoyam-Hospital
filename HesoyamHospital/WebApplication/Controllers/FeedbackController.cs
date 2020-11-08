@@ -43,22 +43,14 @@ namespace WebApplication.Controllers
             }
             else
             {
-                /*foreach (Feedback feedback in feedbacks)
+                foreach (Feedback feedback in feedbacks)
                 {
                     result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
                     
                 }
-                FeedbackDto f = new FeedbackDto();
-                f.Id = 100;
-                f.Anonymous = true;
-                f.UserName = "Anonymous";
-                f.Published = false;
-                f.Comment = "Nice.";
-                f.Public = true;
-                result.Add(f);
-                iResult = Ok(result);*/
+                iResult = Ok(result.ToArray());
             }
-            return Ok(AppResources.getInstance().feedbackService.GetAllUnpublished());
+            return iResult;
         }
 
         [HttpGet("{id?}")] // GET /api/feedback/123

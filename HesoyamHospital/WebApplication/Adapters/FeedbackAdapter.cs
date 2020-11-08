@@ -36,7 +36,14 @@ namespace WebApplication.Adapters
         {
             FeedbackDto dto = new FeedbackDto();
             dto.Id = feedback.Id;
-            dto.UserName = feedback.User.UserName;
+            if (feedback.Anonymous == true)
+            {
+                dto.UserName = "Anonymous";
+            }
+            else
+            {
+                dto.UserName = feedback.User.UserName;
+            }
             dto.Comment = feedback.Comment;
             dto.Anonymous = feedback.Anonymous;
             dto.Public = feedback.Public;

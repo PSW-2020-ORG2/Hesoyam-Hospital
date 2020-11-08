@@ -16,9 +16,6 @@ export interface Feedback {
   providedIn: 'root'
 })
 
-@Injectable({
-  providedIn: 'root'
-})
 export class FeedbackService {
 
   private _urlunpublished:string = 'http://localhost:52166/api/feedback/unpublished';
