@@ -27,8 +27,8 @@ namespace GraphicEditor
 
         private void Display_Hospital1(object sender, RoutedEventArgs e)
         {
-            // Hospital1Window hospital1 = new Hospital1Window();
-            // hospital1.Show();
+             Hospital1Window hospital1 = new Hospital1Window();
+             hospital1.Show();
         }
 
         private void Display_Hospital2(object sender, RoutedEventArgs e)
@@ -50,8 +50,8 @@ namespace GraphicEditor
 
         private void MouseLeftButtonDown_Hospital1(object sender, MouseButtonEventArgs e)
         {
-            // Hospital1Window hospital1 = new Hospital1Window();
-            // hospital1.Show();
+             Hospital1Window hospital1 = new Hospital1Window();
+             hospital1.Show();
         }
 
         private void MouseLeftButtonDown_Hospital2(object sender, MouseButtonEventArgs e)

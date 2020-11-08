@@ -7,6 +7,9 @@ import { MatTableModule } from '@angular/material/table';
 const routes: Routes = [
   {
     path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
+  },
+  {
+    path: 'public', loadChildren: () => import('./public/public.module').then(mod => mod.PublicModule)
   }
 ];
 

@@ -54,6 +54,18 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Hospital1FirstFloor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hospital1GroundFloor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hospital1Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -61,6 +73,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Hospital1FirstFloor.xaml.cs">
+      <DependentUpon>Hospital1FirstFloor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hospital1GroundFloor.xaml.cs">
+      <DependentUpon>Hospital1GroundFloor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hospital1Window.xaml.cs">
+      <DependentUpon>Hospital1Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
