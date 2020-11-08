@@ -5,11 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GraphicEditor"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="610" d:DesignWidth="800"
       Title="Hospital1FirstFloor">
 
     <Grid>
-        <Canvas>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Canvas Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="5" Height="450">
             <Ellipse Fill="#FFEEE1ED" Height="250" Canvas.Left="114" Canvas.Top="170" Width="250"  Stroke="Black"/>
             <Rectangle Height="163" Width="163" Canvas.Left="501" Canvas.Top="240" Fill="#FFEEE1ED"  Stroke="Black"/>
             <Ellipse Fill="#FFFDFDC9" Height="245" Canvas.Left="117" Canvas.Top="171" Width="245"  Stroke="Black"/>
@@ -25,7 +48,7 @@
             <Rectangle Fill="#FF6D935C" Height="40" Canvas.Left="587" Stroke="Black" Canvas.Top="147" Width="75"/>
             <Rectangle Height="104" Width="90" Canvas.Left="571" Canvas.Top="189" Fill="#FFFDFDC9"  Stroke="Black"/>
             <Rectangle Fill="#FFFDFDC9" Height="90" Canvas.Left="501" Stroke="Black" Canvas.Top="38" Width="58"/>
-            <Label Content="X-ray room" Canvas.Left="383" Canvas.Top="78" Height="44">
+            <Label x:Name="labelXRayRoom" Content="X-ray room" Canvas.Left="383" Canvas.Top="78" Height="44" MouseDoubleClick="XRayRoom_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -41,7 +64,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="laboratory" Canvas.Left="579" Canvas.Top="211" Height="44">
+            <Label x:Name="labelLaboratroy" Content="laboratory" Canvas.Left="579" Canvas.Top="211" Height="44" MouseDoubleClick="Laboratroy_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -116,13 +139,13 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Rectangle Height="128" Width="125" Canvas.Left="244" Canvas.Top="38" Fill="#FFFDFDC9" Stroke="Black"/>
-            <Label Content="MRI room&#xD;&#xA;" Canvas.Left="137" Canvas.Top="84" Height="44">
+            <Label x:Name="labelMRIRoom" Content="MRI room&#xD;&#xA;" Canvas.Left="137" Canvas.Top="84" Height="44" MouseDoubleClick="MRIRoom_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
                             <StackPanel Orientation="Horizontal" Background="Tan" Width="200">
                                 <Image Source="icons/mri.png" Width="50" Height="50" ></Image>
-                                <Label Content="MRI Room" FontWeight="DemiBold" Foreground="Beige"  FontSize="14" ></Label>
+                                <Label Content="MRI Room" FontWeight="DemiBold" Foreground="Beige" FontSize="14"></Label>
                             </StackPanel>
                             <TextBlock Text="working hours: 06-14h 
                                             
@@ -133,7 +156,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="examination &#xA;room" Canvas.Left="262" Canvas.Top="77" Height="44" RenderTransformOrigin="0.179,0.545">
+            <Label x:Name="labelExaminationRoom" Content="examination &#xA;room" Canvas.Left="262" Canvas.Top="77" Height="44" RenderTransformOrigin="0.179,0.545" MouseDoubleClick="ExaminationRoom_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -150,7 +173,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="examination &#xA;room" Canvas.Left="528" Canvas.Top="326" Height="44" RenderTransformOrigin="0.179,0.545">
+            <Label x:Name="labelExaminationRoom2" Content="examination &#xA;room" Canvas.Left="528" Canvas.Top="326" Height="44" RenderTransformOrigin="0.179,0.545" MouseDoubleClick="ExaminationRoom2_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -189,5 +212,16 @@
             </Rectangle>
             <Rectangle Fill="#FFC91010" RadiusY="3.197" RadiusX="3.197" Stroke="Black" RenderTransformOrigin="0.5,0.5" Width="30" Canvas.Left="304" Canvas.Top="164" Height="6"/>
         </Canvas>
+
+        <!--#region new-purpose-for-object-->
+        <Label x:Name="labelNewPurpose" Content="Input new purpose for object :" Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Width="300" FontSize="18" Visibility="Hidden"/>
+
+        <TextBox x:Name="txtNewPurpose" Grid.Row="5" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Margin="5" Width="320" Height="30" FontSize="16" Visibility="Hidden"/>
+
+        <Button x:Name="buttonConfrim" Content="Accept the change" Grid.Row="8" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="59,6,0,7" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Click="ButtonConfrim_Click" Visibility="Hidden"/>
+
+        <Button x:Name="buttonCancel" Content="Cancel" Grid.Row="8" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Click="ButtonCancel_Click" Visibility="Hidden"/>
+        <!--#endregion-->
     </Grid>
 </Page>
+

@@ -5,11 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GraphicEditor"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="730" d:DesignWidth="700"
       Title="Hospital2GroundFloor">
-
     <Grid>
-        <Canvas Width="700">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Canvas Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="5" Height="430">
             <Rectangle Fill="#FFEEE1ED" HorizontalAlignment="Left" Height="255" VerticalAlignment="Top" Width="540" Canvas.Left="138" Canvas.Top="27" Stroke="Black"/>
             <Rectangle HorizontalAlignment="Left" Height="390" VerticalAlignment="Top" Width="210" Fill="#FFEEE1ED" Canvas.Left="21" Canvas.Top="27" Stroke="Black"/>
             <Rectangle Height="130" Canvas.Left="174" Canvas.Top="360" Width="130" RenderTransformOrigin="2.728,-0.608" Stroke="Black" Fill="#FFEEE1ED">
@@ -46,7 +68,7 @@
             <Rectangle Fill="#FFFDFDC9" Height="81" Canvas.Left="23" Stroke="Black" Canvas.Top="28" Width="100"/>
             <Rectangle Fill="#FFFDFDC9" Height="81" Canvas.Left="123" Stroke="Black" Canvas.Top="29" Width="107"/>
             <Rectangle Fill="#FFFDFDC9" Height="81" Canvas.Left="23" Stroke="Black" Canvas.Top="110" Width="100"/>
-            <Label Content="examination &#xA;room" Canvas.Left="28" Canvas.Top="126" Height="44">
+            <Label x:Name="labelExaminationRoom1" Content="examination &#xA;room" Canvas.Left="28" Canvas.Top="126" Height="44" MouseDoubleClick="ExaminationRoom1_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -117,7 +139,7 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Rectangle Fill="#FFFDFDC9" Height="102" Canvas.Left="398" Stroke="Black" Canvas.Top="179" Width="163"/>
-            <Label Content="emergency&#xD;&#xA;room" Canvas.Left="419" Canvas.Top="203" Height="44">
+            <Label x:Name="labelEmergencyRoom" Content="emergency&#xD;&#xA;room" Canvas.Left="419" Canvas.Top="203" Height="44" MouseDoubleClick="EmergencyRoom_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -141,7 +163,7 @@
                 </Label.ToolTip>
             </Label>
             <Rectangle Fill="#FFFDFDC9" Height="81" Canvas.Left="233" Stroke="Black" Canvas.Top="29" Width="199" RenderTransformOrigin="1.607,1.077"/>
-            <Label Content="physical therapy room" Canvas.Left="261" Canvas.Top="46" Height="44">
+            <Label x:Name="labelPhysicalTherapyRoom" Content="physical therapy room" Canvas.Left="261" Canvas.Top="46" Height="44" MouseDoubleClick="PhysicalTherapyRoom_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -331,7 +353,7 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Label Content="examination &#xA;room" Canvas.Left="573" Canvas.Top="182" Height="44">
+            <Label x:Name="labelExaminationRoom6" Content="examination &#xA;room" Canvas.Left="573" Canvas.Top="182" Height="44" MouseDoubleClick="ExaminationRoom6_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -348,7 +370,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="examination &#xA;room" Canvas.Left="457" Canvas.Top="56" Height="44">
+            <Label x:Name="labelExaminationRoom4" Content="examination &#xA;room" Canvas.Left="457" Canvas.Top="56" Height="44" MouseDoubleClick="ExaminationRoom4_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -365,7 +387,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="examination &#xA;room" Canvas.Left="581" Canvas.Top="53" Height="44" RenderTransformOrigin="0.553,-2.545">
+            <Label x:Name="labelExaminationRoom5" Content="examination &#xA;room" Canvas.Left="581" Canvas.Top="53" Height="44" RenderTransformOrigin="0.553,-2.545" MouseDoubleClick="ExaminationRoom5_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -382,7 +404,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="examination &#xA;room" Canvas.Left="34" Canvas.Top="49" Height="44">
+            <Label x:Name="labelExaminationRoom2" Content="examination &#xA;room" Canvas.Left="34" Canvas.Top="49" Height="44" MouseDoubleClick="ExaminationRoom2_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -400,7 +422,7 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
-            <Label Content="examination &#xA;room" Canvas.Left="137" Canvas.Top="42" Height="44">
+            <Label x:Name="labelExaminationRoom3" Content="examination &#xA;room" Canvas.Left="137" Canvas.Top="42" Height="44" MouseDoubleClick="ExaminationRoom3_MouseDoubleClick">
                 <Label.ToolTip>
                     <ToolTip>
                         <StackPanel Width="200">
@@ -439,5 +461,16 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
         </Canvas>
+
+        <!--#region new-purpose-for-object-->
+        <Label x:Name="labelNewPurpose" Content="Input new purpose for object :" Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Width="300" FontSize="18" Visibility="Hidden"/>
+
+        <TextBox x:Name="txtNewPurpose" Grid.Row="5" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Margin="5" Width="320" Height="30" FontSize="16" Visibility="Hidden"/>
+
+        <Button x:Name="buttonConfrim" Content="Accept the change" Grid.Row="8" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="59,6,0,7" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Click="ButtonConfrim_Click" Visibility="Hidden"/>
+
+        <Button x:Name="buttonCancel" Content="Cancel" Grid.Row="8" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Click="ButtonCancel_Click" Visibility="Hidden"/>
+        <!--#endregion-->
+
     </Grid>
 </Page>
