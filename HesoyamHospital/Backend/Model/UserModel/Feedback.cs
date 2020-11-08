@@ -110,6 +110,7 @@ namespace Backend.Model.UserModel
             this._anonymous = _anonymous;
             this._public = _public;
         }
+        public Feedback() { }
         
         public void AddRating(QuestionAnswer qa)
         {

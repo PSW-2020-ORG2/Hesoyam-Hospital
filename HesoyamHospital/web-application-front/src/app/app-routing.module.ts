@@ -6,6 +6,9 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
 const routes: Routes = [
   {path: '', redirectTo: '/feedback/patient/post', pathMatch: 'full'},
   {path: 'feedback/patient/post', component: PostFeedbackComponent},
+  {
+    path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
+  },
   {path:'**', component: PageNotFoundComponent}
 ];
 

@@ -10,6 +10,7 @@ using Backend.Exceptions;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MiscAbstractRepository;
 using Backend.Repository.MySQLRepository.MiscRepository;
+using Backend.Repository.MySQLRepository.UsersRepository;
 
 namespace Backend.Service.MiscService
 {
@@ -17,11 +18,13 @@ namespace Backend.Service.MiscService
     {
         private FeedbackRepository _feedbackRepository;
         private QuestionRepository _questionRepository;
+        private UserRepository _userRepository;
 
-        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository)
+        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository, UserRepository userRepository)
         {
             _feedbackRepository = feedbackRepository;
             _questionRepository = questionRepository;
+            _userRepository = userRepository;
         }
 
         public Feedback Create(Feedback entity)
@@ -49,6 +52,41 @@ namespace Backend.Service.MiscService
         {
             Validate(entity);
             _feedbackRepository.Update(entity);
+        }
+
+        public void Publish(long id)
+        {
+           Feedback feedback= _feedbackRepository.GetEager(id);
+            if (feedback != null)
+            {
+                feedback.Published = true;
+                _feedbackRepository.Update(feedback);
+            }
+        }
+
+        public List<Feedback> GetAllUnpublished()
+        {
+            List<Feedback> result = new List<Feedback>();
+            List<Feedback> feedbacks = _feedbackRepository.GetAllEager().ToList();
+            foreach (Feedback feedback in feedbacks)
+            {
+                long userID = feedback.UserId;
+                Console.WriteLine(userID);
+                User user = _userRepository.GetByID(userID);
+                Console.WriteLine("IME USERA: ");
+                Console.WriteLine(user.Name);
+                feedback.User = user;
+            }
+
+            foreach (Feedback feedback in feedbacks)
+            {
+                if (feedback.Published == false)
+                {
+                    result.Add(feedback);
+                }
+            }
+
+            return result;
         }
 
         public void Validate(Feedback entity)

@@ -134,7 +134,7 @@ namespace Backend
             articleService = new ArticleService(articleRepository);
             doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
 
-            feedbackService = new FeedbackService(feedbackRepository, questionRepository);
+            feedbackService = new FeedbackService(feedbackRepository, questionRepository, userRepository);
             locationService = new LocationService(locationRepository);
             messageService = new MessageService(messageRepository);
             notificationService = new NotificationService(notificationRepository);
@@ -152,8 +152,9 @@ namespace Backend
         }
 
         private void LoadRepositories()
-        {/**/
+        {
             userRepository = new UserRepository(new MySQLStream<User>(), new LongSequencer());
+            /*
             // USER OK
             /*
 
@@ -164,7 +165,8 @@ namespace Backend
 
             timeTableRepository = new TimeTableRepository(new MySQLStream<TimeTable>(), new LongSequencer());
             // TIMETABLE OK
-            */hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
+            */
+            hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             // HOSPITAL OK
             /*
             secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
@@ -190,7 +192,8 @@ namespace Backend
             // QUESTION OK
             doctorQuestionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
             //DOCTOR QUESTION OK
-            */feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
+            */
+            feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
             /*
             doctorFeedbackRepository = new DoctorFeedbackRepository(new MySQLStream<DoctorFeedback>(), new LongSequencer());
 
