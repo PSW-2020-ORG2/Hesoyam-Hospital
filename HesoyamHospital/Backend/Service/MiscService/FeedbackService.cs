@@ -87,6 +87,29 @@ namespace Backend.Service.MiscService
             return result;
         }
 
+        public List<Feedback> GetAllPublished()
+        {
+            List<Feedback> result = new List<Feedback>();
+            List<Feedback> feedbacks = _feedbackRepository.GetAllEager().ToList();
+
+            foreach (Feedback feedback in feedbacks)
+            {
+                long userID = feedback.UserId;
+                User user = _userRepository.GetByID(userID);
+                feedback.User = user;
+            }
+
+            foreach (Feedback feedback in feedbacks)
+            {
+                if (feedback.Published == true)
+                {
+                    result.Add(feedback);
+                }
+            }
+
+            return result;
+        }
+
         public void Validate(Feedback entity)
         {
             //if (entity.User == null)

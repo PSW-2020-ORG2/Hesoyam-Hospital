@@ -45,8 +45,28 @@ namespace WebApplication.Controllers
             {
                 foreach (Feedback feedback in feedbacks)
                 {
+                    result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));                    
+                }
+                iResult = Ok(result.ToArray());
+            }
+            return iResult;
+        }
+
+        [HttpGet("published")]  //GET /api/feedback/published
+        public IActionResult GetPublishedFeedbacks()
+        {
+            IActionResult iResult;
+            List<FeedbackDto> result = new List<FeedbackDto>();
+            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
+            if (feedbacks == null)
+            {
+                iResult = NotFound();
+            }
+            else
+            {
+                foreach (Feedback feedback in feedbacks)
+                {
                     result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
-                    
                 }
                 iResult = Ok(result.ToArray());
             }

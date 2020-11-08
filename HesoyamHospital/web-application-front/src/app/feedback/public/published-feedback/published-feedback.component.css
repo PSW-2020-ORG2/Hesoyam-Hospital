@@ -8,7 +8,8 @@
 }
 mat-card { 
     margin: 15px;
-    background-color: #ccf2ff ;
+    background-color: rgb(202, 137, 140);
+    color: white;
 }
 .content{
     display: flex;

@@ -19,6 +19,7 @@ export interface Feedback {
 export class FeedbackService {
 
   private _urlunpublished:string = 'http://localhost:52166/api/feedback/unpublished';
+  private _urlpublished:string = 'http://localhost:52166/api/feedback/published';
   private _urlID:string = 'http://localhost:52166/api/feedback/';
   private _urlpost:string = "http://localhost:52166/api/feedback";
 
@@ -30,6 +31,10 @@ export class FeedbackService {
 
   getUnpublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlunpublished);
+  }
+
+  getPublishedFeedbacks(): Observable<Feedback[]>{
+    return this._http.get<Feedback[]>(this._urlpublished);
   }
 
   publishFeedback(id: number) {

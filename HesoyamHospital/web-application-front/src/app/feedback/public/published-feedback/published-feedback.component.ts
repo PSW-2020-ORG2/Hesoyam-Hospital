@@ -1,22 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FeedbackService } from '../../services/feedback.service';
+import { Feedback } from '../../services/feedback.service';
 
-export interface Feedback {
-  name: string;
-  position: number;
-  text: string;
-  publish: boolean;
-  published: boolean;
-}
-
-
-const feedback: Feedback[] = [
-  {position: 1, name: 'Arda Alvarado', text:'Good hospital!', publish: true, published: false},
-  {position: 2, name: 'Aria Reed', text: "Nice", publish: true, published: false},
-  {position: 3, name: 'Gabriela Hamer', text: "Bad", publish: false, published: false},
-  {position: 4, name: 'Lucia Winter', text: "Super!!!", publish: false, published: false},
-  {position: 5, name: 'Mark Philips', text: "Good!", publish: true, published: false},
-  {position: 6, name: 'Anonymous', text: "Good!", publish: true, published: false}
-];
 
 @Component({
   selector: 'app-published-feedback',
@@ -24,11 +9,12 @@ const feedback: Feedback[] = [
   styleUrls: ['./published-feedback.component.css']
 })
 export class PublishedFeedbackComponent implements OnInit {
+  
+  public feedback: Feedback[] = [];
 
-  constructor() { }
+  constructor(private _feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
+    this._feedbackService.getPublishedFeedbacks().subscribe((data) => this.feedback = data);
   }
-
-  feedback = feedback;
 }
