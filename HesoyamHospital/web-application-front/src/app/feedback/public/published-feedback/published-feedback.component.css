@@ -1,27 +1,16 @@
-table {
-    width: 100%;
-  }
-
-
-.example-button-row {
-    display: table-cell;
-    width: 490px;
-  }
-
-.example-button-row .mat-button-base {
-    margin: 8px 8px 8px 0;
+#text{
+    font-size: 20px;
 }
-
-div {
-  height: 30px;
+#name{
+    font-size: 16px;
+    text-align: right;
+    padding: 10px;
 }
-
-.mat-header-cell {
-  background-color: rgb(66, 65, 68);
-  font-size: larger;
-  color: white;
+mat-card { 
+    margin: 15px;
+    background-color: #ccf2ff ;
 }
-
-.mat-row:hover {
-    background-color: rgb(250, 242, 231);
+.content{
+    display: flex;
+  justify-content: center;
 }

@@ -8,7 +8,8 @@ export interface Feedback {
   published: boolean;
 }
 
-const ELEMENT_DATA: Feedback[] = [
+
+const feedback: Feedback[] = [
   {position: 1, name: 'Arda Alvarado', text:'Good hospital!', publish: true, published: false},
   {position: 2, name: 'Aria Reed', text: "Nice", publish: true, published: false},
   {position: 3, name: 'Gabriela Hamer', text: "Bad", publish: false, published: false},
@@ -29,6 +30,5 @@ export class PublishedFeedbackComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  displayedColumns: string[] = ['name', 'text'];
-  dataSource = ELEMENT_DATA;
+  feedback = feedback;
 }

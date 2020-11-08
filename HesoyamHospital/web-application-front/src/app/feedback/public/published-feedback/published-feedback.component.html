@@ -1,27 +1,14 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> NAME </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="text">
-      <th mat-header-cell *matHeaderCellDef> TEXT </th>
-      <td mat-cell *matCellDef="let element"> {{element.text}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <div></div>
+<div class="content" fxLayout="row wrap">
+  <div fxFlex="30%" *ngFor ="let f of feedback">
+<mat-card >
+  <mat-card-content>
+    <p id = "text">
+      {{f.text}}
+    </p>
+  </mat-card-content>
+  <mat-card-footer>
+    <p id = "name">{{f.name}}</p>
+  </mat-card-footer>
+</mat-card>
+</div>
+</div>
