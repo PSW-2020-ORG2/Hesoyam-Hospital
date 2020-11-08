@@ -22,7 +22,6 @@ namespace Backend.Model.UserModel
             _id = id;
             _text = text;
         }
-        public Question(string text) { _text = text; }
 
         public override bool Equals(object obj)
         {

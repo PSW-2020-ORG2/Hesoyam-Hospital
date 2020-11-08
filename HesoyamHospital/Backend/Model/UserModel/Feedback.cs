@@ -103,7 +103,13 @@ namespace Backend.Model.UserModel
             _rating = new List<QuestionAnswer>();
         }
 
-
+        public Feedback(User _user, string _comment, bool _anonymous, bool _public)
+        {
+            this._user = _user;
+            this._comment = _comment;
+            this._anonymous = _anonymous;
+            this._public = _public;
+        }
         
         public void AddRating(QuestionAnswer qa)
         {

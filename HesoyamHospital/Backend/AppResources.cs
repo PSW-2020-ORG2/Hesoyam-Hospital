@@ -152,10 +152,10 @@ namespace Backend
         }
 
         private void LoadRepositories()
-        {/*
+        {/**/
             userRepository = new UserRepository(new MySQLStream<User>(), new LongSequencer());
             // USER OK
-
+            /*
 
             roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
             // ROOM OK
@@ -190,8 +190,8 @@ namespace Backend
             // QUESTION OK
             doctorQuestionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
             //DOCTOR QUESTION OK
-            feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
-            
+            */feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
+            /*
             doctorFeedbackRepository = new DoctorFeedbackRepository(new MySQLStream<DoctorFeedback>(), new LongSequencer());
 
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeedbackRoutingModule } from './feedback-routing.module';
 import { PatientModule } from './patient/patient.module';
+import { HttpClientModule } from '@angular/common/http'
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import { PatientModule } from './patient/patient.module';
   imports: [
     CommonModule,
     FeedbackRoutingModule,
-    PatientModule
+    PatientModule,
+    HttpClientModule
   ]
 })
 export class FeedbackModule { }

@@ -3,14 +3,16 @@ using System;
 using Backend.Repository.MySQLRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201107194204_m4")]
+    partial class m4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -290,7 +292,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("UidId");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
