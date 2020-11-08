@@ -33,14 +33,14 @@ namespace GraphicEditor
 
         private void Display_Hospital2(object sender, RoutedEventArgs e)
         {
-            // Hospital2Window hospital2 = new Hospital2Window();
-            // hospital2.Show();
+             Hospital2Window hospital2 = new Hospital2Window();
+             hospital2.Show();
         }
 
         private void Display_Warehouse(object sender, RoutedEventArgs e)
         {
-            // WarehouseWindow warehouse = new WarehouseWindow();
-            // warehouse.Show();
+             WarehouseWindow warehouse = new WarehouseWindow();
+             warehouse.Show();
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -56,14 +56,14 @@ namespace GraphicEditor
 
         private void MouseLeftButtonDown_Hospital2(object sender, MouseButtonEventArgs e)
         {
-            // Hospital2Window hospital2 = new Hospital2Window();
-            // hospital2.Show();
+             Hospital2Window hospital2 = new Hospital2Window();
+             hospital2.Show();
         }
 
         private void MouseLeftButtonDown_Warehouse(object sender, MouseButtonEventArgs e)
         {
-            // WarehouseWindow warehouse = new WarehouseWindow();
-            // warehouse.Show();
+             WarehouseWindow warehouse = new WarehouseWindow();
+             warehouse.Show();
         }
     }
 }

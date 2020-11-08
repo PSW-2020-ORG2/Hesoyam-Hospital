@@ -54,6 +54,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="WarehouseWindow.xaml.cs">
+      <DependentUpon>WarehouseWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Hospital1FirstFloor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -63,6 +66,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Hospital1Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hospital2FirstFloor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hospital2GroundFloor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hospital2SecondFloor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hospital2Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -83,10 +102,26 @@
     <Compile Include="Hospital1Window.xaml.cs">
       <DependentUpon>Hospital1Window.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hospital2FirstFloor.xaml.cs">
+      <DependentUpon>Hospital2FirstFloor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hospital2GroundFloor.xaml.cs">
+      <DependentUpon>Hospital2GroundFloor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hospital2SecondFloor.xaml.cs">
+      <DependentUpon>Hospital2SecondFloor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Hospital2Window.xaml.cs">
+      <DependentUpon>Hospital2Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WarehouseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
