@@ -72,9 +72,8 @@ namespace Backend.Repository.MySQLRepository.MySQL
         {
             try
             {
-                return _stream
-                    .ReadAll()
-                    .SingleOrDefault(entity => entity.GetId().CompareTo(id) == 0);
+                IEnumerable<T> entities = _stream.ReadAll();
+                return entities.SingleOrDefault(entity => entity.GetId().CompareTo(id) == 0);
             }
             catch (ArgumentException)
             {

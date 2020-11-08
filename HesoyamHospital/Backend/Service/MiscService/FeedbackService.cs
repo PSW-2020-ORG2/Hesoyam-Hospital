@@ -10,6 +10,7 @@ using Backend.Exceptions;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MiscAbstractRepository;
 using Backend.Repository.MySQLRepository.MiscRepository;
+using Backend.Repository.MySQLRepository.UsersRepository;
 
 namespace Backend.Service.MiscService
 {
@@ -17,11 +18,13 @@ namespace Backend.Service.MiscService
     {
         private FeedbackRepository _feedbackRepository;
         private QuestionRepository _questionRepository;
+        private UserRepository _userRepository;
 
-        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository)
+        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository, UserRepository userRepository)
         {
             _feedbackRepository = feedbackRepository;
             _questionRepository = questionRepository;
+            _userRepository = userRepository;
         }
 
         public Feedback Create(Feedback entity)
@@ -61,17 +64,28 @@ namespace Backend.Service.MiscService
             }
         }
 
-        public IEnumerable<Feedback> GetAllUnpublished()
+        public List<Feedback> GetAllUnpublished()
         {
-            IEnumerable<Feedback> result = new List<Feedback>();
-            IEnumerable<Feedback> feedbacks = _feedbackRepository.GetAllEager();
-            foreach(Feedback feedback in feedbacks)
+            List<Feedback> result = new List<Feedback>();
+            List<Feedback> feedbacks = _feedbackRepository.GetAllEager().ToList();
+            foreach (Feedback feedback in feedbacks)
+            {
+                long userID = feedback.UserId;
+                Console.WriteLine(userID);
+                User user = _userRepository.GetByID(userID);
+                Console.WriteLine("IME USERA: ");
+                Console.WriteLine(user.Name);
+                feedback.User = user;
+            }
+
+            foreach (Feedback feedback in feedbacks)
             {
                 if (feedback.Published == false)
                 {
-                    result.Append(feedback);
+                    result.Add(feedback);
                 }
             }
+
             return result;
         }
 

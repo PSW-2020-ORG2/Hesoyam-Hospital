@@ -22,14 +22,14 @@ namespace WebApplication.Controllers
         {
             IActionResult iResult;
             List<FeedbackDto> result = new List<FeedbackDto>();
-            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished().ToList();
+            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
             if (feedbacks == null)
             {
                 iResult = NotFound();
             }
             else
             {
-                foreach (Feedback feedback in feedbacks)
+                /*foreach (Feedback feedback in feedbacks)
                 {
                     result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
                     
@@ -42,9 +42,9 @@ namespace WebApplication.Controllers
                 f.Comment = "Nice.";
                 f.Public = true;
                 result.Add(f);
-                iResult = Ok(result);
+                iResult = Ok(result);*/
             }
-            return iResult;
+            return Ok(AppResources.getInstance().feedbackService.GetAllUnpublished());
         }
 
         [HttpGet("{id?}")] // GET /api/feedback/123

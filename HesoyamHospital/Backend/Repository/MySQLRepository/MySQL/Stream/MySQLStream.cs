@@ -26,12 +26,15 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
 
         public IEnumerable<T> ReadAllEager(string[] includeProperties)
         {
+            /*
             IQueryable<T> query = dbContext.Set<T>();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }
             return query.ToList();
+            */
+            return ReadAll();
         }
 
         public void SaveAll()

@@ -134,7 +134,7 @@ namespace Backend
             articleService = new ArticleService(articleRepository);
             doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
 
-            feedbackService = new FeedbackService(feedbackRepository, questionRepository);
+            feedbackService = new FeedbackService(feedbackRepository, questionRepository, userRepository);
             locationService = new LocationService(locationRepository);
             messageService = new MessageService(messageRepository);
             notificationService = new NotificationService(notificationRepository);
@@ -152,8 +152,9 @@ namespace Backend
         }
 
         private void LoadRepositories()
-        {/*
+        {
             userRepository = new UserRepository(new MySQLStream<User>(), new LongSequencer());
+            /*
             // USER OK
 
 
