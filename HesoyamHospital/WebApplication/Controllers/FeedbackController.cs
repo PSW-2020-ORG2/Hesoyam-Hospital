@@ -15,6 +15,10 @@ namespace WebApplication.Controllers
     [ApiController]
     public class FeedbackController : ControllerBase
     {
+        /// <summary>
+        /// Creating feedback and storing it in database
+        /// </summary>
+        /// <param name="dto">Feedback to be created</param>
         [HttpPost]
         public IActionResult Add(NewFeedbackDTO dto)
         {

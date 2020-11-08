@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { FeedbackDTO } from '../DTOs/feedback-dto';
+import { NewFeedbackDto } from '../DTOs/new-feedback-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class FeedbackService {
 
   constructor(private _http : HttpClient) { }
 
-  post(feedback : FeedbackDTO) {
+  post(feedback : NewFeedbackDto) {
       return this._http.post<any>(this._url, feedback);
   }
 }
