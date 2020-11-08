@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
-        Title="Hospital2Window" Height="620" Width="810"
+        Title="Hospital 2" Height="760" Width="810"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid>
@@ -41,5 +41,5 @@
 
         <Frame x:Name="Hospital2" NavigationUIVisibility="Hidden" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="4"/>
 
-        </Grid>
+    </Grid>
 </Window>
