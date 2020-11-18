@@ -11,6 +11,11 @@ namespace WebApplication.Controllers
     [ApiController]
     public class FeedbackController : ControllerBase
     {
+        [HttpGet("")]
+        public IActionResult Status()
+        {
+            return Ok("Feedback controller is up and running");
+        }
 
         [HttpPost]
         public IActionResult Add(NewFeedbackDTO dto)
