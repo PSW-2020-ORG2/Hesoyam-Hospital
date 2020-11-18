@@ -4,6 +4,7 @@ using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Adapters;
 using WebApplication.DTOs;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -22,39 +23,28 @@ namespace WebApplication.Controllers
         {
             if (dto == null) return BadRequest();
 
-            return Ok(AppResources.getInstance().feedbackService.Create(FeedbackAdapter.newFeedbackDTOToFeedback(dto)));
+            return Ok(AppResources.getInstance().feedbackService.Create(FeedbackAdapter.NewFeedbackDTOToFeedback(dto)));
         }
         
         [HttpGet("unpublished")]  //GET /api/feedback/unpublished
         public IActionResult GetUnpublishedFeedbacks()
         {
-            List<FeedbackDto> result = new List<FeedbackDto>();
             List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
 
             if (feedbacks == null) return NotFound();
 
-            foreach (Feedback feedback in feedbacks)
-            {
-                result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
-            }
+            return Ok(feedbacks.Select(feedback => FeedbackAdapter.FeedbackToFeedbackDto(feedback)).ToArray());
 
-            return Ok(result.ToArray());
         }
 
         [HttpGet("published")]  //GET /api/feedback/published
         public IActionResult GetPublishedFeedbacks()
         {
-            List<FeedbackDto> result = new List<FeedbackDto>();
             List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
 
             if (feedbacks == null) return NotFound();
 
-            foreach (Feedback feedback in feedbacks)
-            {
-                result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
-            }
-
-            return Ok(result.ToArray());
+            return Ok(feedbacks.Select(feedback => FeedbackAdapter.FeedbackToFeedbackDto(feedback)).ToArray());
         }
 
         [HttpGet("{id?}")] // GET /api/feedback/123
