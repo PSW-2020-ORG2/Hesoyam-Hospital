@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Backend;
 using Backend.Model.UserModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Adapters;
 using WebApplication.DTOs;
-using Backend.Repository.MySQLRepository;
-using Castle.Core.Internal;
 
 namespace WebApplication.Controllers
 {
@@ -17,60 +11,45 @@ namespace WebApplication.Controllers
     [ApiController]
     public class FeedbackController : ControllerBase
     {
-        /// <summary>
-        /// Creating feedback and storing it in database
-        /// </summary>
-        /// <param name="dto">Feedback to be created</param>
+
         [HttpPost]
         public IActionResult Add(NewFeedbackDTO dto)
         {
-            if (dto == null)
-            {
-                return BadRequest();
-            }
+            if (dto == null) return BadRequest();
+
             return Ok(AppResources.getInstance().feedbackService.Create(FeedbackAdapter.newFeedbackDTOToFeedback(dto)));
         }
         
         [HttpGet("unpublished")]  //GET /api/feedback/unpublished
         public IActionResult GetUnpublishedFeedbacks()
         {
-            IActionResult iResult;
             List<FeedbackDto> result = new List<FeedbackDto>();
             List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
-            if (feedbacks == null)
+
+            if (feedbacks == null) return NotFound();
+
+            foreach (Feedback feedback in feedbacks)
             {
-                iResult = NotFound();
+                result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
             }
-            else
-            {
-                foreach (Feedback feedback in feedbacks)
-                {
-                    result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));                    
-                }
-                iResult = Ok(result.ToArray());
-            }
-            return iResult;
+
+            return Ok(result.ToArray());
         }
 
         [HttpGet("published")]  //GET /api/feedback/published
         public IActionResult GetPublishedFeedbacks()
         {
-            IActionResult iResult;
             List<FeedbackDto> result = new List<FeedbackDto>();
             List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
-            if (feedbacks == null)
+
+            if (feedbacks == null) return NotFound();
+
+            foreach (Feedback feedback in feedbacks)
             {
-                iResult = NotFound();
+                result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
             }
-            else
-            {
-                foreach (Feedback feedback in feedbacks)
-                {
-                    result.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback));
-                }
-                iResult = Ok(result.ToArray());
-            }
-            return iResult;
+
+            return Ok(result.ToArray());
         }
 
         [HttpGet("{id?}")] // GET /api/feedback/123
