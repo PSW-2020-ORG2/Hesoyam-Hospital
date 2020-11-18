@@ -99,15 +99,6 @@ namespace Backend.Service.MiscService
 
         public void Validate(Feedback entity)
         {
-            //if (entity.User == null)
-            //{
-            //    throw new FeedbackServiceException("User is null!");
-            //}
-
-            //if (entity.Rating == null)
-            //{
-            //    throw new FeedbackServiceException("Feedback is empty!");
-            //}
         }
     }
 }
