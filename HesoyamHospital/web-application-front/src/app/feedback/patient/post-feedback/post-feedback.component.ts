@@ -30,12 +30,12 @@ export class PostFeedbackComponent {
   }
 
   provideFeedback() {
-    let message = "Vaš komentar je uspešno poslat. ";
-    let visibleMessage = "Ukoliko administrator odluči da Vaš komentar bude objavljen, on će biti dostupan svim posetiocima sajta.";
+    let message = "Your feedback has been successfully submitted. ";
+    let visibleMessage = "If administrator chooses to publish your feedback, it will be accessible to all website visitors.";
     if (this.feedbackDTO.Public)
-      this.openSnackBar(message + visibleMessage, "U redu");
+      this.openSnackBar(message + visibleMessage, "Okay");
     else
-      this.openSnackBar(message, "U redu");
+      this.openSnackBar(message, "Okay");
   }
 
   prepareFeedback() {
