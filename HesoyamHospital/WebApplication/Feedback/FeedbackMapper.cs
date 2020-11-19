@@ -1,22 +1,23 @@
 ﻿using Backend;
+using Backend.Model.UserModel;
 
-namespace WebApplication.Feedback
+namespace WebApplication.FeedbackFeature
 {
     public class FeedbackMapper
     {
-        public static NewFeedbackDTO FeedbackToNewFeedbackDTO(Backend.Model.UserModel.Feedback feedback)
+        public static NewFeedbackDTO FeedbackToNewFeedbackDTO(Feedback feedback)
         {
             return new NewFeedbackDTO(feedback.Comment, feedback.Anonymous, feedback.Public);
         }
 
-        public static Backend.Model.UserModel.Feedback NewFeedbackDTOToFeedback(NewFeedbackDTO dto)
+        public static Feedback NewFeedbackDTOToFeedback(NewFeedbackDTO dto)
         {
-            return new Backend.Model.UserModel.Feedback(AppResources.getInstance().userService.GetByID(500), dto.Comment, dto.Anonymous, dto.Public);
+            return new Feedback(AppResources.getInstance().userService.GetByID(500), dto.Comment, dto.Anonymous, dto.Public);
         }
 
-        public static Backend.Model.UserModel.Feedback FeedbackDtoToFeedback(FeedbackDTO dto)
+        public static Feedback FeedbackDtoToFeedback(FeedbackDTO dto)
         {
-            Backend.Model.UserModel.Feedback feedback = new Backend.Model.UserModel.Feedback();
+            Feedback feedback = new Feedback();
 
             feedback.Id = dto.Id;
             feedback.User.UserName = dto.UserName;
@@ -28,7 +29,7 @@ namespace WebApplication.Feedback
             return feedback;
 
         }
-        public static FeedbackDTO FeedbackToFeedbackDto(Backend.Model.UserModel.Feedback feedback)
+        public static FeedbackDTO FeedbackToFeedbackDto(Feedback feedback)
         {
             FeedbackDTO dto = new FeedbackDTO
             {

@@ -2,8 +2,9 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Backend;
+using Backend.Model.UserModel;
 
-namespace WebApplication.Feedback
+namespace WebApplication.FeedbackFeature
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,7 +27,7 @@ namespace WebApplication.Feedback
         [HttpGet("unpublished")]  //GET /api/feedback/unpublished
         public IActionResult GetUnpublishedFeedbacks()
         {
-            List<Backend.Model.UserModel.Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
+            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
 
             if (feedbacks == null) return NotFound();
 
@@ -37,7 +38,7 @@ namespace WebApplication.Feedback
         [HttpGet("published")]  //GET /api/feedback/published
         public IActionResult GetPublishedFeedbacks()
         {
-            List<Backend.Model.UserModel.Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
+            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
 
             if (feedbacks == null) return NotFound();
 

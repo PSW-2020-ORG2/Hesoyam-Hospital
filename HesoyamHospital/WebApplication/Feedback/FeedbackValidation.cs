@@ -1,6 +1,4 @@
-﻿using Backend;
-
-namespace WebApplication.Feedback
+﻿namespace WebApplication.FeedbackFeature
 {
     public class FeedbackValidation
     {
