@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 import { NewFeedbackDto } from '../DTOs/new-feedback-dto';
 import { Observable } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class FeedbackService {
 
   private _urlunpublished:string = 'http://localhost:52166/api/feedback/unpublished';
   private _urlpublished:string = 'http://localhost:52166/api/feedback/published';
-  private _urlID:string = 'http://localhost:52166/api/feedback/';
+  private _urlID:string = 'http://localhost:52166/api/feedback';
   private _urlpost:string = "http://localhost:52166/api/feedback";
 
   constructor(private _http : HttpClient) { }
@@ -38,7 +38,6 @@ export class FeedbackService {
   }
 
   publishFeedback(id: number) {
-    console.log(id);
-    return this._http.get(this._urlID+id);
+    return this._http.put(this._urlID, id);
   }
 }

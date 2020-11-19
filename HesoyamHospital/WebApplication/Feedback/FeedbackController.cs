@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using Backend;
-using Backend.Model.UserModel;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication.Adapters;
-using WebApplication.DTOs;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Backend;
 
-namespace WebApplication.Controllers
+namespace WebApplication.Feedback
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,34 +18,34 @@ namespace WebApplication.Controllers
         [HttpPost]
         public IActionResult Add(NewFeedbackDTO dto)
         {
-            if (dto == null) return BadRequest();
+            if (!FeedbackValidation.isNewFeedbackValid(dto)) return BadRequest();
 
-            return Ok(AppResources.getInstance().feedbackService.Create(FeedbackAdapter.NewFeedbackDTOToFeedback(dto)));
+            return Ok(AppResources.getInstance().feedbackService.Create(FeedbackMapper.NewFeedbackDTOToFeedback(dto)));
         }
-        
+
         [HttpGet("unpublished")]  //GET /api/feedback/unpublished
         public IActionResult GetUnpublishedFeedbacks()
         {
-            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
+            List<Backend.Model.UserModel.Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllUnpublished();
 
             if (feedbacks == null) return NotFound();
 
-            return Ok(feedbacks.Select(feedback => FeedbackAdapter.FeedbackToFeedbackDto(feedback)).ToArray());
+            return Ok(feedbacks.Select(feedback => FeedbackMapper.FeedbackToFeedbackDto(feedback)).ToArray());
 
         }
 
         [HttpGet("published")]  //GET /api/feedback/published
         public IActionResult GetPublishedFeedbacks()
         {
-            List<Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
+            List<Backend.Model.UserModel.Feedback> feedbacks = AppResources.getInstance().feedbackService.GetAllPublished();
 
             if (feedbacks == null) return NotFound();
 
-            return Ok(feedbacks.Select(feedback => FeedbackAdapter.FeedbackToFeedbackDto(feedback)).ToArray());
+            return Ok(feedbacks.Select(feedback => FeedbackMapper.FeedbackToFeedbackDto(feedback)).ToArray());
         }
 
-        [HttpGet("{id?}")] // GET /api/feedback/123
-        public IActionResult PublishFeedback(long id)
+        [HttpPut]
+        public IActionResult PublishFeedback([FromBody]long id)
         {
             AppResources.getInstance().feedbackService.Publish(id);
             return Ok();
