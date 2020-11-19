@@ -1,10 +1,9 @@
-﻿﻿using Backend;
+﻿using Backend;
 using Backend.Model.UserModel;
- using WebApplication.DTOs;
 
-namespace WebApplication.Adapters
+namespace WebApplication.FeedbackFeature
 {
-    public class FeedbackAdapter
+    public class FeedbackMapper
     {
         public static NewFeedbackDTO FeedbackToNewFeedbackDTO(Feedback feedback)
         {
@@ -16,7 +15,7 @@ namespace WebApplication.Adapters
             return new Feedback(AppResources.getInstance().userService.GetByID(500), dto.Comment, dto.Anonymous, dto.Public);
         }
 
-        public static Feedback FeedbackDtoToFeedback(FeedbackDto dto)
+        public static Feedback FeedbackDtoToFeedback(FeedbackDTO dto)
         {
             Feedback feedback = new Feedback();
 
@@ -28,11 +27,11 @@ namespace WebApplication.Adapters
             feedback.Published = dto.Published;
 
             return feedback;
-               
+
         }
-        public static FeedbackDto FeedbackToFeedbackDto(Feedback feedback)
+        public static FeedbackDTO FeedbackToFeedbackDto(Feedback feedback)
         {
-            FeedbackDto dto = new FeedbackDto
+            FeedbackDTO dto = new FeedbackDTO
             {
                 Id = feedback.Id,
                 UserName = feedback.Anonymous ? "Anonymous" : feedback.User.UserName,

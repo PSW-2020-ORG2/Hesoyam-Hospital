@@ -3,31 +3,31 @@
             <form #feedform="ngForm" style="width: 80%;" (ngSubmit)="submit()" novalidate>
 
                 <h2 style="text-align: center;">
-                    Feedback o radu bolnice
+                    Share your feedback
                 </h2>
     
                 <div class="center">
                   <mat-form-field style="width:100%;">
-                      <mat-label>Vaš komentar (1-500 karaktera) </mat-label>
+                      <mat-label>Your comment (1-500 characters) </mat-label>
                       <textarea #name = "ngModel" pattern = "^.{1,500}$" name="c" matInput required cdkTextareaAutosize [(ngModel)] = "feedbackDTO.Comment" placeholder="Podelite svoje utiske" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
       
                 <div style="display: grid; grid-row-gap: 50px;">
-                  <label class="item1">Da li želite da uz ovaj komentar stoji Vaše ime?</label>
+                  <label class="item1">Do you want your name to be displayed next to your comment?</label>
                   <mat-radio-group #ano = "ngModel" name="a" class="item2" [(ngModel)] = "_anonymous">
-                      <mat-radio-button [(checked)] = "!feedbackDTO.Anonymous" value="0">Da</mat-radio-button>
-                      <mat-radio-button [(checked)] = "feedbackDTO.Anonymous"  value="1">Ne</mat-radio-button>
+                      <mat-radio-button [(checked)] = "!feedbackDTO.Anonymous" value="0">Yes</mat-radio-button>
+                      <mat-radio-button [(checked)] = "feedbackDTO.Anonymous"  value="1">No</mat-radio-button>
                   </mat-radio-group>
-                  <label class="item3">Da li želite da ovaj komentar bude vidljiv svim korisnicima sajta?</label>
+                  <label class="item3">Do you want your feedback to be visible to all website visitors?</label>
                   <mat-radio-group #vis = "ngModel" name="v" class="item4" style="float: right;" [(ngModel)] = "_public">
-                      <mat-radio-button value="0">Da</mat-radio-button>
-                      <mat-radio-button value="1">Ne</mat-radio-button>
+                      <mat-radio-button value="0">Yes</mat-radio-button>
+                      <mat-radio-button value="1">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
       
                 <div style="text-align: center; margin-top: 50px;">
-                  <button [disabled] ="name.invalid || ano.pristine || vis.pristine" mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Pošalji</button>
+                  <button [disabled] ="name.invalid || ano.pristine || vis.pristine" mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Submit</button>
                 </div>
       
             </form>
