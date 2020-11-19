@@ -3,12 +3,9 @@
 // Created: 6. maj 2020 18:46:57
 // Purpose: Definition of Class FeedbackService
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Backend.Exceptions;
 using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MiscAbstractRepository;
 using Backend.Repository.MySQLRepository.MiscRepository;
 using Backend.Repository.MySQLRepository.UsersRepository;
 
@@ -30,6 +27,7 @@ namespace Backend.Service.MiscService
         public Feedback Create(Feedback entity)
         {
             Validate(entity);
+
             return _feedbackRepository.Create(entity);
         }
 
@@ -56,12 +54,11 @@ namespace Backend.Service.MiscService
 
         public void Publish(long id)
         {
-           Feedback feedback= _feedbackRepository.GetEager(id);
-            if (feedback != null)
-            {
-                feedback.Published = true;
-                _feedbackRepository.Update(feedback);
-            }
+            Feedback feedback = _feedbackRepository.GetEager(id);
+            if (feedback == null) return;
+            
+            feedback.Published = true;
+            _feedbackRepository.Update(feedback);
         }
 
         public List<Feedback> GetAllUnpublished()
@@ -71,14 +68,9 @@ namespace Backend.Service.MiscService
 
             foreach (Feedback feedback in feedbacks)
             {
-                long userID = feedback.UserId;
-                User user = _userRepository.GetByID(userID);
-                feedback.User = user;
-            }
+                feedback.User = _userRepository.GetByID(feedback.UserId);
 
-            foreach (Feedback feedback in feedbacks)
-            {
-                if (feedback.Published == false)
+                if (!feedback.Published)
                 {
                     result.Add(feedback);
                 }
@@ -94,14 +86,9 @@ namespace Backend.Service.MiscService
 
             foreach (Feedback feedback in feedbacks)
             {
-                long userID = feedback.UserId;
-                User user = _userRepository.GetByID(userID);
-                feedback.User = user;
-            }
+                feedback.User = _userRepository.GetByID(feedback.UserId);
 
-            foreach (Feedback feedback in feedbacks)
-            {
-                if (feedback.Published == true)
+                if (feedback.Published)
                 {
                     result.Add(feedback);
                 }
@@ -112,15 +99,6 @@ namespace Backend.Service.MiscService
 
         public void Validate(Feedback entity)
         {
-            //if (entity.User == null)
-            //{
-            //    throw new FeedbackServiceException("User is null!");
-            //}
-
-            //if (entity.Rating == null)
-            //{
-            //    throw new FeedbackServiceException("Feedback is empty!");
-            //}
         }
     }
 }
