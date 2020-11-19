@@ -13,6 +13,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{49226B60-869E-428E-8C7F-C573E3DDFC9F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationAdapters", "IntegrationAdapters\IntegrationAdapters.csproj", "{BDA106DB-20B3-46B0-B9B4-014B41DA6D88}"
+	ProjectSection(ProjectDependencies) = postProject
+		{49226B60-869E-428E-8C7F-C573E3DDFC9F} = {49226B60-869E-428E-8C7F-C573E3DDFC9F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
