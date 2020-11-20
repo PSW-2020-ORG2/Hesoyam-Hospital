@@ -3,27 +3,27 @@
             <form #feedform="ngForm" style="width: 80%;" novalidate>
 
                 <h2 style="text-align: center;">
-                    Registration
+                    Patient Registration
                 </h2>
     
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Name</mat-label>
-                    <textarea matInput [formControl]="nameValidator" required cdkTextareaAutosize placeholder="Name" pattern = "{a-zA-Z}{2,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="nameValidator" required cdkTextareaAutosize placeholder="Name" pattern = "[A-Za-z]{2,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Surname</mat-label>
-                    <textarea matInput [formControl]="surnameValidator" required cdkTextareaAutosize placeholder="Surname" pattern = "{a-zA-Z}{2,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="surnameValidator" required cdkTextareaAutosize placeholder="Surname" pattern = "[a-zA-Z ]{2,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Middle name</mat-label>
-                    <textarea matInput [formControl]="middleValidator" required cdkTextareaAutosize placeholder="Middle name" pattern = "{a-zA-Z}{1,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="middleValidator" required cdkTextareaAutosize placeholder="Middle name" pattern = "[A-Za-z]{1,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
                
@@ -47,14 +47,14 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Username</mat-label>
-                    <textarea matInput [formControl]="usernameValidator" required cdkTextareaAutosize placeholder="Username" pattern = "^.{8,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="usernameValidator" required cdkTextareaAutosize placeholder="Username" pattern = "[A-Za-z]{8,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" required [formControl]="passwordValidator" pattern = "^.{8,30}$">
+                    <input matInput [type]="hide ? 'password' : 'text'" required [formControl]="passwordValidator" pattern = "[A-Za-z]{8,30}">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -64,7 +64,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Date of birth</mat-label>
-                    <input matInput [matDatepicker]="picker" required [formControl]="dateValidator">
+                    <input matInput [matDatepicker]="picker" required [formControl]="dateValidator" placeholder="MM/DD/YYYY">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -73,14 +73,14 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Mobile phone</mat-label>
-                    <textarea matInput [formControl]="mobileValidator" required cdkTextareaAutosize placeholder="06xxxxxxxx" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="mobileValidator" required cdkTextareaAutosize placeholder="06XXXXXXXX" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Home phone</mat-label>
-                    <textarea matInput cdkTextareaAutosize placeholder="Home phone" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="homeValidator" cdkTextareaAutosize placeholder="Home phone" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
@@ -99,7 +99,7 @@
                     <mat-option value="O_POSITIVE">0+</mat-option>
                     <mat-option value="NOT_TESTED">NOT TESTED</mat-option>
                     </mat-select>
-                  <mat-error *ngIf="selectFormControl.hasError('required')">Please choose blood type</mat-error>
+                  <mat-error *ngIf="bloodControl.hasError('required')">Please choose blood type</mat-error>
                   </mat-form-field>
                 </div>
                 
@@ -121,18 +121,18 @@
                 <div class="left">
                   <mat-form-field class="adress-in-line">
                     <mat-label>Country</mat-label>
-                    <textarea matInput [formControl]="countryValidator" required cdkTextareaAutosize placeholder="Country" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="countryValidator" required cdkTextareaAutosize placeholder="Country" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                   <mat-form-field class="adress-in-line">
                     <mat-label>City</mat-label>
-                    <textarea matInput [formControl]="cityValidator" required cdkTextareaAutosize placeholder="City" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="cityValidator" required cdkTextareaAutosize placeholder="City" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Address</mat-label>
-                    <textarea matInput [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Country" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                    <textarea matInput [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
@@ -142,7 +142,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 50px;">
-                  <button mat-raised-button color="primary" [disabled] ="email.invalid || nameValidator.invalid || surnameValidator.invalid || middleValidator.invalid || genderValidator.invalid || usernameValidator.invalid || passwordValidator.invalid || dateValidator.invalid || mobileValidator.invalid || countryValidator.invalid || cityValidator.invalid || addressValidator.invalid" type="submit" style="padding: 12px 32px">Register</button>
+                  <button mat-raised-button color="primary" [disabled] ="email.invalid || nameValidator.invalid || surnameValidator.invalid || middleValidator.invalid || genderValidator.invalid || usernameValidator.invalid || passwordValidator.invalid || dateValidator.invalid || mobileValidator.invalid || countryValidator.invalid || cityValidator.invalid || addressValidator.invalid" type="submit" routerLink="../registrationform" style="padding: 12px 32px">Register</button>
                 </div>
                
       
