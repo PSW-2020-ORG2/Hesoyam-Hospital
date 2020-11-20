@@ -10,34 +10,10 @@ using System;
 
 namespace Backend.Model.PatientModel
 {
-    public class Prescription : IIdentifiable<long>
+    public class Prescription : Document, IIdentifiable<long>
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
         private PrescriptionStatus _status;
         public PrescriptionStatus Status { get => _status; set => _status = value; }
-
-        private DateTime _dateCreated;
-        public DateTime DateCreated { get => _dateCreated; set => _dateCreated = value; }
-
-        private Patient _patient;
-        public Patient Patient { get => _patient; set { _patient = value; _patientID = value.Id; } }
-
-        private long _patientID;
-        public long PatientID { get => _patientID; set => _patientID = value; }
-
-        private Doctor _doctor;
-        public Doctor Doctor { get => _doctor; set { _doctor = value; _doctorID = value.Id; } }
-
-        private long _doctorID;
-        public long DoctorID { get => _doctorID; set => _doctorID = value; }
-
-        private Diagnosis _diagnosis;
-        public Diagnosis Diagnosis { get => _diagnosis; set { _diagnosis = value; _diagnosisID = value.Id; } }
-
-        private long _diagnosisID;
-        public long DiagnosisID { get => _diagnosisID; set => _diagnosisID = value; }
 
         private List<MedicalTherapy> _medicalTherapies;
         public List<MedicalTherapy> MedicalTherapies
