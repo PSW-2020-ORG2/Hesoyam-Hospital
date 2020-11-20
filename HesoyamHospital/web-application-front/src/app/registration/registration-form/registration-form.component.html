@@ -1,0 +1,84 @@
+<div style="height:100%; display: flex; justify-content: center;">
+    <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 60%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px;">
+            <form #feedform="ngForm" style="width: 80%;" novalidate>
+
+                <h2 style="text-align: center;">
+                    Registration
+                </h2>
+    
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <textarea matInput required cdkTextareaAutosize placeholder="Name" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Surname</mat-label>
+                    <textarea matInput required cdkTextareaAutosize placeholder="Surname" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Middle name</mat-label>
+                    <textarea matInput required cdkTextareaAutosize placeholder="Middle name" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Enter your email</mat-label>
+                    <input matInput placeholder="email@example.com" [formControl]="email" required>
+                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <textarea matInput required cdkTextareaAutosize placeholder="Username" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+                
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of birth</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Mobile phone</mat-label>
+                    <textarea matInput required cdkTextareaAutosize placeholder="06xxxxxxxx" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Home phone</mat-label>
+                    <textarea matInput cdkTextareaAutosize placeholder="Home phone" pattern = "^.{1,20}$" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+      
+                <div style="text-align: center; margin-top: 50px;">
+                  <button mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Register</button>
+                </div>
+      
+            </form>
+    </mat-card>
+</div>

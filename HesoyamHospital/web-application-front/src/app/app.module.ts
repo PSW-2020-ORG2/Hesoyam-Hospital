@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FeedbackModule} from './feedback/feedback.module'
-import { SharedModule } from './shared/shared.module'
+import { FeedbackModule } from './feedback/feedback.module';
+import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FeedbackService } from './feedback/services/feedback.service';
 import { MaterialModule } from './shared/material/material.module';
+import { RegistrationModule } from './registration/registration.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MaterialModule } from './shared/material/material.module';
     FeedbackModule,
     SharedModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    RegistrationModule
   ],
   providers: [FeedbackService],
   bootstrap: [AppComponent]
