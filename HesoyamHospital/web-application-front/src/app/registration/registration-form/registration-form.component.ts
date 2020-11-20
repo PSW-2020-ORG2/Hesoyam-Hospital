@@ -28,6 +28,7 @@ export class RegistrationFormComponent implements OnInit {
   countryValidator = new FormControl('', Validators.required);
   cityValidator = new FormControl('', Validators.required);
   addressValidator = new FormControl('', Validators.required);
+  homeValidator = new FormControl('', Validators.required);
   empty = new FormControl('', Validators.required);
 
 
