@@ -12,6 +12,9 @@ const routes: Routes = [
   {
     path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
   },
+  {
+    path: 'registration', loadChildren: () => import('./registration/registration.module').then(mod => mod.RegistrationModule)
+  },
   {path:'**', component: PageNotFoundComponent}
   
 ];
