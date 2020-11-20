@@ -3,12 +3,9 @@
 // Created: 21. maj 2020 15:43:46
 // Purpose: Definition of Class Prescription
 
-using Backend.Model.PatientModel;
-using System;
 using Backend.Repository.Abstract;
 using System.Collections.Generic;
 using Backend.Model.UserModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Model.PatientModel
 {
