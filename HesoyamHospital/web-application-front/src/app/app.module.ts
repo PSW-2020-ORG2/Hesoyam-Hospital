@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module'
 import { HttpClientModule } from '@angular/common/http';
 import { FeedbackService } from './feedback/services/feedback.service';
 import { MaterialModule } from './shared/material/material.module';
+import { MedicalRecordModule} from './medical-record/medical-record.module';
+
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { MaterialModule } from './shared/material/material.module';
     FeedbackModule,
     SharedModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MedicalRecordModule
   ],
   providers: [FeedbackService],
   bootstrap: [AppComponent]

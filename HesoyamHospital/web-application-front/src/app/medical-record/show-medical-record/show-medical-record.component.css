@@ -1,0 +1,10 @@
+mat-card { 
+    margin: 15px;
+    background-color: rgb(255, 81, 162);
+    color: white;
+}
+#divCenter{
+    justify-content: center;
+    width: 80%;
+}
+
