@@ -11,9 +11,10 @@ import {MatTableModule} from '@angular/material/table';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 const MaterialComponents = [MatFormFieldModule, MatInputModule, MatRadioModule, MatButtonModule, MatCardModule, MatSnackBarModule,
-MatIconModule, MatToolbarModule, MatTableModule, FlexLayoutModule, MatDatepickerModule, MatNativeDateModule]
+MatIconModule, MatToolbarModule, MatTableModule, FlexLayoutModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule]
 
 @NgModule({
   declarations: [],
