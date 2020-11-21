@@ -7,45 +7,45 @@ using System.Threading.Tasks;
 
 namespace Backend.Service.MiscService
 {
-    public class PharmacyApiKeyService : IService<PharmacyApiKey, long>
+    public class PharmacyApiKeyService : IService<RegisteredPharmacy, long>
     {
-        private PharmacyApiKeyRepository _pharmacyApiKeyRepository;
+        private RegisteredPharmacyRepository _pharmacyApiKeyRepository;
 
-        public PharmacyApiKeyService(PharmacyApiKeyRepository pharmacyApiKeyRepository)
+        public PharmacyApiKeyService(RegisteredPharmacyRepository pharmacyApiKeyRepository)
         {
             _pharmacyApiKeyRepository = pharmacyApiKeyRepository;
         }
-        public PharmacyApiKey Create(PharmacyApiKey entity)
+        public RegisteredPharmacy Create(RegisteredPharmacy entity)
         {
             return _pharmacyApiKeyRepository.Create(entity);
         }
 
-        public void Delete(PharmacyApiKey entity)
+        public void Delete(RegisteredPharmacy entity)
         {
             _pharmacyApiKeyRepository.Delete(entity);
         }
 
-        public IEnumerable<PharmacyApiKey> GetAll()
+        public IEnumerable<RegisteredPharmacy> GetAll()
         {
             return _pharmacyApiKeyRepository.GetAll();
         }
 
-        public PharmacyApiKey GetByID(long id)
+        public RegisteredPharmacy GetByID(long id)
         {
             return _pharmacyApiKeyRepository.GetByID(id);
         }
 
-        public PharmacyApiKey GetByPharmacyName(string name)
+        public RegisteredPharmacy GetRegisteredPharmacyByName(string name)
         {
-            return _pharmacyApiKeyRepository.GetAll().FirstOrDefault(apiKey => apiKey.PharmacyName.Equals(name));
+            return _pharmacyApiKeyRepository.GetRegisteredPharmacyByName(name);
         }
 
-        public void Update(PharmacyApiKey entity)
+        public void Update(RegisteredPharmacy entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Validate(PharmacyApiKey entity)
+        public void Validate(RegisteredPharmacy entity)
         {
             throw new NotImplementedException();
         }

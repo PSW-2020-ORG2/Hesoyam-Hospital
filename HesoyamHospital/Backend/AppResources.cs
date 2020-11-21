@@ -52,7 +52,7 @@ namespace Backend
         public QuestionRepository doctorQuestionRepository;
         public FeedbackRepository feedbackRepository;
         public DoctorFeedbackRepository doctorFeedbackRepository;
-        public PharmacyApiKeyRepository pharmacyApiKeyRepository;
+        public RegisteredPharmacyRepository pharmacyApiKeyRepository;
 
 
         //Hospital management
@@ -246,7 +246,7 @@ namespace Backend
             inventoryRepository = new InventoryRepository(new MySQLStream<Inventory>(), new LongSequencer());
             */
 
-            pharmacyApiKeyRepository = new PharmacyApiKeyRepository(new MySQLStream<PharmacyApiKey>(), new LongSequencer());
+            pharmacyApiKeyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
         }
 
         public static AppResources getInstance()

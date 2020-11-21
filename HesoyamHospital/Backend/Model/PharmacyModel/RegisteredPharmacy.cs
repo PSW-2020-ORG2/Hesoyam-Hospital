@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace Backend.Model.PharmacyModel
 {
-    public class PharmacyApiKey : IIdentifiable<long>
+    public class RegisteredPharmacy : IIdentifiable<long>
     {
-        public long Id { get; private set; }
-        public string ApiKey { get; private set; }
+        public long Id { get; set; }
+        public string ApiKey { get; set; }
         [Key]
         public string PharmacyName { get; set; }
-
-        public PharmacyApiKey(string apiKey, string pharmacyName)
+        public string Endpoint { get; set; }
+        public RegisteredPharmacy(string apiKey, string pharmacyName, string endpoint)
         {
             ApiKey = apiKey;
             PharmacyName = pharmacyName;
+            Endpoint = endpoint;
         }
-        public PharmacyApiKey() { }
+        public RegisteredPharmacy() { }
 
         public long GetId()
         {
