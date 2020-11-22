@@ -15,37 +15,16 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
     public class SurveyRepository : MySQLRepository<Survey, long>, ISurveyRepository, IEagerRepository<Survey, long>
     {
         private const string ENTITY_NAME = "";
+        private string[] INCLUDE_PROPERTIES = { "" };
         public SurveyRepository(IMySQLStream<Survey> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Survey>())
         {
         }
-        public Survey Create(Survey entity)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Survey> GetAllEager()
+           => GetAllEager(INCLUDE_PROPERTIES);
 
-        public void Delete(Survey entity)
-        {
-            throw new NotImplementedException();
-        }
+        public Survey GetEager(long id)
+            => GetAllEager().SingleOrDefault(survey => survey.GetId() == id);
 
-        public IEnumerable<Survey> Find(ISpecification<Survey> criteria)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<Survey> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Survey GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Survey entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
