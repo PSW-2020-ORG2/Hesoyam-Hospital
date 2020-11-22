@@ -15,13 +15,11 @@ namespace Backend.Service.MiscService
     {
         private FeedbackRepository _feedbackRepository;
         private QuestionRepository _questionRepository;
-        private UserRepository _userRepository;
 
-        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository, UserRepository userRepository)
+        public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository)
         {
             _feedbackRepository = feedbackRepository;
             _questionRepository = questionRepository;
-            _userRepository = userRepository;
         }
 
         public Feedback Create(Feedback entity)
@@ -68,8 +66,6 @@ namespace Backend.Service.MiscService
 
             foreach (Feedback feedback in feedbacks)
             {
-                feedback.User = _userRepository.GetByID(feedback.UserId);
-
                 if (!feedback.Published)
                 {
                     result.Add(feedback);
@@ -86,8 +82,6 @@ namespace Backend.Service.MiscService
 
             foreach (Feedback feedback in feedbacks)
             {
-                feedback.User = _userRepository.GetByID(feedback.UserId);
-
                 if (feedback.Published)
                 {
                     result.Add(feedback);
