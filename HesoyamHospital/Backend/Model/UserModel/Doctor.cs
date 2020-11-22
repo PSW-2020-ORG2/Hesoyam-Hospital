@@ -26,7 +26,8 @@ namespace Backend.Model.UserModel
                         DateTime dateCreated, 
                         string name, 
                         string surname, 
-                        string middleName, 
+                        string middleName,
+                        string jmbg,
                         Sex sex, 
                         DateTime dateOfBirth, 
                         string uidn, 
@@ -39,7 +40,7 @@ namespace Backend.Model.UserModel
                         Hospital hospital, 
                         Room office, 
                         DoctorType doctorType) 
-            : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
             _officeID = office.Id;
@@ -51,6 +52,7 @@ namespace Backend.Model.UserModel
                         string name,
                         string surname,
                         string middleName,
+                        string jmbg,
                         Sex sex,
                         DateTime dateOfBirth,
                         string uidn,
@@ -63,7 +65,7 @@ namespace Backend.Model.UserModel
                         Hospital hospital,
                         Room office,
                         DoctorType doctorType)
-            : base(timeTable, hospital, userName, password, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(timeTable, hospital, userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
             _officeID = office.Id;
@@ -78,6 +80,7 @@ namespace Backend.Model.UserModel
                         string name, 
                         string surname, 
                         string middleName, 
+                        string jmbg,
                         Sex sex, 
                         DateTime dateOfBirth, 
                         string uidn, 
@@ -90,7 +93,7 @@ namespace Backend.Model.UserModel
                         Hospital hospital, 
                         Room office, 
                         DoctorType doctorType) 
-            : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _office = office;
             _officeID = office.Id;

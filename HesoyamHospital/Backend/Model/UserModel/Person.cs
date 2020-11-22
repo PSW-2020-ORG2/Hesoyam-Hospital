@@ -21,6 +21,9 @@ namespace Backend.Model.UserModel
         private string _middleName;
         public string MiddleName { get => _middleName; set => _middleName = value; }
 
+        private string _jmbg;
+        public string Jmbg { get => _jmbg; set => _jmbg = value; }
+
         private DateTime _dateOfBirth;
         public DateTime DateOfBirth { get => _dateOfBirth; set => _dateOfBirth = value; }
 
@@ -57,9 +60,10 @@ namespace Backend.Model.UserModel
         }
 
         public Person() { }
-        public Person(  string name, 
-                        string surname, 
-                        string middleName, 
+        public Person(string name,
+                        string surname,
+                        string middleName,
+                        string jmbg,
                         Sex sex, 
                         DateTime dateOfBirth, 
                         string uidn, 
@@ -72,6 +76,7 @@ namespace Backend.Model.UserModel
             _name = name;
             _surname = surname;
             _middleName = middleName;
+            _jmbg = jmbg;
             _sex = sex;
             _dateOfBirth = dateOfBirth;
             _uidn = uidn;

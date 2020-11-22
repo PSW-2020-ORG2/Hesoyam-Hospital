@@ -42,6 +42,7 @@ namespace Backend.Model.UserModel
                     string name, 
                     string surname, 
                     string middleName, 
+                    string jmbg,
                     Sex sex, 
                     DateTime dateOfBirth, 
                     string uidn, 
@@ -50,7 +51,7 @@ namespace Backend.Model.UserModel
                     string cellPhone, 
                     string email1, 
                     string email2) 
-            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _userName = userName;
             _password = password;
@@ -65,6 +66,7 @@ namespace Backend.Model.UserModel
                     string name, 
                     string surname, 
                     string middleName, 
+                    string jmbg,
                     Sex sex, 
                     DateTime dateOfBirth, 
                     string uidn, 
@@ -73,7 +75,7 @@ namespace Backend.Model.UserModel
                     string cellPhone, 
                     string email1, 
                     string email2) 
-            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _id = id;
             _uid = uid;
@@ -87,6 +89,7 @@ namespace Backend.Model.UserModel
                     string name,
                     string surname,
                     string middleName,
+                    string jmbg,
                     Sex sex,
                     DateTime dateOfBirth,
                     string uidn,
@@ -95,7 +98,7 @@ namespace Backend.Model.UserModel
                     string cellPhone,
                     string email1,
                     string email2)
-            : base(name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _userName = userName;
             _password = password;

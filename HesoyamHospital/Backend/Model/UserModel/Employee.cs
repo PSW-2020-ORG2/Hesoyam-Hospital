@@ -55,7 +55,8 @@ namespace Backend.Model.UserModel
                         DateTime dateCreated, 
                         string name, 
                         string surname, 
-                        string middleName, 
+                        string middleName,
+                        string jmbg,
                         Sex sex, 
                         DateTime dateOfBirth, 
                         string uidn, 
@@ -64,7 +65,7 @@ namespace Backend.Model.UserModel
                         string cellPhone, 
                         string email1, 
                         string email2) 
-            : base(userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _timeTable = timeTable;
             _timeTableID = timeTable.Id;
@@ -79,6 +80,7 @@ namespace Backend.Model.UserModel
                         string name,
                         string surname,
                         string middleName,
+                        string jmbg,
                         Sex sex,
                         DateTime dateOfBirth,
                         string uidn,
@@ -87,7 +89,7 @@ namespace Backend.Model.UserModel
                         string cellPhone,
                         string email1,
                         string email2)
-            : base(userName, password, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _timeTable = timeTable;
             _timeTableID = timeTable.Id;
@@ -105,6 +107,7 @@ namespace Backend.Model.UserModel
                         string name, 
                         string surname, 
                         string middleName, 
+                        string jmbg,
                         Sex sex, 
                         DateTime dateOfBirth, 
                         string uidn, 
@@ -113,7 +116,7 @@ namespace Backend.Model.UserModel
                         string cellPhone, 
                         string email1, 
                         string email2) 
-            : base(id, uid, userName, password, dateCreated, name, surname, middleName, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(id, uid, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
             _timeTable = timeTable;
             _timeTableID = timeTable.Id;
