@@ -21,7 +21,7 @@ namespace WebApplication.Documents
         }
 
         [HttpPost("simple-search")]
-        public IActionResult SimpleSearchDocs([FromBody]SearchCriteria criteria)
+        public IActionResult SimpleSearchDocs(SearchCriteria criteria)
         {
             throw new NotImplementedException();
         }

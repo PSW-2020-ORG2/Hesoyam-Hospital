@@ -23,7 +23,7 @@ namespace WebApplicationTests.Integration.Documents
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Simple_Search_Status_Code_Tests(SearchCriteria criteria, HttpStatusCode expectedStatusCode)
+        public async void Simple_search_status_code_tests(SearchCriteria criteria, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
             StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria));

@@ -11,10 +11,10 @@ namespace WebApplication.Documents.Service
         private readonly IPrescriptionRepository _prescriptionRepository;
         private readonly IReportRepository _reportRepository;
 
-        public DocumentService()
+        public DocumentService(IPrescriptionRepository prescriptionRepository, IReportRepository reportRepository)
         {
-            _prescriptionRepository = AppResources.getInstance().prescriptionRepository;
-            _reportRepository = AppResources.getInstance().reportRepository;
+            _prescriptionRepository = prescriptionRepository;
+            _reportRepository = reportRepository;
         }
 
         public Document Create(Document entity)
@@ -39,7 +39,12 @@ namespace WebApplication.Documents.Service
 
         public IEnumerable<Document> SimpleSearchDocs(SearchCriteria criteria)
         {
-            throw new NotImplementedException();
+            List<Document> result = new List<Document>();
+
+            if (criteria.ShouldSearchPrescriptions) result.AddRange(getPrescriptionsThatMeetCriteria(criteria));
+            if (criteria.ShouldSearchReports) result.AddRange(getReportsThatMeetCriteria(criteria));
+
+            return result;
         }
 
         public void Update(Document entity)
@@ -48,6 +53,16 @@ namespace WebApplication.Documents.Service
         }
 
         public void Validate(Document entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<Document> getPrescriptionsThatMeetCriteria(SearchCriteria criteria)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<Document> getReportsThatMeetCriteria(SearchCriteria criteria)
         {
             throw new NotImplementedException();
         }

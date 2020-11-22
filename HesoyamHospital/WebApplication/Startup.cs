@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Model.PatientModel;
+using Backend.Repository.MySQLRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.MySQL.Stream;
+using Backend.Repository.Sequencer;
 using Backend.Service;
 using Backend.Service.HospitalManagementService;
 using Microsoft.AspNetCore.Builder;
@@ -40,8 +44,7 @@ namespace WebApplication
                                       .AllowAnyMethod();
                                   });
             });
-
-            services.AddSingleton<IDocumentService, DocumentService>();
+            services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer()), new ReportRepository(new MySQLStream<Report>(), new LongSequencer())));
 
             services.AddControllers();
         }
