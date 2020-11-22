@@ -3,28 +3,17 @@
 // Created: 21. maj 2020 15:43:46
 // Purpose: Definition of Class Prescription
 
-using Backend.Model.PatientModel;
-using System;
 using Backend.Repository.Abstract;
 using System.Collections.Generic;
 using Backend.Model.UserModel;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace Backend.Model.PatientModel
 {
-    public class Prescription : IIdentifiable<long>
+    public class Prescription : Document, IIdentifiable<long>
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
         private PrescriptionStatus _status;
         public PrescriptionStatus Status { get => _status; set => _status = value; }
-
-        private Doctor _doctor;
-        public Doctor Doctor { get => _doctor; set { _doctor = value; _doctorID = value.Id; } }
-
-        private long _doctorID;
-        public long DoctorID { get => _doctorID; set => _doctorID = value; }
 
         private List<MedicalTherapy> _medicalTherapies;
         public List<MedicalTherapy> MedicalTherapies
@@ -73,7 +62,16 @@ namespace Backend.Model.PatientModel
             _medicalTherapies = medicalTherapies;
         }
 
-
+        public Prescription(PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies, string diagnosis, Patient patient)
+        {
+            _status = status;
+            _doctor = doctor;
+            _medicalTherapies = medicalTherapies;
+            _doctorID = doctor.Id;
+            _diagnosis = diagnosis;
+            _patient = patient;
+            _patientID = patient.Id;
+        }
 
         public void AddMedicine(MedicalTherapy mt)
       {

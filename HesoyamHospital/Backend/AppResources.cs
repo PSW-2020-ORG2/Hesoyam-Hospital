@@ -66,6 +66,7 @@ namespace Backend
         public IngredientRepository ingredientRepository;
         public MedicalRecordRepository medicalRecordRepository;
         public PrescriptionRepository prescriptionRepository;
+        public ReportRepository reportRepository;
         public SymptomRepository symptomRepository;
         public TherapyRepository therapyRepository;
 
@@ -215,7 +216,9 @@ namespace Backend
 
             prescriptionRepository = new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer());
             //PRESCRIPTION REPO OK
-
+            
+            reportRepository = new ReportRepository(new MySQLStream<Report>(), new LongSequencer());
+            
             //Medical repositories
 
             allergyRepository = new AllergyRepository(new MySQLStream<Allergy>(), new LongSequencer());
