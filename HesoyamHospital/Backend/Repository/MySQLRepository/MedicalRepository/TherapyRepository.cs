@@ -19,7 +19,7 @@ using Backend.Specifications;
 
 namespace Backend.Repository.MySQLRepository.MedicalRepository
 {
-    public class TherapyRepository : MySQLRepository<Therapy, long>, ITherapyRepository, IEagerRepository<Therapy, long>
+    public class TherapyRepository : MySQLRepository<Therapy, long>, IEagerRepository<Therapy, long>
     {
         private const string ENTITY_NAME = "Therapy";
         private string[] INCLUDE_PROPERTIES = { "TimeInterval", "Prescription" };
@@ -60,7 +60,7 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             {
                 foreach (var eagerT in eagerTs)
                 {
-                    if (ther._id == eagerT._id)
+                    if (ther.Id == eagerT.Id)
                     {
                         result.Append(eagerT);
                     }
@@ -68,9 +68,6 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             }
             return result;
         }
-
-        public IEnumerable<Therapy> GetTherapyByDiagnosis(Diagnosis diagnosis)
-            => diagnosis.Therapies;
 
         public IEnumerable<Therapy> GetActiveTherapyForPatient(Patient patient)
         {
@@ -99,12 +96,6 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             return retVal;*/
             return GetAllEager();
         }
-
-        public IEnumerable<Therapy> GetActiveTherapyForDiagnosis(Diagnosis diagnosis)
-            => diagnosis.ActiveTherapy;
-
-        public IEnumerable<Therapy> GetPastTherapiesForDiagnosis(Diagnosis diagnosis)
-            => diagnosis.InactiveTherapy;
 
         public TherapySpecificationConverter therapySpecificationConverter;
 

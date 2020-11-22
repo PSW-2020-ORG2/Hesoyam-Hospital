@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace Backend.Repository.MySQLRepository.MedicalRepository
 {
-    public class DiagnosisRepository : MySQLRepository<Diagnosis, long>, IDiagnosisRepository, IEagerRepository<Diagnosis, long>
+    public class DiagnosisRepository : MySQLRepository<Diagnosis, long>, IEagerRepository<Diagnosis, long>
     {
         private const string ENTITY_NAME = "Diagnosis";
         private string[] INCLUDE_PROPERTIES = { "Therapies", "DiagnosedDisease", "ActiveTherapy", "InactiveTherapy", "Date" };
@@ -38,28 +38,6 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             /* treba vratiti dijagnoze za pacijenta, a ne sve*/
 
             return GetAllEager();
-        }
-
-        public IEnumerable<Diagnosis> GetDiagnosisByMedicine(Medicine medicine)
-        {
-            List<Diagnosis> retVal = new List<Diagnosis>();
-
-            IEnumerable<Diagnosis> allDiagnosis = GetAllEager();
-
-            foreach(Diagnosis diagnosis in allDiagnosis)
-            {
-                
-                IEnumerable<Therapy> therapiesForDiagnosis = diagnosis.Therapies; //Therapy contains information about prescriptions.
-
-                foreach(Therapy therapy in therapiesForDiagnosis) 
-                {
-                    if (therapy.Prescription.MedicalTherapies.Find(mt => mt.Medicine.Equals(medicine)) != null) //Prescription has information about medicine that is given to the patient.
-                        retVal.Add(diagnosis);
-                }
-            }
-
-            return retVal;
-
         }
      }
 }

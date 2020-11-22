@@ -34,9 +34,7 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
 
         public IEnumerable<T> ReadAllEager(string[] includeProperties)
         {
-            /*
             IQueryable<T> query = dbContext.Set<T>();
-            IQueryable<T> test = dbContext.Set<T>();
             var properties = typeof(T).GetProperties();
             foreach (var property in properties)
             {
@@ -45,12 +43,11 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
                 || c.Name == property.Name + "id");
                 if (c != null)
                 {
-                    test = query.Include(property.Name);
+                    query = query.Include(property.Name);
                 }
             }
             return query.ToList();
-            */
-            return ReadAll();
+            //return ReadAll();
         }
 
         public void SaveAll()
