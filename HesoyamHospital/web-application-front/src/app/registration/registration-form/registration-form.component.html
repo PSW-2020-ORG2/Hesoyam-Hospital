@@ -86,6 +86,13 @@
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
+                    <mat-label>JMBG</mat-label>
+                    <textarea matInput [formControl]="jmbgValidator" required cdkTextareaAutosize placeholder="JMBG" pattern = "[1-90]{13}" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
                   <mat-label>Blood type</mat-label>
                   <mat-select [formControl]="bloodControl" required>
                     <mat-option>--</mat-option>
