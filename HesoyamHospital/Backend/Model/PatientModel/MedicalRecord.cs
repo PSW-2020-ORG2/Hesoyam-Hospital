@@ -13,38 +13,37 @@ namespace Backend.Model.PatientModel
     public class MedicalRecord : IIdentifiable<long>
     {
         private long _id;
-        private BloodType _patientBloodType;
-        private Patient _patient;
-        private long _patientID;
-
-        private List<Diagnosis> _patientDiagnosis;
-        public List<Allergy> _allergy;
-
         public long Id { get => _id; set => _id = value; }
 
+        private BloodType _patientBloodType;
+        public BloodType PatientBloodType { get => _patientBloodType; set => _patientBloodType = value; }
+
+        private Patient _patient;
         public Patient Patient { get => _patient; set { _patient = value; _patientID = value.Id; } }
+
+        private long _patientID;
         public long PatientID { get => _patientID; set => _patientID = value; }
-        public long GetId()
-        => _id;
 
-        public void SetId(long id)
-            => _id = id;
+        private List<Report> _patientReports;
+        private List<Allergy> _allergy;
+        private List<Prescription> _prescriptions;
 
-        public List<Diagnosis> PatientDiagnosis
+
+        public List<Report> PatientReports
         {
             get
             {
-                if (_patientDiagnosis == null)
-                    _patientDiagnosis = new List<Diagnosis>();
-                return _patientDiagnosis;
+                if (_patientReports == null)
+                    _patientReports = new List<Report>();
+                return _patientReports;
             }
             set
             {
-                RemoveAllPatientDiagnosis();
+                RemoveAllPatientReport();
                 if (value != null)
                 {
-                    foreach (Diagnosis oDiagnosis in value)
-                        AddPatientDiagnosis(oDiagnosis);
+                    foreach (Report oReport in value)
+                        AddPatientReport(oReport);
                 }
             }
         }
@@ -68,6 +67,25 @@ namespace Backend.Model.PatientModel
             }
         }
 
+        public List<Prescription> Prescriptions
+        {
+            get
+            {
+                if (_prescriptions == null)
+                    _prescriptions = new List<Prescription>();
+                return _prescriptions;
+            }
+            set
+            {
+                RemoveAllAllergy();
+                if (value != null)
+                {
+                    foreach (Prescription oPrescription in value)
+                        AddPrescription(oPrescription);
+                }
+            }
+        }
+
         public MedicalRecord(long id)
         {
             _id = id;
@@ -77,9 +95,9 @@ namespace Backend.Model.PatientModel
         public MedicalRecord(Patient patient)
         {
             _patient = patient;
+            _patientID = patient.Id;
             _patientBloodType = BloodType.NOT_TESTED;
-
-            _patientDiagnosis = new List<Diagnosis>();
+            _patientReports = new List<Report>();
             _allergy = new List<Allergy>();
         }
 
@@ -87,84 +105,62 @@ namespace Backend.Model.PatientModel
         {
             _patient = patient;
             _patientBloodType = bloodType;
-            _patientDiagnosis = new List<Diagnosis>();
+            _patientReports = new List<Report>();
             _allergy = new List<Allergy>();
             _patientID = patient.Id;
         }
 
-        public MedicalRecord(Patient patient,BloodType bloodType,List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
+        public MedicalRecord(Patient patient, BloodType bloodType, List<Report> patientReport, List<Allergy> patientAllergies)
         {
             _patient = patient;
             _patientBloodType = bloodType;
-            _patientDiagnosis = patientDiagnosis;
+            _patientReports = patientReport;
             _allergy = patientAllergies;
             _patientID = patient.Id;
         }
 
-        public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Diagnosis> patientDiagnosis, List<Allergy> patientAllergies)
+        public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Report> patientReport, List<Allergy> patientAllergies)
         {
             _id = id;
             _patient = patient;
             _patientBloodType = bloodType;
-            _patientDiagnosis = patientDiagnosis;
+            _patientReports = patientReport;
             _allergy = patientAllergies;
             _patientID = patient.Id;
         }
 
+        public long GetId()
+        => _id;
 
-        /// <summary>
-        /// Property for collection of Diagnosis
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        
+        public void SetId(long id)
+            => _id = id;
 
-        /// <summary>
-        /// Add a new Diagnosis in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddPatientDiagnosis(Diagnosis newDiagnosis)
+
+        public void AddPatientReport(Report newReport)
         {
-            if (newDiagnosis == null)
+            if (newReport == null)
                 return;
-            if (_patientDiagnosis == null)
-                _patientDiagnosis = new List<Diagnosis>();
-            if (!_patientDiagnosis.Contains(newDiagnosis))
-                _patientDiagnosis.Add(newDiagnosis);
+            if (_patientReports == null)
+                _patientReports = new List<Report>();
+            if (!_patientReports.Contains(newReport))
+                _patientReports.Add(newReport);
         }
 
-        /// <summary>
-        /// Remove an existing Diagnosis from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemovePatientDiagnosis(Diagnosis oldDiagnosis)
+        public void RemovePatientReport(Report oldReport)
         {
-            if (oldDiagnosis == null)
+            if (oldReport == null)
                 return;
-            if (_patientDiagnosis != null)
-                if (_patientDiagnosis.Contains(oldDiagnosis))
-                    _patientDiagnosis.Remove(oldDiagnosis);
+            if (_patientReports != null)
+                if (_patientReports.Contains(oldReport))
+                    _patientReports.Remove(oldReport);
         }
 
-        /// <summary>
-        /// Remove all instances of Diagnosis from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllPatientDiagnosis()
+        public void RemoveAllPatientReport()
         {
-            if (_patientDiagnosis != null)
-                _patientDiagnosis.Clear();
+            if (_patientReports != null)
+                _patientReports.Clear();
         }
         
-
-        /// <summary>
-        /// Property for collection of Allergy
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-
-        /// <summary>
-        /// Add a new Allergy in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
         public void AddAllergy(Allergy newAllergy)
         {
             if (newAllergy == null)
@@ -175,10 +171,6 @@ namespace Backend.Model.PatientModel
                 _allergy.Add(newAllergy);
         }
 
-        /// <summary>
-        /// Remove an existing Allergy from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
         public void RemoveAllergy(Allergy oldAllergy)
         {
             if (oldAllergy == null)
@@ -188,17 +180,37 @@ namespace Backend.Model.PatientModel
                     _allergy.Remove(oldAllergy);
         }
 
-        /// <summary>
-        /// Remove all instances of Allergy from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllAllergy()
         {
             if (_allergy != null)
                 _allergy.Clear();
         }
 
-    
+        public void AddPrescription(Prescription newPrescription)
+        {
+            if (newPrescription == null)
+                return;
+            if (_prescriptions == null)
+                _prescriptions = new List<Prescription>();
+            if (!_prescriptions.Contains(newPrescription))
+                _prescriptions.Add(newPrescription);
+        }
+
+        public void RemovePrescription(Prescription oldPrescription)
+        {
+            if (oldPrescription == null)
+                return;
+            if (_prescriptions != null)
+                if (_prescriptions.Contains(oldPrescription))
+                    _prescriptions.Remove(oldPrescription);
+        }
+
+        public void RemoveAllPrescription()
+        {
+            if (_prescriptions != null)
+                _prescriptions.Clear();
+        }
+
 
         public override bool Equals(object obj)
         {
@@ -212,16 +224,5 @@ namespace Backend.Model.PatientModel
             return 1969571243 + _id.GetHashCode();
         }
 
-
-        /// <summary>
-        /// Property for BloodType
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public BloodType PatientBloodType
-        {
-            get { return _patientBloodType; }
-            set { _patientBloodType = value; }
-        }
-        
     }
 }

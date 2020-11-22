@@ -19,6 +19,11 @@ namespace Backend.Model.PatientModel
         private List<SingleTherapyDose> _dosage;
         public List<SingleTherapyDose> Dosage { get => _dosage; set => _dosage = value; }
 
+        public TherapyDose()
+        {
+
+        }
+
         public TherapyDose(List<SingleTherapyDose> dosage)
         {
             _dosage = dosage;

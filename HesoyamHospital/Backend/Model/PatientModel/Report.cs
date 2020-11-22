@@ -14,7 +14,7 @@ namespace Backend.Model.PatientModel
             _dateCreated = DateTime.Now;
         }
 
-        public Report (long id, Patient patient, Doctor doctor, string comment, string diagnosis)
+        public Report (long id, Patient patient, Doctor doctor, string comment, Diagnosis diagnosis)
         {
             _id = id;
             _patient = patient;

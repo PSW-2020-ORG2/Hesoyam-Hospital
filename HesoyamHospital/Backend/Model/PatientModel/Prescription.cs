@@ -62,7 +62,7 @@ namespace Backend.Model.PatientModel
             _medicalTherapies = medicalTherapies;
         }
 
-        public Prescription(PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies, string diagnosis, Patient patient)
+        public Prescription(PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies, Diagnosis diagnosis, Patient patient)
         {
             _status = status;
             _doctor = doctor;

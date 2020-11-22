@@ -26,7 +26,10 @@ namespace Backend.Model.PatientModel
         protected long _doctorID;
         public long DoctorID { get => _doctorID; set => _doctorID = value; }
 
-        protected string _diagnosis;
-        public string Diagnosis { get => _diagnosis; set => _diagnosis = value; }
+        protected Diagnosis _diagnosis;
+        public Diagnosis Diagnosis { get => _diagnosis; set { _diagnosis = value; _diagnosisID = value.Id; } }
+
+        protected long _diagnosisID;
+        public long DiagnosisID { get => _diagnosisID; set => _diagnosisID = value; }
     }
 }

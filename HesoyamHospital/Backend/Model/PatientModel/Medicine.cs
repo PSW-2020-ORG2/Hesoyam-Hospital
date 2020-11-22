@@ -12,7 +12,6 @@ namespace Backend.Model.PatientModel
 {
     public class Medicine : Item
     {
-        private double _strength;
         private bool _isValid;
         private MedicineType _medicineType;
 
@@ -37,8 +36,6 @@ namespace Backend.Model.PatientModel
                 }
             }
         }
-
-        public double Strength { get => _strength; set => _strength = value; }
         public bool IsValid { get => _isValid; set => _isValid = value; }
         public MedicineType MedicineType { get => _medicineType; set => _medicineType = value; }
         public List<DiseaseMedicine> UsedFor
@@ -63,9 +60,8 @@ namespace Backend.Model.PatientModel
         public Medicine(long id) : base(id)
         {
         }
-        public Medicine(string name,double strength, MedicineType medicineType,int inStock, int minNumber) : base(name, inStock, minNumber)
+        public Medicine(string name, MedicineType medicineType,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
-            _strength = strength;
             _medicineType = MedicineType;
             _isValid = false;
             _ingredient = new List<Ingredient>();
@@ -73,35 +69,22 @@ namespace Backend.Model.PatientModel
         }
 
 
-        public Medicine(string name, double strength, MedicineType medicineType,bool isValid,List<DiseaseMedicine> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
+        public Medicine(string name, MedicineType medicineType,bool isValid,List<DiseaseMedicine> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
-            _strength = strength;
             _medicineType = MedicineType;
             _isValid = false;
             _ingredient = ingredient;
             _usedFor = usedFor;
         }
 
-        public Medicine(long id, string name, double strength, MedicineType medicineType, bool isValid, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
+        public Medicine(long id, string name, MedicineType medicineType, bool isValid, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
         {
-            _strength = strength;
             _medicineType = MedicineType;
             _isValid = isValid;
             _ingredient = ingredient;
             _usedFor = usedFor;
         }
 
-
-
-        /// <summary>
-        /// Property for collection of Ingredient
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      
-        /// <summary>
-        /// Add a new Ingredient in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
         public void AddIngredient(Ingredient newIngredient)
         {
             if (newIngredient == null)
@@ -112,10 +95,6 @@ namespace Backend.Model.PatientModel
                 _ingredient.Add(newIngredient);
         }
 
-        /// <summary>
-        /// Remove an existing Ingredient from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
         public void RemoveIngredient(Ingredient oldIngredient)
         {
             if (oldIngredient == null)
@@ -125,21 +104,12 @@ namespace Backend.Model.PatientModel
                     _ingredient.Remove(oldIngredient);
         }
 
-        /// <summary>
-        /// Remove all instances of Ingredient from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllIngredient()
         {
             if (_ingredient != null)
                 _ingredient.Clear();
         }
 
-
-        /// <summary>
-        /// Add a new Disease in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
         public void AddUsedFor(Disease newDisease)
         {
             if (newDisease == null)
@@ -154,10 +124,6 @@ namespace Backend.Model.PatientModel
             }
         }
 
-        /// <summary>
-        /// Remove an existing Disease from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
         public void RemoveUsedFor(Disease oldDisease)
         {
             if (oldDisease == null)
@@ -172,10 +138,6 @@ namespace Backend.Model.PatientModel
                 }
         }
 
-        /// <summary>
-        /// Remove all instances of Disease from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
         public void RemoveAllUsedFor()
         {
             if (_usedFor != null)
