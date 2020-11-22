@@ -37,7 +37,7 @@ namespace WebApplication.Documents.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Document> SimpleSearchDocs()
+        public IEnumerable<Document> SimpleSearchDocs(SearchCriteria criteria)
         {
             throw new NotImplementedException();
         }

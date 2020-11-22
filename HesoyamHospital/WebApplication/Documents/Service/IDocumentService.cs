@@ -9,6 +9,6 @@ namespace WebApplication.Documents.Service
 {
     public interface IDocumentService : IService<Document, long>
     {
-        public IEnumerable<Document> SimpleSearchDocs();
+        public IEnumerable<Document> SimpleSearchDocs(SearchCriteria criteria);
     }
 }

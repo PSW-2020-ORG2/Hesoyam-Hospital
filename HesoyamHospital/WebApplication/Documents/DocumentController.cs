@@ -20,8 +20,8 @@ namespace WebApplication.Documents
             _documentService = documentService;
         }
 
-        [HttpGet]
-        public IActionResult SimpleSearchDocs()
+        [HttpGet("simple-search")]
+        public IActionResult SimpleSearchDocs([FromBody]SearchCriteria criteria)
         {
             throw new NotImplementedException();
         }
