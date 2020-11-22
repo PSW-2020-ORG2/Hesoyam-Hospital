@@ -25,6 +25,10 @@ namespace WebApplication.Authentication
         public string City { get; set; }
         public string Address { get; set; }
 
+        public NewPatientDTO()
+        {
+
+        }
         public NewPatientDTO(string name, string surname, string middleName, string gender, string email, string username, string password, DateTime dateOfBirth, string healthCardNumber, string jmbg, string mobilePhone, string homePhone, string bloodType, List<string> allergies, string country, string city, string address)
         {
             Name = name;

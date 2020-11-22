@@ -39,7 +39,7 @@ namespace WebApplication.Authentication
         {
             try
             {
-                Sex sex = (Sex)Enum.Parse(typeof(Sex), gender, true);
+                Sex sex = (Sex)Enum.Parse(typeof(Sex), gender, false);
                 if (Enum.IsDefined(typeof(Sex), sex))
                     return sex;
                 else
@@ -55,7 +55,7 @@ namespace WebApplication.Authentication
         {
             try
             {
-                BloodType bloodTypeEnum = (BloodType)Enum.Parse(typeof(BloodType), bloodType, true);
+                BloodType bloodTypeEnum = (BloodType)Enum.Parse(typeof(BloodType), bloodType, false);
                 if (Enum.IsDefined(typeof(BloodType), bloodTypeEnum))
                     return bloodTypeEnum;
                 else
