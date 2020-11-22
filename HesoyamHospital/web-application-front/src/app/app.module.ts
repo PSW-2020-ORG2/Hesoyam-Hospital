@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FeedbackService } from './feedback/services/feedback.service';
 import { MaterialModule } from './shared/material/material.module';
+import { MedicalRecordModule} from './medical-record/medical-record.module';
 import { RegistrationModule } from './registration/registration.module';
 
 
@@ -23,6 +24,7 @@ import { RegistrationModule } from './registration/registration.module';
     SharedModule,
     HttpClientModule,
     MaterialModule,
+    MedicalRecordModule,
     RegistrationModule
   ],
   providers: [FeedbackService],
