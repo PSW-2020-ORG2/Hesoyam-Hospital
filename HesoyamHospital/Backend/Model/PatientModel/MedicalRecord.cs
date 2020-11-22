@@ -119,6 +119,15 @@ namespace Backend.Model.PatientModel
             _patientID = patient.Id;
         }
 
+        //constructor for NewPatientMapper
+        public MedicalRecord(Patient patient, BloodType bloodType, List<Allergy> patientAllergies)
+        {
+            _patient = patient;
+            _patientBloodType = bloodType;
+            _allergy = patientAllergies;
+            _patientID = patient.Id;
+        }
+
         public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Report> patientReport, List<Allergy> patientAllergies)
         {
             _id = id;

@@ -58,6 +58,26 @@ namespace Backend.Model.UserModel
             _dateCreated = dateCreated;
         }
 
+        //constructor for NewPatientMapper
+        public User(string userName,
+                    string password,
+                    string name,
+                    string surname,
+                    string middleName,
+                    string jmbg,
+                    Sex sex,
+                    DateTime dateOfBirth,
+                    string uidn,
+                    Address address,
+                    string homePhone,
+                    string cellPhone,
+                    string email1)
+            : base(name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1)
+        {
+            _userName = userName;
+            _password = password;
+        }
+
         public User(long id,
                     UserID uid,
                     string userName, 

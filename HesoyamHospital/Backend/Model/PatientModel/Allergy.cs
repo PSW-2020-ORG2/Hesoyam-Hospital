@@ -18,6 +18,11 @@ namespace Backend.Model.PatientModel
         private string _name;
         public string Name { get => _name; set => _name = value; }
 
+        public Allergy(string name)
+        {
+            _name = name;
+        }
+
         public Allergy(long id)
         {
             _id = id;
