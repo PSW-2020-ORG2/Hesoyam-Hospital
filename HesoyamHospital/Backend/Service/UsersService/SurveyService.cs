@@ -42,5 +42,91 @@ namespace Backend.Service.UsersService
         {
             
         }
+        //mean values per section
+        public double MeanValuesPerDoctorSection()
+        {
+            List<double> means = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return 0.0;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section doctorSection = survey.DoctorSection;
+                means.Add(SumOfAnswers(doctorSection));
+              
+            }
+            return SumPerSections(means)/surveys.Count();
+        }
+
+        public double MeanValuesPerStaffSection()
+        {
+            List<double> means = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return 0.0;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section staffSection = survey.StaffSection;
+                means.Add(SumOfAnswers(staffSection));
+
+            }
+            return SumPerSections(means) / surveys.Count();
+        }
+        public double MeanValuesPerEquipmentSection()
+        {
+            List<double> means = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return 0.0;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section equipmentSection = survey.EquipmentSection;
+                means.Add(SumOfAnswers(equipmentSection));
+
+            }
+            return SumPerSections(means) / surveys.Count();
+        }
+        public double MeanValuesPerHygieneSection()
+        {
+            List<double> means = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return 0.0;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section hygieneSection = survey.HygieneSection;
+                means.Add(SumOfAnswers(hygieneSection));
+
+            }
+            return SumPerSections(means) / surveys.Count();
+        }
+
+        public double SumOfAnswers(Section section)
+        {
+            return (section.AnswerOne + section.AnswerTwo + section.AnswerThree + section.AnswerFour )/4;
+        }
+        public double SumPerSections(List<double> sums)
+        {
+            double result = 0.0;    
+            
+            foreach (double sum in sums)
+            {
+                result += sum;
+
+            }
+            return result;
+        }
     }
 }

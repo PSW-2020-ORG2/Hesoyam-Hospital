@@ -21,5 +21,6 @@ namespace WebApplication.HospitalSurvey
             AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto));
             return Ok();
         }
+       
     }
 }
