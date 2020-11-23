@@ -7,32 +7,32 @@ namespace WebApplication.HospitalSurvey
 {
     public class SurveyDTO
     {
-        public long DoctorId { get; set; }
-        public int AnswerOne { get; set; }
-        public int AnswerTwo { get; set; }
-        public int AnswerThree { get; set; }
-        public int AnswerFour { get; set; }
-        public int AnswerFive { get; set; }
-        public int AnswerSix { get; set; }
-        public int AnswerSeven { get; set; }
-        public int AnswerEight { get; set; }
-        public int AnswerNine { get; set; }
-        public int AnswerTen { get; set; }
-        public int AnswerEleven { get; set; }
-        public int AnswerTwelve { get; set; }
-        public int AnswerThirteen { get; set; }
-        public int AnswerFourteen { get; set; }
-        public int AnswerFifteen { get; set; }
-        public int AnswerSixteen { get; set; }
-        public int AnswerSeventeen { get; set; }
-        public int AnswerEighteen { get; set; }
+        
+        public long AnswerOne { get; set; }
+        public long AnswerTwo { get; set; }
+        public long AnswerThree { get; set; }
+        public long AnswerFour { get; set; }
+        public long AnswerFive { get; set; }
+        public long AnswerSix { get; set; }
+        public long AnswerSeven { get; set; }
+        public long AnswerEight { get; set; }
+        public long AnswerNine { get; set; }
+        public long AnswerTen { get; set; }
+        public long AnswerEleven { get; set; }
+        public long AnswerTwelve { get; set; }
+        public long AnswerThirteen { get; set; }
+        public long AnswerFourteen { get; set; }
+        public long AnswerFifteen { get; set; }
+        public long AnswerSixteen { get; set; }
+        public long AnswerSeventeen { get; set; }
+        public long AnswerEighteen { get; set; }
 
-        public SurveyDTO(long doctorId, int answerOne, int answerTwo, int answerThree, int answerFour, 
-            int answerFive, int answerSix, int answerSeven, int answerEight, int answerNine, int answerTen, 
-            int answerEleven, int answerTwelve, int answerThirteen, int answerFourteen, int answerFifteen,
-            int answerSixteen, int answerSeventeen, int answerEighteen)
+        public SurveyDTO( long answerOne, long answerTwo, long answerThree, long answerFour, 
+            long answerFive, long answerSix, long answerSeven, long answerEight, long answerNine, long answerTen, 
+            long answerEleven, long answerTwelve, long answerThirteen, long answerFourteen, long answerFifteen,
+            long answerSixteen, long answerSeventeen, long answerEighteen)
         {
-            DoctorId = doctorId;
+            
             AnswerOne = answerOne;
             AnswerTwo = answerTwo;
             AnswerThree = answerThree;

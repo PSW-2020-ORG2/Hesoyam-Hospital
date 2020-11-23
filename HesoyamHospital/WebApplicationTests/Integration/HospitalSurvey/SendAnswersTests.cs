@@ -39,7 +39,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         new List<object[]>
         {
             new object[] {null, HttpStatusCode.BadRequest},
-            new object[] { new SurveyDTO(100, 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2, 8),  HttpStatusCode.OK }
+            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2, 8),  HttpStatusCode.OK }
         };
 
     }

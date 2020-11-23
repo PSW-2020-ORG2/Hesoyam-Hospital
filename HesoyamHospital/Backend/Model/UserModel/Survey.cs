@@ -68,14 +68,7 @@ namespace Backend.Model.UserModel
 
         }
 
-        public long GetId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetId(long id)
-        {
-            throw new NotImplementedException();
-        }
+        public long GetId() => _id;
+        public void SetId(long id) => _id = id;
     }
 }

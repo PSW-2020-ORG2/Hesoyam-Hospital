@@ -54,6 +54,16 @@ namespace Backend.Repository.MySQLRepository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
+            modelBuilder.Entity<User>()
+                .ToTable("Users")
+                .HasDiscriminator<string>("ContentType")
+                .HasValue<User>("User")
+                .HasValue<Patient>("Patient")
+                .HasValue<SystemAdmin>("SystemAdmin")
+                .HasValue<Doctor>("Doctor")
+                .HasValue<Secretary>("Secretary")
+                .HasValue<Manager>("Manager");
+
         }
     }
 }
