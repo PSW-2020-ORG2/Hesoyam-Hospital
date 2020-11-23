@@ -8,9 +8,17 @@ namespace WebApplication.Documents
 {
     public class DocumentsMapper
     {
-        public static DocumentDTO DocumentToDocumentDTO(Document document)
+        private static DocumentDTO DocumentToDocumentDTO(Document document)
         {
             return new DocumentDTO(document.DateCreated, document.Doctor.FullName, document.Diagnosis.diagnosisName);
+        }
+
+        public static List<DocumentDTO> DocumentToDocumentDTO(List<Document> documents)
+        {
+            List<DocumentDTO> result = new List<DocumentDTO>();
+            foreach (Document document in documents)
+                result.Add(DocumentToDocumentDTO(document));
+            return result;
         }
     }
 }

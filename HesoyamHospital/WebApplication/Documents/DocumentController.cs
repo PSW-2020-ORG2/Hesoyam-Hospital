@@ -25,12 +25,7 @@ namespace WebApplication.Documents
         {
             if (!_validation.isSearchCriteriaValid(criteria)) return BadRequest();
 
-            List<DocumentDTO> result = new List<DocumentDTO>();
-            List<Document> documents = _documentService.SimpleSearchDocs(criteria).ToList();
-            foreach (Document document in documents)
-                result.Add(DocumentsMapper.DocumentToDocumentDTO(document));
-
-            return Ok(result);
+            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.SimpleSearchDocs(criteria).ToList()));
         }
     }
 }
