@@ -1,4 +1,5 @@
 ﻿using Backend.Model.UserModel;
+using Backend.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +32,15 @@ namespace Backend.Model.PatientModel
 
         protected long _diagnosisID;
         public long DiagnosisID { get => _diagnosisID; set => _diagnosisID = value; }
+
+        public Document() { }
+
+        public virtual bool meetsCriteria(DocumentSearchCriteria criteria)
+        {
+            if (!_doctor.FullName.ToLower().Contains(criteria.DoctorName.ToLower())) return false;
+            if (!_diagnosis.diagnosisName.ToLower().Contains(criteria.DiagnosisName.ToLower())) return false;
+            if (!criteria.TimeInterval.IsDateTimeBetween(_dateCreated)) return false;
+            return true;
+        }
     }
 }

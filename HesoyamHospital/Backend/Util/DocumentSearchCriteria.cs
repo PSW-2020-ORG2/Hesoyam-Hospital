@@ -1,28 +1,29 @@
-﻿using Backend.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication.Documents
+namespace Backend.Util
 {
-    public class SearchCriteria
+    public class DocumentSearchCriteria
     {
         public bool ShouldSearchReports { get; set; }
         public bool ShouldSearchPrescriptions { get; set; }
         public TimeInterval TimeInterval { get; set; }
         public string DoctorName { get; set; }
-        public string Diagnosis { get; set; }
+        public string DiagnosisName { get; set; }
         public string MedicineName { get; set; }
         public string Comment { get; set; }
 
-        public SearchCriteria(bool shouldSearchReports, bool shouldSearchPrescriptions, TimeInterval timeInterval, string doctorName, string diagnosis, string medicineName, string comment)
+        public DocumentSearchCriteria() { }
+
+        public DocumentSearchCriteria(bool shouldSearchReports, bool shouldSearchPrescriptions, TimeInterval timeInterval, string doctorName, string diagnosisName, string medicineName, string comment)
         {
             ShouldSearchReports = shouldSearchReports;
             ShouldSearchPrescriptions = shouldSearchPrescriptions;
             TimeInterval = timeInterval;
             DoctorName = doctorName;
-            Diagnosis = diagnosis;
+            DiagnosisName = diagnosisName;
             MedicineName = medicineName;
             Comment = comment;
         }

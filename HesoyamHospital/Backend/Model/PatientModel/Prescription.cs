@@ -7,6 +7,7 @@ using Backend.Repository.Abstract;
 using System.Collections.Generic;
 using Backend.Model.UserModel;
 using System;
+using Backend.Util;
 
 namespace Backend.Model.PatientModel
 {
@@ -114,6 +115,14 @@ namespace Backend.Model.PatientModel
         public override int GetHashCode()
         {
             return 1969571243 + _id.GetHashCode();
+        }
+
+        public override bool meetsCriteria(DocumentSearchCriteria criteria)
+        {
+            if (!base.meetsCriteria(criteria)) return false;
+            foreach (MedicalTherapy therapy in _medicalTherapies)
+                if (!therapy.containsMedicineWithName(criteria.MedicineName)) return false;
+            return true;
         }
     }
 }

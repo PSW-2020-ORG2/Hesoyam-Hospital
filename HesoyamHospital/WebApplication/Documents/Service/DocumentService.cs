@@ -1,6 +1,8 @@
 ﻿using Backend;
 using Backend.Model.PatientModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
+using Backend.Repository.MySQLRepository.MedicalRepository;
+using Backend.Util;
 using System;
 using System.Collections.Generic;
 
@@ -37,7 +39,7 @@ namespace WebApplication.Documents.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Document> SimpleSearchDocs(SearchCriteria criteria)
+        public IEnumerable<Document> SimpleSearchDocs(DocumentSearchCriteria criteria)
         {
             List<Document> result = new List<Document>();
 
@@ -57,14 +59,26 @@ namespace WebApplication.Documents.Service
             throw new NotImplementedException();
         }
 
-        private IEnumerable<Document> getPrescriptionsThatMeetCriteria(SearchCriteria criteria)
+        private List<Document> getPrescriptionsThatMeetCriteria(DocumentSearchCriteria criteria)
         {
-            throw new NotImplementedException();
+            List<Document> result = new List<Document>();
+
+            foreach (Prescription prescription in _prescriptionRepository.GetAll())
+                if (prescription.meetsCriteria(criteria))
+                    result.Add(prescription);
+
+            return result;
         }
 
-        private IEnumerable<Document> getReportsThatMeetCriteria(SearchCriteria criteria)
+        private List<Document> getReportsThatMeetCriteria(DocumentSearchCriteria criteria)
         {
-            throw new NotImplementedException();
+            List<Document> result = new List<Document>();
+
+            foreach (Report report in _reportRepository.GetAll())
+                if (report.meetsCriteria(criteria))
+                    result.Add(report);
+
+            return result;
         }
     }
 }

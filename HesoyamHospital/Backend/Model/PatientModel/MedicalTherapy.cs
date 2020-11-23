@@ -50,5 +50,8 @@ namespace Backend.Model.PatientModel
         public long GetId() => _id;
 
         public void SetId(long id) => _id = id;
+
+        public bool containsMedicineWithName(string name)
+            => Medicine.Name.ToLower().Contains(name.ToLower());
     }
 }

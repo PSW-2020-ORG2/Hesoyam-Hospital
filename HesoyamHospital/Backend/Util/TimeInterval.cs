@@ -18,6 +18,8 @@ namespace Backend.Util
         private DateTime _endTime;
         public DateTime EndTime { get => _endTime; set => _endTime = value; }
 
+        public TimeInterval() { }
+
         public TimeInterval(DateTime startTime, DateTime endTime)
         {
             //TODO: Enforce endTime >= startTime
@@ -27,7 +29,7 @@ namespace Backend.Util
         }
 
         public bool IsDateTimeBetween(DateTime dateTime)
-            => ((dateTime >= StartTime) && (dateTime <= EndTime));
+            => StartTime < dateTime && EndTime > dateTime;
 
         public bool IsDateTimeBetween(TimeInterval timeInterval)
         {
@@ -50,6 +52,15 @@ namespace Backend.Util
 
         public TimeSpan Duration()
             => EndTime.Subtract(StartTime);
+
+        public bool isFullyDefined()
+            => StartTime != null && EndTime != null;
+
+        public bool isInOrder()
+            => EndTime >= StartTime;
+
+        public bool isInThePast()
+            => StartTime <= DateTime.Now && EndTime <= DateTime.Now;
 
         public override bool Equals(object obj)
         {

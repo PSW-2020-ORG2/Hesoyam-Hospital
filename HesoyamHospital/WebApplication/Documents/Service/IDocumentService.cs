@@ -1,5 +1,6 @@
 ﻿using Backend.Model.PatientModel;
 using Backend.Service;
+using Backend.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace WebApplication.Documents.Service
 {
     public interface IDocumentService : IService<Document, long>
     {
-        public IEnumerable<Document> SimpleSearchDocs(SearchCriteria criteria);
+        public IEnumerable<Document> SimpleSearchDocs(DocumentSearchCriteria criteria);
     }
 }

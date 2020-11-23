@@ -1,5 +1,6 @@
 ﻿using Backend.Model.UserModel;
 using Backend.Repository.Abstract;
+using Backend.Util;
 using System;
 namespace Backend.Model.PatientModel
 {
@@ -39,6 +40,13 @@ namespace Backend.Model.PatientModel
         public override int GetHashCode()
         {
             return 1969571243 + _id.GetHashCode();
+        }
+
+        public override bool meetsCriteria(DocumentSearchCriteria criteria)
+        {
+            if (!base.meetsCriteria(criteria)) return false;
+            if (!_comment.ToLower().Contains(criteria.Comment.ToLower())) return false;
+            return true;
         }
     }
 }
