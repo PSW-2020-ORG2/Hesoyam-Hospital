@@ -1,12 +1,7 @@
-﻿using Backend.Model.UserModel;
-using Castle.DynamicProxy.Generators;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Backend.Repository.MySQLRepository.MySQL.Stream
 {
@@ -33,13 +28,17 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
 
         public IEnumerable<T> ReadAllEager()
         {
-            IEnumerable<T> entities = ReadAll();
-            IQueryable<T> query = (IQueryable<T>)entities;
+            IQueryable<T> query = dbContext.Set<T>();
             var properties = typeof(T).GetProperties();
-            IEnumerable<Patient> patients = dbContext.Set<Patient>();
+            query = IncludeProperties(query, properties);
+            return query;
+        }
+
+        private IQueryable<T> IncludeProperties(IQueryable<T> query, PropertyInfo[] properties)
+        {
             foreach (var property in properties)
             {
-                var c = properties.FirstOrDefault(c => c.Name == property.Name + "Id" 
+                var c = properties.FirstOrDefault(c => c.Name == property.Name + "Id"
                 || c.Name == property.Name + "ID"
                 || c.Name == property.Name + "id");
                 if (c != null)
