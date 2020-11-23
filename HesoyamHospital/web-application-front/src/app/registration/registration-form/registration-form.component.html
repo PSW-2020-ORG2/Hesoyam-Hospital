@@ -72,6 +72,13 @@
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
+                    <mat-label>Health card number</mat-label>
+                    <textarea matInput [formControl]="healthCardNumberValidator" required cdkTextareaAutosize placeholder="00000000000" pattern = "[1-90]{11}" style="height: 40%;"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="left">
+                  <mat-form-field class="example-full-width">
                     <mat-label>Mobile phone</mat-label>
                     <textarea matInput [formControl]="mobileValidator" required cdkTextareaAutosize placeholder="06XXXXXXXX" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
                   </mat-form-field>
@@ -149,7 +156,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 50px;">
-                  <button mat-raised-button color="primary" [disabled] ="email.invalid || nameValidator.invalid || surnameValidator.invalid || middleValidator.invalid || genderValidator.invalid || usernameValidator.invalid || passwordValidator.invalid || dateValidator.invalid || mobileValidator.invalid || countryValidator.invalid || cityValidator.invalid || addressValidator.invalid || bloodControl.invalid" type="submit" routerLink="../registrationform" style="padding: 12px 32px">Register</button>
+                  <button mat-raised-button color="primary" type="submit" [disabled] ="email.invalid || nameValidator.invalid || surnameValidator.invalid || middleValidator.invalid || genderValidator.invalid || usernameValidator.invalid || passwordValidator.invalid || dateValidator.invalid || mobileValidator.invalid || countryValidator.invalid || cityValidator.invalid || addressValidator.invalid || bloodControl.invalid" type="submit" routerLink="../registrationform" style="padding: 12px 32px">Register</button>
                 </div>
                
       

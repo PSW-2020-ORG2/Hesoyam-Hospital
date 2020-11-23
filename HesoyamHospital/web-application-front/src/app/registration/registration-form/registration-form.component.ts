@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormControl, Validators} from '@angular/forms';
+import {RegistrationService } from '../services/registration.service'
 
 interface BloodType {
   bloodId: string;
@@ -30,6 +31,7 @@ export class RegistrationFormComponent implements OnInit {
   addressValidator = new FormControl('', Validators.required);
   homeValidator = new FormControl('', Validators.required);
   jmbgValidator = new FormControl('', Validators.required);
+  healthCardNumberValidator = new FormControl('', Validators.required);
   empty = new FormControl('', Validators.required);
 
 
@@ -48,7 +50,7 @@ export class RegistrationFormComponent implements OnInit {
   
   allergies = new FormControl();
   allergiesList: string[] = ['Dust', 'Peanuts', 'Soy', 'Milk', 'Tree nut'];
-  constructor() { }
+  constructor(private _registrationService : RegistrationService) { }
 
   ngOnInit(): void {
   }
