@@ -9,6 +9,8 @@ using System;
 using Backend.Util;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
+using System.Text;
 
 namespace WebApplicationTests.Integration.Documents
 {
@@ -23,10 +25,10 @@ namespace WebApplicationTests.Integration.Documents
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Simple_search_status_code_tests(SearchCriteria criteria, HttpStatusCode expectedStatusCode)
+        public async void Simple_search_status_code_tests(DocumentSearchCriteria criteria, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria));
+            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync("/api/document/simple-search", bodyContent);
 
@@ -36,8 +38,8 @@ namespace WebApplicationTests.Integration.Documents
         public static IEnumerable<object[]> Data =>
         new List<object[]>
         {
-            new object[] { null, HttpStatusCode.InternalServerError },
-            new object[] { new SearchCriteria(true, true, new TimeInterval(DateTime.Now.AddDays(-5), DateTime.Now), "pera", "ABCD", "", ""), HttpStatusCode.OK }
+            new object[] { null, HttpStatusCode.BadRequest },
+            new object[] { new DocumentSearchCriteria(true, true, new TimeInterval(DateTime.Now.AddDays(-5), DateTime.Now), "pera", "ABCD", "", ""), HttpStatusCode.OK }
         };
     }
 }
