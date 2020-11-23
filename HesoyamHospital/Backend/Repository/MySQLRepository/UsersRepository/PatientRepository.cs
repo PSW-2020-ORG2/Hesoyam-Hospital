@@ -35,7 +35,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             {
                 patient.DateCreated = DateTime.Now;
                 patient = base.Create(patient);
-                _userRepository.AddUser(patient);
+                //_userRepository.AddUser(patient);
                 return patient;
             }
             else

@@ -13,7 +13,6 @@ namespace Backend.Util
         public static string nameRegex = "[A-Za-z ]{2,20}";
         public static string illegalNameCharactersRegex = "([0-9])+";
         public static string uidnRegex = "[0-9]{13}";
-        public static string emailRegex = "[A-Za-z_.]+@([A-Za-z.])+\\.[a-z]+$";           // TODO: Proveri regex
         public static string phoneRegex = "[01-9]{8,11}";
         public static string diseaseName = ".{3,}";
 

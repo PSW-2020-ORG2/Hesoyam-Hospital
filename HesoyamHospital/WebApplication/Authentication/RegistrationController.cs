@@ -16,8 +16,8 @@ namespace WebApplication.Authentication
         [HttpPost]
         public IActionResult Add(NewPatientDTO dto)
         {
-            if (dto == null || !IsPatientValid(dto)) return BadRequest();
-            AppResources.getInstance().patientService.Create(NewPatientMapper.NewPatientDTOToPatient(dto));
+            //if (dto == null || !IsPatientValid(dto)) return BadRequest();
+            //AppResources.getInstance().patientService.Create(NewPatientMapper.NewPatientDTOToPatient(dto));
             AppResources.getInstance().medicalRecordService.Create(NewPatientMapper.NewPatientDTOToMedicalRecord(dto));
             return Ok();
         }

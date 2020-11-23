@@ -18,9 +18,9 @@ namespace Backend.Model.PatientModel
         private string _name;
         public string Name { get => _name; set => _name = value; }
 
-        public Allergy(string name)
+        public Allergy()
         {
-            _name = name;
+
         }
 
         public Allergy(long id)
@@ -30,10 +30,11 @@ namespace Backend.Model.PatientModel
             
         }
 
-        public Allergy(long id,string name)
+        public Allergy(long id, string name)
         {
             _id = id;
             _name = name;
+
         }
 
         public long GetId() => _id;

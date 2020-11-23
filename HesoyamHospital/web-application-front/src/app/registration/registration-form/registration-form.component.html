@@ -1,6 +1,6 @@
 <div style="height:100%; display: flex; justify-content: center;">
     <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 60%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px;">
-            <form #feedform="ngForm" style="width: 80%;" novalidate>
+            <form #feedform="ngForm" style="width: 80%;" (ngSubmit)="submit()" novalidate>
 
                 <h2 style="text-align: center;">
                     Patient Registration
@@ -9,27 +9,27 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Name</mat-label>
-                    <textarea matInput [formControl]="nameValidator" required cdkTextareaAutosize placeholder="Name" pattern = "[A-Za-z]{2,20}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Name" [formControl]="nameValidator" required cdkTextareaAutosize placeholder="Name" pattern = "[A-Za-z]{2,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Surname</mat-label>
-                    <textarea matInput [formControl]="surnameValidator" required cdkTextareaAutosize placeholder="Surname" pattern = "[a-zA-Z ]{2,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Surname" [formControl]="surnameValidator" required cdkTextareaAutosize placeholder="Surname" pattern = "[a-zA-Z ]{2,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Middle name</mat-label>
-                    <textarea matInput [formControl]="middleValidator" required cdkTextareaAutosize placeholder="Middle name" pattern = "[A-Za-z]{1,20}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.MiddleName" [formControl]="middleValidator" required cdkTextareaAutosize placeholder="Middle name" pattern = "[A-Za-z]{1,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
                
                 <div class="left" style="text-align: left; margin-top: 22px; margin-left: 25%; margin-bottom: 20px;">
                   <label class="item1" style="color: gray;">Gender*</label>
-                  <mat-radio-group name="gender" class="item2" style="color: gray;" [formControl]="genderValidator">
+                  <mat-radio-group name="gender" [(ngModel)] = "patientDTO.Gender" class="item2" style="color: gray;" [formControl]="genderValidator">
                       <mat-radio-button value="0" style="margin-left: 9%;">Male</mat-radio-button>
                       <mat-radio-button value="1" style="margin-left: 8%;">Female</mat-radio-button>
                       <mat-radio-button value="2" style="margin-left: 8%;">Other</mat-radio-button>
@@ -39,7 +39,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Enter your email</mat-label>
-                    <input matInput placeholder="email@example.com" [formControl]="email" required>
+                    <input matInput [(ngModel)] = "patientDTO.Email" placeholder="email@example.com" [formControl]="email" required>
                     <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
                   </mat-form-field>
                 </div>
@@ -47,14 +47,14 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Username</mat-label>
-                    <textarea matInput [formControl]="usernameValidator" required cdkTextareaAutosize placeholder="Username" pattern = "[A-Za-z]{8,20}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Username" [formControl]="usernameValidator" required cdkTextareaAutosize placeholder="Username" pattern = "[A-Za-z]{8,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" required [formControl]="passwordValidator" pattern = "[A-Za-z]{8,30}">
+                    <input matInput [(ngModel)] = "patientDTO.Password" [type]="hide ? 'password' : 'text'" required [formControl]="passwordValidator" pattern = "[A-Za-z]{8,30}">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -64,7 +64,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Date of birth</mat-label>
-                    <input matInput [matDatepicker]="picker" required [formControl]="dateValidator" placeholder="MM/DD/YYYY">
+                    <input matInput [(ngModel)] = "patientDTO.DateOfBirth" [matDatepicker]="picker" required [formControl]="dateValidator" placeholder="MM/DD/YYYY">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -73,35 +73,35 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Health card number</mat-label>
-                    <textarea matInput [formControl]="healthCardNumberValidator" required cdkTextareaAutosize placeholder="00000000000" pattern = "[1-90]{11}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.HealthCardNumber" [formControl]="healthCardNumberValidator" required cdkTextareaAutosize placeholder="00000000000" pattern = "[1-90]{11}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Mobile phone</mat-label>
-                    <textarea matInput [formControl]="mobileValidator" required cdkTextareaAutosize placeholder="06XXXXXXXX" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.MobilePhone" [formControl]="mobileValidator" required cdkTextareaAutosize placeholder="06XXXXXXXX" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Home phone</mat-label>
-                    <textarea matInput [formControl]="homeValidator" cdkTextareaAutosize placeholder="Home phone" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.HomePhone" [formControl]="homeValidator" cdkTextareaAutosize placeholder="Home phone" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>JMBG</mat-label>
-                    <textarea matInput [formControl]="jmbgValidator" required cdkTextareaAutosize placeholder="JMBG" pattern = "[1-90]{13}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Jmbg" [formControl]="jmbgValidator" required cdkTextareaAutosize placeholder="JMBG" pattern = "[1-90]{13}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                   <mat-label>Blood type</mat-label>
-                  <mat-select [formControl]="bloodControl" required>
+                  <mat-select [(ngModel)] = "patientDTO.BloodType" [formControl]="bloodControl" required>
                     <mat-option>--</mat-option>
                     <mat-option value="A_NEGATIVE">A-</mat-option>
                     <mat-option value="A_POSITIVE">A+</mat-option>
@@ -120,7 +120,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Allergies</mat-label>
-                    <mat-select [formControl]="allergies" multiple>
+                    <mat-select [(ngModel)] = "patientDTO.Allergies" [formControl]="allergies" multiple>
                       <mat-select-trigger>
                         {{allergies.value ? allergies.value[0] : ''}}
                         <span *ngIf="allergies.value?.length > 1" class="example-additional-selection">
@@ -135,18 +135,18 @@
                 <div class="left">
                   <mat-form-field class="adress-in-line">
                     <mat-label>Country</mat-label>
-                    <textarea matInput [formControl]="countryValidator" required cdkTextareaAutosize placeholder="Country" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Country" [formControl]="countryValidator" required cdkTextareaAutosize placeholder="Country" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                   <mat-form-field class="adress-in-line">
                     <mat-label>City</mat-label>
-                    <textarea matInput [formControl]="cityValidator" required cdkTextareaAutosize placeholder="City" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.City" [formControl]="cityValidator" required cdkTextareaAutosize placeholder="City" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Address</mat-label>
-                    <textarea matInput [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Address" [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
@@ -156,7 +156,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 50px;">
-                  <button mat-raised-button color="primary" type="submit" [disabled] ="email.invalid || nameValidator.invalid || surnameValidator.invalid || middleValidator.invalid || genderValidator.invalid || usernameValidator.invalid || passwordValidator.invalid || dateValidator.invalid || mobileValidator.invalid || countryValidator.invalid || cityValidator.invalid || addressValidator.invalid || bloodControl.invalid" type="submit" routerLink="../registrationform" style="padding: 12px 32px">Register</button>
+                  <button mat-raised-button color="primary" type="submit" [disabled] ="email.invalid || nameValidator.invalid || surnameValidator.invalid || middleValidator.invalid || genderValidator.invalid || usernameValidator.invalid || passwordValidator.invalid || dateValidator.invalid || mobileValidator.invalid || countryValidator.invalid || cityValidator.invalid || addressValidator.invalid || bloodControl.invalid || healthCardNumberValidator.invalid" type="submit" routerLink="../registrationform" style="padding: 12px 32px">Register</button>
                 </div>
                
       

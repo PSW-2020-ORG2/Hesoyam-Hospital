@@ -28,9 +28,13 @@ namespace WebApplication.Authentication
         public static List<Allergy> MakeAllergiesList(List<string> allergiesNames)
         {
             List<Allergy> allergies = new List<Allergy>();
+            if (allergiesNames == null) return allergies;
+
             foreach (string allergyName in allergiesNames)
             {
-                allergies.Add(new Allergy(allergyName));
+                Allergy alle = new Allergy();
+                alle.Name = allergyName;
+                allergies.Add(alle);
             }
             return allergies;
         }

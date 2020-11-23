@@ -53,10 +53,6 @@ namespace Backend.Util
 
         public void CheckUidn(string uidn)
         {
-            if(!Regex.IsMatch(uidn, Regexes.uidnRegex))
-            {
-                throw new InvalidUserException("Invalid UIDN!");
-            }
         }
 
         public void CheckDateOfBirth(DateTime date)
@@ -69,10 +65,6 @@ namespace Backend.Util
 
         public void CheckEmail(string email)
         {
-            if(!Regex.IsMatch(email, Regexes.emailRegex))
-            {
-                throw new InvalidUserException("Invalid email!");
-            }
         }
 
         public void CheckPhoneNumber(string phoneNumber)

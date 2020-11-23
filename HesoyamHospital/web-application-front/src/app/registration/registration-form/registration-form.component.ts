@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormControl, Validators} from '@angular/forms';
-import {RegistrationService } from '../services/registration.service'
+import {RegistrationService } from '../services/registration.service';
+import { NewPatientDto } from '../DTOs/new-patient-dto';
 
 interface BloodType {
   bloodId: string;
@@ -34,23 +35,18 @@ export class RegistrationFormComponent implements OnInit {
   healthCardNumberValidator = new FormControl('', Validators.required);
   empty = new FormControl('', Validators.required);
 
-
-  bloodTypes: BloodType[] = [
-    {bloodId: 'A+'},
-    {bloodId: 'A-'},
-    {bloodId: 'B+'},
-    {bloodId: 'B-'},
-    {bloodId: 'AB+'},
-    {bloodId: 'AB-'},
-    {bloodId: '0+'},
-    {bloodId: '0-'},
-    {bloodId: 'NOT TESTED'}
-  ];
-
-  
+  public _name;
+  public _surname;
+ 
   allergies = new FormControl();
   allergiesList: string[] = ['Dust', 'Peanuts', 'Soy', 'Milk', 'Tree nut'];
-  constructor(private _registrationService : RegistrationService) { }
+
+  public patientDTO = new NewPatientDto();
+
+  constructor(private _registrationService : RegistrationService) {
+    this._name = '';
+    this._surname = '';
+   }
 
   ngOnInit(): void {
   }
@@ -61,6 +57,24 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  submit() {
+    this.preparePatient();
+    this._registrationService.post(this.patientDTO).subscribe(
+      (val) => {
+        alert("Registration done " + this.patientDTO.Name + " " + this.patientDTO.Surname)
+        this.reset();
+      });
+  }
+
+  preparePatient() {
+    this._name = this.patientDTO.Surname;
+    this._surname = this.patientDTO.Name;
+  }
+
+  reset() {
+    this.patientDTO.Name = '';
   }
 
 }

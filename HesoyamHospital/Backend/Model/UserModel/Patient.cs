@@ -98,6 +98,7 @@ namespace Backend.Model.UserModel
         {
             _healthCardNumber = healthCardNumber;
             _active = false;
+            _selectedDoctorID = 500;
         }
 
         public Patient( long id,
