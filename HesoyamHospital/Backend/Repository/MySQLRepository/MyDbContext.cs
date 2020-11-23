@@ -29,7 +29,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
-        public DbSet<Therapy> Therapies { get; set; }
+        public DbSet<MedicalTherapy> Therapies { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Survey> Surveys { get; set; }
@@ -40,13 +40,6 @@ namespace Backend.Repository.MySQLRepository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                /*
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                   .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile("appsettings.json")
-                   .Build();
-                var connectionString = configuration.GetConnectionString("MyDbConnectionString");
-                */
                 optionsBuilder.UseMySql("server = localhost; port = 3306; database = mydb1; user = root; password = root");
             }
         }
@@ -54,6 +47,15 @@ namespace Backend.Repository.MySQLRepository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
+            modelBuilder.Entity<User>()
+                    .ToTable("Users")
+                    .HasDiscriminator<string>("ContentType")
+                    .HasValue<User>("User")
+                    .HasValue<Patient>("Patient")
+                    .HasValue<SystemAdmin>("SystemAdmin")
+                    .HasValue<Doctor>("Doctor")
+                    .HasValue<Secretary>("Secretary")
+                    .HasValue<Manager>("Manager");
         }
     }
 }

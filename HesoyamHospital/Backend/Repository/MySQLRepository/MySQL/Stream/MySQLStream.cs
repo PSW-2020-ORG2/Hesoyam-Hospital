@@ -1,4 +1,5 @@
-﻿using Castle.DynamicProxy.Generators;
+﻿using Backend.Model.UserModel;
+using Castle.DynamicProxy.Generators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
@@ -24,18 +25,18 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
 
         public void Update(T entity)
         {
-            //dbContext.Set<T>().Attach(entity);
-            //dbContext.Entry(entity).State = EntityState.Modified;
             SaveAll();
         }
 
         public IEnumerable<T> ReadAll()
             => dbContext.Set<T>();
 
-        public IEnumerable<T> ReadAllEager(string[] includeProperties)
+        public IEnumerable<T> ReadAllEager()
         {
-            IQueryable<T> query = dbContext.Set<T>();
+            IEnumerable<T> entities = ReadAll();
+            IQueryable<T> query = (IQueryable<T>)entities;
             var properties = typeof(T).GetProperties();
+            IEnumerable<Patient> patients = dbContext.Set<Patient>();
             foreach (var property in properties)
             {
                 var c = properties.FirstOrDefault(c => c.Name == property.Name + "Id" 
@@ -46,8 +47,7 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
                     query = query.Include(property.Name);
                 }
             }
-            return query.ToList();
-            //return ReadAll();
+            return query;
         }
 
         public void SaveAll()

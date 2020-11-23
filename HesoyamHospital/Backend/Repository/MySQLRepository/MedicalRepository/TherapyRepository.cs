@@ -22,19 +22,11 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
     public class TherapyRepository : MySQLRepository<Therapy, long>, IEagerRepository<Therapy, long>
     {
         private const string ENTITY_NAME = "Therapy";
-        private string[] INCLUDE_PROPERTIES = { "TimeInterval", "Prescription" };
-
 
         public TherapyRepository(IMySQLStream<Therapy> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Therapy>())
         {
 
         }
-
-        public Therapy GetEager(long id)
-            => GetAllEager().SingleOrDefault(therapy => therapy.GetId() == id);
-
-        public IEnumerable<Therapy> GetAllEager()
-            => GetAllEager(INCLUDE_PROPERTIES);
 
         public IEnumerable<Therapy> GetTherapyByDate(TimeInterval dateRange) //Return all therapies where therapy time interval is inside passed time interval(dateRange).
             => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.TimeInterval));
