@@ -6,8 +6,6 @@ using Moq;
 using Shouldly;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using WebApplication.Documents;
 using WebApplication.Documents.Service;
 using Xunit;
 

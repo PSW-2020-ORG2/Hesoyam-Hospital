@@ -4,12 +4,10 @@ using System.Net;
 using Xunit;
 using WebApplication;
 using System.Net.Http;
-using WebApplication.Documents;
 using System;
 using Backend.Util;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using static System.Net.Mime.MediaTypeNames;
 using System.Text;
 
 namespace WebApplicationTests.Integration.Documents
