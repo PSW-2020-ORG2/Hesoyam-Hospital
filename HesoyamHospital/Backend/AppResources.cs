@@ -52,7 +52,7 @@ namespace Backend
         public QuestionRepository doctorQuestionRepository;
         public FeedbackRepository feedbackRepository;
         public DoctorFeedbackRepository doctorFeedbackRepository;
-        public RegisteredPharmacyRepository pharmacyApiKeyRepository;
+        public RegisteredPharmacyRepository registeredPharmacyRepository;
 
 
         //Hospital management
@@ -99,7 +99,7 @@ namespace Backend
         public MessageService messageService;
         public NotificationService notificationService;
         public AppointmentNotificationSender appointmentNotificationSender;
-        public PharmacyApiKeyService pharmacyApiKeyService;
+        public RegisteredPharmacyService registeredPharmacyService;
 
         // UsersService
         public DoctorService doctorService;
@@ -143,7 +143,7 @@ namespace Backend
             notificationService = new NotificationService(notificationRepository);
             appointmentNotificationSender = new AppointmentNotificationSender(notificationService);
             appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy, appointmentNotificationSender);
-            pharmacyApiKeyService = new PharmacyApiKeyService(pharmacyApiKeyRepository);
+            registeredPharmacyService = new RegisteredPharmacyService(registeredPharmacyRepository);
 
             // UsersService
             doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
@@ -246,7 +246,7 @@ namespace Backend
             inventoryRepository = new InventoryRepository(new MySQLStream<Inventory>(), new LongSequencer());
             */
 
-            pharmacyApiKeyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
+            registeredPharmacyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
         }
 
         public static AppResources getInstance()

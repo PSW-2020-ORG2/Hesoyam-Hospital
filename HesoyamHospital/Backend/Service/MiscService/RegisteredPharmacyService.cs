@@ -1,17 +1,15 @@
 ﻿using Backend.Model.PharmacyModel;
-using Backend.Repository.MySQLRepository.MiscRepository;
+using Backend.Repository.Abstract.MiscAbstractRepository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Backend.Service.MiscService
 {
-    public class PharmacyApiKeyService : IService<RegisteredPharmacy, long>
+    public class RegisteredPharmacyService : IService<RegisteredPharmacy, long>
     {
-        private RegisteredPharmacyRepository _pharmacyApiKeyRepository;
+        private IRegisteredPharmacyRepository _pharmacyApiKeyRepository;
 
-        public PharmacyApiKeyService(RegisteredPharmacyRepository pharmacyApiKeyRepository)
+        public RegisteredPharmacyService(IRegisteredPharmacyRepository pharmacyApiKeyRepository)
         {
             _pharmacyApiKeyRepository = pharmacyApiKeyRepository;
         }
