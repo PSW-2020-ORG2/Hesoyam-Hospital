@@ -14,7 +14,8 @@ namespace WebApplication.Authentication
         {
             Regex names = new Regex(@"[A-Za-z]{2,20}");
             Regex surnames = new Regex(@"[A-Za-z ]{2,20}");
-            Regex usernames = new Regex(@"[A-Za-z]{8,20}");
+            Regex username = new Regex(@"[A-Za-z_01-9]{8,20}");
+            Regex password = new Regex(@"[A-Za-z]{8,20}");
             Regex healthCardNumbers = new Regex(@"[01-9]{11}");
             Regex jmbgNumbers = new Regex(@"[01-9]{13}");
             Regex phone = new Regex(@"[01-9]{8,11}");
@@ -25,8 +26,8 @@ namespace WebApplication.Authentication
                 surnames.IsMatch(patient.Surname) &&
                 names.IsMatch(patient.MiddleName) && 
                 IsEmailValid(patient.Email) &&
-                usernames.IsMatch(patient.Username) &&
-                usernames.IsMatch(patient.Password) &&
+                username.IsMatch(patient.Username) &&
+                password.IsMatch(patient.Password) &&
                 IsDateInThePast(patient.DateOfBirth) &&
                 healthCardNumbers.IsMatch(patient.HealthCardNumber) &&
                 jmbgNumbers.IsMatch(patient.Jmbg) &&

@@ -14,7 +14,6 @@ namespace WebApplicationTests.Unit.Authentication
         public void Patient_validation(NewPatientDTO patient, bool value)
         {
             bool valid = RegistrationValidation.isNewPatientValid(patient);
-            
 
             valid.ShouldBe(value);
         }

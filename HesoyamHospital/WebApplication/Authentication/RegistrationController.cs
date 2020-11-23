@@ -24,9 +24,9 @@ namespace WebApplication.Authentication
 
         private bool IsPatientValid(NewPatientDTO patient)
         {
-            List<Patient> patientsList = new List<Patient>();
+            List<Patient> patients = new List<Patient>();
             if (RegistrationValidation.isNewPatientValid(patient) 
-                && RegistrationValidation.IsUsernameUnique(patient.Username, patientsList)) return true;
+                && RegistrationValidation.IsUsernameUnique(patient.Username, patients)) return true;
             return false;
         }
     }
