@@ -97,6 +97,7 @@ namespace Backend
         public ArticleService articleService;
         public DoctorFeedbackService doctorFeedbackService;
         public FeedbackService feedbackService;
+        public SurveyService surveyService;
         public LocationService locationService;
         public MessageService messageService;
         public NotificationService notificationService;
@@ -140,6 +141,7 @@ namespace Backend
             doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
 
             feedbackService = new FeedbackService(feedbackRepository, questionRepository);
+            surveyService = new SurveyService(surveyRepository);
             locationService = new LocationService(locationRepository);
             messageService = new MessageService(messageRepository);
             notificationService = new NotificationService(notificationRepository);

@@ -24,20 +24,21 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         }
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Sending_Answers_Status_Code_Tests(SearchCriteria criteria, HttpStatusCode expectedStatusCode)
+        public async void Sending_Answers_Status_Code_Tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria));
+            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto));
 
             HttpResponseMessage response = await client.PostAsync("/api/survey/send-answers", bodyContent);
-
+            
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+          
         }
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>
         {
-            new object[] { null, HttpStatusCode.InternalServerError },
+            new object[] {null, HttpStatusCode.BadRequest},
             new object[] { new SurveyDTO(100, 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2, 8),  HttpStatusCode.OK }
         };
 

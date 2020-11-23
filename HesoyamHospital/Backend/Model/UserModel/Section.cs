@@ -40,7 +40,14 @@ namespace Backend.Model.UserModel
             _answerThree = answerThree;
             _answerFour = answerFour;
         }
-
+        public Section(long answerOne, long answerTwo, long answerThree, long answerFour)
+        {
+            
+            _answerOne = answerOne;
+            _answerTwo = answerTwo;
+            _answerThree = answerThree;
+            _answerFour = answerFour;
+        }
         public long GetId()
             => _id;
 

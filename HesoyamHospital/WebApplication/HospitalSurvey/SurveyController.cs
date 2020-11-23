@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 using WebApplication.HospitalSurvey;
 
 namespace WebApplication.HospitalSurvey
@@ -13,9 +15,11 @@ namespace WebApplication.HospitalSurvey
     public class SurveyController : ControllerBase
     {
         [HttpPost("send-answers")]
-        public IActionResult SimpleSearchDocs([FromBody] SurveyDTO criteria)
+        public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto)
         {
-            throw new NotImplementedException();
+            if (!SurveyValidation.isNewSurveyValid(dto)) return BadRequest();
+            AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto));
+            return Ok();
         }
     }
 }

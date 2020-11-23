@@ -55,6 +55,9 @@ namespace WebApplication.HospitalSurvey
 
         }
 
+        SurveyDTO()
+        {
 
+        }
     }
 }
