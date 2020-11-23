@@ -1,4 +1,5 @@
 ﻿using Backend.Model.UserModel;
+using Backend.Repository.Abstract.UsersAbstractRepository;
 using Backend.Repository.MySQLRepository.UsersRepository;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,13 @@ namespace Backend.Service.UsersService
     public class SurveyService : IService<Survey, long>
     {
         private SurveyRepository _surveyRepository;
-
+        
         public SurveyService(SurveyRepository surveyRepository)
         {
             _surveyRepository = surveyRepository;
             
         }
+        
         public Survey Create(Survey entity)
         {
             Validate(entity);

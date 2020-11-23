@@ -24,13 +24,11 @@ namespace WebApplication.HospitalSurvey
         public long AnswerFourteen { get; set; }
         public long AnswerFifteen { get; set; }
         public long AnswerSixteen { get; set; }
-        public long AnswerSeventeen { get; set; }
-        public long AnswerEighteen { get; set; }
-
+       
         public SurveyDTO( long answerOne, long answerTwo, long answerThree, long answerFour, 
             long answerFive, long answerSix, long answerSeven, long answerEight, long answerNine, long answerTen, 
             long answerEleven, long answerTwelve, long answerThirteen, long answerFourteen, long answerFifteen,
-            long answerSixteen, long answerSeventeen, long answerEighteen)
+            long answerSixteen)
         {
             
             AnswerOne = answerOne;
@@ -49,8 +47,7 @@ namespace WebApplication.HospitalSurvey
             AnswerFourteen = answerFourteen;
             AnswerFifteen = answerFifteen;
             AnswerSixteen = answerSixteen;
-            AnswerSeventeen = answerSeventeen;
-            AnswerEighteen = answerEighteen;
+           
 
 
         }

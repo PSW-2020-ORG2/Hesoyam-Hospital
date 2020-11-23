@@ -27,7 +27,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         public async void Sending_Answers_Status_Code_Tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto));
+            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync("/api/survey/send-answers", bodyContent);
             
@@ -39,7 +39,8 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         new List<object[]>
         {
             new object[] {null, HttpStatusCode.BadRequest},
-            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2, 8),  HttpStatusCode.OK }
+            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5),  HttpStatusCode.OK },
+            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 8),  HttpStatusCode.BadRequest }
         };
 
     }

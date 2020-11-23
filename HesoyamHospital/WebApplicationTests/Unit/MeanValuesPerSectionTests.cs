@@ -21,7 +21,7 @@ namespace WebApplicationTests.Unit
         {
             var stubRepository = new Mock<ISurveyRepository>();
             var surveys = new List<Survey>();
-            SurveyDTO surveydto = new SurveyDTO (1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2, 8);
+            SurveyDTO surveydto = new SurveyDTO (1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5);
             Survey survey = SurveyMapper.SurveyDTOToSurvey(surveydto);
             surveys.Add(survey);
             stubRepository.Setup(m => m.GetAll()).Returns(surveys);
