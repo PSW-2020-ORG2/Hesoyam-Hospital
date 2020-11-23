@@ -11,9 +11,9 @@ namespace IntegrationAdapter.Controllers
         [HttpPost]
         public IActionResult Get(RegisteredPharmacy pharmacy)
         {
-            if(AppResources.getInstance().pharmacyApiKeyService.GetRegisteredPharmacyByName(pharmacy.PharmacyName) == null)
+            if(AppResources.getInstance().registeredPharmacyService.GetRegisteredPharmacyByName(pharmacy.PharmacyName) == null)
             {
-                AppResources.getInstance().pharmacyApiKeyService.Create(pharmacy);
+                AppResources.getInstance().registeredPharmacyService.Create(pharmacy);
                 return Ok("Pharmacy registered.");
             }
             return BadRequest("Pharmacy already registered");
