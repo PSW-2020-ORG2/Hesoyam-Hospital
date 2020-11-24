@@ -52,6 +52,8 @@ namespace Backend.Service.MedicalService
         public MedicalRecord GetPatientMedicalRecord(Patient patient)
             => _medicalRecordRepository.GetPatientMedicalRecord(patient);
 
+        public MedicalRecord GetPatientMedicalRecordByPatientId(long patientId)
+           => _medicalRecordRepository.GetPatientMedicalRecordByPatientId(patientId);
         public MedicalRecord AddAllergy(MedicalRecord medicalRecord, Allergy allergy)
         {
             medicalRecord.AddAllergy(allergy);
