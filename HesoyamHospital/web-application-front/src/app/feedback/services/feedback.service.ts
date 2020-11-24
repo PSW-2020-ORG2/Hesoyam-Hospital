@@ -11,6 +11,26 @@ export interface Feedback {
   public: boolean;
   published: boolean;
 }
+export interface SurveyDTO {
+  answerOne: number;
+  answerTwo: number;
+  answerThree: number;
+  answerFour: number;
+  answerFive: number;
+  answerSix: number;
+  answerSeven: number;
+  answerEight: number;
+  answerNine: number;
+  answerTen: number;
+  answerEleven: number;
+  answerTwelve: number;
+  answerThirteen: number;
+  answerFourteen: number;
+  answerFifteen: number;
+  answerSixteen: number;
+  
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +48,9 @@ export class FeedbackService {
   post(feedback : NewFeedbackDto) {
       return this._http.post<any>(this._urlpost, feedback);
   }
-
+  postSurvey() {
+    
+  }
   getUnpublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlunpublished);
   }

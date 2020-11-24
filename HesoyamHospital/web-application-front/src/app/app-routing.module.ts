@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: 'feedback/patient/post', component: PostFeedbackComponent},
   {path: 'survey/survey-form', component:SurveyFormComponent},
   {path:'medical-record', component: ShowMedicalRecordComponent},
+  
   {
     path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
   },

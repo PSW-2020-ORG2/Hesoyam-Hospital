@@ -1,0 +1,160 @@
+<div style="height:100%; display: flex; justify-content: center;">
+    <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 60%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px;">
+            <form #feedform="ngForm" style="width: 80%;" (ngSubmit)="submit()" novalidate>
+                <h2 style="text-align: center;">
+                    Doctor Survey
+                </h2>
+                <div style="display: grid; grid-row-gap: 50px;">
+                    <label class="item1">How would you rate doctor's proffesionalism?</label>
+                    <mat-radio-group  name="q1" class="item2"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item3">How would you rate doctor's kindness?</label>
+                    <mat-radio-group  name="q2" class="item4"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item5">How would you rate doctor's expertise?</label>
+                    <mat-radio-group  name="q3" class="item6"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item7">In which measures does a doctor follows medical ethics principles?</label>
+                    <mat-radio-group  name="q4" class="item8" >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            
+                <h2 style="text-align: center;">
+                    Staff Survey
+                </h2>   
+                <div style="display: grid; grid-row-gap: 50px;">
+                    <label class="item1">How would you rate staff's proffesionalism?</label>
+                    <mat-radio-group  name="q5" class="item2"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item3">How would you rate staff's kindness?</label>
+                    <mat-radio-group  name="q6" class="item4"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item5">How would you rate staff's expertise?</label>
+                    <mat-radio-group  name="q7" class="item6"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item7">In which measures does a staff follows medical ethics principles?</label>
+                    <mat-radio-group  name="q8" class="item8" >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                </div> 
+                <h2 style="text-align: center;">
+                    Hygiene Survey
+                </h2>   
+                <div style="display: grid; grid-row-gap: 50px;">
+                    <label class="item1">How would you rate hygiene of examination room?</label>
+                    <mat-radio-group  name="q9" class="item2" >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item3">How would you rate hospital's floor cleanliness?</label>
+                    <mat-radio-group  name="q10" class="item4" >                    
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item5">How would you rate hospital's supply of disinfectants?</label>
+                    <mat-radio-group  name="q11" class="item6" >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item7">How would you rate level of sterilization over appliances inside the hospital?</label>
+                    <mat-radio-group  name="q12" class="item8"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                </div> 
+
+                <h2 style="text-align: center;">
+                    Equipment Survey
+                </h2>   
+                <div style="display: grid; grid-row-gap: 50px;">
+                    <label class="item1">How would you rate number of equipment in examination room?</label>
+                    <mat-radio-group  name="q13" class="item2" >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item3">How would you rate equipment deployment inside hospital?</label>
+                    <mat-radio-group  name="q14" class="item4"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item5">How would you rate state of which equipment is in?</label>
+                    <mat-radio-group  name="q15" class="item6"    >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                    <label class="item7">How wolud you rate level of hosapital apparatus automatisation?</label>
+                    <mat-radio-group  name="q16" class="item8"  >
+                        <mat-radio-button value=0>1</mat-radio-button>
+                        <mat-radio-button value=1>2</mat-radio-button>
+                        <mat-radio-button value=2>3</mat-radio-button>
+                        <mat-radio-button value=3>4</mat-radio-button>
+                        <mat-radio-button value=4>5</mat-radio-button>
+                    </mat-radio-group>
+                </div> 
+                <div style="text-align: center; margin-top: 50px;">
+                    <button mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Submit</button>
+                  </div>
+        
+            </form>
+    </mat-card>
+</div>
