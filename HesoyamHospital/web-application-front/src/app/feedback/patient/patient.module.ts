@@ -5,10 +5,11 @@ import { PatientRoutingModule } from './patient-routing.module';
 import { PostFeedbackComponent } from './post-feedback/post-feedback.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { SimpleSearchComponent } from './simple-search/simple-search.component';
 
 
 @NgModule({
-  declarations: [PostFeedbackComponent],
+  declarations: [PostFeedbackComponent, SimpleSearchComponent],
   imports: [
     CommonModule,
     PatientRoutingModule,

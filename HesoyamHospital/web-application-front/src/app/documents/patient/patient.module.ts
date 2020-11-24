@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MaterialModule } from 'src/app/shared/material/material.module';
 import { PatientRoutingModule } from './patient-routing.module';
-import { SimpleSearchComponent } from './simple-search/simple-search.component';
 import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
-  declarations: [SimpleSearchComponent],
+  declarations: [],
   imports: [
     CommonModule,
     PatientRoutingModule,
-    MatTableModule,
-    MatButtonModule
+    MaterialModule,
+    MatTableModule
   ]
 })
 export class PatientModule { }

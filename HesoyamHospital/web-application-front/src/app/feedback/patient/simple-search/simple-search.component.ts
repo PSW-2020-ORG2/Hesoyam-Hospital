@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentsService } from '../../services/documents.service';
-import { DocumentDTO } from '../DTOs/document-dto';
 
 @Component({
   selector: 'app-simple-search',
@@ -9,9 +7,9 @@ import { DocumentDTO } from '../DTOs/document-dto';
 })
 export class SimpleSearchComponent implements OnInit {
 
-  public data : DocumentDTO[] = []
+  public data : string[] = [];
 
-  constructor(_documentsService : DocumentsService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

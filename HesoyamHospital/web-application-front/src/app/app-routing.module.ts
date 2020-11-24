@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SimpleSearchComponent } from './documents/patient/simple-search/simple-search.component';
+import { SimpleSearchComponent } from './feedback/patient/simple-search/simple-search.component';
 import { PostFeedbackComponent } from './feedback/patient/post-feedback/post-feedback.component';
-import { MedicalRecordModule } from './medical-record/medical-record.module';
 import { ShowMedicalRecordComponent } from './medical-record/show-medical-record/show-medical-record.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 

@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from 'src/app/shared/material/material.module';
+import { HttpClientModule } from '@angular/common/http';
 import { DocumentsRoutingModule } from './documents-routing.module';
+import { PatientModule } from '../feedback/patient/patient.module';
 
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     DocumentsRoutingModule,
-    MaterialModule
+    PatientModule,
+    HttpClientModule
   ]
 })
 export class DocumentsModule { }

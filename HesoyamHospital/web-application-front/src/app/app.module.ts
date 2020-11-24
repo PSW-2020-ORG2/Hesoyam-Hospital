@@ -10,6 +10,7 @@ import { FeedbackService } from './feedback/services/feedback.service';
 import { MaterialModule } from './shared/material/material.module';
 import { MedicalRecordModule} from './medical-record/medical-record.module';
 import { RegistrationModule } from './registration/registration.module';
+import { DocumentsModule } from './documents/documents.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RegistrationModule } from './registration/registration.module';
     HttpClientModule,
     MaterialModule,
     MedicalRecordModule,
-    RegistrationModule
+    RegistrationModule,
+    DocumentsModule
   ],
   providers: [FeedbackService],
   bootstrap: [AppComponent]
