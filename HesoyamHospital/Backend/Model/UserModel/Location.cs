@@ -51,5 +51,10 @@ namespace Backend.Model.UserModel
         {
             return 1969571243 + _id.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return City + ", " + Country;
+        }
     }
 }

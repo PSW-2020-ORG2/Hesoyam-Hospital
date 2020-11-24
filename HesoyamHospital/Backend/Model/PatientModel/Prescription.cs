@@ -115,5 +115,23 @@ namespace Backend.Model.PatientModel
         {
             return 1969571243 + _id.GetHashCode();
         }
+        public string StatusToString(PrescriptionStatus s) {
+            if (s == PrescriptionStatus.EXPIRED)
+            {
+                return "expired";
+            }
+            else if (s == PrescriptionStatus.ACTIVE)
+            {
+                return "active";
+            }
+            else if (s == PrescriptionStatus.USED)
+            {
+                return "used";
+            }
+            else {
+                return "deactivated";
+            }
+            
+        }
     }
 }
