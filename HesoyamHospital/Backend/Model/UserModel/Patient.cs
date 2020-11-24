@@ -12,20 +12,10 @@ namespace Backend.Model.UserModel
 {
     public class Patient : User
     {
-        private PatientType _patientType;
-        public PatientType PatientType { get => _patientType; set => _patientType = value; }
-
-        private Doctor _selectedDoctor;
-        public Doctor SelectedDoctor { get => _selectedDoctor; set { _selectedDoctor = value; _selectedDoctorID = value.Id; } }
-
-        private long _selectedDoctorID;
-        public long SelectedDoctorID { get => _selectedDoctorID; set => _selectedDoctorID = value; }
-
-        private bool _active;
-        public bool Active { get => _active; set => _active = value; }
-
-        private string _healthCardNumber;
-        public string HealthCardNumber { get => _healthCardNumber; set => _healthCardNumber = value; }
+        public PatientType PatientType { get; set; }
+        public virtual Doctor SelectedDoctor { get; set; }
+        public bool Active { get; set; }
+        public string HealthCardNumber { get; set; }
 
         public Patient(long id) : base(id) { }
         
@@ -49,10 +39,9 @@ namespace Backend.Model.UserModel
                         string healthCardNumber) 
             : base(userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _patientType = patientType;
-            _selectedDoctor = selectedDoctor;
-            _selectedDoctorID = selectedDoctor.Id;
-            _healthCardNumber = healthCardNumber;
+            PatientType = patientType;
+            SelectedDoctor = selectedDoctor;
+            HealthCardNumber = healthCardNumber;
         }
 
         public Patient(string userName,
@@ -74,10 +63,9 @@ namespace Backend.Model.UserModel
                         string healthCardNumber)
             : base(userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _patientType = patientType;
-            _selectedDoctor = selectedDoctor;
-            _selectedDoctorID = selectedDoctor.Id;
-            _healthCardNumber = healthCardNumber;
+            PatientType = patientType;
+            SelectedDoctor = selectedDoctor;
+            HealthCardNumber = healthCardNumber;
         }
 
         public Patient( long id,
@@ -102,10 +90,9 @@ namespace Backend.Model.UserModel
                         string healthCardNumber) 
             : base(id, uid, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _patientType = patientType;
-            _selectedDoctor = selectedDoctor;
-            _selectedDoctorID = selectedDoctor.Id;
-            _healthCardNumber = healthCardNumber;
+            PatientType = patientType;
+            SelectedDoctor = selectedDoctor;
+            HealthCardNumber = healthCardNumber;
         }
     }
 }

@@ -6,46 +6,43 @@ namespace Backend.Model.PatientModel
 {
     public class Report : Document, IIdentifiable<long>
     {
-        private string _comment;
-        public string Comment { get => _comment; set => _comment = value; }
+        public string Comment { get; set; }
 
         public Report (long id)
         {
-            _id = id;
-            _dateCreated = DateTime.Now;
+            Id = id;
+            DateCreated = DateTime.Now;
         }
 
         public Report (long id, Patient patient, Doctor doctor, string comment, Diagnosis diagnosis)
         {
-            _id = id;
-            _patient = patient;
-            _patientID = patient.Id;
-            _doctor = doctor;
-            _doctorID = doctor.Id;
-            _comment = comment;
-            _diagnosis = diagnosis;
+            Id = id;
+            Patient = patient;
+            Doctor = doctor;
+            Comment = comment;
+            Diagnosis = diagnosis;
         }
 
-        public long GetId() => _id;
+        public long GetId() => Id;
 
-        public void SetId(long id) => _id = id;
+        public void SetId(long id) => Id = id;
 
         public override bool Equals(object obj)
         {
             var report = obj as Report;
             return report != null &&
-                   _id == report._id;
+                   Id == report.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + Id.GetHashCode();
         }
 
         public override bool meetsCriteria(DocumentSearchCriteria criteria)
         {
             if (!base.meetsCriteria(criteria)) return false;
-            if (!_comment.ToLower().Contains(criteria.Comment.ToLower())) return false;
+            if (!Comment.ToLower().Contains(criteria.Comment.ToLower())) return false;
             return true;
         }
     }

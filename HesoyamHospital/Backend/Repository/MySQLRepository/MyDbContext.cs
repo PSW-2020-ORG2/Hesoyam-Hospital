@@ -14,10 +14,7 @@ namespace Backend.Repository.MySQLRepository
     public class MyDbContext : DbContext
     {
         public MyDbContext() : base() { }
-        public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
-        {
-            this.ChangeTracker.LazyLoadingEnabled = false;
-        }
+        public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
@@ -33,14 +30,13 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Survey> Surveys { get; set; }
-
         public DbSet<PharmacyApiKey> PharmacyApiKeys { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql("server = localhost; port = 3306; database = mydb1; user = root; password = root");
+                optionsBuilder.UseLazyLoadingProxies().UseMySql("server = localhost; port = 3306; database = mydb1; user = root; password = root");
             }
         }
 

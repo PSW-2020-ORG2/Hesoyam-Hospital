@@ -12,39 +12,36 @@ namespace Backend.Model.PatientModel
 {
     public class Allergy : IIdentifiable<long>
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
-        private string _name;
-        public string Name { get => _name; set => _name = value; }
+        public long Id { get; set; }
+        public string Name { get; set; }
 
         public Allergy(long id)
         {
-            _id = id;
-            _name = "";
+            Id = id;
+            Name = "";
             
         }
 
         public Allergy(long id,string name)
         {
-            _id = id;
-            _name = name;
+            Id = id;
+            Name = name;
         }
 
-        public long GetId() => _id;
+        public long GetId() => Id;
 
-        public void SetId(long id) => _id = id;
+        public void SetId(long id) => Id = id;
 
         public override bool Equals(object obj)
         {
             var allergy = obj as Allergy;
             return allergy != null &&
-                   _id == allergy._id;
+                   Id == allergy.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + Id.GetHashCode();
         }
     }
 }

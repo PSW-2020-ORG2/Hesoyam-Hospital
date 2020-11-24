@@ -12,24 +12,12 @@ namespace Backend.Model.PatientModel
 {
     public class MedicalRecord : IIdentifiable<long>
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
-        private BloodType _patientBloodType;
-        public BloodType PatientBloodType { get => _patientBloodType; set => _patientBloodType = value; }
-
-        private Patient _patient;
-        public Patient Patient { get => _patient; set { _patient = value; _patientID = value.Id; } }
-
-        private long _patientID;
-        public long PatientID { get => _patientID; set => _patientID = value; }
+        public long Id { get; set; }
+        public BloodType PatientBloodType { get; set; }
+        public virtual Patient Patient { get; set; }
 
         private List<Report> _patientReports;
-        private List<Allergy> _allergy;
-        private List<Prescription> _prescriptions;
-
-
-        public List<Report> PatientReports
+        public virtual List<Report> PatientReports
         {
             get
             {
@@ -47,8 +35,8 @@ namespace Backend.Model.PatientModel
                 }
             }
         }
-
-        public List<Allergy> Allergy
+        private List<Allergy> _allergy;
+        public virtual List<Allergy> Allergy
         {
             get
             {
@@ -66,8 +54,8 @@ namespace Backend.Model.PatientModel
                 }
             }
         }
-
-        public List<Prescription> Prescriptions
+        private List<Prescription> _prescriptions;
+        public virtual List<Prescription> Prescriptions
         {
             get
             {
@@ -88,127 +76,122 @@ namespace Backend.Model.PatientModel
 
         public MedicalRecord(long id)
         {
-            _id = id;
-            
+            Id = id;
         }
 
         public MedicalRecord(Patient patient)
         {
-            _patient = patient;
-            _patientID = patient.Id;
-            _patientBloodType = BloodType.NOT_TESTED;
-            _patientReports = new List<Report>();
-            _allergy = new List<Allergy>();
+            Patient = patient;
+            PatientBloodType = BloodType.NOT_TESTED;
+            PatientReports = new List<Report>();
+            Allergy = new List<Allergy>();
         }
 
         public MedicalRecord(Patient patient, BloodType bloodType)
         {
-            _patient = patient;
-            _patientBloodType = bloodType;
-            _patientReports = new List<Report>();
-            _allergy = new List<Allergy>();
-            _patientID = patient.Id;
+            Patient = patient;
+            PatientBloodType = bloodType;
+            PatientReports = new List<Report>();
+            Allergy = new List<Allergy>();
         }
 
         public MedicalRecord(Patient patient, BloodType bloodType, List<Report> patientReport, List<Allergy> patientAllergies)
         {
-            _patient = patient;
-            _patientBloodType = bloodType;
-            _patientReports = patientReport;
-            _allergy = patientAllergies;
-            _patientID = patient.Id;
+            Patient = patient;
+            PatientBloodType = bloodType;
+            PatientReports = patientReport;
+            Allergy = patientAllergies;
         }
 
         public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Report> patientReport, List<Allergy> patientAllergies)
         {
-            _id = id;
-            _patient = patient;
-            _patientBloodType = bloodType;
-            _patientReports = patientReport;
-            _allergy = patientAllergies;
-            _patientID = patient.Id;
+            Id = id;
+            Patient = patient;
+            PatientBloodType = bloodType;
+            PatientReports = patientReport;
+            Allergy = patientAllergies;
         }
 
         public long GetId()
-        => _id;
+        => Id;
 
         public void SetId(long id)
-            => _id = id;
+            => Id = id;
 
 
         public void AddPatientReport(Report newReport)
         {
             if (newReport == null)
                 return;
-            if (_patientReports == null)
-                _patientReports = new List<Report>();
-            if (!_patientReports.Contains(newReport))
-                _patientReports.Add(newReport);
+            if (PatientReports == null)
+                PatientReports = new List<Report>();
+            if (!PatientReports.Contains(newReport))
+                PatientReports.Add(newReport);
         }
 
         public void RemovePatientReport(Report oldReport)
         {
             if (oldReport == null)
                 return;
-            if (_patientReports != null)
-                if (_patientReports.Contains(oldReport))
-                    _patientReports.Remove(oldReport);
+            if (PatientReports != null)
+                if (PatientReports.Contains(oldReport))
+                    PatientReports.Remove(oldReport);
         }
 
         public void RemoveAllPatientReport()
         {
-            if (_patientReports != null)
-                _patientReports.Clear();
+            if (PatientReports != null)
+                PatientReports.Clear();
         }
         
         public void AddAllergy(Allergy newAllergy)
         {
             if (newAllergy == null)
                 return;
-            if (_allergy == null)
-                _allergy = new List<Allergy>();
-            if (!_allergy.Contains(newAllergy))
-                _allergy.Add(newAllergy);
+            if (Allergy == null)
+                Allergy = new List<Allergy>();
+            if (!Allergy.Contains(newAllergy))
+                Allergy.Add(newAllergy);
         }
 
         public void RemoveAllergy(Allergy oldAllergy)
         {
             if (oldAllergy == null)
                 return;
-            if (_allergy != null)
-                if (_allergy.Contains(oldAllergy))
-                    _allergy.Remove(oldAllergy);
+            if (Allergy != null)
+                if (Allergy.Contains(oldAllergy))
+                    Allergy.Remove(oldAllergy);
         }
 
         public void RemoveAllAllergy()
         {
-            if (_allergy != null)
-                _allergy.Clear();
+            if (Allergy != null)
+                Allergy.Clear();
         }
 
         public void AddPrescription(Prescription newPrescription)
         {
             if (newPrescription == null)
                 return;
-            if (_prescriptions == null)
-                _prescriptions = new List<Prescription>();
-            if (!_prescriptions.Contains(newPrescription))
-                _prescriptions.Add(newPrescription);
+            if (Prescriptions == null)
+                Prescriptions = new List<Prescription>();
+            if (!Prescriptions.Contains(newPrescription))
+                Prescriptions.Add(newPrescription);
         }
 
         public void RemovePrescription(Prescription oldPrescription)
         {
             if (oldPrescription == null)
                 return;
-            if (_prescriptions != null)
-                if (_prescriptions.Contains(oldPrescription))
-                    _prescriptions.Remove(oldPrescription);
+            if (Prescriptions != null)
+                if (Prescriptions.Contains(oldPrescription))
+                    Prescriptions.Remove(oldPrescription);
         }
 
         public void RemoveAllPrescription()
         {
-            if (_prescriptions != null)
-                _prescriptions.Clear();
+            if (Prescriptions != null)
+                Prescriptions.Clear();
         }
 
 
@@ -216,12 +199,12 @@ namespace Backend.Model.PatientModel
         {
             var record = obj as MedicalRecord;
             return record != null &&
-                   _id == record._id;
+                   Id == record.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + Id.GetHashCode();
         }
 
     }

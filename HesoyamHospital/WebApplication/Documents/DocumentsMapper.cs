@@ -10,7 +10,7 @@ namespace WebApplication.Documents
     {
         private static DocumentDTO DocumentToDocumentDTO(Document document)
         {
-            return new DocumentDTO(document.DateCreated, document.Doctor.FullName, document.Diagnosis.diagnosisName);
+            return new DocumentDTO(document.DateCreated, document.Doctor.FullName, document.Diagnosis.DiagnosisName);
         }
 
         public static List<DocumentDTO> DocumentToDocumentDTO(List<Document> documents)

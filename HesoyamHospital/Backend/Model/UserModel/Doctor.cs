@@ -11,14 +11,8 @@ namespace Backend.Model.UserModel
 {
     public class Doctor : Employee
     {
-        private Room _office;
-        public Room Office { get => _office; set { _office = value; _officeID = value.Id; } }
-
-        private long _officeID;
-        public long OfficeId { get => _officeID; set => _officeID = value; }
-
-        private DoctorType _docTypeEnum;
-        public DoctorType DoctorType { get => _docTypeEnum; set => _docTypeEnum = value; }
+        public virtual Room Office { get; set; }
+        public DoctorType DoctorType { get; set; }
 
 
         public Doctor(  string userName, 
@@ -42,9 +36,8 @@ namespace Backend.Model.UserModel
                         DoctorType doctorType) 
             : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _office = office;
-            _officeID = office.Id;
-            _docTypeEnum = doctorType;
+            Office = office;
+            DoctorType = doctorType;
         }
 
         public Doctor(string userName,
@@ -67,9 +60,8 @@ namespace Backend.Model.UserModel
                         DoctorType doctorType)
             : base(timeTable, hospital, userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _office = office;
-            _officeID = office.Id;
-            _docTypeEnum = doctorType;
+            Office = office;
+            DoctorType = doctorType;
         }
 
         public Doctor(  long id,
@@ -95,9 +87,8 @@ namespace Backend.Model.UserModel
                         DoctorType doctorType) 
             : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
-            _office = office;
-            _officeID = office.Id;
-            _docTypeEnum = doctorType;
+            Office = office;
+            DoctorType = doctorType;
         }
 
         public Doctor(long id) : base(id) { }

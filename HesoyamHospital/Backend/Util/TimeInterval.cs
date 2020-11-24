@@ -9,23 +9,16 @@ namespace Backend.Util
 {
     public class TimeInterval
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
-        private DateTime _startTime;
-        public DateTime StartTime { get => _startTime; set => _startTime = value; }
-
-        private DateTime _endTime;
-        public DateTime EndTime { get => _endTime; set => _endTime = value; }
+        public long Id { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         public TimeInterval() { }
 
         public TimeInterval(DateTime startTime, DateTime endTime)
         {
-            //TODO: Enforce endTime >= startTime
-            
-            _startTime = startTime;
-            _endTime = endTime;
+            StartTime = startTime;
+            EndTime = endTime;
         }
 
         public bool IsDateTimeBetween(DateTime dateTime)

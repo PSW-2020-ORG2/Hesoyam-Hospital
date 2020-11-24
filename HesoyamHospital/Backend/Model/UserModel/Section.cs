@@ -8,20 +8,11 @@ namespace Backend.Model.UserModel
 {
     public class Section : IIdentifiable<long>
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
-        private long _answerOne;
-        public long AnswerOne { get => _answerOne; set => _answerOne = value; }
-
-        private long _answerTwo;
-        public long AnswerTwo { get => _answerTwo; set => _answerTwo = value; }
-
-        private long _answerThree;
-        public long AnswerThree { get => _answerThree; set => _answerThree = value; }
-
-        private long _answerFour;
-        public long AnswerFour { get => _answerFour; set => _answerFour = value; }
+        public long Id { get; set; }
+        public long AnswerOne { get; set; }
+        public long AnswerTwo { get; set; }
+        public long AnswerThree { get; set; }
+        public long AnswerFour { get; set; }
 
         public Section()
         {
@@ -29,22 +20,22 @@ namespace Backend.Model.UserModel
 
         public Section(long id)
         {
-            _id = id;
+            Id = id;
         }
 
         public Section(long id, long answerOne, long answerTwo, long answerThree, long answerFour)
         {
-            _id = id;
-            _answerOne = answerOne;
-            _answerTwo = answerTwo;
-            _answerThree = answerThree;
-            _answerFour = answerFour;
+            Id = id;
+            AnswerOne = answerOne;
+            AnswerTwo = answerTwo;
+            AnswerThree = answerThree;
+            AnswerFour = answerFour;
         }
 
         public long GetId()
-            => _id;
+            => Id;
 
         public void SetId(long id)
-            => _id = id;
+            => Id = id;
     }
 }

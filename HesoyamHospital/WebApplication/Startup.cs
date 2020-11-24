@@ -45,7 +45,8 @@ namespace WebApplication
                                   });
             });
             services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer()), new ReportRepository(new MySQLStream<Report>(), new LongSequencer())));
-
+            services.AddMvc().AddJsonOptions(options =>
+                    options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();
         }
 

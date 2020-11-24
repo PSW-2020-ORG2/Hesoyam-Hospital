@@ -12,42 +12,37 @@ namespace Backend.Model.PatientModel
 {
     public class Diagnosis : IIdentifiable<long>
     {
-        private long _id;
-        public long Id { get => _id; set => _id = value; }
-
-        private string _diagnosisCode;
-        public string DiagnosisCode { get => _diagnosisCode; set => _diagnosisCode = value; }
-
-        private string _diagnosisName;
-        public string diagnosisName { get => _diagnosisName; set => _diagnosisName = value; }
+        public long Id { get; set; }
+        public string DiagnosisCode { get; set; }
+        public string DiagnosisName { get; set; }
 
 
         public Diagnosis(long id)
         {
-            _id = id;
+            Id = id;
         }
 
         public Diagnosis(long id, string diagnosisName, string diagnosisCode)
         {
-            _id = id;
-            _diagnosisName = diagnosisName;
-            _diagnosisCode = diagnosisCode;
+            Id = id;
+            DiagnosisName = diagnosisName;
+            DiagnosisCode = diagnosisCode;
         }
 
-        public long GetId() => _id;
+        public long GetId() => Id;
 
-        public void SetId(long id) => _id = id;
+        public void SetId(long id) => Id = id;
 
         public override bool Equals(object obj)
         {
             var diagnosis = obj as Diagnosis;
             return diagnosis != null &&
-                   _id == diagnosis._id;
+                   Id == diagnosis.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + Id.GetHashCode();
         }
     }
 }
