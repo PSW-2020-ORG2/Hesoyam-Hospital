@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Service;
 using Backend.Service.HospitalManagementService;
+using Backend.Service.UsersService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +42,7 @@ namespace WebApplication
                                       .AllowAnyMethod();
                                   });
             });
-
+                        
             services.AddSingleton<IDocumentService, DocumentService>();
 
             services.AddControllers();

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WebApplication\WebApplication.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Unit\" />
+  </ItemGroup>
+
 </Project>

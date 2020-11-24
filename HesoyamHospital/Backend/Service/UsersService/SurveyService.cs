@@ -12,12 +12,14 @@ namespace Backend.Service.UsersService
     {
         private SurveyRepository _surveyRepository;
         
+            
         public SurveyService(SurveyRepository surveyRepository)
         {
             _surveyRepository = surveyRepository;
             
         }
         
+
         public Survey Create(Survey entity)
         {
             Validate(entity);

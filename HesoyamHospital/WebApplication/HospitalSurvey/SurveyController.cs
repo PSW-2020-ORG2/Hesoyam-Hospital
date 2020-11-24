@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend;
+using Backend.Service.UsersService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,8 @@ namespace WebApplication.HospitalSurvey
     [ApiController]
     public class SurveyController : ControllerBase
     {
+
+
         [HttpPost("send-answers")]
         public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto)
         {
@@ -21,6 +24,7 @@ namespace WebApplication.HospitalSurvey
             AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto));
             return Ok();
         }
-       
+        
+
     }
 }
