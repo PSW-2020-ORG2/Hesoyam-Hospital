@@ -22,25 +22,21 @@ namespace WebApplicationTests.Integration.MedicalRecords
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Medical_Record_Status_Code_Test( HttpStatusCode expectedStatusCode)
+        public async void Medical_Record_Status_Code_Test(long id, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
             
-            var response = await client.GetAsync("/api/medicalrecord/show");
-            string x = await response.Content.ReadAsStringAsync();
-            //Assert.False(response.IsSuccessStatusCode);
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-            //MedicalRecord medicalRecord = (MedicalRecord) JsonConvert.DeserializeObject<MedicalRecord>(x);
-            
+            var response = await client.GetAsync("/api/medicalrecord/show/"+ id );
 
-           // medicalRecord.Patient.Id.ShouldBeEquivalentTo(id);
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>
         {
-            new object[] { HttpStatusCode.InternalServerError}
-            //new object[] { 400, HttpStatusCode.NotFound }
+            new object[] {500, HttpStatusCode.OK},
+            new object[] { 400, HttpStatusCode.NotFound}
+            
         };
     }
 }

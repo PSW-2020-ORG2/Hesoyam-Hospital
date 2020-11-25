@@ -13,10 +13,10 @@ namespace WebApplication.MedicalRecords
     [ApiController]
     public class MedicalRecordController : ControllerBase
     {
-        [HttpGet("show")]  //GET /api/medicalrecord/show
-        public IActionResult GetMedicalRecordByPatientId()
+        [HttpGet("show/{id}")]  //GET /api/medicalrecord/show
+        public IActionResult GetMedicalRecordByPatientId(long id)
         {
-            MedicalRecord medicalRecord = AppResources.getInstance().medicalRecordService.GetPatientMedicalRecordByPatientId(500);
+            MedicalRecord medicalRecord = AppResources.getInstance().medicalRecordService.GetPatientMedicalRecordByPatientId(id);
 
             if (medicalRecord == null) return NotFound();
 
