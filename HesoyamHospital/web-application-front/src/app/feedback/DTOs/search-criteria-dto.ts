@@ -1,9 +1,4 @@
-class TimeInterval {
-    constructor(
-        public StartTime : Date,
-        public EndTime : Date
-    ) {}
-}
+import { TimeInterval } from './time-interval'
 
 export class SearchCriteriaDTO {
     constructor(

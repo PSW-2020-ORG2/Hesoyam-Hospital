@@ -1,5 +1,5 @@
 table {
-    width: 80%;
+    width: 82%;
   }
 
   
@@ -24,4 +24,19 @@ div {
 
 .mat-row:hover {
     background-color: rgb(250, 242, 231);
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin-left: 25px;
+}
+
+.example-form-field {
+  width: 200px;
 }
