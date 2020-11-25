@@ -16,26 +16,49 @@ namespace WebApplication.HospitalSurvey
     [ApiController]
     public class SurveyController : ControllerBase
     {
-
-
         [HttpPost("send-answers")]
         public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto)
         {
             if (!SurveyValidation.isNewSurveyValid(dto)) return BadRequest();
+           
             AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto));
+            
             return Ok();
         }
         [HttpGet("get-answers")]
         public IActionResult GetAllAnswers()
         {
-            //List<Survey> surveys = AppResources.getInstance().surveyService.GetAll().ToList();
+            List<Survey> surveys = AppResources.getInstance().surveyService.GetAll().ToList();
 
-            //if (surveys == null) return NotFound();
+            if (surveys == null) return NotFound();
 
-            //return Ok(surveys.Select(survey => SurveyMapper.SurveyToSurveyDTO(survey)).ToArray());
-            return Ok();
+            return Ok(surveys.Select(survey => SurveyMapper.SurveyToSurveyDTO(survey)).ToArray());
+            
 
         }
-
+        [HttpGet("mean-value-per-section/{section}")]
+        public IActionResult MeanValuePerSection(string section)
+        {
+            if(section=="Doctor")
+            {
+              return Ok(AppResources.getInstance().surveyService.MeanValuesPerDoctorSection());
+            }
+            else if (section == "Staff")
+            {
+              return Ok(AppResources.getInstance().surveyService.MeanValuesPerStaffSection());
+            }
+            else if(section=="Hygiene")
+            {
+              return Ok(AppResources.getInstance().surveyService.MeanValuesPerHygieneSection());
+            }
+            else if(section == "Equipment")
+            {
+              return Ok(AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection());
+            }else
+            {
+                return BadRequest();
+            }
+           
+        }
     }
 }
