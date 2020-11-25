@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NewFeedbackDto } from '../DTOs/new-feedback-dto';
 import { Observable } from 'rxjs';
+import {SurveyDTO} from '../DTOs/survey-dto';
 
 export interface Feedback {
   id: number;
@@ -11,25 +12,7 @@ export interface Feedback {
   public: boolean;
   published: boolean;
 }
-export interface SurveyDTO {
-  answerOne: number;
-  answerTwo: number;
-  answerThree: number;
-  answerFour: number;
-  answerFive: number;
-  answerSix: number;
-  answerSeven: number;
-  answerEight: number;
-  answerNine: number;
-  answerTen: number;
-  answerEleven: number;
-  answerTwelve: number;
-  answerThirteen: number;
-  answerFourteen: number;
-  answerFifteen: number;
-  answerSixteen: number;
-  
-}
+
 
 
 @Injectable({
@@ -42,14 +25,16 @@ export class FeedbackService {
   private _urlpublished:string = 'http://localhost:52166/api/feedback/published';
   private _urlID:string = 'http://localhost:52166/api/feedback';
   private _urlpost:string = "http://localhost:52166/api/feedback";
+  private _urlpostsurvey: string = "http://localhost:52166/api/survey/send-answers";
 
   constructor(private _http : HttpClient) { }
 
   post(feedback : NewFeedbackDto) {
       return this._http.post<any>(this._urlpost, feedback);
   }
-  postSurvey() {
-    
+  
+  postSurvey(survey : SurveyDTO){
+    return this._http.post<any>(this._urlpostsurvey, survey)
   }
   getUnpublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlunpublished);
