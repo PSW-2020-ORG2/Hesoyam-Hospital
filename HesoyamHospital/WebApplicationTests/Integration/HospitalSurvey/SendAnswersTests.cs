@@ -22,6 +22,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         {
             _factory = factory;
         }
+
         [Theory]
         [MemberData(nameof(Data))]
         public async void Sending_Answers_Status_Code_Tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
