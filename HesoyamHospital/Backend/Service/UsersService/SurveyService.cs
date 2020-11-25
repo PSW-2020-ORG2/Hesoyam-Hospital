@@ -46,7 +46,133 @@ namespace Backend.Service.UsersService
         {
             
         }
-        
+        //returns list of mean values per questions in doctors section
+        public List<double> MeanValuesPerDoctorQuestions()
+        {
+            List<double> result = new List<double>();
+            List<double> answersOne = new List<double>();
+            List<double> answersTwo = new List<double>();
+            List<double> answersThree = new List<double>();
+            List<double> answersFour = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return result;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section doctorSection = survey.DoctorSection;
+                answersOne.Add(doctorSection.AnswerOne);
+                answersTwo.Add(doctorSection.AnswerTwo);
+                answersThree.Add(doctorSection.AnswerThree);
+                answersFour.Add(doctorSection.AnswerFour);
+            }
+            result.Add(SumOfQuestions(answersOne) / surveys.Count);
+            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
+            result.Add(SumOfQuestions(answersThree) / surveys.Count);
+            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+
+            return result;
+
+        }
+        public List<double> MeanValuesPerStaffQuestions()
+        {
+            List<double> result = new List<double>();
+            List<double> answersOne = new List<double>();
+            List<double> answersTwo = new List<double>();
+            List<double> answersThree = new List<double>();
+            List<double> answersFour = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return result;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section staffSection = survey.StaffSection;
+                answersOne.Add(staffSection.AnswerOne);
+                answersTwo.Add(staffSection.AnswerTwo);
+                answersThree.Add(staffSection.AnswerThree);
+                answersFour.Add(staffSection.AnswerFour);
+            }
+            result.Add(SumOfQuestions(answersOne) / surveys.Count);
+            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
+            result.Add(SumOfQuestions(answersThree) / surveys.Count);
+            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+
+            return result;
+
+        }
+        public List<double> MeanValuesPerHygieneQuestions()
+        {
+            List<double> result = new List<double>();
+            List<double> answersOne = new List<double>();
+            List<double> answersTwo = new List<double>();
+            List<double> answersThree = new List<double>();
+            List<double> answersFour = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return result;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section hygieneSection = survey.HygieneSection;
+                answersOne.Add(hygieneSection.AnswerOne);
+                answersTwo.Add(hygieneSection.AnswerTwo);
+                answersThree.Add(hygieneSection.AnswerThree);
+                answersFour.Add(hygieneSection.AnswerFour);
+            }
+            result.Add(SumOfQuestions(answersOne) / surveys.Count);
+            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
+            result.Add(SumOfQuestions(answersThree) / surveys.Count);
+            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+
+            return result;
+
+        }
+
+        public List<double> MeanValuesPerEquipmentQuestions()
+        {
+            List<double> result = new List<double>();
+            List<double> answersOne = new List<double>();
+            List<double> answersTwo = new List<double>();
+            List<double> answersThree = new List<double>();
+            List<double> answersFour = new List<double>();
+            List<Survey> surveys = _surveyRepository.GetAllEager().ToList();
+
+            if (surveys == null)
+            {
+                return result;
+            }
+            foreach (Survey survey in surveys)
+            {
+                Section equipmentSection = survey.EquipmentSection;
+                answersOne.Add(equipmentSection.AnswerOne);
+                answersTwo.Add(equipmentSection.AnswerTwo);
+                answersThree.Add(equipmentSection.AnswerThree);
+                answersFour.Add(equipmentSection.AnswerFour);
+            }
+            result.Add(SumOfQuestions(answersOne) / surveys.Count);
+            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
+            result.Add(SumOfQuestions(answersThree) / surveys.Count);
+            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+
+            return result;
+
+        }
+        public double SumOfQuestions(List<double> means) 
+        {
+            double result=0.0;
+            foreach( double question in means)
+            {
+                result += question;
+            }
+            return result;
+        }
         public double MeanValuesPerDoctorSection()
         {
             List<double> means = new List<double>();

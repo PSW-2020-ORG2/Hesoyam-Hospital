@@ -60,5 +60,29 @@ namespace WebApplication.HospitalSurvey
             }
            
         }
+        [HttpGet("mean-value-per-question/{section}")]
+        public IActionResult MeanValuePerQuestion(string section)
+        {
+            if (section == "Doctor")
+            {
+                return Ok(AppResources.getInstance().surveyService.MeanValuesPerDoctorQuestions());
+            }
+            else if (section == "Staff")
+            {
+                return Ok(AppResources.getInstance().surveyService.MeanValuesPerStaffQuestions());
+            }
+            else if (section == "Hygiene")
+            {
+                return Ok(AppResources.getInstance().surveyService.MeanValuesPerHygieneQuestions());
+            }
+            else if (section == "Equipment")
+            {
+                return Ok(AppResources.getInstance().surveyService.MeanValuesPerEquipmentQuestions());
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
