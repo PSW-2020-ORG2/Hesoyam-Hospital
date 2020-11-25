@@ -119,5 +119,23 @@ namespace Backend.Model.PatientModel
                 if (!therapy.containsMedicineWithName(criteria.MedicineName)) return false;
             return true;
         }
+        public string StatusToString(PrescriptionStatus s) {
+            if (s == PrescriptionStatus.EXPIRED)
+            {
+                return "expired";
+            }
+            else if (s == PrescriptionStatus.ACTIVE)
+            {
+                return "active";
+            }
+            else if (s == PrescriptionStatus.USED)
+            {
+                return "used";
+            }
+            else {
+                return "deactivated";
+            }
+            
+        }
     }
 }

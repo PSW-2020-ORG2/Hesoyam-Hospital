@@ -1,56 +1,81 @@
-<div style="height:100%; display: flex; justify-content: center;">
-    <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 60%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px;">
-            <form #feedform="ngForm" style="width: 80%;" novalidate>
+<h2 style="text-align: center; font-size: 25px;">
+  MEDICAL RECORD
+</h2>
+<div style="height:100%; display: flex; justify-content:center;">
+  
+    <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 35%; height: 80%; display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+            <form >
 
                 <h2 style="text-align: center;">
-                    Medical record
+                    Basic information
                 </h2>
     
                 <div class="left">
                     <label>Name:</label>
-                    <input type = "text" >
+                    <label>{{record.firstName}}</label>
+                    
                 </div>
 
                 <div class="left">
                     <label>Surname:</label>
-                    <input type = "text" >
+                    <label>{{record.lastName}}</label>
                 </div>
                 <div class="left">
-                  <label>Middle name:</label>
-                  <input type = "text" >
+                  <label>Father's name:</label>
+                  <label>{{record.middleName}}</label>
                 </div> 
+                <div class="left">
+                  <label>Personal id:</label>
+                  <label>{{record.personalId}}</label>
+                </div>
+                <div class="left">
+                  <label>Medical id:</label>
+                  <label>{{record.medicalId}}</label>
+                </div>
+                
+                <div class="left">
+                  <label>Date of birth:</label>
+                  <label>{{record.dateOfBirth}}</label>
+                </div>
 
                 <div class="left">
                   <label>Address:</label>
-                  <input type = "text" >
+                  <label>{{record.address}}</label>
                 </div>
                 <div class="left">
                   <label>Mobile phone number:</label>
-                  <input type = "text" >
+                  <label>{{record.mobilePhone}}</label>
                 </div>
                 <div class="left">
                   <label>Home phone number:</label>
-                  <input type = "text" >
+                  <label>{{record.homePhone}}</label>
                 </div>
                 <div class="left">
                   <label>Email:</label>
-                  <input type = "text" >
+                  <label>{{record.email}}</label>
               </div>
               <div class="left">
                 <label>Username:</label>
-                <input type = "text" >
+                <label>{{record.username}}</label>
             </div>
                 <div class="left">
                     <label>Password:</label>
-                    <input type = "text" >
+                    <label>{{record.password}}</label>
                 </div>
-                <div class="left">
+              </form>
+    </mat-card>
+    <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 35%; height: 80%; display: flex; justify-content: center; align-items: top; padding-top: 20px;">
+    <form>
+      <h2 style="text-align: center;">
+        Medical information
+    </h2>
+      <div class="left">
                   <label>Blood type:</label>
-                  <input type = "text" >
+                  <label>{{record.bloodType}}</label>
                 </div>
                 <div class="left">
                   <label>Alergies:</label>
-                  <input type = "text" >
+                  <label>{{record.alergies}}</label>
               </div>
             </form>
     </mat-card>

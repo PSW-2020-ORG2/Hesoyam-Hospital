@@ -169,11 +169,11 @@ namespace Backend
             prescriptionRepository = new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer());
             reportRepository = new ReportRepository(new MySQLStream<Report>(), new LongSequencer());
             allergyRepository = new AllergyRepository(new MySQLStream<Allergy>(), new LongSequencer());
-            therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
             medicalRecordRepository = new MedicalRecordRepository(new MySQLStream<MedicalRecord>(), new LongSequencer());
             diagnosisRepository = new DiagnosisRepository(new MySQLStream<Diagnosis>(), new LongSequencer());
             surveyRepository = new SurveyRepository(new MySQLStream<Survey>(), new LongSequencer());
             /*
+            therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
             roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
             inventoryItemRepository = new InventoryItemRepository(new MySQLStream<InventoryItem>(), new LongSequencer());
             timeTableRepository = new TimeTableRepository(new MySQLStream<TimeTable>(), new LongSequencer());

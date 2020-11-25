@@ -1,7 +1,7 @@
 mat-card { 
     margin: 15px;
-    background-color: rgb(255, 161, 205);
-    color: white;
+    background-color: rgb(213, 235, 255);
+    color: rgb(0, 0, 0);
 }
 .mat-form-field{
     padding: 0;
@@ -15,16 +15,21 @@ label {
     display: inline-block;
     width: 200px;
     margin-right: 10px;
-    text-align: right;
+    text-align: left;
 }
 input[type = "text"]{
-    background-color:rgb(255, 161, 205) ;
+    background-color:rgb(213, 235, 255);
     outline: 0;
     border-width: 0 0 2px;
     border-color: rgb(255, 255, 255);
-    color: white;
+    color: rgb(0, 0, 0);
     width:250px;
+    text-align: center;
 }
 input:focus {
     border-color: rgb(155, 0, 95);
   }
+.lbl{
+    border-width: 0 0 2px;
+    border-color: rgb(0, 0, 0);
+}

@@ -28,5 +28,8 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
 
         public MedicalRecord GetPatientMedicalRecord(Patient patient)
             => GetAllEager().SingleOrDefault(medicalRecord => medicalRecord.Patient.Equals(patient));
+
+        public MedicalRecord GetPatientMedicalRecordByPatientId(long patient)
+            => GetAllEager().SingleOrDefault(medicalRecord => medicalRecord.Patient.Id.Equals(patient));
     }
 }

@@ -207,5 +207,54 @@ namespace Backend.Model.PatientModel
             return 1969571243 + Id.GetHashCode();
         }
 
+      
+        public string BloodTypeToString(BloodType bt) {
+            if (bt == BloodType.A_POOSITIVE)
+            {
+                return "A+";
+            }
+            else if (bt == BloodType.A_NEGATIVE) {
+                return "A-";
+            }
+            else if (bt == BloodType.B_POOSITIVE)
+            {
+                return "B+";
+            }
+            else if (bt == BloodType.B_NEGATIVE)
+            {
+                return "B-";
+            }
+            else if (bt == BloodType.O_POOSITIVE)
+            {
+                return "0+";
+            }
+            else if (bt == BloodType.O_NEGATIVE)
+            {
+                return "0-";
+            }
+            else if (bt == BloodType.AB_POOSITIVE)
+            {
+                return "AB+";
+            }
+            else if (bt == BloodType.AB_NEGATIVE)
+            {
+                return "AB-";
+            }
+            else {
+                return "Not tested";
+            }
+        }
+
+        public List<string> AllergiesListToString(List<Allergy> allergies) {
+            List<string> retVal = new List<string>();
+            foreach (Allergy a in allergies) {
+                retVal.Add(a.Name);
+            }
+            if (retVal.Count == 0) {
+                retVal.Add("No allergies");
+            }
+
+            return retVal;
+        }
     }
 }

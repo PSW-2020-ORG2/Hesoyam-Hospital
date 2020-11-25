@@ -25,5 +25,10 @@ namespace Backend.Model.UserModel
         public long GetId() => Id;
 
         public void SetId(long id) => Id = id;
+        
+        public override string ToString()
+        {
+            return Street +", "+  Location.ToString();
+        }
     }
 }
