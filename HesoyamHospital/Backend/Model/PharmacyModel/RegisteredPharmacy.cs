@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Backend.Model.PharmacyModel
 {
     public class RegisteredPharmacy : IIdentifiable<long>
     {
+        [JsonIgnore]
         public long Id { get; set; }
         [Required]
         public string ApiKey { get; set; }
