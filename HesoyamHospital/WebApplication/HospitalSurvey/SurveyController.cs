@@ -107,6 +107,24 @@ namespace WebApplication.HospitalSurvey
             {
                 return BadRequest();
             }
+
+        }
+        [HttpGet("answers-per-doctors")]
+        public IActionResult AnswersPerDoctors()
+        {
+            Dictionary<long, Section> answers = AppResources.getInstance().surveyService.getSurveysPerEachDoctor();
+            Dictionary<long, SectionDTO> result = new Dictionary<long, SectionDTO>();
+            if(answers==null)
+            {
+                return BadRequest();
+            }
+            var keys = new List<long>(answers.Keys);
+            foreach(long key in keys)
+            {
+                result.Add(key: key, value: SectionMapper.SectionToSectionDTO(answers[key]));
+                
+            }
+            return Ok(result.ToArray());
         }
     }
 }

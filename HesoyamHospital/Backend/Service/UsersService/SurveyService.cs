@@ -11,12 +11,12 @@ namespace Backend.Service.UsersService
     public class SurveyService : IService<Survey, long>
     {
         private SurveyRepository _surveyRepository;
-        
-            
-        public SurveyService(SurveyRepository surveyRepository)
+        private DoctorRepository _doctorRepository;
+
+        public SurveyService(SurveyRepository surveyRepository,DoctorRepository doctorRepository)
         {
             _surveyRepository = surveyRepository;
-            
+            _doctorRepository = doctorRepository;
         }
         
 
@@ -46,6 +46,34 @@ namespace Backend.Service.UsersService
         {
             
         }
+        //Display grades per each doctor, returns dictionary where key is id of a doctor
+        //and a value is survey section about that doctor
+        public Dictionary<long, Section> getSurveysPerEachDoctor()
+        {
+            Dictionary<long, Section> result = new Dictionary<long, Section>();
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Doctor> allDoctors = _doctorRepository.GetAll().ToList();
+
+            if(allSurveys == null)
+            {
+                return null;
+            }
+
+            foreach(Survey survey in allSurveys)
+            {
+                foreach(Doctor doctor in allDoctors)
+                {
+                    if (survey.DoctorID == doctor.GetId())
+                    {
+                        result.Add( key: doctor.GetId(), survey.DoctorSection);
+                    }
+                }
+            }
+            return result;
+
+        }
+
+
         //frequency of every answer to every question in doctor section
         //returns dictionary where key is name of the answer, and list of longs is
         //list of calculated frequencies per each grade.
