@@ -57,7 +57,6 @@ namespace Backend.Service.UsersService
             foreach (Survey survey in allSurveys)
             {
 
-
                 if (survey.DoctorID == doctor.GetId())
                 {
                     result.Add(survey.DoctorSection);

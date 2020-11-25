@@ -112,7 +112,6 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("answers-per-doctors/{id}")]
         public IActionResult AnswersPerDoctors(long id)
         {
-             List<SectionDTO> result = new List<SectionDTO>();
              Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
              List<Section> sections= AppResources.getInstance().surveyService.getSurveysPerDoctors(doctor);
 
