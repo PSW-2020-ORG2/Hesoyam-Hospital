@@ -26,5 +26,17 @@ namespace WebApplication.HospitalSurvey
 
             return survey; 
         }
+        public static SurveyDTO SurveyToSurveyDTO(Survey survey)
+        {
+            return new SurveyDTO(survey.DoctorSection.AnswerOne,survey.DoctorSection.AnswerTwo,
+                survey.DoctorSection.AnswerThree, survey.DoctorSection.AnswerFour,
+                survey.StaffSection.AnswerOne, survey.StaffSection.AnswerTwo,
+                survey.StaffSection.AnswerThree, survey.StaffSection.AnswerFour,
+                survey.HygieneSection.AnswerOne, survey.HygieneSection.AnswerTwo,
+                survey.HygieneSection.AnswerThree, survey.HygieneSection.AnswerFour,
+                survey.EquipmentSection.AnswerOne, survey.EquipmentSection.AnswerTwo,
+                survey.EquipmentSection.AnswerThree, survey.EquipmentSection.AnswerFour);
+
+        }
     }
 }

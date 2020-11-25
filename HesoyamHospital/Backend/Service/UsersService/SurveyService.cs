@@ -46,7 +46,7 @@ namespace Backend.Service.UsersService
         {
             
         }
-        //mean values per section
+        
         public double MeanValuesPerDoctorSection()
         {
             List<double> means = new List<double>();
