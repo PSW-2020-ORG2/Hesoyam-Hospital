@@ -7,6 +7,7 @@ namespace WebApplication.HospitalSurvey
 {
     public class SurveyValidation
     {
+        
         public static bool isNewSurveyValid(SurveyDTO dto)
         {
             if( dto == null)

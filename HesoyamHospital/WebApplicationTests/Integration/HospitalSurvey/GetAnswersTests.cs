@@ -33,12 +33,12 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
         [Theory]
-        [MemberData(nameof(Data))]
-        public async void Getting_Answers_Per_Each_Doctor_Status_Code_Tests(HttpStatusCode expectedStatusCode)
+        [MemberData(nameof(Data2))]
+        public async void Getting_Answers_Per_Each_Doctor_Status_Code_Tests(int id , HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/survey/answers-per-doctors");
+            HttpResponseMessage response = await client.GetAsync("/api/survey/answers-per-doctors/" + id);
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
@@ -88,6 +88,13 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             new object[] {"Scs", HttpStatusCode.BadRequest},
             new object[] { "Doctor" ,HttpStatusCode.OK }
        };
-       
+        public static IEnumerable<object[]> Data2 =>
+       new List<object[]>
+       {   
+           new object[] { 356 , HttpStatusCode.BadRequest},
+            new object[] { 600 , HttpStatusCode.OK}
+            
+       };
+
     }
 }

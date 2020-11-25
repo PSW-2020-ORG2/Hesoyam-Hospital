@@ -109,27 +109,19 @@ namespace WebApplication.HospitalSurvey
             }
 
         }
-        [HttpGet("answers-per-doctors")]
-        public IActionResult AnswersPerDoctors()
+        [HttpGet("answers-per-doctors/{id}")]
+        public IActionResult AnswersPerDoctors(long id)
         {
-           /*  Dictionary<int, Dictionary<long,Section>> answers = AppResources.getInstance().surveyService.getSurveysPerEachDoctor();
-             Dictionary<long, SectionDTO> result = new Dictionary<long, SectionDTO>();
+             List<SectionDTO> result = new List<SectionDTO>();
+             Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
+             List<Section> sections= AppResources.getInstance().surveyService.getSurveysPerDoctors(doctor);
 
+            if (doctor == null)
+            {
+                return BadRequest();
+            }
 
-             if(answers==null)
-             {
-                 return BadRequest();
-             }
-             var keys = new List<int>(answers.Keys);
-             foreach(int key in keys)
-             {
-                var dic = answers[key];
-                
-                 result.Add(key: key, value: SectionMapper.SectionToSectionDTO(answers[key]));
-
-             }
-             return Ok(result.ToArray());*/
-             return Ok();
+             return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
         }
     }
 }
