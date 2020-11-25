@@ -112,19 +112,24 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("answers-per-doctors")]
         public IActionResult AnswersPerDoctors()
         {
-            Dictionary<long, Section> answers = AppResources.getInstance().surveyService.getSurveysPerEachDoctor();
-            Dictionary<long, SectionDTO> result = new Dictionary<long, SectionDTO>();
-            if(answers==null)
-            {
-                return BadRequest();
-            }
-            var keys = new List<long>(answers.Keys);
-            foreach(long key in keys)
-            {
-                result.Add(key: key, value: SectionMapper.SectionToSectionDTO(answers[key]));
+           /*  Dictionary<int, Dictionary<long,Section>> answers = AppResources.getInstance().surveyService.getSurveysPerEachDoctor();
+             Dictionary<long, SectionDTO> result = new Dictionary<long, SectionDTO>();
+
+
+             if(answers==null)
+             {
+                 return BadRequest();
+             }
+             var keys = new List<int>(answers.Keys);
+             foreach(int key in keys)
+             {
+                var dic = answers[key];
                 
-            }
-            return Ok(result.ToArray());
+                 result.Add(key: key, value: SectionMapper.SectionToSectionDTO(answers[key]));
+
+             }
+             return Ok(result.ToArray());*/
+             return Ok();
         }
     }
 }

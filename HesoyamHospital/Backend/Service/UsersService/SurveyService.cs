@@ -12,7 +12,7 @@ namespace Backend.Service.UsersService
     {
         private SurveyRepository _surveyRepository;
         private DoctorRepository _doctorRepository;
-
+        
         public SurveyService(SurveyRepository surveyRepository,DoctorRepository doctorRepository)
         {
             _surveyRepository = surveyRepository;
@@ -48,13 +48,15 @@ namespace Backend.Service.UsersService
         }
         //Display grades per each doctor, returns dictionary where key is id of a doctor
         //and a value is survey section about that doctor
-        public Dictionary<long, Section> getSurveysPerEachDoctor()
+        public Dictionary<int, Dictionary<long, Section>> getSurveysPerEachDoctor()
         {
-            Dictionary<long, Section> result = new Dictionary<long, Section>();
             List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
             List<Doctor> allDoctors = _doctorRepository.GetAll().ToList();
+            Dictionary<long, Section> result = new Dictionary<long, Section>();
+            Dictionary<int, Dictionary<long, Section>> newResult = new Dictionary<int, Dictionary<long, Section>>();
 
-            if(allSurveys == null)
+
+            if (allSurveys == null)
             {
                 return null;
             }
@@ -63,13 +65,17 @@ namespace Backend.Service.UsersService
             {
                 foreach(Doctor doctor in allDoctors)
                 {
+                   
                     if (survey.DoctorID == doctor.GetId())
                     {
-                        result.Add( key: doctor.GetId(), survey.DoctorSection);
+                        result.Add(key: doctor.GetId(), value: survey.DoctorSection);
+                        
                     }
                 }
             }
-            return result;
+            newResult.Add(key: 0, value: result);
+
+            return newResult;
 
         }
 
