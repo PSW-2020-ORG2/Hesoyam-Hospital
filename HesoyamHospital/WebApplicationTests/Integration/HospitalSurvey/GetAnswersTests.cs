@@ -54,6 +54,18 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
 
+        [Theory]
+        [MemberData(nameof(Data1))]
+        public async void Frequencies_Per_Questions_Status_Code_Tests(string section, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.GetAsync("/api/survey/frequencies-per-question/" + section);
+
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
+
+
         public static IEnumerable<object[]> Data =>
        new List<object[]>
        {
