@@ -84,5 +84,29 @@ namespace WebApplication.HospitalSurvey
                 return BadRequest();
             }
         }
+        [HttpGet("frequencies-per-question/{section}")]
+        public IActionResult FrequenciesPerQuestion(string section)
+        {
+            if (section == "Doctor")
+            {
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions());
+            }
+            else if (section == "Staff")
+            {
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions());
+            }
+            else if (section == "Hygiene")
+            {
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions());
+            }
+            else if (section == "Equipment")
+            {
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions());
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
