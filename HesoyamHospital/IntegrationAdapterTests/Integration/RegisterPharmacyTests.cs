@@ -16,7 +16,7 @@ namespace IntegrationAdapterTests.Integration
     {
 
         private readonly WebApplicationFactory<Startup> _factory;
-        public RegisterPharmacyTests(WebApplicationFactory<Startup> factory, ITestOutputHelper testOutputHelper)
+        public RegisterPharmacyTests(WebApplicationFactory<Startup> factory)
         {
             _factory = factory;
         }
