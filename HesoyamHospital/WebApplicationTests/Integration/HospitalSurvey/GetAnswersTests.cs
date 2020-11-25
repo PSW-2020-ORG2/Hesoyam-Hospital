@@ -32,11 +32,28 @@ namespace WebApplicationTests.Integration.HospitalSurvey
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
+        [Theory]
+        [MemberData(nameof(Data1))]
+        public async void Mean_Values_Per_Section_Status_Code_Tests(string section, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.GetAsync("/api/survey/mean-value-per-section/" + section);
+
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
+
         public static IEnumerable<object[]> Data =>
        new List<object[]>
        {
-            
             new object[] {  HttpStatusCode.OK }
+       };
+        public static IEnumerable<object[]> Data1 =>
+       new List<object[]>
+       {
+            new object[] {"Staff" , HttpStatusCode.OK},
+            new object[] {"Scs", HttpStatusCode.BadRequest},
+            new object[] { "Doctor" ,HttpStatusCode.OK }
        };
     }
 }
