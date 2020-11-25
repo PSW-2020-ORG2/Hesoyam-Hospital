@@ -43,6 +43,17 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
 
+        [Theory]
+        [MemberData(nameof(Data1))]
+        public async void Mean_Values_Per_Questions_Status_Code_Tests(string section, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.GetAsync("/api/survey/mean-value-per-question/" + section);
+
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
+
         public static IEnumerable<object[]> Data =>
        new List<object[]>
        {
@@ -55,5 +66,6 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             new object[] {"Scs", HttpStatusCode.BadRequest},
             new object[] { "Doctor" ,HttpStatusCode.OK }
        };
+       
     }
 }
