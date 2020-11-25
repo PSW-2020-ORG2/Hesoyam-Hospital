@@ -27,5 +27,11 @@ namespace WebApplication.Documents
 
             return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.SimpleSearchDocs(criteria).ToList()));
         }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.GetAll().ToList()));
+        }
     }
 }

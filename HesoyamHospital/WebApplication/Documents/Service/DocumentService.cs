@@ -31,7 +31,9 @@ namespace WebApplication.Documents.Service
 
         public IEnumerable<Document> GetAll()
         {
-            throw new NotImplementedException();
+            List<Document> result = ((List<Report>)_reportRepository.GetAll()).ConvertAll(r => (Document)r);
+            result.AddRange(((List<Prescription>)_prescriptionRepository.GetAll()).ConvertAll(p => (Document)p));
+            return result;
         }
 
         public Document GetByID(long id)

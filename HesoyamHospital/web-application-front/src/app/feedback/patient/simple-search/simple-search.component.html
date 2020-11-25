@@ -1,3 +1,28 @@
-<table mat-table [dataSource] = "data">
-
-</table>
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <table mat-table [dataSource] = "data" class="mat-elevation-z8">
+        <ng-container matColumnDef="DateCreated">
+            <th mat-header-cell *matHeaderCellDef> DATE CREATED </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateCreated | date : longDate}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="DoctorName">
+            <th mat-header-cell *matHeaderCellDef> DOCTOR NAME </th>
+            <td mat-cell *matCellDef="let element"> {{element.doctorName}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="DiagnosisName">
+            <th mat-header-cell *matHeaderCellDef> DIAGNOSIS NAME </th>
+            <td mat-cell *matCellDef="let element"> {{element.diagnosisName}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="Observe">
+            <th mat-header-cell *matHeaderCellDef> OBSERVE </th>
+            <td mat-cell *matCellDef="let element"> 
+              <button mat-stroked-button color="primary">Preview</button>                                      
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
