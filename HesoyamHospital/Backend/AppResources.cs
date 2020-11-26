@@ -141,7 +141,7 @@ namespace Backend
             doctorFeedbackService = new DoctorFeedbackService(doctorFeedbackRepository);
 
             feedbackService = new FeedbackService(feedbackRepository, questionRepository);
-            surveyService = new SurveyService(surveyRepository,doctorRepository);
+            surveyService = new SurveyService(surveyRepository);
             locationService = new LocationService(locationRepository);
             messageService = new MessageService(messageRepository);
             notificationService = new NotificationService(notificationRepository);

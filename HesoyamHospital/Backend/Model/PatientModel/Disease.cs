@@ -117,8 +117,10 @@ namespace Backend.Model.PatientModel
             {
                 DiseaseMedicine removeDm = AdministratedFor.Find(dm => dm.Medicine.Equals(oldMedicine));
                 if(removeDm != null)
-                AdministratedFor.Remove(removeDm);
-                oldMedicine.RemoveUsedFor(this);
+                {
+                    AdministratedFor.Remove(removeDm);
+                    oldMedicine.RemoveUsedFor(this);
+                }
             }
         }
 

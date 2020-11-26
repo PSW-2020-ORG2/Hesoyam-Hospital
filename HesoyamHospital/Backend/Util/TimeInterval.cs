@@ -71,12 +71,7 @@ namespace Backend.Util
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
+            return 1969571243 + Id.GetHashCode();
         }
     }
 }

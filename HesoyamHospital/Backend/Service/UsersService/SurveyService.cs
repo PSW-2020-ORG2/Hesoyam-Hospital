@@ -11,12 +11,10 @@ namespace Backend.Service.UsersService
     public class SurveyService : IService<Survey, long>
     {
         private readonly SurveyRepository _surveyRepository;
-        private readonly DoctorRepository _doctorRepository;
         
-        public SurveyService(SurveyRepository surveyRepository,DoctorRepository doctorRepository)
+        public SurveyService(SurveyRepository surveyRepository)
         {
             _surveyRepository = surveyRepository;
-            _doctorRepository = doctorRepository;
         }
         
 
