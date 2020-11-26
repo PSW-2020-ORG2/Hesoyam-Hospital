@@ -6,16 +6,20 @@ import { PublishListComponent } from './publish-list/publish-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from 'src/app/shared/material/material.module';
-
+import { SurveysAndSectionsComponent } from './surveys-and-sections/surveys-and-sections.component';
+import { FormsModule } from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
-  declarations: [PublishListComponent],
+  declarations: [PublishListComponent, SurveysAndSectionsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MatTableModule,
     MatButtonModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    MatDividerModule
   ]
 })
 export class AdminModule { }

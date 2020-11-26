@@ -36,14 +36,7 @@ namespace Backend.Model.UserModel
             EquipmentSection = equipmentSection;
         }
 
-        public long GetId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetId(long id)
-        {
-            throw new NotImplementedException();
-        }
+        public long GetId() => Id;
+        public void SetId(long id) => Id = id;
     }
 }

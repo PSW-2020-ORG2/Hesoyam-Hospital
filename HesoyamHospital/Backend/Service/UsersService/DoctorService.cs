@@ -87,8 +87,8 @@ namespace Backend.Service.UsersService
             => _doctorRepository.GetAllEager();
 
         public Doctor GetByID(long id)
-            => _doctorRepository.GetEager(id);
-
+           // => _doctorRepository.GetEager(id);
+              => _doctorRepository.GetByID(id);
         public Doctor Create(Doctor entity)
         {
             Validate(entity);

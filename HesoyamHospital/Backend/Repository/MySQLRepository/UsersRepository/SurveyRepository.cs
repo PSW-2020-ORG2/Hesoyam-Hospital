@@ -18,34 +18,5 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         public SurveyRepository(IMySQLStream<Survey> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Survey>())
         {
         }
-        public Survey Create(Survey entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Survey entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Survey> Find(ISpecification<Survey> criteria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Survey> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Survey GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Survey entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
