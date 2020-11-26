@@ -62,7 +62,7 @@ namespace Backend.Model.PatientModel
 
         public override int GetHashCode()
         {
-            return 1969571243 + _id.GetHashCode();
+            return 1969571243 + Id.GetHashCode();
         }
     }
 }

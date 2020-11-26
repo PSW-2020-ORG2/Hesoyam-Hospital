@@ -65,11 +65,18 @@ namespace Backend.Model.PatientModel
             }
             set
             {
-                RemoveAllAllergy();
+                RemoveAllPrescription();
                 if (value != null)
                 {
                     foreach (Prescription oPrescription in value)
-                        AddPrescription(oPrescription);
+                    {
+                        if (oPrescription == null)
+                            return;
+                        if (_prescriptions == null)
+                            _prescriptions = new List<Prescription>();
+                        if (!_prescriptions.Contains(oPrescription))
+                            _prescriptions.Add(oPrescription);
+                    }
                 }
             }
         }

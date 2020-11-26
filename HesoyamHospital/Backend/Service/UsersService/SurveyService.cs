@@ -421,7 +421,7 @@ namespace Backend.Service.UsersService
 
         public double SumOfAnswers(Section section)
         {
-            return (section.AnswerOne + section.AnswerTwo + section.AnswerThree + section.AnswerFour )/4;
+            return (double)(section.AnswerOne + section.AnswerTwo + section.AnswerThree + section.AnswerFour )/4;
         }
         public double SumPerSections(List<double> sums)
         {
