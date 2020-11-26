@@ -13,18 +13,17 @@ namespace WebApplication.Authentication
     [ApiController]
     public class RegistrationController : ControllerBase
     {
-        [HttpPost]
+        [HttpPost]   //POST /api/registration
         public IActionResult Add(NewPatientDTO dto)
         {
-            //if (dto == null || !IsPatientValid(dto)) return BadRequest();
-            //AppResources.getInstance().patientService.Create(NewPatientMapper.NewPatientDTOToPatient(dto));
+            if (dto == null || !IsPatientValid(dto)) return BadRequest();
             AppResources.getInstance().medicalRecordService.Create(NewPatientMapper.NewPatientDTOToMedicalRecord(dto));
             return Ok();
         }
 
-        private bool IsPatientValid(NewPatientDTO patient)
+        public bool IsPatientValid(NewPatientDTO patient)
         {
-            List<Patient> patients = new List<Patient>();
+            List<Patient> patients = AppResources.getInstance().patientService.GetAll().ToList();
             if (RegistrationValidation.isNewPatientValid(patient) 
                 && RegistrationValidation.IsUsernameUnique(patient.Username, patients)) return true;
             return false;

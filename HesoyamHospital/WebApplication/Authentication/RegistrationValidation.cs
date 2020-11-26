@@ -44,7 +44,7 @@ namespace WebApplication.Authentication
 
         public static bool IsUsernameUnique(string username, List<Patient> patients)
         {
-            if (patients.Count == 0) return true;
+            if (patients == null || patients.Count == 0) return true;
             foreach (Patient patient in patients)
             {
                 if (patient.UserName == username) return false;
@@ -75,14 +75,14 @@ namespace WebApplication.Authentication
         public static bool IsHomePhoneValid(string homePhone)
         {
             Regex phone = new Regex(@"[01-9]{8,11}");
-            if (phone.IsMatch(homePhone) || homePhone == "") return true;
+            if (phone.IsMatch(homePhone) || homePhone == "" || homePhone == null) return true;
             return false;
         }
 
         public static bool AreAllergiesValid(List<string> allergies)
         {
             Regex pattern = new Regex(@"[A-Za-z]{1,20}");
-            if (allergies.Count == 0) return true;
+            if (allergies == null || allergies.Count == 0) return true;
             foreach (string allergy in allergies)
             {
                 if (!pattern.IsMatch(allergy)) return false;

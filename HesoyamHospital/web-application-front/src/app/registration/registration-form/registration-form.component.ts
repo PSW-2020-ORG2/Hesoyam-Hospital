@@ -75,6 +75,23 @@ export class RegistrationFormComponent implements OnInit {
 
   reset() {
     this.patientDTO.Name = '';
+    this.patientDTO.Surname = '';
+    this.patientDTO.MiddleName = '';
+    this.patientDTO.Gender = '';
+    this.patientDTO.Name = '';
+    this.patientDTO.Email = '';
+    this.patientDTO.Username = '';
+    this.patientDTO.Password = '';
+    this.patientDTO.DateOfBirth = null;
+    this.patientDTO.HealthCardNumber = '';
+    this.patientDTO.Jmbg = '';
+    this.patientDTO.MobilePhone = '';
+    this.patientDTO.HomePhone = '';
+    this.patientDTO.BloodType = '';
+    this.patientDTO.Allergies = [];
+    this.patientDTO.Country = '';
+    this.patientDTO.City = '';
+    this.patientDTO.Address = '';
   }
 
 }
