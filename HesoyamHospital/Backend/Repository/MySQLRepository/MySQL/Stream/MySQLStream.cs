@@ -47,7 +47,6 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
                 }
             }
             return query.ToList();
-            //return ReadAll();
         }
 
         public void SaveAll()

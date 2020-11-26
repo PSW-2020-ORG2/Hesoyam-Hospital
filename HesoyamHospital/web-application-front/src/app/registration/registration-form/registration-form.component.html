@@ -87,7 +87,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Home phone</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.HomePhone" [formControl]="homeValidator" cdkTextareaAutosize placeholder="Home phone" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.HomePhone" [formControl]="homeValidator" required cdkTextareaAutosize placeholder="Home phone" pattern = "[1-90]{8,11}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
@@ -146,13 +146,13 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Address</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.Address" [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Address" [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z 01-9]{1,30}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left" style="margin-top: 22px">
-                  <span style="color: gray; margin-right: 7%; margin-left: 8%;">Select profile image</span>
-                  <input style="color: gray; margin-left: 9%;" type="file" accept="image/*">
+                  <span style="color: gray; margin-right: 7%; margin-left: 11%;">Select profile image</span>
+                  <input style="color: gray; margin-left: 8%;" type="file" accept="image/*">
                 </div>
 
                 <div style="text-align: center; margin-top: 50px;">
