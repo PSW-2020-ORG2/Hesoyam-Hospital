@@ -23,7 +23,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Middle name</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.MiddleName" [formControl]="middleValidator" required cdkTextareaAutosize placeholder="Middle name" pattern = "[A-Za-z]{1,20}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.MiddleName" [formControl]="middleValidator" required cdkTextareaAutosize placeholder="Middle name" pattern = "[A-Za-z]{2,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
                
@@ -47,7 +47,7 @@
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Username</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.Username" [formControl]="usernameValidator" required cdkTextareaAutosize placeholder="Username" pattern = "[A-Za-z]{8,20}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Username" [formControl]="usernameValidator" required cdkTextareaAutosize placeholder="Username" pattern = "[A-Za-z_0-9]{2,20}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
@@ -135,18 +135,18 @@
                 <div class="left">
                   <mat-form-field class="adress-in-line">
                     <mat-label>Country</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.Country" [formControl]="countryValidator" required cdkTextareaAutosize placeholder="Country" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Country" [formControl]="countryValidator" required cdkTextareaAutosize placeholder="Country" pattern = "[A-Za-z ]{1,50}" style="height: 40%;"></textarea>
                   </mat-form-field>
                   <mat-form-field class="adress-in-line">
                     <mat-label>City</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.City" [formControl]="cityValidator" required cdkTextareaAutosize placeholder="City" pattern = "[A-Za-z ]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.City" [formControl]="cityValidator" required cdkTextareaAutosize placeholder="City" pattern = "[A-Za-z ]{1,50}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 
                 <div class="left">
                   <mat-form-field class="example-full-width">
                     <mat-label>Address</mat-label>
-                    <textarea matInput [(ngModel)] = "patientDTO.Address" [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z 01-9]{1,30}" style="height: 40%;"></textarea>
+                    <textarea matInput [(ngModel)] = "patientDTO.Address" [formControl]="addressValidator" required cdkTextareaAutosize placeholder="Address" pattern = "[A-Za-z 1-90]{1,50}" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
 

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace WebApplication.HospitalSurvey
 {
-    public class SurveyValidation
+    public static class SurveyValidation
     {
         
-        public static bool isNewSurveyValid(SurveyDTO dto)
+        public static bool IsNewSurveyValid(SurveyDTO dto)
         {
             if( dto == null)
             {

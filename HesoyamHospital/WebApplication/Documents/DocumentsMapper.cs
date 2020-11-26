@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Documents
 {
-    public class DocumentsMapper
+    public static class DocumentsMapper
     {
         private static DocumentDTO DocumentToDocumentDTO(Document document)
         {

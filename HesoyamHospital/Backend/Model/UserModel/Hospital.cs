@@ -121,9 +121,8 @@ namespace Backend.Model.UserModel
         {
             if (oldRoom == null)
                 return;
-            if (Room != null)
-                if (Room.Contains(oldRoom))
-                    Room.Remove(oldRoom);
+            if (Room != null && Room.Contains(oldRoom))
+                Room.Remove(oldRoom);
         }
 
         public void RemoveAllRoom()
@@ -149,12 +148,11 @@ namespace Backend.Model.UserModel
         {
             if (oldEmployee == null)
                 return;
-            if (Employee != null)
-                if (Employee.Contains(oldEmployee))
-                {
-                    Employee.Remove(oldEmployee);
-                    oldEmployee.Hospital = null;
-                }
+            if (Employee != null && Employee.Contains(oldEmployee))
+            {
+                Employee.Remove(oldEmployee);
+                oldEmployee.Hospital = null;
+            }
         }
 
         public void RemoveAllEmployee()

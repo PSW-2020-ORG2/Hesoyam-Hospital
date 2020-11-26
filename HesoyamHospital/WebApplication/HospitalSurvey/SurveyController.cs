@@ -19,7 +19,7 @@ namespace WebApplication.HospitalSurvey
         [HttpPost("send-answers")]
         public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto)
         {
-            if (!SurveyValidation.isNewSurveyValid(dto)) return BadRequest();
+            if (!SurveyValidation.IsNewSurveyValid(dto)) return BadRequest();
            
             AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto));
             
@@ -113,7 +113,7 @@ namespace WebApplication.HospitalSurvey
         public IActionResult AnswersPerDoctors(long id)
         {
              Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
-             List<Section> sections= AppResources.getInstance().surveyService.getSurveysPerDoctors(doctor);
+             List<Section> sections= AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
 
             if (doctor == null)
             {

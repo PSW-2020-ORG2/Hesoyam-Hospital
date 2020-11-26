@@ -56,18 +56,18 @@ namespace Backend.Model.PatientModel
         public Medicine(long id) : base(id)
         {
         }
-        public Medicine(string name, MedicineType medicineType,int inStock, int minNumber) : base(name, inStock, minNumber)
+        public Medicine(string name, MedicineType medicineType, int inStock, int minNumber) : base(name, inStock, minNumber)
         {
-            MedicineType = MedicineType;
+            MedicineType = medicineType;
             IsValid = false;
             Ingredient = new List<Ingredient>();
             UsedFor = new List<DiseaseMedicine>();
         }
 
 
-        public Medicine(string name, MedicineType medicineType,bool isValid,List<DiseaseMedicine> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
+        public Medicine(string name, MedicineType medicineType, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
-            MedicineType = MedicineType;
+            MedicineType = medicineType;
             IsValid = false;
             Ingredient = ingredient;
             UsedFor = usedFor;
@@ -75,7 +75,7 @@ namespace Backend.Model.PatientModel
 
         public Medicine(long id, string name, MedicineType medicineType, bool isValid, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient, int inStock, int minNumber) : base(id,name, inStock, minNumber)
         {
-            MedicineType = MedicineType;
+            MedicineType = medicineType;
             IsValid = isValid;
             Ingredient = ingredient;
             UsedFor = usedFor;
@@ -95,9 +95,8 @@ namespace Backend.Model.PatientModel
         {
             if (oldIngredient == null)
                 return;
-            if (Ingredient != null)
-                if (Ingredient.Contains(oldIngredient))
-                    Ingredient.Remove(oldIngredient);
+            if (Ingredient != null && Ingredient.Contains(oldIngredient))
+                Ingredient.Remove(oldIngredient);
         }
 
         public void RemoveAllIngredient()
@@ -124,14 +123,13 @@ namespace Backend.Model.PatientModel
         {
             if (oldDisease == null)
                 return;
-            if (UsedFor != null)
-                if (UsedFor.Find(dm => dm.Disease.Equals(oldDisease)) == null)
-                {
-                    DiseaseMedicine removeDm = UsedFor.Find(dm => dm.Disease.Equals(oldDisease));
-                    if(removeDm != null)
+            if (UsedFor != null && UsedFor.Find(dm => dm.Disease.Equals(oldDisease)) == null)
+            {
+                DiseaseMedicine removeDm = UsedFor.Find(dm => dm.Disease.Equals(oldDisease));
+                if (removeDm != null)
                     UsedFor.Remove(removeDm);
-                    oldDisease.RemoveAdministratedFor(this);
-                }
+                oldDisease.RemoveAdministratedFor(this);
+            }
         }
 
         public void RemoveAllUsedFor()

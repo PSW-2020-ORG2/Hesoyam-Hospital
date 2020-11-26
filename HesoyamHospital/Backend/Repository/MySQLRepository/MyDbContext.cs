@@ -36,7 +36,8 @@ namespace Backend.Repository.MySQLRepository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies().UseMySql("server = localhost; port = 3306; database = mydb1; user = root; password = root");
+                string connectionString = Environment.GetEnvironmentVariable("MyDbConnectionString");
+                optionsBuilder.UseLazyLoadingProxies().UseMySql(connectionString);
             }
         }
 

@@ -40,10 +40,7 @@ namespace Backend.Model.UserModel
         public string Email2 { get => _email2; set => _email2 = value; }
 
         private Address _address;
-        public virtual Address Address { get => _address; set { _address = value; _addressID = value.Id; } }
-
-        private long _addressID;
-        public long AddressID { get => _addressID; set => _addressID = value; }
+        public virtual Address Address { get => _address; set => _address = value; }
 
         private Sex _sex;
         public Sex Sex { get => _sex; set => _sex = value; }
@@ -81,7 +78,6 @@ namespace Backend.Model.UserModel
             _dateOfBirth = dateOfBirth;
             _uidn = uidn;
             _address = address;
-            _addressID = address.Id;
             _homePhone = homePhone;
             _cellPhone = cellPhone;
             _email1 = email1;
@@ -108,7 +104,6 @@ namespace Backend.Model.UserModel
             _dateOfBirth = dateOfBirth;
             _uidn = uidn;
             _address = address;
-            _addressID = address.Id;
             _homePhone = homePhone;
             _cellPhone = cellPhone;
             _email1 = email1;

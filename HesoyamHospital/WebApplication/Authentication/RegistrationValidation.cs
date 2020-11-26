@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Authentication
 {
-    public class RegistrationValidation
+    public static class RegistrationValidation
     {  
         public static bool isNewPatientValid(NewPatientDTO patient)
         {
             Regex names = new Regex(@"[A-Za-z]{2,20}");
             Regex surnames = new Regex(@"[A-Za-z ]{2,20}");
-            Regex username = new Regex(@"[A-Za-z_01-9]{8,20}");
+            Regex username = new Regex(@"[A-Za-z_01-9]{2,20}");
             Regex password = new Regex(@"[A-Za-z]{8,20}");
             Regex healthCardNumbers = new Regex(@"[01-9]{11}");
             Regex jmbgNumbers = new Regex(@"[01-9]{13}");
             Regex phone = new Regex(@"[01-9]{8,11}");
-            Regex address = new Regex(@"[A-Za-z ]{2,30}");
+            Regex address = new Regex(@"[A-Za-z 0-9]{1,50}");
 
             if (
                 names.IsMatch(patient.Name) &&

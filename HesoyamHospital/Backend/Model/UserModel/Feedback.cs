@@ -110,9 +110,8 @@ namespace Backend.Model.UserModel
         {
             if (qa == null)
                 return;
-            if (Rating != null)
-                if (Rating.Contains(qa))
-                    Rating.Remove(qa);
+            if (Rating != null && Rating.Contains(qa))
+                Rating.Remove(qa);
         }
 
         public void RemoveAllRating()

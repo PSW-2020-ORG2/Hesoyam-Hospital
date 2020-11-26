@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.HospitalSurvey
 {
-    public class SectionMapper
+    public static class SectionMapper
     {
         public static SectionDTO SectionToSectionDTO(Section section)
         {

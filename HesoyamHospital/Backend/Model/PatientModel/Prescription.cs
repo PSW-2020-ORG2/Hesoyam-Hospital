@@ -83,9 +83,8 @@ namespace Backend.Model.PatientModel
       {
          if (mt == null)
             return;
-         if (this.MedicalTherapies != null)
-            if (this.MedicalTherapies.Contains(mt))
-               this.MedicalTherapies.Remove(mt);
+         if (this.MedicalTherapies != null && this.MedicalTherapies.Contains(mt))
+            this.MedicalTherapies.Remove(mt);
       }
       
       public void RemoveAllMedicine()

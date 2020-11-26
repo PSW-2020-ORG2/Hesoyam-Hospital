@@ -174,29 +174,7 @@ namespace Backend
             medicalRecordRepository = new MedicalRecordRepository(new MySQLStream<MedicalRecord>(), new LongSequencer());
             diagnosisRepository = new DiagnosisRepository(new MySQLStream<Diagnosis>(), new LongSequencer());
             surveyRepository = new SurveyRepository(new MySQLStream<Survey>(), new LongSequencer());
-            /*
-            therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
-            roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
-            inventoryItemRepository = new InventoryItemRepository(new MySQLStream<InventoryItem>(), new LongSequencer());
-            timeTableRepository = new TimeTableRepository(new MySQLStream<TimeTable>(), new LongSequencer());
-            secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
-            managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new LongSequencer(), userRepository);
-            notificationRepository = new NotificationRepository(new MySQLStream<Notification>(), new LongSequencer());
-            messageRepository = new MessageRepository(new MySQLStream<Message>(), new LongSequencer());
-            articleRepository = new ArticleRepository(new MySQLStream<Article>(), new LongSequencer());
-            questionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
-            doctorQuestionRepository = new QuestionRepository(new MySQLStream<Question>(), new LongSequencer());
-            doctorFeedbackRepository = new DoctorFeedbackRepository(new MySQLStream<DoctorFeedback>(), new LongSequencer());
-            symptomRepository = new SymptomRepository(new MySQLStream<Symptom>(), new LongSequencer());
-            diseaseRepository = new DiseaseRepository(new MySQLStream<Disease>(), new LongSequencer(), medicineRepository, symptomRepository);
-            ingredientRepository = new IngredientRepository(new MySQLStream<Ingredient>(), new LongSequencer());
-            appointmentRepository = new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer());
-            doctorStatisticRepository = new DoctorStatisticRepository(new MySQLStream<StatsDoctor>(), new LongSequencer());
-            inventoryStatisticRepository = new InventoryStatisticsRepository(new MySQLStream<StatsInventory>(), new LongSequencer());
-            roomStatisticRepository = new RoomStatisticsRepository(new MySQLStream<StatsRoom>(), new LongSequencer());
-            inventoryRepository = new InventoryRepository(new MySQLStream<Inventory>(), new LongSequencer());
-            */
-
+            
             pharmacyApiKeyRepository = new PharmacyApiKeyRepository(new MySQLStream<PharmacyApiKey>(), new LongSequencer());
         }
 

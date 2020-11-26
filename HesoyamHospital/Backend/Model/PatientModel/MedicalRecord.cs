@@ -141,9 +141,8 @@ namespace Backend.Model.PatientModel
         {
             if (oldReport == null)
                 return;
-            if (PatientReports != null)
-                if (PatientReports.Contains(oldReport))
-                    PatientReports.Remove(oldReport);
+            if (PatientReports != null && PatientReports.Contains(oldReport))
+                PatientReports.Remove(oldReport);
         }
 
         public void RemoveAllPatientReport()
@@ -166,9 +165,8 @@ namespace Backend.Model.PatientModel
         {
             if (oldAllergy == null)
                 return;
-            if (Allergy != null)
-                if (Allergy.Contains(oldAllergy))
-                    Allergy.Remove(oldAllergy);
+            if (Allergy != null && Allergy.Contains(oldAllergy))
+                Allergy.Remove(oldAllergy);
         }
 
         public void RemoveAllAllergy()
@@ -191,9 +189,8 @@ namespace Backend.Model.PatientModel
         {
             if (oldPrescription == null)
                 return;
-            if (Prescriptions != null)
-                if (Prescriptions.Contains(oldPrescription))
-                    Prescriptions.Remove(oldPrescription);
+            if (Prescriptions != null && Prescriptions.Contains(oldPrescription))
+                Prescriptions.Remove(oldPrescription);
         }
 
         public void RemoveAllPrescription()
@@ -214,43 +211,21 @@ namespace Backend.Model.PatientModel
         {
             return 1969571243 + Id.GetHashCode();
         }
-
       
         public string BloodTypeToString(BloodType bt) {
-            if (bt == BloodType.A_POSITIVE)
+            return bt switch
             {
-                return "A+";
-            }
-            else if (bt == BloodType.A_NEGATIVE) {
-                return "A-";
-            }
-            else if (bt == BloodType.B_POSITIVE)
-            {
-                return "B+";
-            }
-            else if (bt == BloodType.B_NEGATIVE)
-            {
-                return "B-";
-            }
-            else if (bt == BloodType.O_POSITIVE)
-            {
-                return "0+";
-            }
-            else if (bt == BloodType.O_NEGATIVE)
-            {
-                return "0-";
-            }
-            else if (bt == BloodType.AB_POSITIVE)
-            {
-                return "AB+";
-            }
-            else if (bt == BloodType.AB_NEGATIVE)
-            {
-                return "AB-";
-            }
-            else {
-                return "Not tested";
-            }
+                BloodType.A_POSITIVE => "A+",
+                BloodType.A_NEGATIVE => "A-",
+                BloodType.AB_POSITIVE => "AB+",
+                BloodType.AB_NEGATIVE => "AB-",
+                BloodType.B_POSITIVE => "B+",
+                BloodType.B_NEGATIVE => "B-",
+                BloodType.O_POSITIVE => "0+",
+                BloodType.O_NEGATIVE => "0-",
+                BloodType.NOT_TESTED => "Not tested",
+                _ => "Not tested",
+            };
         }
 
         public List<string> AllergiesListToString(List<Allergy> allergies) {

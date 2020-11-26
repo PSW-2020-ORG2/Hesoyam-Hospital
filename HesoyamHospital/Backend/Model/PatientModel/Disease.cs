@@ -113,14 +113,13 @@ namespace Backend.Model.PatientModel
         {
             if (oldMedicine == null)
                 return;
-            if (AdministratedFor != null)
-                if (AdministratedFor.Find(dm => dm.Medicine.Equals(oldMedicine)) == null)
-                {
-                    DiseaseMedicine removeDm = AdministratedFor.Find(dm => dm.Medicine.Equals(oldMedicine));
-                    if(removeDm != null)
-                        AdministratedFor.Remove(removeDm);
-                    oldMedicine.RemoveUsedFor(this);
-                }
+            if (AdministratedFor != null && AdministratedFor.Find(dm => dm.Medicine.Equals(oldMedicine)) == null)
+            {
+                DiseaseMedicine removeDm = AdministratedFor.Find(dm => dm.Medicine.Equals(oldMedicine));
+                if(removeDm != null)
+                AdministratedFor.Remove(removeDm);
+                oldMedicine.RemoveUsedFor(this);
+            }
         }
 
         /// <summary>
@@ -159,9 +158,8 @@ namespace Backend.Model.PatientModel
         {
             if (oldSymptom == null)
                 return;
-            if (Symptoms != null)
-                if (Symptoms.Contains(oldSymptom))
-                    Symptoms.Remove(oldSymptom);
+            if (Symptoms != null && Symptoms.Contains(oldSymptom))
+                Symptoms.Remove(oldSymptom);
         }
 
         /// <summary>

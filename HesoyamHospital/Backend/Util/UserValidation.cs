@@ -14,18 +14,10 @@ namespace Backend.Util
     {
         public void Validate(User user)
         {
-            CheckDateOfBirth(user.DateOfBirth);
-            CheckEmail(user.Email1);
-            CheckEmail(user.Email2);
-            CheckName(user.Name);
             CheckUsername(user.UserName);
             CheckPassword(user.Password);
-            CheckPhoneNumber(user.CellPhone); 
-            CheckPhoneNumber(user.HomePhone);
-            CheckUidn(user.Uidn);
                 
         }
-
 
         public void CheckUsername(string username)
         {
@@ -51,20 +43,12 @@ namespace Backend.Util
             }
         }
 
-        public void CheckUidn(string uidn)
-        {
-        }
-
         public void CheckDateOfBirth(DateTime date)
         {
             if(DateTime.Now < date)
             {
                 throw new InvalidUserException("Invalid date of birth!");
             }
-        }
-
-        public void CheckEmail(string email)
-        {
         }
 
         public void CheckPhoneNumber(string phoneNumber)

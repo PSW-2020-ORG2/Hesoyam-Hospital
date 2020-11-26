@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.MedicalRecords
 {
-    public class MedicalRecordMapper
+    public static class MedicalRecordMapper
     {
         public static MedicalRecordDTO MedicalRecordToMedicalRecordDTO(MedicalRecord medicalRecord)
         {

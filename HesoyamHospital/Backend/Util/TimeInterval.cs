@@ -46,13 +46,19 @@ namespace Backend.Util
         public TimeSpan Duration()
             => EndTime.Subtract(StartTime);
 
-        public bool isFullyDefined()
-            => StartTime != null && EndTime != null;
+        public bool IsFullyDefined()
+        {   
+            if (StartTime != null && EndTime != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
-        public bool isInOrder()
+        public bool IsInOrder()
             => EndTime >= StartTime;
 
-        public bool isInThePast()
+        public bool IsInThePast()
             => StartTime <= DateTime.Now && EndTime <= DateTime.Now;
 
         public override bool Equals(object obj)
@@ -61,6 +67,16 @@ namespace Backend.Util
             TimeInterval otherTime = obj as TimeInterval;
 
             return StartTime.Equals(otherTime.StartTime) && EndTime.Equals(otherTime.EndTime);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

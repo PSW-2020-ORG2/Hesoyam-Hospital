@@ -14,7 +14,6 @@ namespace Backend.Model.UserModel
         public virtual Room Office { get; set; }
         public DoctorType DoctorType { get; set; }
 
-
         public Doctor(  string userName, 
                         string password, 
                         DateTime dateCreated, 

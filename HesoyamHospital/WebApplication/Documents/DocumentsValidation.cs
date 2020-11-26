@@ -15,8 +15,8 @@ namespace WebApplication.Documents
             criteria.Comment != null &&
             criteria.DiagnosisName != null &&
             criteria.TimeInterval != null &&
-            criteria.TimeInterval.isFullyDefined() &&
-            criteria.TimeInterval.isInOrder() &&
-            criteria.TimeInterval.isInThePast();
+            criteria.TimeInterval.IsFullyDefined() &&
+            criteria.TimeInterval.IsInOrder() &&
+            criteria.TimeInterval.IsInThePast();
     }
 }

@@ -7,7 +7,7 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
 {
     public class MySQLStream<T> : IMySQLStream<T> where T : class
     {
-        private static MyDbContext dbContext = new MyDbContext();
+        private readonly static MyDbContext dbContext = new MyDbContext();
         public MySQLStream() {}
         public void Append(T entity)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Authentication
 {
-    public class NewPatientMapper
+    public static class NewPatientMapper
     {
         public static Patient NewPatientDTOToPatient(NewPatientDTO dto)
         {

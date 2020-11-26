@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.HospitalSurvey
 {
-    public class SurveyMapper
+    public static class SurveyMapper
     {
         public static Survey SurveyDTOToSurvey(SurveyDTO dto)
         {

@@ -13,8 +13,8 @@ namespace Backend.Service.MiscService
 {
     public class FeedbackService : IService<Feedback, long>
     {
-        private FeedbackRepository _feedbackRepository;
-        private QuestionRepository _questionRepository;
+        private readonly FeedbackRepository _feedbackRepository;
+        private readonly QuestionRepository _questionRepository;
 
         public FeedbackService(FeedbackRepository feedbackRepository, QuestionRepository questionRepository)
         {
