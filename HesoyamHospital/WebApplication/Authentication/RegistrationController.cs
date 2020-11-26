@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Backend;
 using Backend.Model.UserModel;
@@ -16,17 +18,30 @@ namespace WebApplication.Authentication
         [HttpPost]   //POST /api/registration
         public IActionResult Add(NewPatientDTO dto)
         {
-            if (dto == null || !IsPatientValid(dto)) return BadRequest();
+            if (dto == null || !RegistrationValidation.IsNewPatientValid(dto)) return BadRequest();
             AppResources.getInstance().medicalRecordService.Create(NewPatientMapper.NewPatientDTOToMedicalRecord(dto));
             return Ok();
         }
 
-        public bool IsPatientValid(NewPatientDTO patient)
+        [HttpPost("upload"), DisableRequestSizeLimit]   //POST /api/registration/upload
+        public IActionResult UploadPicture()
         {
-            List<Patient> patients = AppResources.getInstance().patientService.GetAll().ToList();
-            if (RegistrationValidation.isNewPatientValid(patient) 
-                && RegistrationValidation.IsUsernameUnique(patient.Username, patients)) return true;
-            return false;
+            try
+            {
+                var file = Request.Form.Files[0];
+                if(file.Length > 0)
+                {   
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    ImageRepository.SaveImage(file, fileName);
+                    return Ok();
+                }
+                else return BadRequest();
+            }
+            catch(Exception ex) 
+            {
+                return StatusCode(500, $"internal server error: {ex}");
+            }
         }
+
     }
 }
