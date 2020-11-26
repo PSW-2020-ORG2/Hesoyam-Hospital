@@ -20,11 +20,15 @@ namespace IntegrationAdapter.Controllers
                 return Ok("Pharmacy with name " + pharmacy.PharmacyName + " registered.");
             } catch (RegisteredPharmacyNameNotUniqueException e)
             {
-                return BadRequest("Pharmacy with name " + pharmacy.PharmacyName + " is already registered.");
+                return BadRequest(e.Message);
             }
             catch (ValidationException e)
             {
-                return BadRequest("Missing required data field.");
+                return BadRequest(e.Message);
+            }
+            catch (InvalidRegisteredPharmacyEndpointException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception e)
             {

@@ -3,6 +3,7 @@ using Backend.Repository.Abstract.MiscAbstractRepository;
 using Backend.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Backend.Service.MiscService
 {
@@ -42,6 +43,12 @@ namespace Backend.Service.MiscService
 
         private bool IsPharmacyRegistered(string name) =>  GetRegisteredPharmacyByName(name) != null ? true : false;
 
+        private bool IsEndpointValid(string endpoint)
+        {
+            Regex endpointRegex = new Regex(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
+            return endpointRegex.IsMatch(endpoint);
+        }
+
         public void Update(RegisteredPharmacy entity)
         {
             throw new NotImplementedException();
@@ -52,6 +59,10 @@ namespace Backend.Service.MiscService
             if (IsPharmacyRegistered(entity.PharmacyName))
             {
                 throw new RegisteredPharmacyNameNotUniqueException("Pharmacy with name " + entity.PharmacyName + " already exists.");
+            }
+            if (!IsEndpointValid(entity.Endpoint))
+            {
+                throw new InvalidRegisteredPharmacyEndpointException("Invalid endpoint.");
             }
         }
     }
