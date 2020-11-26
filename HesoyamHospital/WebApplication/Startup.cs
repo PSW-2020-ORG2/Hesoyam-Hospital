@@ -2,8 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Model.PatientModel;
+using Backend.Repository.MySQLRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository.MySQL.Stream;
+using Backend.Repository.Sequencer;
+using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Service;
 using Backend.Service.HospitalManagementService;
+using Backend.Service.UsersService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebApplication.Documents.Service;
 
 namespace WebApplication
 {
@@ -39,7 +46,9 @@ namespace WebApplication
                                       .AllowAnyMethod();
                                   });
             });
-
+            services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer()), new ReportRepository(new MySQLStream<Report>(), new LongSequencer())));
+            services.AddMvc().AddJsonOptions(options =>
+                    options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();
         }
 
