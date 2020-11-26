@@ -87,5 +87,31 @@ namespace Backend.Model.UserModel
             _email1 = email1;
             _email2 = email2;
         }
+
+        public Person(string name,
+                        string surname,
+                        string middleName,
+                        string jmbg,
+                        Sex sex,
+                        DateTime dateOfBirth,
+                        string uidn,
+                        Address address,
+                        string homePhone,
+                        string cellPhone,
+                        string email1)
+        {
+            _name = name;
+            _surname = surname;
+            _middleName = middleName;
+            _jmbg = jmbg;
+            _sex = sex;
+            _dateOfBirth = dateOfBirth;
+            _uidn = uidn;
+            _address = address;
+            _addressID = address.Id;
+            _homePhone = homePhone;
+            _cellPhone = cellPhone;
+            _email1 = email1;
+        }
     }
 }

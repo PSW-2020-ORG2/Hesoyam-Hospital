@@ -67,6 +67,27 @@ namespace Backend.Model.UserModel
             SelectedDoctor = selectedDoctor;
             HealthCardNumber = healthCardNumber;
         }
+        //constructor for NewPatientMapper
+        public Patient(string userName,
+                        string password,
+                        string name,
+                        string surname,
+                        string middleName,
+                        string jmbg,
+                        Sex sex,
+                        DateTime dateOfBirth,
+                        string uidn,
+                        Address address,
+                        string homePhone,
+                        string cellPhone,
+                        string email1,
+                        string healthCardNumber)
+            : base(userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1)
+        {
+            HealthCardNumber = healthCardNumber;
+            Active = false;
+            //_selectedDoctorID = 500;
+        }
 
         public Patient( long id,
                         UserID uid, 

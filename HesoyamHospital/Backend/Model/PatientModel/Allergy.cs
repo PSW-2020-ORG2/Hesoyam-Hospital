@@ -26,7 +26,7 @@ namespace Backend.Model.PatientModel
             
         }
 
-        public Allergy(long id,string name)
+        public Allergy(long id, string name)
         {
             Id = id;
             Name = name;

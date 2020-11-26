@@ -103,6 +103,14 @@ namespace Backend.Model.PatientModel
             Allergy = patientAllergies;
         }
 
+        //constructor for NewPatientMapper
+        public MedicalRecord(Patient patient, BloodType bloodType, List<Allergy> patientAllergies)
+        {
+            Patient = patient;
+            PatientBloodType = bloodType;
+            Allergy = patientAllergies;
+        }
+
         public MedicalRecord(long id, Patient patient, BloodType bloodType, List<Report> patientReport, List<Allergy> patientAllergies)
         {
             Id = id;
@@ -209,14 +217,14 @@ namespace Backend.Model.PatientModel
 
       
         public string BloodTypeToString(BloodType bt) {
-            if (bt == BloodType.A_POOSITIVE)
+            if (bt == BloodType.A_POSITIVE)
             {
                 return "A+";
             }
             else if (bt == BloodType.A_NEGATIVE) {
                 return "A-";
             }
-            else if (bt == BloodType.B_POOSITIVE)
+            else if (bt == BloodType.B_POSITIVE)
             {
                 return "B+";
             }
@@ -224,7 +232,7 @@ namespace Backend.Model.PatientModel
             {
                 return "B-";
             }
-            else if (bt == BloodType.O_POOSITIVE)
+            else if (bt == BloodType.O_POSITIVE)
             {
                 return "0+";
             }
@@ -232,7 +240,7 @@ namespace Backend.Model.PatientModel
             {
                 return "0-";
             }
-            else if (bt == BloodType.AB_POOSITIVE)
+            else if (bt == BloodType.AB_POSITIVE)
             {
                 return "AB+";
             }

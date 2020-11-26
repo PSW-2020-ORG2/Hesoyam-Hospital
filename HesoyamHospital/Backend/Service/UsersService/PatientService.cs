@@ -46,7 +46,7 @@ namespace Backend.Service.UsersService
         {
             Validate(entity);
             Patient patient = _patientRepository.Create(entity);
-            _medicalRecordRepository.Create(new MedicalRecord(patient));
+            //_medicalRecordRepository.Create(new MedicalRecord(patient));
 
             return patient;
 

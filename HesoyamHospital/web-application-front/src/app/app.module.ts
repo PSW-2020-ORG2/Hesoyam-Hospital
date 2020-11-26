@@ -11,6 +11,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { MedicalRecordModule} from './medical-record/medical-record.module';
 import { RegistrationModule } from './registration/registration.module';
 import { DocumentsModule } from './documents/documents.module';
+import { RegistrationService } from './registration/services/registration.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { DocumentsModule } from './documents/documents.module';
     RegistrationModule,
     DocumentsModule
   ],
-  providers: [FeedbackService],
+  providers: [FeedbackService, RegistrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

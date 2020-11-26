@@ -10,13 +10,13 @@ namespace Backend.Model.PatientModel
 {
     public enum BloodType
     {
-        A_POOSITIVE,
+        A_POSITIVE,
         A_NEGATIVE,
-        B_POOSITIVE,
+        B_POSITIVE,
         B_NEGATIVE,
-        O_POOSITIVE,
+        O_POSITIVE,
         O_NEGATIVE,
-        AB_POOSITIVE,
+        AB_POSITIVE,
         AB_NEGATIVE,
         NOT_TESTED
     }
