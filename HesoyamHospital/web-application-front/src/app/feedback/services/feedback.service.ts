@@ -14,10 +14,10 @@ export interface Feedback {
 }
 
 export interface SectionDTO {
-  AnswerOne: number;
-  AnswerTwo: number;
-  AnswerThree: number;
-  AnswerFour: number;
+  answerOne: number;
+  answerTwo: number;
+  answerThree: number;
+  answerFour: number;
   
 }
 
@@ -28,6 +28,9 @@ export interface SectionDTO {
 
 export class FeedbackService {
 
+  private _urlEquipmentSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Equipment';
+  private _urlHygieneSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Hygiene';
+  private _urlStaffSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Staff';
   private _urlDoctorSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Doctor';
   private _urlunpublished:string = 'http://localhost:52166/api/feedback/unpublished';
   private _urlpublished:string = 'http://localhost:52166/api/feedback/published';
@@ -50,6 +53,16 @@ export class FeedbackService {
   getDoctorSections(): Observable<SectionDTO[]>{
     return this._http.get<SectionDTO[]>(this._urlDoctorSections);
     }
+  getStaffSections(): Observable<SectionDTO[]>{
+    return this._http.get<SectionDTO[]>(this._urlStaffSections);
+    }
+  getHygieneSections(): Observable<SectionDTO[]>{
+      return this._http.get<SectionDTO[]>(this._urlHygieneSections);
+    }
+  getEquipmentSections(): Observable<SectionDTO[]>{
+      return this._http.get<SectionDTO[]>(this._urlEquipmentSections);
+    }
+   
 
   getPublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlpublished);

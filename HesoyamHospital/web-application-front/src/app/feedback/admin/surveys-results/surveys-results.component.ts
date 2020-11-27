@@ -9,13 +9,29 @@ import { SectionDTO } from '../../services/feedback.service';
 })
 export class SurveysResultsComponent implements OnInit {
 
-  displayedColumns: string[] = ['AnswerOne', 'AnswerTwo', 'AnswerThree', 'AnswerFour'];
+  displayedColumns: string[] = ['questionOne', 'questionTwo', 'questionThree', 'questionFour'];
   public dataSource: SectionDTO[] = [];
+  public dataSourceStaff: SectionDTO[] = [];
+  public dataSourceHygiene: SectionDTO[] = [];
+  public dataSourceEquipment: SectionDTO[] = [];
 
   constructor(private _feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    this._feedbackService.getDoctorSections().subscribe((data) => this.dataSource = data);
+    this._feedbackService.getDoctorSections().subscribe((data) => {
+       this.dataSource = data;
+       this._feedbackService.getStaffSections().subscribe((data) => {
+            this.dataSourceStaff = data;
+            this._feedbackService.getHygieneSections().subscribe((data) => {
+                this.dataSourceHygiene = data;
+                this._feedbackService.getEquipmentSections().subscribe((data) => this.dataSourceEquipment = data);
+            
+            });
+                   
+        });      
+      
+    });
+    
   }
 
 }
