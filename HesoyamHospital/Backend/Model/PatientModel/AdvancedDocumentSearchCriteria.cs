@@ -20,5 +20,8 @@ namespace Backend.Model.PatientModel
             TextFilters = textFilters;
             TimeIntervalFilters = timeIntervalFilters;
         }
+
+        public bool isConsistent()
+            => FilterTypes.Count == TextFilters.Count + TimeIntervalFilters.Count && LogicalOperators.Count + 1 == TextFilters.Count + TimeIntervalFilters.Count;
     }
 }

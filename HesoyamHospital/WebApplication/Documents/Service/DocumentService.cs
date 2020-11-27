@@ -21,7 +21,12 @@ namespace WebApplication.Documents.Service
 
         public IEnumerable<Document> AdvanceSearchDocs(AdvancedDocumentSearchCriteria criteria, long patientId)
         {
-            throw new NotImplementedException();
+            List<Document> result = new List<Document>();
+
+            if (criteria.ShouldSearchPrescriptions) result.AddRange(getPrescriptionsThatMeetAdvancedCriteria(criteria, patientId));
+            if (criteria.ShouldSearchReports) result.AddRange(getReportsThatMeetAdvancedCriteria(criteria, patientId));
+
+            return result;
         }
 
         public Document Create(Document entity)
@@ -93,6 +98,16 @@ namespace WebApplication.Documents.Service
                     result.Add(report);
 
             return result;
+        }
+
+        private List<Document> getPrescriptionsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<Document> getReportsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
