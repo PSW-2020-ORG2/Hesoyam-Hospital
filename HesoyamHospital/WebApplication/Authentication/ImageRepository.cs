@@ -23,6 +23,7 @@ namespace WebApplication.Authentication
             }
             catch (Exception ex)
             {
+                return;
             }
 
         }
