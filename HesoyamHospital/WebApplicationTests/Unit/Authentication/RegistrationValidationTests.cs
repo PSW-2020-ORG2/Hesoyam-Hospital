@@ -13,7 +13,7 @@ namespace WebApplicationTests.Unit.Authentication
         [MemberData(nameof(Data))]
         public void Patient_validation(NewPatientDTO patient, bool value)
         {
-            bool valid = RegistrationValidation.isNewPatientValid(patient);
+            bool valid = RegistrationValidation.IsNewPatientValid(patient);
 
             valid.ShouldBe(value);
         }
@@ -31,10 +31,8 @@ namespace WebApplicationTests.Unit.Authentication
         [Theory]
         [MemberData(nameof(UsernameData))]
         public void Is_username_unique(NewPatientDTO patient, bool value)
-        {
-            RegistrationController controller = new RegistrationController();
-
-            bool valid = controller.IsPatientValid(patient);
+        {;
+            bool valid = RegistrationValidation.IsNewPatientValid(patient);
 
             valid.ShouldBe(value);
         }

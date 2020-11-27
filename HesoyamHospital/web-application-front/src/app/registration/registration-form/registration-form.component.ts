@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormControl, Validators} from '@angular/forms';
 import {RegistrationService } from '../services/registration.service';
@@ -14,6 +15,11 @@ interface BloodType {
   styleUrls: ['./registration-form.component.css']
 })
 export class RegistrationFormComponent implements OnInit {
+  selectedFile: File = null;
+  selectedFileHide = true;
+  statusCode = "";
+  fileName = "";
+  fileExtension = "";
   hide = true;
   selectFormControl = new FormControl('', Validators.required);
 
@@ -43,7 +49,7 @@ export class RegistrationFormComponent implements OnInit {
 
   public patientDTO = new NewPatientDto();
 
-  constructor(private _registrationService : RegistrationService) {
+  constructor(private _registrationService : RegistrationService, private _http: HttpClient) {
     this._name = '';
     this._surname = '';
    }
@@ -51,21 +57,36 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+    this.selectedFileHide = false;
+    this.fileName = "Image selected";
+    this.fileExtension = this.selectedFile.name.split('?')[0].split('.').pop();
+    //this.fileName = this.fileName + "." + this.fileExtension;
+  }
+
+  usernameChanged(event) {
+    
+  }
+
   getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
     }
-
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   submit() {
+    const fd = new FormData();
     this.preparePatient();
     this._registrationService.post(this.patientDTO).subscribe(
-      (val) => {
-        alert("Registration done " + this.patientDTO.Name + " " + this.patientDTO.Surname)
-        this.reset();
+      (data) => {
+        alert("Registration done " + this.patientDTO.Name + " " + this.patientDTO.Surname);
       });
+    if(this.selectedFile != null){
+      fd.append('file', this.selectedFile, this.patientDTO.Username + '.' + this.fileExtension);
+      this._http.post("http://localhost:52166/api/registration/upload", fd).subscribe();
+    }
   }
 
   preparePatient() {

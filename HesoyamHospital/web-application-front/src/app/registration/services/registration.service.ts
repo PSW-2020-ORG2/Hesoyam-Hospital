@@ -10,7 +10,7 @@ export class RegistrationService {
 
   private _urlpost : string = "http://localhost:52166/api/registration";
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
   post(patient : NewPatientDto) {
     return this._http.post<any>(this._urlpost, patient);
