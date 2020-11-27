@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Backend.Repository.Abstract.MiscAbstractRepository
 {
-    public interface IPharmacyApiKeyRepository : IRepository<PharmacyApiKey, string>
+    public interface IRegisteredPharmacyRepository : IRepository<RegisteredPharmacy, long>
     {
+        RegisteredPharmacy GetRegisteredPharmacyByName(string pharmacyName);
     }
 }

@@ -30,7 +30,8 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Survey> Surveys { get; set; }
-        public DbSet<PharmacyApiKey> PharmacyApiKeys { get; set; }
+        public DbSet<RegisteredPharmacy> RegisteredPharmacies { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
