@@ -28,7 +28,7 @@ namespace Backend
         {
             services.AddControllers();
             services.AddDbContext<MyDbContext>(options =>
-                    options.UseLazyLoadingProxies().UseMySql(Environment.GetEnvironmentVariable("MyDbConnectionString")));
+                    options.UseLazyLoadingProxies().UseMySql(Configuration.GetConnectionString("MyDbConnectionString")));
             services.AddMvc().AddJsonOptions(options =>
                     options.JsonSerializerOptions.MaxDepth = 10);
         }
