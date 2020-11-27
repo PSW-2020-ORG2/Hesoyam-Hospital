@@ -21,7 +21,6 @@ namespace WebApplication.Authentication
             Regex jmbgNumbers = new Regex(@"[01-9]{13}");
             Regex phone = new Regex(@"[01-9]{8,11}");
             Regex address = new Regex(@"[A-Za-z 0-9]{1,50}");
-            List<Patient> patients = AppResources.getInstance().patientService.GetAll().ToList();
 
             if (
                 names.IsMatch(patient.Name) &&
@@ -38,12 +37,19 @@ namespace WebApplication.Authentication
                 AreAllergiesValid(patient.Allergies) &&
                 address.IsMatch(patient.City) &&
                 address.IsMatch(patient.Country) &&
-                address.IsMatch(patient.Address) &&
-                IsUsernameUnique(patient.Username, patients)
+                address.IsMatch(patient.Address)
                 ) 
                 return true;
             return false;
         }
+
+        public static bool IsPatientValid(NewPatientDTO dto)
+        {
+            List<Patient> patients = AppResources.getInstance().patientService.GetAll().ToList();
+            if (IsNewPatientValid(dto) && IsUsernameUnique(dto.Username, patients)) return true;
+            return false;
+        }
+
 
         public static bool IsUsernameUnique(string username, List<Patient> patients)
         {
