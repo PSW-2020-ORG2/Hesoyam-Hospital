@@ -13,13 +13,15 @@ export class ShowMedicalRecordComponent implements OnInit {
 
   public record: MedicalRecordDto;
   public imagePath = "";
+  public imgPath = "";
   
   constructor(private _medService: MedicalRecordService) { }
 
   ngOnInit(): void {
-    this._medService.getMedicalRecord().subscribe((data) => this.record = data);
-    this.imagePath = "http://localhost:52166/api/medicalrecord/image/" + this.record.username + ".jpg";
+     
+    this._medService.getMedicalRecord().subscribe((data) => {this.record = data;  this.imagePath = "http://localhost:52166/Resources/Images/" + this.record.username + ".jpg";} );
+    
   }
-
-
+  
+  
 }

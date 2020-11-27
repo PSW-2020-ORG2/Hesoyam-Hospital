@@ -13,7 +13,7 @@ namespace WebApplication.MedicalRecords
     [ApiController]
     public class MedicalRecordController : ControllerBase
     {
-        [HttpGet("show/{id}")]  //GET /api/medicalrecord/show
+        [HttpGet("show/{id}")]  //GET /api/medicalrecord/show/500
         public IActionResult GetMedicalRecordByPatientId(long id)
         {
             MedicalRecord medicalRecord = AppResources.getInstance().medicalRecordService.GetPatientMedicalRecordByPatientId(id);
@@ -21,20 +21,6 @@ namespace WebApplication.MedicalRecords
             if (medicalRecord == null) return NotFound();
 
             return Ok(MedicalRecordMapper.MedicalRecordToMedicalRecordDTO(medicalRecord));
-        }
-
-        [HttpGet("image/{imageName}")]
-        public IActionResult GetImage(String imageName)
-        {
-            Byte[] b;
-            try
-            {
-                b = System.IO.File.ReadAllBytes(@"../WebApplication/Resources/Images/" + imageName);
-            }
-            catch (Exception e) {
-                b = System.IO.File.ReadAllBytes(@"../WebApplication/Resources/Images/milijanadj.jpg");
-            }
-            return File(b, "image/jpg");
         }
     }
 }

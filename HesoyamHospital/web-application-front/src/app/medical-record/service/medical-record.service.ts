@@ -8,7 +8,7 @@ import { MedicalRecordDto } from '../DTOs/medical-record-dto';
 })
 export class MedicalRecordService {
 
-  private _urlshowrecord:string = 'http://localhost:52166/api/medicalrecord/show/502';
+  private _urlshowrecord:string = 'http://localhost:52166/api/medicalrecord/show/505';
 
   constructor(private _http : HttpClient) {}
 
