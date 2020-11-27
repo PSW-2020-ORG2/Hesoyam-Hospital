@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MedicalRecordDto } from '../DTOs/medical-record-dto';
 import { MedicalRecordService } from '../service/medical-record.service';
+declare var require: any
 
 @Component({
   selector: 'app-show-medical-record',
@@ -11,6 +12,8 @@ export class ShowMedicalRecordComponent implements OnInit {
 
 
   public record: MedicalRecordDto;
+  imgname= require("../../../../../images/anjaa.jpg");
+
 
   constructor(private _medService: MedicalRecordService) { }
 
