@@ -52,7 +52,9 @@ namespace Backend
         public QuestionRepository doctorQuestionRepository;
         public FeedbackRepository feedbackRepository;
         public DoctorFeedbackRepository doctorFeedbackRepository;
-        public PharmacyApiKeyRepository pharmacyApiKeyRepository;
+
+        public RegisteredPharmacyRepository registeredPharmacyRepository;
+
         public SurveyRepository surveyRepository;
 
 
@@ -102,7 +104,7 @@ namespace Backend
         public MessageService messageService;
         public NotificationService notificationService;
         public AppointmentNotificationSender appointmentNotificationSender;
-        public PharmacyApiKeyService pharmacyApiKeyService;
+        public RegisteredPharmacyService registeredPharmacyService;
 
         // UsersService
         public DoctorService doctorService;
@@ -147,7 +149,7 @@ namespace Backend
             notificationService = new NotificationService(notificationRepository);
             appointmentNotificationSender = new AppointmentNotificationSender(notificationService);
             appointmentService = new AppointmentService(appointmentRepository, appointmentStrategy, appointmentNotificationSender);
-            pharmacyApiKeyService = new PharmacyApiKeyService(pharmacyApiKeyRepository);
+            registeredPharmacyService = new RegisteredPharmacyService(registeredPharmacyRepository);
 
             // UsersService
             doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
@@ -175,7 +177,11 @@ namespace Backend
             diagnosisRepository = new DiagnosisRepository(new MySQLStream<Diagnosis>(), new LongSequencer());
             surveyRepository = new SurveyRepository(new MySQLStream<Survey>(), new LongSequencer());
             
-            pharmacyApiKeyRepository = new PharmacyApiKeyRepository(new MySQLStream<PharmacyApiKey>(), new LongSequencer());
+
+            registeredPharmacyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
+
+
+
         }
 
         public static AppResources getInstance()
