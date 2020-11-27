@@ -42,11 +42,30 @@ namespace Backend.Service.UsersService
 
         public void Validate(Survey entity)
         {
-            //it's empty beacuse product owner requested that validation is written inside webaplication project 
+            //it's empty beacuse product owner requested that validation is written inside webapplication project 
         }
 
-        //Display grades per each doctor, returns dictionary where key is id of a doctor
-        //and a value is survey section about that doctor
+        //Display average grade for each doctor
+        public double GetAvarageGradePerDoctors(Doctor doctor)
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<double> result = new List<double>();
+            int numberOfSections = 0;
+
+            foreach (Survey survey in allSurveys)
+            {
+                if (survey.Doctor.Id == doctor.GetId())
+                {
+                    result.Add(SumOfAnswers(survey.DoctorSection));
+                    ++numberOfSections;
+                }
+
+            }
+            return SumPerSections(result)/numberOfSections;
+
+        }
+
+        //Display grades per each doctor, returns list of sections for specific doctor
         public List<Section> GetSurveysPerDoctors(Doctor doctor)
         {
             List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();

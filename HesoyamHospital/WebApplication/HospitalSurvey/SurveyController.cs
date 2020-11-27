@@ -112,15 +112,40 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("answers-per-doctors/{id}")]
         public IActionResult AnswersPerDoctors(long id)
         {
-             Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
-             List<Section> sections= AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
+            Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
+            List<Section> sections = AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
+
 
             if (doctor == null)
             {
                 return BadRequest();
             }
+            return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+        }
 
-             return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+        [HttpGet("average-grade-per-doctor/{id}")]
+        public IActionResult AveragreGradePerDoctor(long id)
+        {
+            Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
+            
+            if (doctor == null)
+            {
+                return BadRequest();
+            }
+            return Ok(AppResources.getInstance().surveyService.GetAvarageGradePerDoctors(doctor));
+
+        }
+
+        [HttpGet("getAllDoctors")]
+        public IActionResult AllDoctors()
+        {
+            List<Doctor> doctors = AppResources.getInstance().doctorService.GetAll().ToList();
+            if(doctors == null)
+            {
+                return BadRequest();
+            }
+            return Ok(doctors.Select(doctor => DoctorMapper.DoctorToDoctorDTO(doctor)).ToArray());
+
         }
     }
 }
