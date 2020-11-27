@@ -36,17 +36,24 @@ namespace WebApplication.Documents.Service
             return result;
         }
 
+        public IEnumerable<Document> GetAllByPatient(long patientId)
+        {
+            List<Document> result = ((List<Report>)_reportRepository.GetAllByPatient(patientId)).ConvertAll(r => (Document)r);
+            result.AddRange(((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId)).ConvertAll(p => (Document)p));
+            return result;
+        }
+
         public Document GetByID(long id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Document> SimpleSearchDocs(DocumentSearchCriteria criteria)
+        public IEnumerable<Document> SimpleSearchDocs(DocumentSearchCriteria criteria, long patientId)
         {
             List<Document> result = new List<Document>();
 
-            if (criteria.ShouldSearchPrescriptions) result.AddRange(getPrescriptionsThatMeetCriteria(criteria));
-            if (criteria.ShouldSearchReports) result.AddRange(getReportsThatMeetCriteria(criteria));
+            if (criteria.ShouldSearchPrescriptions) result.AddRange(getPrescriptionsThatMeetCriteria(criteria, patientId));
+            if (criteria.ShouldSearchReports) result.AddRange(getReportsThatMeetCriteria(criteria, patientId));
 
             return result;
         }
@@ -61,22 +68,22 @@ namespace WebApplication.Documents.Service
             throw new NotImplementedException();
         }
 
-        private List<Document> getPrescriptionsThatMeetCriteria(DocumentSearchCriteria criteria)
+        private List<Document> getPrescriptionsThatMeetCriteria(DocumentSearchCriteria criteria, long patientId)
         {
             List<Document> result = new List<Document>();
 
-            foreach (Prescription prescription in _prescriptionRepository.GetAll())
+            foreach (Prescription prescription in _prescriptionRepository.GetAllByPatient(patientId))
                 if (prescription.meetsCriteria(criteria))
                     result.Add(prescription);
 
             return result;
         }
 
-        private List<Document> getReportsThatMeetCriteria(DocumentSearchCriteria criteria)
+        private List<Document> getReportsThatMeetCriteria(DocumentSearchCriteria criteria, long patientId)
         {
             List<Document> result = new List<Document>();
 
-            foreach (Report report in _reportRepository.GetAll())
+            foreach (Report report in _reportRepository.GetAllByPatient(patientId))
                 if (report.meetsCriteria(criteria))
                     result.Add(report);
 

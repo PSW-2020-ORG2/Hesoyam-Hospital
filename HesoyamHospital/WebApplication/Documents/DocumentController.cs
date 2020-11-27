@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Backend.Model.PatientModel;
+﻿using System.Linq;
 using Backend.Util;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Documents.Service;
@@ -20,18 +18,18 @@ namespace WebApplication.Documents
             _validation = new DocumentsValidation();
         }
 
-        [HttpPost("simple-search")]
-        public IActionResult SimpleSearchDocs([FromBody]DocumentSearchCriteria criteria)
+        [HttpPost("simple-search/{id}")]
+        public IActionResult SimpleSearchDocs([FromBody] DocumentSearchCriteria criteria, long id)
         {
             if (!_validation.isSearchCriteriaValid(criteria)) return BadRequest();
 
-            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.SimpleSearchDocs(criteria).ToList()));
+            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.SimpleSearchDocs(criteria, id).ToList()));
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
         {
-            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.GetAll().ToList()));
+            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.GetAllByPatient(id).ToList()));
         }
     }
 }

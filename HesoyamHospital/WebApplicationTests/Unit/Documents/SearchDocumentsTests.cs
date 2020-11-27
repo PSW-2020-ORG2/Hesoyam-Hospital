@@ -19,7 +19,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(true, false, new TimeInterval(DateTime.Now.AddDays(-10), DateTime.Now.AddDays(1)), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeGreaterThan(0);
         }
@@ -30,7 +30,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(false, true, new TimeInterval(DateTime.Now.AddDays(-10), DateTime.Now), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeGreaterThan(0);
         }
@@ -41,7 +41,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(true, true, new TimeInterval(DateTime.Now.AddDays(-10), DateTime.Now), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeGreaterThan(0);
         }
@@ -52,7 +52,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(true, false, new TimeInterval(DateTime.Now.AddDays(-20), DateTime.Now.AddDays(-16)), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
         }
@@ -63,7 +63,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(false, true, new TimeInterval(DateTime.Now.AddDays(-20), DateTime.Now.AddDays(-16)), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
         }
@@ -74,7 +74,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(true, true, new TimeInterval(DateTime.Now.AddDays(-20), DateTime.Now.AddDays(-16)), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
         }
@@ -85,7 +85,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(false, false, new TimeInterval(DateTime.Now.AddDays(-10), DateTime.Now), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
 
             ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
         }
@@ -118,7 +118,7 @@ namespace WebApplicationTests.Unit.Documents
             prescriptions.Add(p1);
             prescriptions.Add(p2);
 
-            stubRepository.Setup(r => r.GetAll()).Returns(prescriptions);
+            stubRepository.Setup(r => r.GetAllByPatient(500)).Returns(prescriptions);
 
             return stubRepository.Object;
         }
@@ -147,7 +147,7 @@ namespace WebApplicationTests.Unit.Documents
             reports.Add(r1);
             reports.Add(r2);
 
-            stubRepository.Setup(r => r.GetAll()).Returns(reports);
+            stubRepository.Setup(r => r.GetAllByPatient(500)).Returns(reports);
 
             return stubRepository.Object;
         }

@@ -38,6 +38,7 @@ namespace Backend.Model.PatientModel
         public Prescription(long id)
         {
             Id = id;
+            Type = DocumentType.PRESCRIPTION;
         }
         public Prescription(long id, PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies)
         {
@@ -45,6 +46,7 @@ namespace Backend.Model.PatientModel
             Status = status;
             Doctor = doctor;
             MedicalTherapies = medicalTherapies;
+            Type = DocumentType.PRESCRIPTION;
         }
 
         public Prescription(PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies)
@@ -52,12 +54,14 @@ namespace Backend.Model.PatientModel
             Status = status;
             Doctor = doctor;
             MedicalTherapies = medicalTherapies;
+            Type = DocumentType.PRESCRIPTION;
         }
 
         public Prescription(List<MedicalTherapy> medicalTherapies)
         {
             Status = PrescriptionStatus.ACTIVE;
             MedicalTherapies = medicalTherapies;
+            Type = DocumentType.PRESCRIPTION;
         }
 
         public Prescription(PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies, Diagnosis diagnosis, Patient patient)
@@ -67,6 +71,7 @@ namespace Backend.Model.PatientModel
             MedicalTherapies = medicalTherapies;
             Diagnosis = diagnosis;
             Patient = patient;
+            Type = DocumentType.PRESCRIPTION;
         }
 
         public void AddMedicine(MedicalTherapy mt)

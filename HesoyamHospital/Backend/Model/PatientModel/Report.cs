@@ -12,6 +12,7 @@ namespace Backend.Model.PatientModel
         {
             Id = id;
             DateCreated = DateTime.Now;
+            Type = DocumentType.REPORT;
         }
 
         public Report (long id, Patient patient, Doctor doctor, string comment, Diagnosis diagnosis)
@@ -21,6 +22,7 @@ namespace Backend.Model.PatientModel
             Doctor = doctor;
             Comment = comment;
             Diagnosis = diagnosis;
+            Type = DocumentType.REPORT;
         }
 
         public long GetId() => Id;

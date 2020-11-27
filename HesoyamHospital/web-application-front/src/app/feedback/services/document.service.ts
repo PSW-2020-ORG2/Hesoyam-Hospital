@@ -9,8 +9,8 @@ import { SearchCriteriaDTO } from '../DTOs/search-criteria-dto';
 })
 export class DocumentService {
 
-  private _urlgetall:string = "http://localhost:52166/api/document";
-  private _urlpost:string = "http://localhost:52166/api/document/simple-search";
+  private _urlgetall:string = "http://localhost:52166/api/document/500";
+  private _urlpost:string = "http://localhost:52166/api/document/simple-search/500";
 
   constructor( private _http : HttpClient) { }
 

@@ -60,7 +60,12 @@
 
     <div style="display: flex; justify-content: center; margin-top: 20%;">
       <table mat-table [dataSource] = "data" class="mat-elevation-z8">
-          <ng-container matColumnDef="DateCreated">
+            <ng-container matColumnDef="Type">
+              <th mat-header-cell *matHeaderCellDef> DOCUMENT TYPE </th>
+              <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DateCreated">
               <th mat-header-cell *matHeaderCellDef> DATE CREATED </th>
               <td mat-cell *matCellDef="let element"> {{element.dateCreated | date : longDate}} </td>
             </ng-container>

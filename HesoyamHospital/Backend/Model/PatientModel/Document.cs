@@ -1,9 +1,6 @@
 ﻿using Backend.Model.UserModel;
 using Backend.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Backend.Model.PatientModel
 {
@@ -14,6 +11,7 @@ namespace Backend.Model.PatientModel
         public virtual Patient Patient { get; set; }
         public virtual Doctor Doctor { get; set; }
         public virtual Diagnosis Diagnosis { get; set; }
+        public DocumentType Type { get; set; }
 
         public Document() { }
 

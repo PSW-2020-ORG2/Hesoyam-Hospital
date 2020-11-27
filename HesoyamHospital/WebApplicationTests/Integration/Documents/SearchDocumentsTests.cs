@@ -28,7 +28,7 @@ namespace WebApplicationTests.Integration.Documents
             HttpClient client = _factory.CreateClient();
             StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/document/simple-search", bodyContent);
+            HttpResponseMessage response = await client.PostAsync("/api/document/simple-search/500", bodyContent);
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
