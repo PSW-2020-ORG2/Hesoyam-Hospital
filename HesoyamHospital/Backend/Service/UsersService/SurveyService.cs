@@ -293,7 +293,8 @@ namespace Backend.Service.UsersService
         //returns list of mean values per questions in doctors section
         public List<double> MeanValuesPerDoctorQuestions()
         {
-            List<double> result = new List<double>();
+            
+            List<double> means = new List<double>();
             List<double> answersOne = new List<double>();
             List<double> answersTwo = new List<double>();
             List<double> answersThree = new List<double>();
@@ -302,7 +303,7 @@ namespace Backend.Service.UsersService
 
             if (surveys == null)
             {
-                return result;
+                return means;
             }
             foreach (Survey survey in surveys)
             {
@@ -312,12 +313,12 @@ namespace Backend.Service.UsersService
                 answersThree.Add(doctorSection.AnswerThree);
                 answersFour.Add(doctorSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+            means.Add(SumOfQuestions(answersOne) / surveys.Count);
+            means.Add(SumOfQuestions(answersTwo) / surveys.Count);
+            means.Add(SumOfQuestions(answersThree) / surveys.Count);
+            means.Add(SumOfQuestions(answersFour) / surveys.Count);
 
-            return result;
+            return means;
 
         }
         public List<double> MeanValuesPerStaffQuestions()

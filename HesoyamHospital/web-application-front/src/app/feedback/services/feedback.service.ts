@@ -20,7 +20,14 @@ export interface SectionDTO {
   answerFour: number;
   
 }
-
+export interface MeanDTO {
+  answerOne: number;
+  answerTwo: number;
+  answerThree: number;
+  answerFour: number;
+  
+  
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +35,12 @@ export interface SectionDTO {
 
 export class FeedbackService {
 
+  private _urlmeanValuesPerSections:string = 'http://localhost:52166/api/survey/mean-value-per-section';
+
+  private _urlMeanValuesPerQuestionStaff:string = 'http://localhost:52166/api/survey/mean-value-per-question/Staff';
+  private _urlMeanValuesPerQuestionHygiene:string = 'http://localhost:52166/api/survey/mean-value-per-question/Hygiene';
+  private _urlMeanValuesPerQuestionEquipment:string = 'http://localhost:52166/api/survey/mean-value-per-question/Equipment';
+  private _urlMeanValuesPerQuestionDoctor:string = 'http://localhost:52166/api/survey/mean-value-per-question/Doctor';
   private _urlEquipmentSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Equipment';
   private _urlHygieneSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Hygiene';
   private _urlStaffSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Staff';
@@ -47,8 +60,24 @@ export class FeedbackService {
   postSurvey(survey : SurveyDTO){
     return this._http.post<any>(this._urlpostsurvey, survey)
   }
+  getMeanValuePerSections() : Observable<MeanDTO[]>{
+    return this._http.get<MeanDTO[]>(this._urlmeanValuesPerSections);
+  }
+
   getUnpublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlunpublished);
+  }
+  getMeanValuePerQuestionStaff() : Observable<MeanDTO[]>{
+    return this._http.get<MeanDTO[]>(this._urlMeanValuesPerQuestionStaff);
+  }
+  getMeanValuePerQuestionHygiene() : Observable<MeanDTO[]>{
+    return this._http.get<MeanDTO[]>(this._urlMeanValuesPerQuestionHygiene);
+  }
+  getMeanValuePerQuestionEquipment() : Observable<MeanDTO[]>{
+    return this._http.get<MeanDTO[]>(this._urlMeanValuesPerQuestionEquipment);
+  }
+  getMeanValuePerQuestionDoctor() : Observable<MeanDTO[]>{
+    return this._http.get<MeanDTO[]>(this._urlMeanValuesPerQuestionDoctor);
   }
   getDoctorSections(): Observable<SectionDTO[]>{
     return this._http.get<SectionDTO[]>(this._urlDoctorSections);

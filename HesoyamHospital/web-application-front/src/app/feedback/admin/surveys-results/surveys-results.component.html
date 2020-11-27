@@ -3,31 +3,66 @@
 
 
     <ng-container matColumnDef="questionOne">
-      <th mat-header-cell *matHeaderCellDef> Question One </th>
+      <th mat-header-cell *matHeaderCellDef> How would you rate doctor's proffesionalism? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionTwo">
-      <th mat-header-cell *matHeaderCellDef> Question Two </th>
+      <th mat-header-cell *matHeaderCellDef>How would you rate doctor's kindness?</th>
       <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionThree">
-      <th mat-header-cell *matHeaderCellDef> Question Three </th>
+      <th mat-header-cell *matHeaderCellDef> How would you rate doctor's expertise? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
     </ng-container>
   
  
     <ng-container matColumnDef="questionFour">
-        <th mat-header-cell *matHeaderCellDef> Question Four </th>
+        <th mat-header-cell *matHeaderCellDef> In which measures does a doctor follows medical ethics principles? </th>
         <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
       </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <h2 style="text-align: left; margin-top: 10px;"><b>Mean values per doctor's section questions</b></h2>
+
+<table mat-table [dataSource]="meanValuesPerQuestion"  class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="questionOne" >
+      <th mat-header-cell *matHeaderCellDef> How would you rate doctor's proffesionalism? </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerOne}}  </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionTwo">
+      <th mat-header-cell *matHeaderCellDef>How would you rate doctor's kindness?</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionThree">
+      <th mat-header-cell *matHeaderCellDef> How would you rate doctor's expertise?</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="questionFour">
+        <th mat-header-cell *matHeaderCellDef> In which measures does a doctor follows medical ethics principles? </th>
+        <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+
 
   <h2 style="text-align: left; margin-top: 28px;"><b>Staff's section</b></h2>
 
@@ -35,25 +70,25 @@
 
 
     <ng-container matColumnDef="questionOne">
-      <th mat-header-cell *matHeaderCellDef> Question One </th>
+      <th mat-header-cell *matHeaderCellDef>How would you rate staff's proffesionalism?</th>
       <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionTwo">
-      <th mat-header-cell *matHeaderCellDef> Question Two </th>
+      <th mat-header-cell *matHeaderCellDef>How would you rate staff's kindness? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionThree">
-      <th mat-header-cell *matHeaderCellDef> Question Three </th>
+      <th mat-header-cell *matHeaderCellDef> How would you rate staff's expertise? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
     </ng-container>
   
  
     <ng-container matColumnDef="questionFour">
-        <th mat-header-cell *matHeaderCellDef> Question Four </th>
+        <th mat-header-cell *matHeaderCellDef> In which measures does a staff follows medical ethics principles? </th>
         <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
       </ng-container>
 
@@ -61,31 +96,99 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+  <h2 style="text-align: left; margin-top: 28px;"><b>Mean values per staff's section questions</b></h2>
+
+  <table mat-table [dataSource]="meanValuesPerQuestionStaff" class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="questionOne">
+      <th mat-header-cell *matHeaderCellDef>How would you rate staff's proffesionalism?</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionTwo">
+      <th mat-header-cell *matHeaderCellDef>How would you rate staff's kindness? </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionThree">
+      <th mat-header-cell *matHeaderCellDef> How would you rate staff's expertise? </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="questionFour">
+        <th mat-header-cell *matHeaderCellDef> In which measures does a staff follows medical ethics principles? </th>
+        <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+
+
+
   <h2 style="text-align: left; margin-top: 28px;"><b>Hygiene's section</b></h2>
 
   <table mat-table [dataSource]="dataSourceHygiene" class="mat-elevation-z8">
 
 
     <ng-container matColumnDef="questionOne">
-      <th mat-header-cell *matHeaderCellDef> Question One </th>
+      <th mat-header-cell *matHeaderCellDef>How would you rate hygiene of examination room?</th>
       <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionTwo">
-      <th mat-header-cell *matHeaderCellDef> Question Two </th>
+      <th mat-header-cell *matHeaderCellDef> How would you rate hospital's floor cleanliness? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionThree">
-      <th mat-header-cell *matHeaderCellDef> Question Three </th>
+      <th mat-header-cell *matHeaderCellDef>How would you rate hospital's supply of disinfectants? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
     </ng-container>
   
  
     <ng-container matColumnDef="questionFour">
-        <th mat-header-cell *matHeaderCellDef> Question Four </th>
+        <th mat-header-cell *matHeaderCellDef>How would you rate level of sterilization over appliances inside the hospital? </th>
+        <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <h2 style="text-align: left; margin-top: 28px;"><b>Mean values per hygiene's section  questions</b></h2>
+
+  <table mat-table [dataSource]="meanValuesPerQuestionHygiene" class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="questionOne">
+      <th mat-header-cell *matHeaderCellDef>How would you rate hygiene of examination room?</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionTwo">
+      <th mat-header-cell *matHeaderCellDef> How would you rate hospital's floor cleanliness? </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionThree">
+      <th mat-header-cell *matHeaderCellDef>How would you rate hospital's supply of disinfectants? </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="questionFour">
+        <th mat-header-cell *matHeaderCellDef>How would you rate level of sterilization over appliances inside the hospital? </th>
         <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
       </ng-container>
 
@@ -99,28 +202,93 @@
 
 
     <ng-container matColumnDef="questionOne">
-      <th mat-header-cell *matHeaderCellDef> Question One </th>
+      <th mat-header-cell *matHeaderCellDef>How would you rate number of equipment in examination room?</th>
       <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionTwo">
-      <th mat-header-cell *matHeaderCellDef> Question Two </th>
+      <th mat-header-cell *matHeaderCellDef> How would you rate equipment position inside hospital? </th>
       <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="questionThree">
-      <th mat-header-cell *matHeaderCellDef> Question Three </th>
+      <th mat-header-cell *matHeaderCellDef> How would you rate state of which equipment is in?</th>
       <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
     </ng-container>
   
  
     <ng-container matColumnDef="questionFour">
-        <th mat-header-cell *matHeaderCellDef> Question Four </th>
+        <th mat-header-cell *matHeaderCellDef> How wolud you rate level of hosapital apparatus automatisation?</th>
         <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
       </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <h2 style="text-align: left; margin-top: 28px;"><b>Mean values per equipment's section questions</b></h2>
+
+  <table mat-table [dataSource]="meanValuesPerQuestionEquipment" class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="questionOne">
+      <th mat-header-cell *matHeaderCellDef>How would you rate number of equipment in examination room?</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionTwo">
+      <th mat-header-cell *matHeaderCellDef> How would you rate equipment position inside hospital? </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionThree">
+      <th mat-header-cell *matHeaderCellDef> How would you rate state of which equipment is in?</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="questionFour">
+        <th mat-header-cell *matHeaderCellDef> How wolud you rate level of hosapital apparatus automatisation?</th>
+        <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+  <h2 style="text-align: left; margin-top: 10px;"><b>Mean values per sections</b></h2>
+<table mat-table [dataSource]="meanValuesPerSection" class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="questionOne">
+      <th mat-header-cell *matHeaderCellDef> Doctor sections mean values</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerOne}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionTwo">
+      <th mat-header-cell *matHeaderCellDef>Staff sections mean values</th>
+      <td mat-cell *matCellDef="let element"> {{element.answerTwo}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="questionThree">
+      <th mat-header-cell *matHeaderCellDef> Hygiene sections mean values </th>
+      <td mat-cell *matCellDef="let element"> {{element.answerThree}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="questionFour">
+        <th mat-header-cell *matHeaderCellDef> Equipment sections mean values </th>
+        <td mat-cell *matCellDef="let element"> {{element.answerFour}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+ 

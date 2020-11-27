@@ -71,48 +71,59 @@ namespace WebApplication.HospitalSurvey
             }
 
         }
-        [HttpGet("mean-value-per-section/{section}")]
-        public IActionResult MeanValuePerSection(string section)
+        [HttpGet("mean-value-per-section")]
+        public IActionResult MeanValuePerSection()
         {
-            if(section=="Doctor")
-            {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerDoctorSection());
-            }
-            else if (section == "Staff")
-            {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerStaffSection());
-            }
-            else if(section=="Hygiene")
-            {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerHygieneSection());
-            }
-            else if(section == "Equipment")
-            {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection());
-            }else
-            {
-                return BadRequest();
-            }
-           
+            List<double> means = new List<double>();
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerDoctorSection());
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerStaffSection());
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerHygieneSection());
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection());
+
+            List<MeanDTO> result = new List<MeanDTO>();
+            MeanDTO dto = new MeanDTO(means[0], means[1], means[2], means[3]);
+            result.Add(dto);
+            return Ok(result.ToArray());
+
+
+            
         }
         [HttpGet("mean-value-per-question/{section}")]
         public IActionResult MeanValuePerQuestion(string section)
         {
+            List<double> meanArrayDoctor = AppResources.getInstance().surveyService.MeanValuesPerDoctorQuestions();
+            List<double> meanArrayStaff = AppResources.getInstance().surveyService.MeanValuesPerStaffQuestions();
+            List<double> meanArrayHygiene = AppResources.getInstance().surveyService.MeanValuesPerHygieneQuestions();
+            List<double> meanArrayEquipment = AppResources.getInstance().surveyService.MeanValuesPerEquipmentQuestions();
+            List<MeanDTO> means = new List<MeanDTO>();
+            List<MeanDTO> means2 = new List<MeanDTO>();
+            List<MeanDTO> means3 = new List<MeanDTO>();
+            List<MeanDTO> means4 = new List<MeanDTO>();
+            MeanDTO dto = new MeanDTO(meanArrayDoctor[0],meanArrayDoctor[1], meanArrayDoctor[2],meanArrayDoctor[3]);
+            MeanDTO dto2 = new MeanDTO(meanArrayStaff[0], meanArrayStaff[1], meanArrayStaff[2], meanArrayDoctor[3]);
+            MeanDTO dto3 = new MeanDTO(meanArrayHygiene[0], meanArrayHygiene[1], meanArrayHygiene[2], meanArrayHygiene[3]);
+            MeanDTO dto4 = new MeanDTO(meanArrayEquipment[0], meanArrayEquipment[1], meanArrayEquipment[2], meanArrayEquipment[3]);
+
+            means.Add(dto);
+            means2.Add(dto2);
+            means3.Add(dto3);
+            means4.Add(dto4);
+
             if (section == "Doctor")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerDoctorQuestions());
+                return Ok(means.ToArray());
             }
             else if (section == "Staff")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerStaffQuestions());
+                return Ok(means2.ToArray());
             }
             else if (section == "Hygiene")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerHygieneQuestions());
+                return Ok(means3.ToArray());
             }
             else if (section == "Equipment")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerEquipmentQuestions());
+                return Ok(means4.ToArray());
             }
             else
             {
