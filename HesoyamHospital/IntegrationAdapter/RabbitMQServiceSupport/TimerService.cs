@@ -45,7 +45,7 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
         public void WriteMessageToFile(string Message)
         {
             // Example .txt file. Should migrate to base.
-            string filepath = "C:\\Users\\Gox\\Desktop\\pswProject\\Hesoyam-Hospital\\HesoyamHospital\\IntegrationAdapter\\RabbitMQServiceSupport\\news.txt";
+            string filepath = "D:\\Users\\Marko\\Desktop\\Hesoyam-Hospital\\HesoyamHospital\\IntegrationAdapter\\RabbitMQServiceSupport\\news.txt";
             using (StreamWriter sw = File.AppendText(filepath))
             {
                 sw.WriteLine(Message);
