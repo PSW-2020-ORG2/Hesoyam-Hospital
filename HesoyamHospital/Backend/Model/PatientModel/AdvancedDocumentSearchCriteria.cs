@@ -22,6 +22,12 @@ namespace Backend.Model.PatientModel
         }
 
         public bool isConsistent()
-            => FilterTypes.Count == TextFilters.Count + TimeIntervalFilters.Count && LogicalOperators.Count + 1 == TextFilters.Count + TimeIntervalFilters.Count;
+            => FilterTypes.Count == TextFilters.Count + TimeIntervalFilters.Count && (LogicalOperators.Count + 1 == TextFilters.Count + TimeIntervalFilters.Count || (LogicalOperators.Count == 0 && FilterTypes.Count == 0));
+
+        public bool hasElements()
+            => FilterTypes.Count > 0;
+
+        public void setInitialState()
+            => LogicalOperators.Insert(0, LogicalOperator.AND);
     }
 }

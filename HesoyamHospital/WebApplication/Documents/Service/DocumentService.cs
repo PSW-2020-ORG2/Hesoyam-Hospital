@@ -5,6 +5,7 @@ using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApplication.Documents.Service
 {
@@ -102,12 +103,120 @@ namespace WebApplication.Documents.Service
 
         private List<Document> getPrescriptionsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
         {
-            throw new NotImplementedException();
+            List<Document> currentResult = ((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId)).ConvertAll(r => (Document)r);
+            if (criteria.hasElements())
+            {
+                criteria.setInitialState();
+                for (int i = 0; i < criteria.FilterTypes.Count; i++)
+                {
+                    List<Document> newResult = new List<Document>();
+                    if (criteria.FilterTypes[i] == FilterType.TIME_INTERVAL)
+                    {
+                        TimeIntervalFilter timeIntervalFilter = criteria.TimeIntervalFilters[0];
+                        criteria.TimeIntervalFilters.RemoveAt(0);
+                        criteria.TimeIntervalFilters.Add(timeIntervalFilter);
+                        newResult = getPrescriptionsThatMeetTimeIntervalCriteria((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId), timeIntervalFilter).ConvertAll(r => (Document)r);
+                    }
+                    else
+                    {
+                        TextFilter textFilter = criteria.TextFilters[0];
+                        criteria.TextFilters.RemoveAt(0);
+                        criteria.TextFilters.Add(textFilter);
+                        newResult = getPrescriptionsThatMeetTextCriteria((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId), textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
+                    }
+                    currentResult = performLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
+                }
+            }
+            return currentResult;
         }
 
         private List<Document> getReportsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
         {
-            throw new NotImplementedException();
+            List<Document> currentResult = ((List<Report>)_reportRepository.GetAllByPatient(patientId)).ConvertAll(r => (Document)r);
+            if (criteria.hasElements())
+            {
+                criteria.setInitialState();
+                for ( int i = 0; i < criteria.FilterTypes.Count; i++)
+                {
+                    List<Document> newResult = new List<Document>();
+                    if (criteria.FilterTypes[i] == FilterType.TIME_INTERVAL)
+                    {
+                        TimeIntervalFilter timeIntervalFilter = criteria.TimeIntervalFilters[0];
+                        criteria.TimeIntervalFilters.RemoveAt(0);
+                        criteria.TimeIntervalFilters.Add(timeIntervalFilter);
+                        newResult = getReportsThatMeetTimeIntervalCriteria((List<Report>)_reportRepository.GetAllByPatient(patientId), timeIntervalFilter).ConvertAll(r => (Document)r);
+                    } 
+                    else
+                    {
+                        TextFilter textFilter = criteria.TextFilters[0];
+                        criteria.TextFilters.RemoveAt(0);
+                        criteria.TextFilters.Add(textFilter);
+                        newResult = getReportsThatMeetTextCriteria((List<Report>)_reportRepository.GetAllByPatient(patientId), textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
+                    }
+                    currentResult = performLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
+                }
+            }
+            return currentResult;
+        }
+
+        private List<Report> getReportsThatMeetTimeIntervalCriteria(List<Report> reports, TimeIntervalFilter timeIntervalFilter)
+        {
+            List<Report> result = new List<Report>();
+            foreach (Report report in reports)
+                if (report.meetsTimeIntervalCriteria(timeIntervalFilter))
+                    result.Add(report);
+            return result;
+        }
+
+        private List<Prescription> getPrescriptionsThatMeetTimeIntervalCriteria(List<Prescription> prescriptions, TimeIntervalFilter timeIntervalFilter)
+        {
+            List<Prescription> result = new List<Prescription>();
+            foreach (Prescription prescription in prescriptions)
+                if (prescription.meetsTimeIntervalCriteria(timeIntervalFilter))
+                    result.Add(prescription);
+            return result;
+        }
+
+        private List<Report> getReportsThatMeetTextCriteria(List<Report> reports, TextFilter filter, FilterType filterType)
+        {
+            List<Report> result = new List<Report>();
+            foreach (Report report in reports)
+                if (report.meetsAdvancedTextCriteria(filterType, filter))
+                    result.Add(report);
+            return result;
+        }
+
+        private List<Prescription> getPrescriptionsThatMeetTextCriteria(List<Prescription> prescriptions, TextFilter filter, FilterType filterType)
+        {
+            List<Prescription> result = new List<Prescription>();
+            foreach (Prescription prescription in prescriptions)
+                if (prescription.meetsAdvancedTextCriteria(filterType, filter))
+                    result.Add(prescription);
+            return result;
+        }
+
+        private List<Document> performLogicalOperation(List<Document> operandOne, List<Document> operandTwo, LogicalOperator logicalOperator)
+        {
+            if (logicalOperator == LogicalOperator.AND) return performLogicalOperationAnd(operandOne, operandTwo);
+            else return performLogicalOperationOr(operandOne, operandTwo);
+        }
+
+        private List<Document> performLogicalOperationAnd(List<Document> operandOne, List<Document> operandTwo)
+        {
+            List<Document> result = new List<Document>();
+            foreach (Document d in operandOne)
+                if (operandTwo.Where(doc => doc.Id == d.Id).Count() > 0)
+                    result.Add(d);
+            return result;
+        }
+
+        private List<Document> performLogicalOperationOr(List<Document> operandOne, List<Document> operandTwo)
+        {
+            List<Document> result = operandTwo;
+            foreach (Document d in operandOne)
+                if (result.Where(doc => doc.Id == d.Id).Count() == 0)
+                    result.Add(d);
+            return result;
         }
     }
 }

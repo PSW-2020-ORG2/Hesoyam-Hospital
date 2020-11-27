@@ -47,5 +47,20 @@ namespace Backend.Model.PatientModel
             if (!Comment.ToLower().Contains(criteria.Comment.ToLower())) return false;
             return true;
         }
+
+        public override bool meetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
+        {
+            if (filterType == FilterType.COMMENT && meetsCommentCriteria(textFilter)) return true;
+            if ((filterType == FilterType.DOCTORS_NAME || filterType == FilterType.DIAGNOSIS_NAME) && base.meetsAdvancedTextCriteria(filterType, textFilter)) return true;
+            return false;
+        }
+
+        private bool meetsCommentCriteria(TextFilter filter)
+        {
+            if (filter.Filter == TextmatchFilter.EQUAL && Comment.ToLower().Equals(filter.Text.ToLower())) return true;
+            if (filter.Filter == TextmatchFilter.CONTAINS && Comment.ToLower().Contains(filter.Text.ToLower())) return true;
+            if (filter.Filter == TextmatchFilter.DOES_NOT_CONTAIN && !Comment.ToLower().Contains(filter.Text.ToLower())) return true;
+            return false;
+        }
     }
 }

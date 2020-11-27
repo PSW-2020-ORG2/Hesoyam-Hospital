@@ -123,6 +123,22 @@ namespace Backend.Model.PatientModel
                 if (!therapy.containsMedicineWithName(criteria.MedicineName)) return false;
             return true;
         }
+
+        public override bool meetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
+        {
+            if ((textFilter.Filter == TextmatchFilter.CONTAINS || textFilter.Filter == TextmatchFilter.EQUAL) && hasMedicineName(textFilter)) return true;
+            if (textFilter.Filter == TextmatchFilter.DOES_NOT_CONTAIN && !hasMedicineName(new TextFilter(textFilter.Text, TextmatchFilter.EQUAL))) return true;
+            if ((filterType == FilterType.DOCTORS_NAME || filterType == FilterType.DIAGNOSIS_NAME) && base.meetsAdvancedTextCriteria(filterType, textFilter)) return true;
+            return false;
+        }
+
+        private bool hasMedicineName(TextFilter filter)
+        {
+            foreach (MedicalTherapy therapy in MedicalTherapies)
+                if (therapy.meetsMedicineNameCriteria(filter)) return true;
+            return false;
+        }
+
         public string StatusToString(PrescriptionStatus s) {
             if (s == PrescriptionStatus.EXPIRED)
             {
