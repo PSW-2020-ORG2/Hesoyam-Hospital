@@ -1,4 +1,5 @@
-﻿using Backend.Model.UserModel;
+﻿using Backend;
+using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace WebApplication.Authentication
 {
     public static class RegistrationValidation
     {  
-        public static bool isNewPatientValid(NewPatientDTO patient)
+        public static bool IsNewPatientValid(NewPatientDTO patient)
         {
             Regex names = new Regex(@"[A-Za-z]{2,20}");
             Regex surnames = new Regex(@"[A-Za-z ]{2,20}");
@@ -24,7 +25,7 @@ namespace WebApplication.Authentication
             if (
                 names.IsMatch(patient.Name) &&
                 surnames.IsMatch(patient.Surname) &&
-                names.IsMatch(patient.MiddleName) && 
+                names.IsMatch(patient.MiddleName) &&
                 IsEmailValid(patient.Email) &&
                 username.IsMatch(patient.Username) &&
                 password.IsMatch(patient.Password) &&
@@ -41,6 +42,14 @@ namespace WebApplication.Authentication
                 return true;
             return false;
         }
+
+        public static bool IsPatientValid(NewPatientDTO dto)
+        {
+            List<Patient> patients = AppResources.getInstance().patientService.GetAll().ToList();
+            if (IsNewPatientValid(dto) && IsUsernameUnique(dto.Username, patients)) return true;
+            return false;
+        }
+
 
         public static bool IsUsernameUnique(string username, List<Patient> patients)
         {

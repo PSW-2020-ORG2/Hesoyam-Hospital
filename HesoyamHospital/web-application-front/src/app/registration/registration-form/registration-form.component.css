@@ -10,15 +10,19 @@
 }
 
 .example-full-width {
-  width: 50%;
+  width: 70%;
   align-content: center;
   align-self: center;
 }
 
-.adress-in-line {
-  width: 25%;
+.address-in-line {
+  width: 35%;
   align-content: center;
   align-self: center;
+}
+
+.phone-in-line {
+  width: 35%;
 }
 
 .left {
