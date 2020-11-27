@@ -52,7 +52,9 @@ namespace Backend
         public QuestionRepository doctorQuestionRepository;
         public FeedbackRepository feedbackRepository;
         public DoctorFeedbackRepository doctorFeedbackRepository;
+
         public RegisteredPharmacyRepository registeredPharmacyRepository;
+
         public SurveyRepository surveyRepository;
 
 
@@ -175,7 +177,11 @@ namespace Backend
             diagnosisRepository = new DiagnosisRepository(new MySQLStream<Diagnosis>(), new LongSequencer());
             surveyRepository = new SurveyRepository(new MySQLStream<Survey>(), new LongSequencer());
             
+
             registeredPharmacyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
+
+
+
         }
 
         public static AppResources getInstance()

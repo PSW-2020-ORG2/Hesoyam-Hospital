@@ -32,6 +32,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<RegisteredPharmacy> RegisteredPharmacies { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
