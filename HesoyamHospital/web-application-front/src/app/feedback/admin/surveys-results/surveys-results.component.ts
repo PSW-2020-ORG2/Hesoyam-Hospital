@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeedbackService } from '../../services/feedback.service';
 import { SectionDTO } from '../../services/feedback.service';
 import {MeanDTO } from '../../services/feedback.service';
+import {Frequency } from '../../services/feedback.service';
 
 @Component({
   selector: 'app-surveys-results',
@@ -10,6 +11,8 @@ import {MeanDTO } from '../../services/feedback.service';
 })
 export class SurveysResultsComponent implements OnInit {
 
+  displayedRows: ['How would you rate doctors proffesionalism? ', 'How would you rate doctors kindness?', 'How would you rate doctors expertise? ', 'In which measures does a doctor follows medical ethics principles?'];
+  displayedColumns2: string[] = ['questionOne', 'questionTwo', 'questionThree', 'questionFour', 'questionFive'];
   displayedColumns: string[] = ['questionOne', 'questionTwo', 'questionThree', 'questionFour'];
   public dataSource: SectionDTO[] = [];
   public dataSourceStaff: SectionDTO[] = [];
@@ -20,6 +23,10 @@ export class SurveysResultsComponent implements OnInit {
   public meanValuesPerQuestionHygiene: MeanDTO[] = [];
   public meanValuesPerQuestionEquipment: MeanDTO[] = [];
   public meanValuesPerSection : MeanDTO[] = [];
+  public frequenciesDoctor: number[] = [];
+  public frequenciesStaff: number[] = [];
+  public frequenciesEquipment: number[] = [];
+  public frequenciesHygiene: number[] = [];
 
   constructor(private _feedbackService: FeedbackService) { }
 
@@ -41,7 +48,20 @@ export class SurveysResultsComponent implements OnInit {
                               this.meanValuesPerQuestionHygiene=data;
                               this._feedbackService.getMeanValuePerQuestionEquipment().subscribe((data)=>{ 
                                 this.meanValuesPerQuestionEquipment=data;
-                                this._feedbackService.getMeanValuePerSections().subscribe((data) => this.meanValuesPerSection=data);
+                                this._feedbackService.getMeanValuePerSections().subscribe((data) => {
+                                  this.meanValuesPerSection=data;
+                                  this._feedbackService.getFrequencyPerDoctorQuestions().subscribe((data) => {
+                                    this.frequenciesDoctor=data;
+                                    this._feedbackService.getFrequencyPerStaffQuestions().subscribe((data)=>{
+                                      this.frequenciesStaff=data;
+                                      this._feedbackService.getFrequencyPerHygieneQuestions().subscribe((data)=>{
+                                        this.frequenciesHygiene=data;
+                                        this._feedbackService.getFrequencyPerEquipmentQuestions().subscribe((data)=> this.frequenciesEquipment=data);
+                                      });
+                                    });
+                                  
+                                  });
+                                });
                               }); 
                             
                           });

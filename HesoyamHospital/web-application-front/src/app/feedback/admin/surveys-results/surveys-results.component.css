@@ -2,7 +2,9 @@ table {
     width: 100%;
   }
 
-  
+ h1{
+   color:  #fc35e1;
+ } 
 .example-button-row {
     display: table-cell;
     width: 490px;

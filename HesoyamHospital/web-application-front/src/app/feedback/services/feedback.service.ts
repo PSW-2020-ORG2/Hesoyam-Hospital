@@ -28,6 +28,14 @@ export interface MeanDTO {
   
   
 }
+export interface Frequency {
+  AnswerOne : number[];
+  AnswerTwo : number[];
+  AnswerThree : number[];
+  AnswerFour: number[];
+
+
+}
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +44,10 @@ export interface MeanDTO {
 export class FeedbackService {
 
   private _urlmeanValuesPerSections:string = 'http://localhost:52166/api/survey/mean-value-per-section';
+  private _urlmeanFrequencyPerQuestionsDoctor:string = 'http://localhost:52166/api/survey/frequencies-per-question/Doctor';
+  private _urlmeanFrequencyPerQuestionsStaff:string = 'http://localhost:52166/api/survey/frequencies-per-question/Staff';
+  private _urlmeanFrequencyPerQuestionsHygiene:string = 'http://localhost:52166/api/survey/frequencies-per-question/Hygiene';
+  private _urlmeanFrequencyPerQuestionsEquipment:string = 'http://localhost:52166/api/survey/frequencies-per-question/Equipment';
 
   private _urlMeanValuesPerQuestionStaff:string = 'http://localhost:52166/api/survey/mean-value-per-question/Staff';
   private _urlMeanValuesPerQuestionHygiene:string = 'http://localhost:52166/api/survey/mean-value-per-question/Hygiene';
@@ -59,6 +71,18 @@ export class FeedbackService {
   
   postSurvey(survey : SurveyDTO){
     return this._http.post<any>(this._urlpostsurvey, survey)
+  }
+  getFrequencyPerDoctorQuestions() : Observable<number[]>{
+    return this._http.get<number[]>(this._urlmeanFrequencyPerQuestionsDoctor);
+  }
+  getFrequencyPerStaffQuestions() : Observable<number[]>{
+    return this._http.get<number[]>(this._urlmeanFrequencyPerQuestionsStaff);
+  }
+  getFrequencyPerHygieneQuestions() : Observable<number[]>{
+    return this._http.get<number[]>(this._urlmeanFrequencyPerQuestionsHygiene);
+  }
+  getFrequencyPerEquipmentQuestions() : Observable<number[]>{
+    return this._http.get<number[]>(this._urlmeanFrequencyPerQuestionsEquipment);
   }
   getMeanValuePerSections() : Observable<MeanDTO[]>{
     return this._http.get<MeanDTO[]>(this._urlmeanValuesPerSections);

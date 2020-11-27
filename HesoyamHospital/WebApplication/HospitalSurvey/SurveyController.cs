@@ -135,19 +135,19 @@ namespace WebApplication.HospitalSurvey
         {
             if (section == "Doctor")
             {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions());
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions().Values);
             }
             else if (section == "Staff")
             {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions());
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions().Values);
             }
             else if (section == "Hygiene")
             {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions());
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions().Values);
             }
             else if (section == "Equipment")
             {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions());
+                return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions().Values);
             }
             else
             {
