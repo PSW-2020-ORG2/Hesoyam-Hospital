@@ -1,6 +1,7 @@
 ﻿using Backend.Model.PharmacyModel;
 using Backend.Repository.Abstract.MiscAbstractRepository;
 using Backend.Service.MiscService;
+using IntegrationAdapterTests.Unit;
 using Moq;
 using Shouldly;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace IntegrationAdapterTests
         [Fact]
         public void Check_if_registered_pharmacy_contains_api_key()
         {
-            RegisteredPharmacyService service = new RegisteredPharmacyService(CreateRegisteredPharmacyStubRepository());
+            RegisteredPharmacyService service = new RegisteredPharmacyService(RegisteredPharmacyStubRepository.CreateRepository());
 
             AssertApiKey((List<RegisteredPharmacy>)service.GetAll());
         }
@@ -30,7 +31,7 @@ namespace IntegrationAdapterTests
         [Fact]
         public void Check_if_registered_pharmacy_contains_endpoint()
         {
-            RegisteredPharmacyService service = new RegisteredPharmacyService(CreateRegisteredPharmacyStubRepository());
+            RegisteredPharmacyService service = new RegisteredPharmacyService(RegisteredPharmacyStubRepository.CreateRepository());
 
             AssertEndpoints((List<RegisteredPharmacy>)service.GetAll());
         }
@@ -41,28 +42,6 @@ namespace IntegrationAdapterTests
             {
                 rp.Endpoint.ShouldNotBeEmpty();
             }
-        }
-
-        [Fact]
-        public void Check_if_medicine_log_exists()
-        {
-            bool fileExists = File.Exists(@"neka/putanja");
-
-            fileExists.ShouldBeFalse();
-        }
-
-        private static IRegisteredPharmacyRepository CreateRegisteredPharmacyStubRepository()
-        {
-            var stubRepository = new Mock<IRegisteredPharmacyRepository>();
-            List<RegisteredPharmacy> registeredPharmacies = new List<RegisteredPharmacy>();
-
-            registeredPharmacies.Add(new RegisteredPharmacy("5433_RTWD", "Apoteka Jankovic Novi Sad", "www.jankovic.rs/apoteka/jankovic84"));
-            registeredPharmacies.Add(new RegisteredPharmacy("2340_THNS", "Apoteka Jankovic Beograd", "www.jankovic.rs/apoteka/jankovic54"));
-            registeredPharmacies.Add(new RegisteredPharmacy("7842_BQGF", "Apoteka Jankovic Subotica", "www.jankovic.rs/apoteka/jankovic12"));
-            registeredPharmacies.Add(new RegisteredPharmacy("8782_FBSD", "Apoteka Jankovic Kragujevac", "www.jankovic.rs/apoteka/jankovic5"));
-
-            stubRepository.Setup(m => m.GetAll()).Returns(registeredPharmacies);
-            return stubRepository.Object;
         }
     }
 }

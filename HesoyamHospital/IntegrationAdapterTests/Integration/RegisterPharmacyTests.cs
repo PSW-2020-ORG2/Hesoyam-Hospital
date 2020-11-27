@@ -37,6 +37,8 @@ namespace IntegrationAdapterTests.Integration
             List<object[]> retVal = new List<object[]>();
 
             retVal.Add(new object[] { new RegisteredPharmacy(pharmacyName: "", apiKey: "apikey123", endpoint: "example.org/api"), HttpStatusCode.BadRequest });
+            retVal.Add(new object[] { new RegisteredPharmacy(pharmacyName: "Pharmacy1", apiKey: "", endpoint: "example.org/api2"), HttpStatusCode.BadRequest });
+            retVal.Add(new object[] { new RegisteredPharmacy(pharmacyName: "Pharmacy2", apiKey: "asdqwezxc", endpoint: ""), HttpStatusCode.BadRequest });
 
             return retVal;
         }
