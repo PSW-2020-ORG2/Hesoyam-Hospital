@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Backend.Model.PatientModel;
 using Backend.Util;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Documents.Service;
@@ -24,6 +26,12 @@ namespace WebApplication.Documents
             if (!_validation.isSearchCriteriaValid(criteria)) return BadRequest();
 
             return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.SimpleSearchDocs(criteria, id).ToList()));
+        }
+
+        [HttpPost("advanced-search/{id}")]
+        public IActionResult AdvanceSearchDocs([FromBody] AdvancedDocumentSearchCriteria criteria, long id)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpGet("{id}")]

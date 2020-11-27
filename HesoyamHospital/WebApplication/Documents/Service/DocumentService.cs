@@ -19,6 +19,11 @@ namespace WebApplication.Documents.Service
             _reportRepository = reportRepository;
         }
 
+        public IEnumerable<Document> AdvanceSearchDocs(AdvancedDocumentSearchCriteria criteria, long patientId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Document Create(Document entity)
         {
             throw new NotImplementedException();
