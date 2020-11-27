@@ -12,13 +12,13 @@ export class ShowMedicalRecordComponent implements OnInit {
 
 
   public record: MedicalRecordDto;
-  imgname= require("../../../../../images/anjaa.jpg");
-
-
+  public imagePath = "";
+  
   constructor(private _medService: MedicalRecordService) { }
 
   ngOnInit(): void {
     this._medService.getMedicalRecord().subscribe((data) => this.record = data);
+    this.imagePath = "http://localhost:52166/api/medicalrecord/image/" + this.record.username + ".jpg";
   }
 
 

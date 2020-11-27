@@ -29,10 +29,10 @@ namespace WebApplication.MedicalRecords
             Byte[] b;
             try
             {
-                b = System.IO.File.ReadAllBytes(@"../WebApplication/Resources/images/" + imageName);
+                b = System.IO.File.ReadAllBytes(@"../WebApplication/Resources/Images/" + imageName);
             }
             catch (Exception e) {
-                b = System.IO.File.ReadAllBytes(@"../WebApplication/Resources/images/anjaa.jpg");
+                b = System.IO.File.ReadAllBytes(@"../WebApplication/Resources/Images/milijanadj.jpg");
             }
             return File(b, "image/jpg");
         }
