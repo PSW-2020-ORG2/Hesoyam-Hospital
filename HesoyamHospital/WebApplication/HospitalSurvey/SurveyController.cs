@@ -25,6 +25,7 @@ namespace WebApplication.HospitalSurvey
             
             return Ok();
         }
+
         [HttpGet("get-answers")]
         public IActionResult GetAllAnswers()
         {
@@ -34,6 +35,40 @@ namespace WebApplication.HospitalSurvey
 
             return Ok(surveys.Select(survey => SurveyMapper.SurveyToSurveyDTO(survey)).ToArray());
             
+
+        }
+
+        [HttpGet("get-answers-per-section/{section}")]
+        public IActionResult GetAnswersPerSections(string section)
+        {
+            List<Section> doctorSections = AppResources.getInstance().surveyService.GetAnswersPerDoctorSections();
+            List<Section> staffSections = AppResources.getInstance().surveyService.GetAnswersPerStaffSections();
+            List<Section> hygieneSections = AppResources.getInstance().surveyService.GetAnswersPerHygieneSections();
+            List<Section> equipmentSections = AppResources.getInstance().surveyService.GetAnswersPerEquipmentSections();
+           
+            if (section == "Doctor")
+            {
+                return Ok(doctorSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+            }
+            else if (section == "Staff")
+            {
+                return Ok(staffSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+
+            }
+            else if (section == "Hygiene")
+            {
+                return Ok(hygieneSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+
+            }
+            else if (section == "Equipment")
+            {
+                return Ok(equipmentSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+
+            }
+            else
+            {
+                return BadRequest();
+            }
 
         }
         [HttpGet("mean-value-per-section/{section}")]
@@ -113,13 +148,17 @@ namespace WebApplication.HospitalSurvey
         public IActionResult AnswersPerDoctors(long id)
         {
             Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
-            List<Section> sections = AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
-
 
             if (doctor == null)
             {
                 return BadRequest();
             }
+
+
+            List<Section> sections = AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
+
+
+            
             return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
         }
 

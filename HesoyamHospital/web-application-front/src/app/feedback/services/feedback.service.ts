@@ -13,6 +13,13 @@ export interface Feedback {
   published: boolean;
 }
 
+export interface SectionDTO {
+  AnswerOne: number;
+  AnswerTwo: number;
+  AnswerThree: number;
+  AnswerFour: number;
+  
+}
 
 
 @Injectable({
@@ -21,6 +28,7 @@ export interface Feedback {
 
 export class FeedbackService {
 
+  private _urlDoctorSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Doctor';
   private _urlunpublished:string = 'http://localhost:52166/api/feedback/unpublished';
   private _urlpublished:string = 'http://localhost:52166/api/feedback/published';
   private _urlID:string = 'http://localhost:52166/api/feedback';
@@ -39,6 +47,9 @@ export class FeedbackService {
   getUnpublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlunpublished);
   }
+  getDoctorSections(): Observable<SectionDTO[]>{
+    return this._http.get<SectionDTO[]>(this._urlDoctorSections);
+    }
 
   getPublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlpublished);

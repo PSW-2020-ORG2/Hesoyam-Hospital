@@ -44,6 +44,55 @@ namespace Backend.Service.UsersService
         {
             //it's empty beacuse product owner requested that validation is written inside webapplication project 
         }
+        //Display answers per sections
+        public List<Section> GetAnswersPerDoctorSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {    
+                result.Add(survey.DoctorSection);
+            }
+            return result;
+
+        }
+        public List<Section> GetAnswersPerStaffSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {
+                result.Add(survey.StaffSection);
+            }
+            return result;
+
+        }
+        public List<Section> GetAnswersPerHygieneSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {
+                result.Add(survey.HygieneSection);
+            }
+            return result;
+
+        }
+        public List<Section> GetAnswersPerEquipmentSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {
+                result.Add(survey.EquipmentSection);
+            }
+            return result;
+
+        }
 
         //Display average grade for each doctor
         public double GetAvarageGradePerDoctors(Doctor doctor)

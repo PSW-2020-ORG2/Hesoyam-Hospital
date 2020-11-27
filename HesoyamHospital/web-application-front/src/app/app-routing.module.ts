@@ -5,12 +5,14 @@ import { PostFeedbackComponent } from './feedback/patient/post-feedback/post-fee
 import { ShowMedicalRecordComponent } from './medical-record/show-medical-record/show-medical-record.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { SurveysAndSectionsComponent} from './feedback/admin/surveys-and-sections/surveys-and-sections.component'
+import { SurveysResultsComponent } from './feedback/admin/surveys-results/surveys-results.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/feedback/patient/post', pathMatch: 'full'},
   {path: 'feedback/patient/post', component: PostFeedbackComponent},
   {path: 'survey/survey-form', component:SurveysAndSectionsComponent},
+  {path: 'survey/survey-results', component:SurveysResultsComponent},
   {path:'medical-record', component: ShowMedicalRecordComponent},
   
   {
