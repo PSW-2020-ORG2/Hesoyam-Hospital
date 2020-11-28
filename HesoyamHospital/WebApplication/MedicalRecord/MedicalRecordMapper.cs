@@ -1,6 +1,7 @@
 ﻿using Backend.Model.PatientModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace WebApplication.MedicalRecords
                 LastName = medicalRecord.Patient.Surname,
                 MiddleName = medicalRecord.Patient.MiddleName,
                 Address = medicalRecord.Patient.Address.ToString(),
-                DateOfBirth = medicalRecord.Patient.DateOfBirth.ToString(),
+                DateOfBirth = medicalRecord.Patient.DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("de-DE")),
                 MedicalId = medicalRecord.Patient.HealthCardNumber,
                 PersonalId = medicalRecord.Patient.Jmbg,
                 MobilePhone = medicalRecord.Patient.CellPhone,
