@@ -25,6 +25,7 @@ namespace WebApplication.HospitalSurvey
             
             return Ok();
         }
+
         [HttpGet("get-answers")]
         public IActionResult GetAllAnswers()
         {
@@ -36,48 +37,93 @@ namespace WebApplication.HospitalSurvey
             
 
         }
-        [HttpGet("mean-value-per-section/{section}")]
-        public IActionResult MeanValuePerSection(string section)
+
+        [HttpGet("get-answers-per-section/{section}")]
+        public IActionResult GetAnswersPerSections(string section)
         {
-            if(section=="Doctor")
+            List<Section> doctorSections = AppResources.getInstance().surveyService.GetAnswersPerDoctorSections();
+            List<Section> staffSections = AppResources.getInstance().surveyService.GetAnswersPerStaffSections();
+            List<Section> hygieneSections = AppResources.getInstance().surveyService.GetAnswersPerHygieneSections();
+            List<Section> equipmentSections = AppResources.getInstance().surveyService.GetAnswersPerEquipmentSections();
+           
+            if (section == "Doctor")
             {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerDoctorSection());
+                return Ok(doctorSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
             }
             else if (section == "Staff")
             {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerStaffSection());
+                return Ok(staffSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+
             }
-            else if(section=="Hygiene")
+            else if (section == "Hygiene")
             {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerHygieneSection());
+                return Ok(hygieneSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+
             }
-            else if(section == "Equipment")
+            else if (section == "Equipment")
             {
-              return Ok(AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection());
-            }else
+                return Ok(equipmentSections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+
+            }
+            else
             {
                 return BadRequest();
             }
-           
+
+        }
+        [HttpGet("mean-value-per-section")]
+        public IActionResult MeanValuePerSection()
+        {
+            List<double> means = new List<double>();
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerDoctorSection());
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerStaffSection());
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerHygieneSection());
+            means.Add(AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection());
+
+            List<MeanDTO> result = new List<MeanDTO>();
+            MeanDTO dto = new MeanDTO(means[0], means[1], means[2], means[3]);
+            result.Add(dto);
+            return Ok(result.ToArray());
+
+
+            
         }
         [HttpGet("mean-value-per-question/{section}")]
         public IActionResult MeanValuePerQuestion(string section)
         {
+            List<double> meanArrayDoctor = AppResources.getInstance().surveyService.MeanValuesPerDoctorQuestions();
+            List<double> meanArrayStaff = AppResources.getInstance().surveyService.MeanValuesPerStaffQuestions();
+            List<double> meanArrayHygiene = AppResources.getInstance().surveyService.MeanValuesPerHygieneQuestions();
+            List<double> meanArrayEquipment = AppResources.getInstance().surveyService.MeanValuesPerEquipmentQuestions();
+            List<MeanDTO> means = new List<MeanDTO>();
+            List<MeanDTO> means2 = new List<MeanDTO>();
+            List<MeanDTO> means3 = new List<MeanDTO>();
+            List<MeanDTO> means4 = new List<MeanDTO>();
+            MeanDTO dto = new MeanDTO(meanArrayDoctor[0],meanArrayDoctor[1], meanArrayDoctor[2],meanArrayDoctor[3]);
+            MeanDTO dto2 = new MeanDTO(meanArrayStaff[0], meanArrayStaff[1], meanArrayStaff[2], meanArrayDoctor[3]);
+            MeanDTO dto3 = new MeanDTO(meanArrayHygiene[0], meanArrayHygiene[1], meanArrayHygiene[2], meanArrayHygiene[3]);
+            MeanDTO dto4 = new MeanDTO(meanArrayEquipment[0], meanArrayEquipment[1], meanArrayEquipment[2], meanArrayEquipment[3]);
+
+            means.Add(dto);
+            means2.Add(dto2);
+            means3.Add(dto3);
+            means4.Add(dto4);
+
             if (section == "Doctor")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerDoctorQuestions());
+                return Ok(means.ToArray());
             }
             else if (section == "Staff")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerStaffQuestions());
+                return Ok(means2.ToArray());
             }
             else if (section == "Hygiene")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerHygieneQuestions());
+                return Ok(means3.ToArray());
             }
             else if (section == "Equipment")
             {
-                return Ok(AppResources.getInstance().surveyService.MeanValuesPerEquipmentQuestions());
+                return Ok(means4.ToArray());
             }
             else
             {
@@ -87,40 +133,63 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("frequencies-per-question/{section}")]
         public IActionResult FrequenciesPerQuestion(string section)
         {
-            if (section == "Doctor")
+            switch (section)
             {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions());
+                case "Doctor":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions().Values);
+                case "Staff":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions().Values);
+                case "Hygiene":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions().Values);
+                case "Equipment":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions().Values);
+                default:
+                    return BadRequest();
             }
-            else if (section == "Staff")
-            {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions());
-            }
-            else if (section == "Hygiene")
-            {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions());
-            }
-            else if (section == "Equipment")
-            {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions());
-            }
-            else
-            {
-                return BadRequest();
-            }
-
         }
         [HttpGet("answers-per-doctors/{id}")]
         public IActionResult AnswersPerDoctors(long id)
         {
-             Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
-             List<Section> sections= AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
+            Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
 
             if (doctor == null)
             {
                 return BadRequest();
             }
+            List<Section> sections = AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
+            return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+        }
 
-             return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
+        [HttpGet("average-grade-per-doctor/{id}")]
+        public IActionResult AveragreGradePerDoctor(long id)
+        {
+            Doctor doctor = AppResources.getInstance().doctorService.GetByID(id);
+            
+            if (doctor == null)
+            {
+                return BadRequest();
+            }
+            return Ok(AppResources.getInstance().surveyService.GetAvarageGradePerDoctors(doctor));
+
+        }
+
+        [HttpGet("getAllDoctors")]
+        public IActionResult AllDoctors()
+        {
+            List<Doctor> doctors = AppResources.getInstance().doctorService.GetAll().ToList();
+            if(doctors == null)
+            {
+                return BadRequest();
+            }
+            List<DoctorDTO> dtos = new List<DoctorDTO>();
+            foreach(Doctor doctor in doctors) {
+                DoctorDTO dto = DoctorMapper.DoctorToDoctorDTO(doctor);
+                dto.AverageGrade = AppResources.getInstance().surveyService.GetAvarageGradePerDoctors(doctor);
+                dtos.Add(dto);
+            }
+            return Ok(dtos.ToArray());
+            //  doctors.Select(doctor => DoctorMapper.DoctorToDoctorDTO(doctor)).ToArray();
+
         }
     }
 }

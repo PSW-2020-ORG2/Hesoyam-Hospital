@@ -9,9 +9,11 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { SurveysAndSectionsComponent } from './surveys-and-sections/surveys-and-sections.component';
 import { FormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider';
+import { SurveysResultsComponent } from './surveys-results/surveys-results.component';
+import { SurveysDoctorsComponent } from './surveys-doctors/surveys-doctors.component';
 
 @NgModule({
-  declarations: [PublishListComponent, SurveysAndSectionsComponent],
+  declarations: [PublishListComponent, SurveysAndSectionsComponent, SurveysResultsComponent, SurveysDoctorsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
