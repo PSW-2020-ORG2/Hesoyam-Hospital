@@ -133,27 +133,19 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("frequencies-per-question/{section}")]
         public IActionResult FrequenciesPerQuestion(string section)
         {
-            if (section == "Doctor")
+            switch (section)
             {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions().Values);
+                case "Doctor":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions().Values);
+                case "Staff":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions().Values);
+                case "Hygiene":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions().Values);
+                case "Equipment":
+                    return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions().Values);
+                default:
+                    return BadRequest();
             }
-            else if (section == "Staff")
-            {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions().Values);
-            }
-            else if (section == "Hygiene")
-            {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions().Values);
-            }
-            else if (section == "Equipment")
-            {
-                return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions().Values);
-            }
-            else
-            {
-                return BadRequest();
-            }
-
         }
         [HttpGet("answers-per-doctors/{id}")]
         public IActionResult AnswersPerDoctors(long id)

@@ -24,7 +24,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         }
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Getting_Answers_Status_Code_Tests(HttpStatusCode expectedStatusCode)
+        public async void Getting_answers_status_code_tests(HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 
@@ -34,7 +34,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         }
         [Theory]
         [MemberData(nameof(Data2))]
-        public async void Getting_Answers_Per_Each_Doctor_Status_Code_Tests(int id , HttpStatusCode expectedStatusCode)
+        public async void Getting_answers_per_each_doctor_status_code_tests(int id , HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 
@@ -45,7 +45,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
 
         [Theory]
         [MemberData(nameof(Data2))]
-        public async void Getting_Average_Grade_Per_Each_Doctor_Status_Code_Tests(int id, HttpStatusCode expectedStatusCode)
+        public async void Getting_average_grade_per_each_doctor_status_code_tests(int id, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 
@@ -55,7 +55,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         }
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Mean_Values_Per_Section_Status_Code_Tests( HttpStatusCode expectedStatusCode)
+        public async void Mean_values_per_section_status_code_tests( HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 
@@ -66,7 +66,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
 
         [Theory]
         [MemberData(nameof(Data1))]
-        public async void Mean_Values_Per_Questions_Status_Code_Tests(string section, HttpStatusCode expectedStatusCode)
+        public async void Mean_values_per_questions_status_code_tests(string section, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 
@@ -77,7 +77,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
 
         [Theory]
         [MemberData(nameof(Data1))]
-        public async void Frequencies_Per_Answers_To_Questions_Status_Code_Tests(string section, HttpStatusCode expectedStatusCode)
+        public async void Frequencies_per_answers_to_questions_status_code_tests(string section, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
 

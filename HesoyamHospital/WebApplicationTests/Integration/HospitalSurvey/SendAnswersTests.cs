@@ -25,7 +25,7 @@ namespace WebApplicationTests.Integration.HospitalSurvey
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async void Sending_Answers_Status_Code_Tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
+        public async void Sending_answers_status_code_tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
             StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
