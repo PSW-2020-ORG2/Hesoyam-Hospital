@@ -54,7 +54,7 @@ namespace WebApplication.Authentication
             return RandomString(20, false) + id.ToString();
         }
 
-        private string RandomString(int size, bool lowerCase = false)
+        public string RandomString(int size, bool lowerCase = false)
         {
             var builder = new StringBuilder(size);
             char offset = lowerCase ? 'a' : 'A';
