@@ -38,7 +38,7 @@ namespace WebApplicationTests.Integration.Authentication
         new List<object[]>
         {
             new object[] { null, HttpStatusCode.BadRequest },
-            new object[] { new NewPatientDTO("Emina", "Turkovic", "Mirsad", "FEMALE", "team.psw18@gmail.com", "eminaturk", "perapera", new DateTime(1998, 11, 9), "27100785057", "0911998777025", "0605552233", "033244377", "A_NEGATIVE", new List<string>(), "Serbia", "Priboj", "Alekse Santica 4"), HttpStatusCode.OK }
+            new object[] { new NewPatientDTO("Emina", "Turkovic", "Mirsad", "FEMALE", "team.psw18@gmail.com", "eminaturkovi", "perapera", new DateTime(1998, 11, 9), "27100785057", "0911998777025", "0605552233", "033244377", "A_NEGATIVE", new List<string>(), "Serbia", "Priboj", "Alekse Santica 4"), HttpStatusCode.OK }
         };
     }
 }

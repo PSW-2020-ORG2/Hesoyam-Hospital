@@ -7,6 +7,7 @@ namespace WebApplication.Authentication
 {
     public interface ISendEmail
     {
-        public void SendActivationEmail(long id);
+        public void SendActivationEmail(long id, string email);
+        public long TokenToId(string token);
     }
 }

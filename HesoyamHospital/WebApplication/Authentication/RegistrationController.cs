@@ -30,7 +30,7 @@ namespace WebApplication.Authentication
             MedicalRecord medicalRecord = AppResources.getInstance().medicalRecordService.Create(NewPatientMapper.NewPatientDTOToMedicalRecord(dto));
             if (medicalRecord != null)
             {
-                _sendEmailService.SendActivationEmail(medicalRecord.Patient.Id);
+                _sendEmailService.SendActivationEmail(medicalRecord.Patient.Id, medicalRecord.Patient.Email1);
             }
             return Ok();
         }
@@ -55,9 +55,10 @@ namespace WebApplication.Authentication
             }
         }
 
-        [HttpPut("activate/{id?}")]   //PUT /api/registration/activate/123
-        public IActionResult Activate(long id)
+        [HttpPost("activate/{token}")]   //POST /api/registration/activate/token123
+        public IActionResult Activate(string token)
         {
+            long id = _sendEmailService.TokenToId(token);
             Patient patient = AppResources.getInstance().patientService.Activate(id);
             if (patient == null) return BadRequest();
             return Ok();
