@@ -73,7 +73,13 @@ namespace WebApplication
             }
 
             app.UseRouting();
-            app.UseStaticFiles();
+            
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Resources")),
+                RequestPath = "/Resources"
+            });
 
             app.UseCors(MyAllowSpecificOrigins);
 
