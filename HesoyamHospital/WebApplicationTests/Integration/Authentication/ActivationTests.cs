@@ -29,7 +29,6 @@ namespace WebApplicationTests.Integration.Authentication
             HttpClient client = _factory.CreateClient();
             string prefix = "acdxFDRhijklmno88st3";
             string path = "/api/registration/activate/" + prefix + id.ToString();
-            StringContent content = new StringContent(JsonConvert.SerializeObject(id), System.Text.Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(path, null);
 
@@ -41,7 +40,7 @@ namespace WebApplicationTests.Integration.Authentication
         new List<object[]>
         {
             new object[] { 1, HttpStatusCode.BadRequest },
-            new object[] { 502, HttpStatusCode.OK }
+            new object[] { 501, HttpStatusCode.OK }
         };
     }
 }
