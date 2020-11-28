@@ -36,6 +36,11 @@ export interface Frequency {
 
 
 }
+export interface DoctorDTO {
+  id : number;
+  userName : string;
+  averageGrade : number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +48,14 @@ export interface Frequency {
 
 export class FeedbackService {
 
+  private _urlgetDoctorsSections:string = 'http://localhost:52166/api/survey/answers-per-doctors/';
+
   private _urlmeanValuesPerSections:string = 'http://localhost:52166/api/survey/mean-value-per-section';
   private _urlmeanFrequencyPerQuestionsDoctor:string = 'http://localhost:52166/api/survey/frequencies-per-question/Doctor';
   private _urlmeanFrequencyPerQuestionsStaff:string = 'http://localhost:52166/api/survey/frequencies-per-question/Staff';
   private _urlmeanFrequencyPerQuestionsHygiene:string = 'http://localhost:52166/api/survey/frequencies-per-question/Hygiene';
   private _urlmeanFrequencyPerQuestionsEquipment:string = 'http://localhost:52166/api/survey/frequencies-per-question/Equipment';
-
+  private _urlGetAllDoctors:string = 'http://localhost:52166/api/survey/getAllDoctors';
   private _urlMeanValuesPerQuestionStaff:string = 'http://localhost:52166/api/survey/mean-value-per-question/Staff';
   private _urlMeanValuesPerQuestionHygiene:string = 'http://localhost:52166/api/survey/mean-value-per-question/Hygiene';
   private _urlMeanValuesPerQuestionEquipment:string = 'http://localhost:52166/api/survey/mean-value-per-question/Equipment';
@@ -71,6 +78,9 @@ export class FeedbackService {
   
   postSurvey(survey : SurveyDTO){
     return this._http.post<any>(this._urlpostsurvey, survey)
+  }
+  getAllDoctors() : Observable<DoctorDTO[]>{
+    return this._http.get<DoctorDTO[]>(this._urlGetAllDoctors);
   }
   getFrequencyPerDoctorQuestions() : Observable<number[]>{
     return this._http.get<number[]>(this._urlmeanFrequencyPerQuestionsDoctor);
@@ -120,7 +130,9 @@ export class FeedbackService {
   getPublishedFeedbacks(): Observable<Feedback[]>{
     return this._http.get<Feedback[]>(this._urlpublished);
   }
-
+  getDoctorsSectionsById(id: number) :Observable<SectionDTO[]>{
+    return this._http.get<SectionDTO[]>(this._urlgetDoctorsSections+id);
+  }
   publishFeedback(id: number) {
     return this._http.put(this._urlID, id);
   }

@@ -6,6 +6,7 @@ import { ShowMedicalRecordComponent } from './medical-record/show-medical-record
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { SurveysAndSectionsComponent} from './feedback/admin/surveys-and-sections/surveys-and-sections.component'
 import { SurveysResultsComponent } from './feedback/admin/surveys-results/surveys-results.component';
+import { SurveysDoctorsComponent } from './feedback/admin/surveys-doctors/surveys-doctors.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'feedback/patient/post', component: PostFeedbackComponent},
   {path: 'survey/survey-form', component:SurveysAndSectionsComponent},
   {path: 'survey/survey-results', component:SurveysResultsComponent},
+  {path: 'survey/survey-doctors', component:SurveysDoctorsComponent},
   {path:'medical-record', component: ShowMedicalRecordComponent},
   
   {

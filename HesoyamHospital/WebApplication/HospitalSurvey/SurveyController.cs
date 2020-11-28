@@ -164,12 +164,7 @@ namespace WebApplication.HospitalSurvey
             {
                 return BadRequest();
             }
-
-
             List<Section> sections = AppResources.getInstance().surveyService.GetSurveysPerDoctors(doctor);
-
-
-            
             return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
         }
 
@@ -194,7 +189,14 @@ namespace WebApplication.HospitalSurvey
             {
                 return BadRequest();
             }
-            return Ok(doctors.Select(doctor => DoctorMapper.DoctorToDoctorDTO(doctor)).ToArray());
+            List<DoctorDTO> dtos = new List<DoctorDTO>();
+            foreach(Doctor doctor in doctors) {
+                DoctorDTO dto = DoctorMapper.DoctorToDoctorDTO(doctor);
+                dto.AverageGrade = AppResources.getInstance().surveyService.GetAvarageGradePerDoctors(doctor);
+                dtos.Add(dto);
+            }
+            return Ok(dtos.ToArray());
+            //  doctors.Select(doctor => DoctorMapper.DoctorToDoctorDTO(doctor)).ToArray();
 
         }
     }

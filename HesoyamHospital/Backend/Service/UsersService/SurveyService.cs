@@ -110,7 +110,12 @@ namespace Backend.Service.UsersService
                 }
 
             }
-            return SumPerSections(result)/numberOfSections;
+            if (numberOfSections == 0)
+            {
+                return 0.0;
+            }
+             
+            return  Math.Round(SumPerSections(result)/numberOfSections,2);
 
         }
 
@@ -313,10 +318,10 @@ namespace Backend.Service.UsersService
                 answersThree.Add(doctorSection.AnswerThree);
                 answersFour.Add(doctorSection.AnswerFour);
             }
-            means.Add(SumOfQuestions(answersOne) / surveys.Count);
-            means.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            means.Add(SumOfQuestions(answersThree) / surveys.Count);
-            means.Add(SumOfQuestions(answersFour) / surveys.Count);
+            means.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count,2));
+            means.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count,2));
+            means.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count,2));
+            means.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count,2));
 
             return means;
 
@@ -342,10 +347,11 @@ namespace Backend.Service.UsersService
                 answersThree.Add(staffSection.AnswerThree);
                 answersFour.Add(staffSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+            result.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count, 2));
+           
 
             return result;
 
@@ -371,11 +377,10 @@ namespace Backend.Service.UsersService
                 answersThree.Add(hygieneSection.AnswerThree);
                 answersFour.Add(hygieneSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
-
+            result.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count, 2));
             return result;
 
         }
@@ -401,10 +406,10 @@ namespace Backend.Service.UsersService
                 answersThree.Add(equipmentSection.AnswerThree);
                 answersFour.Add(equipmentSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+            result.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count, 2));
 
             return result;
 
@@ -433,7 +438,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(doctorSection));
               
             }
-            return SumPerSections(means)/surveys.Count;
+            return Math.Round(SumPerSections(means)/surveys.Count,2);
         }
 
         public double MeanValuesPerStaffSection()
@@ -451,7 +456,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(staffSection));
 
             }
-            return SumPerSections(means) / surveys.Count;
+            return Math.Round(SumPerSections(means) / surveys.Count, 2);
         }
         public double MeanValuesPerEquipmentSection()
         {
@@ -468,7 +473,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(equipmentSection));
 
             }
-            return SumPerSections(means) / surveys.Count;
+            return Math.Round(SumPerSections(means) / surveys.Count, 2);
         }
         public double MeanValuesPerHygieneSection()
         {
@@ -485,7 +490,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(hygieneSection));
 
             }
-            return SumPerSections(means) / surveys.Count;
+            return Math.Round(SumPerSections(means) / surveys.Count, 2);
         }
 
         public double SumOfAnswers(Section section)
