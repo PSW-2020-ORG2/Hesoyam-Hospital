@@ -15,10 +15,7 @@ export class AdvancedSearchComponent implements AfterViewInit {
 
   data : DocumentDTO[] = [];
   displayedColumns: string[] = ['Type', 'DateCreated', 'DoctorName', 'DiagnosisName', 'Observe'];
-  searchTypeBothSelected: string[] = ['Time Interval', 'Doctor name', 'Medicine name', 'Comment', 'Diagnosis name'];
-  searchTypePrescriptionsSelected: string[] = ['Time Interval', 'Doctor name', 'Medicine name', 'Diagnosis name'];
-  searchTypeReportsSelected: string[] = ['Time Interval', 'Doctor name', 'Comment', 'Diagnosis name'];
-  searchCriteria : AdvancedSearchCriteria = new AdvancedSearchCriteria(true, true, [0], [0], [new TextFilter('', 0)], [new TimeIntervalFilter(new TimeInterval(new Date(), new Date()), 0)]);
+  searchCriteria : AdvancedSearchCriteria = new AdvancedSearchCriteria(true, true, [-1], [], [new TextFilter('', -1)], [new TimeIntervalFilter(new TimeInterval(new Date(), new Date()), -1)]);
   minDate: Date;
   maxDate: Date;
   
@@ -36,8 +33,12 @@ export class AdvancedSearchComponent implements AfterViewInit {
   }
 
   submit() {
+    if (this.searchCriteria.filterTypes[0] == 0)
+      this.searchCriteria.textFilters = []
+    else
+      this.searchCriteria.timeIntervalFilters = []
     this._documentService.postAdvanced(this.searchCriteria).subscribe(
-      data => this.data = data
+      data => { this.data = data; this.searchCriteria.textFilters[0] = new TextFilter('', -1);  this.searchCriteria.timeIntervalFilters[0] = new TimeIntervalFilter(new TimeInterval(new Date(), new Date()), -1);}
       )
   }
 }

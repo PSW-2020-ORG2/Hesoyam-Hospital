@@ -17,3 +17,7 @@ table {
     font-size: larger;
     color: white;
   }
+
+  .example-margin {
+    margin-left: 25px;
+  }
