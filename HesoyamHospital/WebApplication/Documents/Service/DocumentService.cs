@@ -1,7 +1,5 @@
-﻿using Backend;
-using Backend.Model.PatientModel;
+﻿using Backend.Model.PatientModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Util;
 using System;
 using System.Collections.Generic;

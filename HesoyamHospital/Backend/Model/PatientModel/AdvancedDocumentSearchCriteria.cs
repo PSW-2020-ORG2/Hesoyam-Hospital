@@ -11,6 +11,11 @@ namespace Backend.Model.PatientModel
         public List<TextFilter> TextFilters { get; set; }
         public List<TimeIntervalFilter> TimeIntervalFilters { get; set; }
 
+        public AdvancedDocumentSearchCriteria()
+        {
+
+        }
+
         public AdvancedDocumentSearchCriteria(bool shouldSearchPrescriptions, bool shouldSearchReports, List<FilterType> filterTypes, List<LogicalOperator> logicalOperators, List<TextFilter> textFilters, List<TimeIntervalFilter> timeIntervalFilters)
         {
             ShouldSearchPrescriptions = shouldSearchPrescriptions;
