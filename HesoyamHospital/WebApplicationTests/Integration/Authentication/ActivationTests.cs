@@ -27,10 +27,11 @@ namespace WebApplicationTests.Integration.Authentication
         public async void Account__activation_by_id(long id, HttpStatusCode expectedStatusCode)
         {
             HttpClient client = _factory.CreateClient();
-            string path = "/api/registration/activate/" + id.ToString();
+            string prefix = "acdxFDRhijklmno88st3";
+            string path = "/api/registration/activate/" + prefix + id.ToString();
             StringContent content = new StringContent(JsonConvert.SerializeObject(id), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PutAsync(path, null);
+            HttpResponseMessage response = await client.PostAsync(path, null);
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
