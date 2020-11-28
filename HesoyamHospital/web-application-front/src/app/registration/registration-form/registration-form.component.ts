@@ -84,7 +84,6 @@ export class RegistrationFormComponent implements OnInit {
     this.button = true;
     this._registrationService.post(this.patientDTO).subscribe(
       (data) => {
-        alert("Registration done " + this.patientDTO.Name + " " + this.patientDTO.Surname);
         let message = this.patientDTO.Name + " " + this.patientDTO.Surname + ", " + "your account is created. ";
         let visibleMessage = "Activation email has been sent to " + this.patientDTO.Email ;
         this.openSnackBar(message + visibleMessage, "Okay");
