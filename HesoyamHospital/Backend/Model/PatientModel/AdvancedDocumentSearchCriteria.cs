@@ -7,7 +7,7 @@ namespace Backend.Model.PatientModel
         public bool ShouldSearchPrescriptions { get; set; }
         public bool ShouldSearchReports { get; set; }
         public List<FilterType> FilterTypes { get; set; }
-        public List <LogicalOperator> LogicalOperators { get; set; }
+        public List<LogicalOperator> LogicalOperators { get; set; }
         public List<TextFilter> TextFilters { get; set; }
         public List<TimeIntervalFilter> TimeIntervalFilters { get; set; }
 
@@ -33,6 +33,8 @@ namespace Backend.Model.PatientModel
             => FilterTypes.Count > 0;
 
         public void setInitialState()
-            => LogicalOperators.Insert(0, LogicalOperator.AND);
+        {
+            if (isConsistent()) LogicalOperators.Insert(0, LogicalOperator.AND);
+        }
     }
 }
