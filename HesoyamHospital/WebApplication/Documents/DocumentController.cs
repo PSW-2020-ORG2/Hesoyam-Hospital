@@ -31,7 +31,7 @@ namespace WebApplication.Documents
         [HttpPost("advanced-search/{id}")]
         public IActionResult AdvanceSearchDocs([FromBody] AdvancedDocumentSearchCriteria criteria, long id)
         {
-            //if (!_validation.isAdvancedSearchCriteriaValid(criteria)) return BadRequest();
+            if (!_validation.isAdvancedSearchCriteriaValid(criteria)) return BadRequest();
 
             return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.AdvanceSearchDocs(criteria, id).ToList()));
         }

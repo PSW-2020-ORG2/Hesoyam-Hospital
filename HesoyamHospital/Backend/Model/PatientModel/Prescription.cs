@@ -119,6 +119,7 @@ namespace Backend.Model.PatientModel
         public override bool meetsCriteria(DocumentSearchCriteria criteria)
         {
             if (!base.meetsCriteria(criteria)) return false;
+            if (MedicalTherapies.Count == 0 && !criteria.MedicineName.Equals("")) return false;
             foreach (MedicalTherapy therapy in MedicalTherapies)
                 if (!therapy.containsMedicineWithName(criteria.MedicineName)) return false;
             return true;

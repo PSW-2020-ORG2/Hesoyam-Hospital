@@ -120,6 +120,7 @@ namespace WebApplication.Documents.Service
                         TextFilter textFilter = criteria.TextFilters[0];
                         criteria.TextFilters.RemoveAt(0);
                         criteria.TextFilters.Add(textFilter);
+                        if (criteria.FilterTypes[i] == FilterType.COMMENT) continue;
                         newResult = getPrescriptionsThatMeetTextCriteria((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId), textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
                     }
                     currentResult = performLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
@@ -149,6 +150,7 @@ namespace WebApplication.Documents.Service
                         TextFilter textFilter = criteria.TextFilters[0];
                         criteria.TextFilters.RemoveAt(0);
                         criteria.TextFilters.Add(textFilter);
+                        if (criteria.FilterTypes[i] == FilterType.MEDICINE_NAME) continue;
                         newResult = getReportsThatMeetTextCriteria((List<Report>)_reportRepository.GetAllByPatient(patientId), textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
                     }
                     currentResult = performLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
