@@ -37,8 +37,11 @@ namespace IntegrationAdapter.MedicineReport
             {
                 sw.WriteLine("\nMost prescribed medicine types:");
                 WriteMedicineTypes(topFive, sw);
-                sw.WriteLine("\nOther prescribed medicine types:");
-                WriteMedicineTypes(other, sw);
+                if(other.Count() > 0)
+                {
+                    sw.WriteLine("\nOther prescribed medicine types:");
+                    WriteMedicineTypes(other, sw);
+                }
             }
         }
 
@@ -52,8 +55,11 @@ namespace IntegrationAdapter.MedicineReport
                 sw.WriteLine("\nTotal number of different medicines prescribed: " + medicineSortedByCount.Count() + ".");
                 sw.WriteLine("\nMost prescribed medicines:");
                 WriteMedicine(topTen, sw);
-                sw.WriteLine("\nOther prescribed medicines:");
-                WriteMedicine(other, sw);
+                if(other.Count() > 0)
+                {
+                    sw.WriteLine("\nOther prescribed medicines:");
+                    WriteMedicine(other, sw);
+                }
             }
         }
 
@@ -113,12 +119,9 @@ namespace IntegrationAdapter.MedicineReport
                 foreach(MedicalTherapy mt in t.Prescription.MedicalTherapies)
                 {
                     if (medicineCount.ContainsKey(mt.Medicine.Name))
-                    {
                         medicineCount[mt.Medicine.Name] += 1;
-                    } else
-                    {
+                    else
                         medicineCount[mt.Medicine.Name] = 1;
-                    }
                 }
             }
             return medicineCount;
@@ -132,13 +135,9 @@ namespace IntegrationAdapter.MedicineReport
                 foreach (MedicalTherapy mt in t.Prescription.MedicalTherapies)
                 {
                     if (typeCount.ContainsKey(mt.Medicine.MedicineType))
-                    {
                         typeCount[mt.Medicine.MedicineType] += 1;
-                    }
                     else
-                    {
                         typeCount[mt.Medicine.MedicineType] = 1;
-                    }
                 }
             }
             return typeCount;
