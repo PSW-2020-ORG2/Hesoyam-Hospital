@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -65,6 +66,9 @@ namespace GraphicEditor
                     rectangle.Fill = brush;
                     rectangle.Name = graphical_object.Name;
 
+                    rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
+                    rectangle.MouseRightButtonDown += MouseRightButtonDown;
+
                     rectangle.Stroke = stroke;
 
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
@@ -85,6 +89,53 @@ namespace GraphicEditor
                 default:
                     return new Rectangle();
 
+            }
+        }
+
+        public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+            MainWindow mainWindow = new MainWindow();
+
+
+            if (rectangle.Name == "hospital1")
+            {
+                mainWindow.Display_Hospital1(sender, e);
+            }
+            else if (rectangle.Name == "hospital2")
+            {
+                mainWindow.Display_Hospital2(sender, e);
+            }
+            else if (rectangle.Name == "warehouse")
+            {
+                mainWindow.Display_Warehouse(sender, e);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+            MainWindow mainWindow = new MainWindow();
+
+            if (rectangle.Name == "hospital1")
+            {
+                mainWindow.Display_Information_Window(sender, e);
+            }
+            else if (rectangle.Name == "hospital2")
+            {
+                mainWindow.Display_Information_Window(sender, e);
+            }
+            else if (rectangle.Name == "warehouse")
+            {
+                mainWindow.Display_Information_Window(sender, e);
+            }
+            else
+            {
+                return;
             }
         }
 
