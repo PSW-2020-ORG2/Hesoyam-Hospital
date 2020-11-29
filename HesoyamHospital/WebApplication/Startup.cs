@@ -9,7 +9,6 @@ using Backend.Repository.Sequencer;
 using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Service;
 using Backend.Service.HospitalManagementService;
-using Backend.Service.UsersService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,7 @@ using WebApplication.Documents.Service;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
-using Microsoft.AspNetCore.Http;
+using WebApplication.Authentication;
 
 namespace WebApplication
 {
@@ -51,7 +50,8 @@ namespace WebApplication
                                   });
             });
             services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer()), new ReportRepository(new MySQLStream<Report>(), new LongSequencer())));
-            services.AddControllers().AddJsonOptions(options =>
+            services.AddSingleton<ISendEmail, SendEmail>();
+            services.AddMvc().AddJsonOptions(options =>
                     options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();
             services.Configure<FormOptions>(o =>
