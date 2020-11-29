@@ -25,6 +25,15 @@ namespace GraphicEditor
         public Hospital2GroundFloor()
         {
             InitializeComponent();
+            DrawingShapesService drawing_shapes = new DrawingShapesService();
+            GraphicRepository graphic_repository = new GraphicRepository();
+            List<GraphicalObject> list = graphic_repository.ReadFromFile("hospital2groundfloor.txt");
+
+            foreach (GraphicalObject graphical_object in list)
+            {
+                Shape shape = drawing_shapes.draw_Shapes(graphical_object);
+                canvas1.Children.Add(shape);
+            }
         }
 
         private void ExaminationRoom1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -75,8 +84,9 @@ namespace GraphicEditor
             VisibilityOn();
         }
 
+        
         private void ButtonConfrim_Click(object sender, RoutedEventArgs e)
-        {
+        {/*
             switch (numRoom)
             {
                 case 1:
@@ -108,7 +118,7 @@ namespace GraphicEditor
             }
 
             VisibilityOff();
-            ClearTxt();
+            ClearTxt();*/
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
