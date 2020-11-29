@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace GraphicEditor
 {
     class GraphicRepository
     {
-        private string path;
         public GraphicRepository()
         {
         }
 
         public List<GraphicalObject> ReadFromFile(string fileName)
         {
-            path = Path.GetFullPath(fileName);
+            string path = Path.GetFullPath(fileName);
             List<GraphicalObject> list = new List<GraphicalObject>();
 
             if (File.Exists(path))

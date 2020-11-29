@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -48,7 +45,7 @@ namespace GraphicEditor
                 case "parking":
                     return (Brushes.Gray, Brushes.Yellow);
                 default:
-                    return (Brushes.Black, Brushes.Transparent); ;
+                    return (Brushes.Black, Brushes.Transparent);
             }
         }
 

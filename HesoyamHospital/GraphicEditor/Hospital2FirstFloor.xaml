@@ -41,9 +41,9 @@ d:DesignHeight="730" d:DesignWidth="700"
 
         <TextBox x:Name="txtNewPurpose" Grid.Row="5" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Margin="5" Width="320" Height="30" FontSize="16" Visibility="Hidden"/>
 
-        <Button x:Name="buttonConfrim" Content="Accept the change" Grid.Row="8" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="59,6,0,7" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Click="ButtonConfrim_Click" Visibility="Hidden"/>
+        <Button x:Name="buttonConfrim" Content="Accept the change" Grid.Row="8" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="59,6,0,7" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Visibility="Hidden"/>
 
-        <Button x:Name="buttonCancel" Content="Cancel" Grid.Row="8" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Click="ButtonCancel_Click" Visibility="Hidden"/>
+        <Button x:Name="buttonCancel" Content="Cancel" Grid.Row="8" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5" Width="250" Height="40" FontSize="18" VerticalAlignment="Center" Visibility="Hidden"/>
         <!--#endregion-->
 
     </Grid>
