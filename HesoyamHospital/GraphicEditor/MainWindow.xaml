@@ -28,34 +28,49 @@
 
         <!--#region Menu Choose a hospital-->
         <DockPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_Choose a hospital">
-                    <MenuItem.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="0.416"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </MenuItem.RenderTransform>
-                    <MenuItem Header="_Hospital 1" Click="Display_Hospital1">
-                        <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Hospital 2" Click="Display_Hospital2">
-                        <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Warehouse" Click="Display_Warehouse">
-                        <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="_Exit" Click="Exit"/>
+         <Menu DockPanel.Dock="Top" Height="100">
+            <MenuItem Header="_Choose a hospital">
+                <MenuItem.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.416"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </MenuItem.RenderTransform>
+                <MenuItem Header="_Hospital 1" Click="Display_Hospital1">
+                    <MenuItem.Icon>
+                        <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
+                    </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="_Hospital 2" Click="Display_Hospital2">
+                    <MenuItem.Icon>
+                        <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Warehouse" Click="Display_Warehouse">
+                    <MenuItem.Icon>
+                        <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Exit" Click="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Search">
+                <MenuItem.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.416"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </MenuItem.RenderTransform>
+                <MenuItem Header="_Search" Click="Display_Search_Window">
+                    <MenuItem.Icon>
+                        <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             </Menu>
         </DockPanel>
         <!--#endregion-->

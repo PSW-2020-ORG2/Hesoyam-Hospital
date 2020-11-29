@@ -81,5 +81,10 @@ namespace GraphicEditor
              WarehouseWindow warehouse = new WarehouseWindow();
              warehouse.Show();
         }
+        public void Display_Search_Window(object sender, RoutedEventArgs e)
+        {
+            Search search = new Search();
+            search.Show();
+        }
     }
 }
