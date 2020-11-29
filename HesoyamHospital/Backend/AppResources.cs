@@ -176,12 +176,8 @@ namespace Backend
             medicalRecordRepository = new MedicalRecordRepository(new MySQLStream<MedicalRecord>(), new LongSequencer());
             diagnosisRepository = new DiagnosisRepository(new MySQLStream<Diagnosis>(), new LongSequencer());
             surveyRepository = new SurveyRepository(new MySQLStream<Survey>(), new LongSequencer());
-            
-
             registeredPharmacyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
-
-
-
+            therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
         }
 
         public static AppResources getInstance()

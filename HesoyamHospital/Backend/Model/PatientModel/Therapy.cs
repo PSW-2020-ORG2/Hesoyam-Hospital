@@ -23,8 +23,8 @@ namespace Backend.Model.PatientModel
 
         public long TimeIntervalID { get => _timeIntervalID; set => _timeIntervalID = value; }
         public long PrescriptionID { get => _prescriptionID; set => _prescriptionID = value; }
-        public TimeInterval TimeInterval { get => _timeInterval; set { _timeInterval = value; _timeIntervalID = value.Id; } }
-        public Prescription Prescription { get => _prescription; set { _prescription = value; _prescriptionID = value.Id; } }
+        public virtual TimeInterval TimeInterval { get => _timeInterval; set { _timeInterval = value; _timeIntervalID = value.Id; } }
+        public virtual Prescription Prescription { get => _prescription; set { _prescription = value; _prescriptionID = value.Id; } }
         public DateTime DatePrescribed { get => _datePrescribed; set { _datePrescribed = value; } }
 
         public Therapy(long id)
