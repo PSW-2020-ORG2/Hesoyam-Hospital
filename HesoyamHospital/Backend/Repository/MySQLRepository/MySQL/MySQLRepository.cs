@@ -31,7 +31,7 @@ namespace Backend.Repository.MySQLRepository.MySQL
             _idGeneratorStrategy = idGeneratorStrategy;
             InitializeId();
         }
-
+        public MySQLRepository() { }
         public ID GetMaxId(IEnumerable<T> entities)
             => _idGeneratorStrategy.GetMaxId(entities);
 
