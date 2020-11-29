@@ -49,7 +49,7 @@ namespace WebApplication.Authentication
             return mailMessage;
         }
 
-        private string CreateToken(long id)
+        public string CreateToken(long id)
         {
             return RandomString(20, false) + id.ToString();
         }
@@ -72,8 +72,15 @@ namespace WebApplication.Authentication
             if(token.Length > 20)
             {
                 string idText = token.Substring(20);
-                long id = (long)Convert.ToDouble(idText);
-                return id;
+                try
+                {
+                    long id = (long)Convert.ToDouble(idText);
+                    return id;
+
+                } catch
+                {
+                    return 0;
+                }
             }
             return 0;
         }
