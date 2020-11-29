@@ -1,0 +1,40 @@
+﻿<Window x:Class="GraphicEditor.Information"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphicEditor"
+        mc:Ignorable="d"
+        Title="Information" Height="350" Width="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid Height="320" Width="440" Background="Beige" x:Name="grid">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <Grid>
+            <Label Content="Basic information"
+               Margin="20,17,205,264"
+               FontSize="15"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               FontWeight="DemiBold"/>
+            <Button Content="Additional information"
+                    Background="BurlyWood"
+                Margin="249,26,34,267"
+                Click="Display_Additional_Info_Window"/>
+            <TextBlock Margin="20,82,20,189" Background="White"
+                   />
+            <TextBlock Margin="20,193,20,20" Background="White"/>
+        </Grid>
+        <Grid x:Name="_window"/>
+        <Frame x:Name="Frame"/>
+    </Grid>
+</Window>
