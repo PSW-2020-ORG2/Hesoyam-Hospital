@@ -42,11 +42,84 @@ namespace Backend.Service.UsersService
 
         public void Validate(Survey entity)
         {
-            //it's empty beacuse product owner requested that validation is written inside webaplication project 
+            //it's empty beacuse product owner requested that validation is written inside webapplication project 
+        }
+        //Display answers per sections
+        public List<Section> GetAnswersPerDoctorSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {    
+                result.Add(survey.DoctorSection);
+            }
+            return result;
+
+        }
+        public List<Section> GetAnswersPerStaffSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {
+                result.Add(survey.StaffSection);
+            }
+            return result;
+
+        }
+        public List<Section> GetAnswersPerHygieneSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {
+                result.Add(survey.HygieneSection);
+            }
+            return result;
+
+        }
+        public List<Section> GetAnswersPerEquipmentSections()
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<Section> result = new List<Section>();
+
+            foreach (Survey survey in allSurveys)
+            {
+                result.Add(survey.EquipmentSection);
+            }
+            return result;
+
         }
 
-        //Display grades per each doctor, returns dictionary where key is id of a doctor
-        //and a value is survey section about that doctor
+        //Display average grade for each doctor
+        public double GetAvarageGradePerDoctors(Doctor doctor)
+        {
+            List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
+            List<double> result = new List<double>();
+            int numberOfSections = 0;
+
+            foreach (Survey survey in allSurveys)
+            {
+                if (survey.Doctor.Id == doctor.GetId())
+                {
+                    result.Add(SumOfAnswers(survey.DoctorSection));
+                    ++numberOfSections;
+                }
+
+            }
+            if (numberOfSections == 0)
+            {
+                return 0.0;
+            }
+             
+            return  Math.Round(SumPerSections(result)/numberOfSections,2);
+
+        }
+
+        //Display grades per each doctor, returns list of sections for specific doctor
         public List<Section> GetSurveysPerDoctors(Doctor doctor)
         {
             List<Survey> allSurveys = _surveyRepository.GetAllEager().ToList();
@@ -225,7 +298,8 @@ namespace Backend.Service.UsersService
         //returns list of mean values per questions in doctors section
         public List<double> MeanValuesPerDoctorQuestions()
         {
-            List<double> result = new List<double>();
+            
+            List<double> means = new List<double>();
             List<double> answersOne = new List<double>();
             List<double> answersTwo = new List<double>();
             List<double> answersThree = new List<double>();
@@ -234,7 +308,7 @@ namespace Backend.Service.UsersService
 
             if (surveys == null)
             {
-                return result;
+                return means;
             }
             foreach (Survey survey in surveys)
             {
@@ -244,12 +318,12 @@ namespace Backend.Service.UsersService
                 answersThree.Add(doctorSection.AnswerThree);
                 answersFour.Add(doctorSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+            means.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count,2));
+            means.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count,2));
+            means.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count,2));
+            means.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count,2));
 
-            return result;
+            return means;
 
         }
         public List<double> MeanValuesPerStaffQuestions()
@@ -273,10 +347,11 @@ namespace Backend.Service.UsersService
                 answersThree.Add(staffSection.AnswerThree);
                 answersFour.Add(staffSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+            result.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count, 2));
+           
 
             return result;
 
@@ -302,11 +377,10 @@ namespace Backend.Service.UsersService
                 answersThree.Add(hygieneSection.AnswerThree);
                 answersFour.Add(hygieneSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
-
+            result.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count, 2));
             return result;
 
         }
@@ -332,10 +406,10 @@ namespace Backend.Service.UsersService
                 answersThree.Add(equipmentSection.AnswerThree);
                 answersFour.Add(equipmentSection.AnswerFour);
             }
-            result.Add(SumOfQuestions(answersOne) / surveys.Count);
-            result.Add(SumOfQuestions(answersTwo) / surveys.Count);
-            result.Add(SumOfQuestions(answersThree) / surveys.Count);
-            result.Add(SumOfQuestions(answersFour) / surveys.Count);
+            result.Add(Math.Round(SumOfQuestions(answersOne) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersTwo) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersThree) / surveys.Count, 2));
+            result.Add(Math.Round(SumOfQuestions(answersFour) / surveys.Count, 2));
 
             return result;
 
@@ -364,7 +438,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(doctorSection));
               
             }
-            return SumPerSections(means)/surveys.Count;
+            return Math.Round(SumPerSections(means)/surveys.Count,2);
         }
 
         public double MeanValuesPerStaffSection()
@@ -382,7 +456,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(staffSection));
 
             }
-            return SumPerSections(means) / surveys.Count;
+            return Math.Round(SumPerSections(means) / surveys.Count, 2);
         }
         public double MeanValuesPerEquipmentSection()
         {
@@ -399,7 +473,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(equipmentSection));
 
             }
-            return SumPerSections(means) / surveys.Count;
+            return Math.Round(SumPerSections(means) / surveys.Count, 2);
         }
         public double MeanValuesPerHygieneSection()
         {
@@ -416,7 +490,7 @@ namespace Backend.Service.UsersService
                 means.Add(SumOfAnswers(hygieneSection));
 
             }
-            return SumPerSections(means) / surveys.Count;
+            return Math.Round(SumPerSections(means) / surveys.Count, 2);
         }
 
         public double SumOfAnswers(Section section)
