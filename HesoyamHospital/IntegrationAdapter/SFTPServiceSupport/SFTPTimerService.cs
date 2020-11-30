@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Backend;
+using Backend.Util;
+using IntegrationAdapter.MedicineReport;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 using System.Threading;
@@ -20,7 +23,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             generatorTimer.Elapsed += new ElapsedEventHandler(GenerateMessage);
-            generatorTimer.Interval = 5000; //number in miliseconds  
+            generatorTimer.Interval = 7000; //number in miliseconds  
             generatorTimer.Enabled = true;
 
             return Task.CompletedTask;
@@ -35,7 +38,10 @@ namespace IntegrationAdapter.SFTPServiceSupport
         private void GenerateMessage(object source, ElapsedEventArgs e)
         {
             WriteToFile("Generate message at " + DateTime.Now);
-            SFTPService service = new SFTPService();
+            string filePath = @"C:\Users\Gox\Desktop\psw-project\Hesoyam-Hospital\HesoyamHospital\IntegrationAdapter\PrescribedMedicineReport\prescribed_medicine_report.txt";
+            PrescribedMedicineReportGenerator generator = new PrescribedMedicineReportGenerator(AppResources.getInstance().therapyService, filePath);
+            generator.GenerateReport(new TimeInterval(DateTime.Now.AddDays(-7), DateTime.Now));
+            SFTPService.ConnectAndSendPrescribedMedicineReport(filePath);
         }
 
         public void WriteToFile(string Message)

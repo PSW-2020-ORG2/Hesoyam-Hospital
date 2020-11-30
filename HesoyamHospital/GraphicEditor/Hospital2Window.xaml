@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
         Title="Hospital 2" Height="760" Width="810"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -27,19 +26,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="caption" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Content="HOSPITAL 2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Width="250" FontSize="30" FontWeight="Bold" Height="50"/>
+        <Label x:Name="caption" Content="HOSPITAL 2" Style="{StaticResource ResourceKey=labelCaptionHospital}"/>
 
         <!-- ComboBox-->
         <StackPanel Margin="10" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top">
-            <ComboBox x:Name="Hospital2Floors" SelectionChanged="Hospital2_SelectionChangedFloor" FontSize="16">
+            <ComboBox x:Name="Hospital2Floors" SelectionChanged="Hospital2_SelectionChangedFloor" Style="{StaticResource ResourceKey=comboBoxForFloor}">
                 <ComboBoxItem x:Name="Hospital2_GroundFloor">Ground floor</ComboBoxItem>
                 <ComboBoxItem x:Name="Hospital2_FirstFloor">First floor</ComboBoxItem>
                 <ComboBoxItem x:Name="Hospital2_SecondFloor">Second floor</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         <!--#endregion-->
-
-        <Frame x:Name="Hospital2" NavigationUIVisibility="Hidden" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="4"/>
-
+        <Frame x:Name="Hospital2" Style="{StaticResource ResourceKey=frameHospital}"/>
     </Grid>
 </Window>

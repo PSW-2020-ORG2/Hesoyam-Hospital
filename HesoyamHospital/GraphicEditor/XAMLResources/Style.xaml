@@ -1,0 +1,296 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GraphicEditor">
+    
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="Beige"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+    </Style>
+
+    <Style TargetType="{x:Type Page}">
+        <Setter Property="Background" Value="Beige"/>
+    </Style>
+
+
+    <Style TargetType="{x:Type local:MainWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:LogIn}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:Hospital1Window}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:Hospital2Window}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:WarehouseWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:Information}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:Search}" BasedOn="{StaticResource {x:Type Window}}"/>
+
+
+    <Style TargetType="Label">
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="labelCaptionUserLogin" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+    </Style>
+
+    <Style x:Key="labelUserLogin" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="labelCaptionHospital" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Grid.Column" Value="2"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Grid.Row" Value="0"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Height" Value="60"/>
+    </Style>
+
+    <Style x:Key="labelInforamtion" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style x:Key="labelSearch" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Width" Value="225"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+    <Style x:Key="labelCaptionWareHouse" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="Grid.Row" Value="0"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Height" Value="60"/>
+    </Style>
+
+    <Style x:Key="labelPurpose" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Grid.Row" Value="4"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value ="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Visibility" Value="Hidden"/>
+    </Style>
+
+    <Style x:Key="textBoxUserLogin" TargetType="TextBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="FontStyle" Value="Normal"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+    </Style>
+
+    <Style x:Key="txtBoxPurposeWareHouse" TargetType="TextBox">
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Grid.Row" Value="4"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value ="Bottom"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Setter Property="Margin" Value="198,0,15.667,4"/>
+        <Setter Property="Width" Value="320"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Visibility" Value="Hidden"/>
+    </Style>
+
+    <Style x:Key="textBlockInforamtion" TargetType="TextBlock">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Width" Value="380"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="4"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Height" Value="50"/>
+    </Style>
+
+    <Style x:Key="textBoxSearch" TargetType="TextBox">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Width" Value="360"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,10,10,10"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style TargetType="MenuItem">
+        <Setter Property="Background" Value="Beige"/>
+    </Style>
+
+    <Style x:Key="passwordUserLogin" TargetType="PasswordBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="BurlyWood"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+
+    <Style x:Key="buttonLogIn" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="buttonAditionalInfo" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Width" Value="225"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Grid.Column" Value="2"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="BurlyWood"/>
+    </Style>
+
+    <Style x:Key="comboBoxForFloor" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="comboSearch" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Width" Value="360"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,10,10,10"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="frameHospital" TargetType="Frame">
+        <Setter Property="NavigationUIVisibility" Value="Hidden"/>
+        <Setter Property="Grid.Column" Value="2"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Grid.Row" Value="3"/>
+        <Setter Property="Grid.RowSpan" Value="4"/>
+    </Style>
+
+    <Style x:Key="pageHospital1" TargetType="Page">
+        <Setter Property="Height" Value="610"/>
+        <Setter Property="Width" Value="800"/>
+    </Style>
+
+    <Style x:Key="canvasMap" TargetType="Canvas">
+        <Setter Property="Grid.Row" Value="2"/>
+        <Setter Property="Grid.RowSpan" Value="5"/>
+        <Setter Property="Grid.ColumnSpan" Value="4"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="430"/>
+        <Setter Property="Background" Value="#FFB3F094"/>
+    </Style>
+
+
+    <Style x:Key="canvasHospital" TargetType="Canvas">
+        <Setter Property="Grid.Row" Value="1"/>
+        <Setter Property="Grid.RowSpan" Value="4"/>
+        <Setter Property="Grid.Column" Value="0"/>
+        <Setter Property="Grid.ColumnSpan" Value="5"/>
+        <Setter Property="Height" Value="430"/>
+    </Style>
+
+    <Style x:Key="canvasWareHoues" TargetType="Canvas">
+        <Setter Property="Grid.Row" Value="2"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="Height" Value="400"/>
+        <Setter Property="Width" Value="800"/>
+    </Style>
+    
+    <Style x:Key="menuItem" TargetType="MenuItem">
+        <Setter Property="BorderBrush" Value="Brown"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Background" Value="BurlyWood"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value ="Center"/>
+    </Style>
+
+    <Style x:Key="checkAdvanced" TargetType="CheckBox">
+        <Setter Property="Width" Value="120"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="10,12,10,10"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="dataGridSearch" TargetType="DataGrid">
+        <Setter Property="Background" Value="Beige"/>
+        <Setter Property="RowBackground" Value="Beige"/>
+        <Setter Property="BorderBrush" Value="Beige"/>
+        <Setter Property="AlternatingRowBackground" Value="BurlyWood"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="Height" Value="420"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="5"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    
+</ResourceDictionary>

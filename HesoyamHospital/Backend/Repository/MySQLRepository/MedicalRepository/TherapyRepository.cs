@@ -27,12 +27,15 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
         {
 
         }
-
+        public TherapyRepository() { }
         public IEnumerable<Therapy> GetTherapyByDate(TimeInterval dateRange) //Return all therapies where therapy time interval is inside passed time interval(dateRange).
             => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.TimeInterval));
 
         public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
             => GetAllEager().Where(therapy => therapy.Prescription.MedicalTherapies.Find(mt => mt.Medicine.Equals(medicine)) != null);
+
+        public virtual IEnumerable<Therapy> GetTherapyByDatePrescribed(TimeInterval dateRange)
+            => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.DatePrescribed));
 
         public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
         {

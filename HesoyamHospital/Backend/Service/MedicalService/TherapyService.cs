@@ -37,6 +37,8 @@ namespace Backend.Service.MedicalService
 
         public IEnumerable<Therapy> GetTherapyByMedicine(Medicine medicine)
             => _therapyRepository.GetTherapyByMedicine(medicine);
+        public IEnumerable<Therapy> GetTherapyByDatePrescribed(TimeInterval dateRange)
+            => _therapyRepository.GetTherapyByDatePrescribed(dateRange);
 
         public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
             => _therapyRepository.GetTherapyByPatient(patient);
