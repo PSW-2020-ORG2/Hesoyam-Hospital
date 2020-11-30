@@ -22,7 +22,7 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             collectTimer.Elapsed += new ElapsedEventHandler(CollectMessage);
-            collectTimer.Interval = 7000; //number in miliseconds  
+            collectTimer.Interval = 5000; //number in miliseconds  
             collectTimer.Enabled = true;
 
             return Task.CompletedTask;
@@ -42,16 +42,6 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
                 AppResources.getInstance().actionBenefitService.Create(message);
             }
             Program.NewsMessages.Clear();
-        }
-
-        public void WriteMessageToFile(string Message)
-        {
-            // Example .txt file. Should migrate to base.
-            string filepath = "D:\\Users\\Marko\\Desktop\\Hesoyam-Hospital\\HesoyamHospital\\IntegrationAdapter\\RabbitMQServiceSupport\\news.txt";
-            using (StreamWriter sw = File.AppendText(filepath))
-            {
-                sw.WriteLine(Message);
-            }
         }
 
         public void WriteToFile(string Message)
