@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace IntegrationAdapterTests.Unit
 {
-    public class RegisteredPharmacyStubRepository
+    public class PharmacyIntegrationStubRepository
     {
         public static IRegisteredPharmacyRepository CreateRepository()
         {
@@ -22,15 +22,17 @@ namespace IntegrationAdapterTests.Unit
             return stubRepository.Object;
         }
 
-        public static List<ActionBenefit> CreateIncomingActionsAndBenefits()
+        public static IActionBenefitRepository CreateIncomingActionsAndBenefits()
         {
+            var stubRepo = new Mock<IActionBenefitRepository>();
             List<ActionBenefit> receivedMessages = new List<ActionBenefit>();
             receivedMessages.Add(new ActionBenefit("Action", DateTime.Now));
             receivedMessages.Add(new ActionBenefit("Is", DateTime.Now));
             receivedMessages.Add(new ActionBenefit("Coming", DateTime.Now));
             receivedMessages.Add(new ActionBenefit("this winter", DateTime.Now));
 
-            return receivedMessages;
+            stubRepo.Setup(m => m.GetAll()).Returns(receivedMessages);
+            return stubRepo.Object;
         }
 
     }
