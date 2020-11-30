@@ -73,5 +73,10 @@ namespace Backend.Util
         {
             return 1969571243 + Id.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return StartTime.ToString() + " - " + EndTime.ToString();
+        }
     }
 }
