@@ -31,11 +31,11 @@ namespace IntegrationAdapterTests.Unit
             int i = 0;
             ActionBenefitService receivedMessages = new ActionBenefitService(PharmacyIntegrationStubRepository.CreateIncomingActionsAndBenefits());
             var all_messages = receivedMessages.GetAll();
-            i = Count_all_messages(i, all_messages);
+            i = CountAllMessages(i, all_messages);
             Assert.Equal(all_messages.Count(), i);
         }
 
-        private static int Count_all_messages(int i, IEnumerable<ActionBenefit> all_messages)
+        private static int CountAllMessages(int i, IEnumerable<ActionBenefit> all_messages)
         {
             foreach (ActionBenefit message in all_messages)
             {

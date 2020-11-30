@@ -6,7 +6,6 @@ namespace Backend.Model.PharmacyModel
 {
     public class ActionBenefit : IIdentifiable<long>
     {
-        [JsonIgnore]
         public long Id { get; set; }
         public string Text { get; set; }
         public DateTime Timestamp { get; set; }
