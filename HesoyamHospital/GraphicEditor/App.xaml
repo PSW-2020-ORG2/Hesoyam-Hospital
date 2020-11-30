@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:GraphicEditor"
              StartupUri="LogIn.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="XAMLResources\Style.xaml"/>
     </Application.Resources>
 </Application>

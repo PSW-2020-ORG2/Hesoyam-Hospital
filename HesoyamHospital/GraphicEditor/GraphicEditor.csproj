@@ -10,22 +10,22 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icons\cantine.png" />
-    <Resource Include="icons\delivery-room.png" />
-    <Resource Include="icons\emergency-room.png" />
-    <Resource Include="icons\gynecology-room.png" />
-    <Resource Include="icons\hospital-room.png" />
-    <Resource Include="icons\intensive-care.png" />
-    <Resource Include="icons\laboratory.png" />
-    <Resource Include="icons\logohospital.png" />
-    <Resource Include="icons\medicine-storage.png" />
-    <Resource Include="icons\mri.png" />
-    <Resource Include="icons\nursery-room.png" />
-    <Resource Include="icons\oncallroom.png" />
-    <Resource Include="icons\operating-room.png" />
-    <Resource Include="icons\parking_invalid.png" />
-    <Resource Include="icons\physical-therapy.png" />
-    <Resource Include="icons\radiology.png" />
+    <Resource Include="XAMLResources\icons\cantine.png" />
+    <Resource Include="XAMLResources\icons\delivery-room.png" />
+    <Resource Include="XAMLResources\icons\emergency-room.png" />
+    <Resource Include="XAMLResources\icons\gynecology-room.png" />
+    <Resource Include="XAMLResources\icons\hospital-room.png" />
+    <Resource Include="XAMLResources\icons\intensive-care.png" />
+    <Resource Include="XAMLResources\icons\laboratory.png" />
+    <Resource Include="XAMLResources\icons\logohospital.png" />
+    <Resource Include="XAMLResources\icons\medicine-storage.png" />
+    <Resource Include="XAMLResources\icons\mri.png" />
+    <Resource Include="XAMLResources\icons\nursery-room.png" />
+    <Resource Include="XAMLResources\icons\oncallroom.png" />
+    <Resource Include="XAMLResources\icons\operating-room.png" />
+    <Resource Include="XAMLResources\icons\parking_invalid.png" />
+    <Resource Include="XAMLResources\icons\physical-therapy.png" />
+    <Resource Include="XAMLResources\icons\radiology.png" />
   </ItemGroup>
   <ItemGroup>
 		<ProjectReference Include="..\Backend\Backend.csproj" />

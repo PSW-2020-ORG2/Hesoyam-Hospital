@@ -6,34 +6,33 @@
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
         Title="Information" Height="350" Width="450"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
-    <Grid Height="320" Width="440" Background="Beige" x:Name="grid">
+        WindowStartupLocation="CenterScreen">
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-        </Grid>
+        <Label Content="Basic information" Grid.Row="1" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
-        <Grid>
-            <Label Content="Basic information"
-               Margin="20,17,205,264"
-               FontSize="15"
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center"
-               FontWeight="DemiBold"/>
-            <Button Content="Additional information"
-                    Background="BurlyWood"
-                Margin="249,26,34,267"
-                Click="Display_Additional_Info_Window"/>
-            <TextBlock Margin="20,82,20,189" Background="White"
-                   />
-            <TextBlock Margin="20,193,20,20" Background="White"/>
-        </Grid>
+        <Button Content="Additional information" Grid.Row="1" Click="Display_Additional_Info_Window" Style="{StaticResource ResourceKey=buttonAditionalInfo}"/>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource ResourceKey=textBlockInforamtion}"/>
+
+        <TextBlock Grid.Row="3" Height="100" Style="{StaticResource ResourceKey=textBlockInforamtion}"/>
+
         <Grid x:Name="_window"/>
         <Frame x:Name="Frame"/>
     </Grid>

@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
         Title="Warehouse" Height="670" Width="850"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -28,16 +27,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="caption" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" Content="WAREHOUSE" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,20,10,10" Width="250" FontSize="30" FontWeight="Bold" Height="50"/>
+        <Label x:Name="caption" Content="WAREHOUSE" Style="{StaticResource ResourceKey=labelCaptionWareHouse}"/>
 
-        <Canvas x:Name="canvas1" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" Width ="800" Height="400">
-    
+        <Canvas x:Name="canvas1" Style="{StaticResource ResourceKey=canvasWareHoues}">
         </Canvas>
 
         <!--#region new-purpose-for-object-->
-        <Label x:Name="labelNewPurpose" Content="Input new purpose for object :" Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Width="300" FontSize="18" Visibility="Hidden"/>
+        <Label x:Name="labelNewPurpose" Content="Input new purpose for object :" Style="{StaticResource ResourceKey=labelPurpose}"/>
 
-        <TextBox x:Name="txtNewPurpose" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Margin="198,0,15.667,4" Width="320" Height="30" FontSize="16" Visibility="Hidden"/>
+        <TextBox x:Name="txtNewPurpose" Style="{StaticResource ResourceKey=txtBoxPurposeWareHouse}"/>
 
         <Button x:Name="buttonConfrim" Content="Accept the change" Grid.Row="6" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="59,6,0,7" Width="250" Height="40" FontSize="18" VerticalAlignment="Center"  Visibility="Hidden"/>
 
