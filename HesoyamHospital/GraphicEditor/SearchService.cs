@@ -33,7 +33,6 @@ namespace GraphicEditor
 
         public List<MapLocation> Find_in_file(string path, string name)
         {
-            List<String> names = new List<string>();
             MapLocation map_location = null ;
             List<MapLocation> map_locations = new List<MapLocation>();
             GraphicRepository graphic_repository = new GraphicRepository();
