@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GraphicEditor"
-      mc:Ignorable="d" 
-      d:DesignHeight="610" d:DesignWidth="800"
+      mc:Ignorable="d"
       Title="Hospital1GroundFloor">
 
     <Grid>
@@ -32,8 +31,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas x:Name="canvas1" Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="5" Height="450">
-          
+        <Canvas x:Name="canvas1" Style="{StaticResource ResourceKey=canvasHospital}">
         </Canvas>
 
         <!--#region new-purpose-for-object-->
@@ -47,4 +45,3 @@
         <!--#endregion-->
     </Grid>
 </Page>
-

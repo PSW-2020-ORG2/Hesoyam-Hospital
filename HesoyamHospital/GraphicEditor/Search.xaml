@@ -6,51 +6,44 @@
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
         Title="Search" Height="670" Width="810"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
-    <Grid Height="670" Width="810">
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Label Content="Search for information: "
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top" 
-               Width="180" Height="50" 
-               FontSize="15" FontWeight="DemiBold"
-               VerticalContentAlignment="Center"
-               Margin="15,26,0,0"/>
-        <ComboBox Height="25" Width="250" 
-                  VerticalAlignment="Top" 
-                  Margin="213,40,347,0" x:Name="search_type">
-            <!--<ComboBoxItem x:Name="_search_objects" Content="Search for objects on the map" IsSelected="True">Search for objects on the map</ComboBoxItem>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Search for information : " Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
+
+        <ComboBox x:Name="search_type" Grid.Row="1" Grid.Column="3" Style="{StaticResource ResourceKey=comboSearch}">
             <ComboBoxItem  IsSelected="True">Search for objects on the map</ComboBoxItem>
             <ComboBoxItem>Search for equipment and medicines</ComboBoxItem>
             <ComboBoxItem>Search for available room</ComboBoxItem>
         </ComboBox>
-        <CheckBox Content="Advanced"
-                  FontSize="15" IsChecked="False"
-                  Width="126" Height="26" 
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Top"
-                  Margin="0,42,186,0"/>
-        <Label Content="Enter the text here:"
-               FontSize="15" FontWeight="DemiBold"  
-               Margin="15,90,619,534"
-               VerticalContentAlignment="Center"/>
-        <TextBox Margin="213,97,347,540" x:Name="object_name"/>
-        <Button Content="Search" 
-                Margin="500,97,209,541" 
-                FontSize="15" Click="Search_Button_Click" />
-        <DataGrid x:Name="_search" 
-                      ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      ItemsSource="{Binding result}"
-                      CanUserResizeRows="False"
-                      SelectionUnit="FullRow"
-                      IsReadOnly="True"
-                      SelectionMode="Single"
-                      FontSize="20" Margin="20,210,40,73"
-                      ColumnWidth="*"
-                      >
-        </DataGrid>
 
+        <CheckBox Content="Advanced" Grid.Row="1" Grid.Column="5" Style="{StaticResource ResourceKey=checkAdvanced}" IsChecked="False"/>
+
+        <Label Content="Enter the text here :" Grid.Row="2" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
+
+        <TextBox x:Name="object_name" Grid.Row="2" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxSearch}"/>
+
+        <Button Content="Search" Grid.Row="2" Grid.Column="5" Height="36" Width="120" Click="Search_Button_Click"/>
+
+        <DataGrid x:Name="_search" Grid.Row="3" ColumnWidth="*" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridSearch}">
+
+        </DataGrid>
     </Grid>
 </Window>

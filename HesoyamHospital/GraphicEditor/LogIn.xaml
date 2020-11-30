@@ -5,15 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
-        Title="LogIn" Height="550" Width="810">
+        Title="LogIn" Height="550" Width="810"
+        WindowStartupLocation="CenterScreen">
     <Grid x:Name="LogIn_grid">
-        <TextBlock Height="33" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Margin="148,50,148,0" FontSize="20" TextAlignment="Center"><Run FontSize="24" Text="Log in"/></TextBlock>
-        <Label Content="Username:" Height="33" VerticalAlignment="Top" Margin="0,112,0,0" FontSize="20" Width="200"/>
-        <Label Content="Password:" Height="33" VerticalAlignment="Top" Margin="0,210,0,0" FontSize="20" Width="200"/>
-        <TextBox x:Name="Username" Height="33" Margin="0,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <PasswordBox x:Name="Password" Height="33" Margin="148,259,148,0"  VerticalAlignment="Top" Width="200"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Button Content="Log in" FontSize="15" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="Button_Click_Map" Width="194" Margin="0,351,0,0"/>
+        <Label Content="Member Login" Grid.Row="1" Style="{StaticResource ResourceKey=labelCaptionUserLogin}"/>
+
+        <Label Content="Username:" Grid.Row="3" Style="{StaticResource ResourceKey=labelUserLogin}"/>
+
+        <TextBox x:Name="Username" Grid.Row="5" Style="{StaticResource ResourceKey=textBoxUserLogin}"/>
+
+        <Label Content="Password:" Grid.Row="7" Style="{StaticResource ResourceKey=labelUserLogin}"/>
+
+        <PasswordBox x:Name="Password" Grid.Row="9" Style="{StaticResource ResourceKey=passwordUserLogin}"/>
+
+        <Button x:Name="ButtonConfirm" Content="Login" Grid.Row="11" Click="Button_Click_Map" Style="{StaticResource ResourceKey=buttonLogIn}"/>
+
     </Grid>
 </Window>
