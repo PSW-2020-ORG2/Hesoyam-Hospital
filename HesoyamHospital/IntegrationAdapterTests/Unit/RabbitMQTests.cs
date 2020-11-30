@@ -1,4 +1,5 @@
-﻿using IntegrationAdapter.RabbitMQServiceSupport;
+﻿using Backend.Model.PharmacyModel;
+using IntegrationAdapter.RabbitMQServiceSupport;
 using Shouldly;
 using System.Collections.Generic;
 using Xunit;
@@ -10,13 +11,13 @@ namespace IntegrationAdapterTests.Unit
         [Fact]
         public void Check_if_received_object_contains_message()
         {
-            List<NewsMessage> receivedMessages = RegisteredPharmacyStubRepository.CreateIncomingActionsAndBenefits();
+            List<ActionBenefit> receivedMessages = RegisteredPharmacyStubRepository.CreateIncomingActionsAndBenefits();
             AssertMessage(receivedMessages);
         }
 
-        private static void AssertMessage(List<NewsMessage> receivedMessages)
+        private static void AssertMessage(List<ActionBenefit> receivedMessages)
         {
-            foreach (NewsMessage message in receivedMessages)
+            foreach (ActionBenefit message in receivedMessages)
             {
                 message.Text.ShouldNotBeNull();
                 message.Text.ShouldNotBeEmpty();
@@ -26,14 +27,14 @@ namespace IntegrationAdapterTests.Unit
         public void Check_if_n_messages_arrived()
         {
             int i = 0;
-            List<NewsMessage> receivedMessages = RegisteredPharmacyStubRepository.CreateIncomingActionsAndBenefits();
+            List<ActionBenefit> receivedMessages = RegisteredPharmacyStubRepository.CreateIncomingActionsAndBenefits();
             i = Count_received_messages(i, receivedMessages);
             Assert.Equal(receivedMessages.Count, i);
         }
 
-        private static int Count_received_messages(int i, List<NewsMessage> receivedMessages)
+        private static int Count_received_messages(int i, List<ActionBenefit> receivedMessages)
         {
-            foreach (NewsMessage message in receivedMessages)
+            foreach (ActionBenefit message in receivedMessages)
             {
                 i += 1;
             }
@@ -43,7 +44,7 @@ namespace IntegrationAdapterTests.Unit
         [Fact]
         public void Check_if_received_message_is_same_as_expected()
         {
-            List<NewsMessage> receivedMessages = RegisteredPharmacyStubRepository.CreateIncomingActionsAndBenefits();
+            List<ActionBenefit> receivedMessages = RegisteredPharmacyStubRepository.CreateIncomingActionsAndBenefits();
             //Assert.Equal("Is", receivedMessages[1].Text);
             receivedMessages[1].Text.ShouldBe("Is");
         }

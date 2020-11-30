@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Backend.Model.PharmacyModel;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -29,15 +30,16 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
             {
                 byte[] body = ea.Body.ToArray();
                 var jsonMessage = Encoding.UTF8.GetString(body);
-                NewsMessage message;
+                ActionBenefit message;
                 try
                 {
-                    message = JsonConvert.DeserializeObject<NewsMessage>(jsonMessage);
+                    message = JsonConvert.DeserializeObject<ActionBenefit>(jsonMessage);
                 }
                 catch (Exception)
                 {
-                    message = JsonConvert.DeserializeObject<NewsMessage>(jsonMessage, new MyDateTimeConverter());
+                    message = JsonConvert.DeserializeObject<ActionBenefit>(jsonMessage, new MyDateTimeConverter());
                 }
+                message.Approved = false;
                 Program.NewsMessages.Add(message);
             };
             channel.BasicConsume(queue: "news",

@@ -1,6 +1,5 @@
 ﻿using Backend.Model.PharmacyModel;
 using Backend.Repository.Abstract.MiscAbstractRepository;
-using IntegrationAdapter.RabbitMQServiceSupport;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -23,13 +22,13 @@ namespace IntegrationAdapterTests.Unit
             return stubRepository.Object;
         }
 
-        public static List<NewsMessage> CreateIncomingActionsAndBenefits()
+        public static List<ActionBenefit> CreateIncomingActionsAndBenefits()
         {
-            List<NewsMessage> receivedMessages = new List<NewsMessage>();
-            receivedMessages.Add(new NewsMessage("Action", DateTime.Now));
-            receivedMessages.Add(new NewsMessage("Is", DateTime.Now));
-            receivedMessages.Add(new NewsMessage("Coming", DateTime.Now));
-            receivedMessages.Add(new NewsMessage("this winter", DateTime.Now));
+            List<ActionBenefit> receivedMessages = new List<ActionBenefit>();
+            receivedMessages.Add(new ActionBenefit("Action", DateTime.Now));
+            receivedMessages.Add(new ActionBenefit("Is", DateTime.Now));
+            receivedMessages.Add(new ActionBenefit("Coming", DateTime.Now));
+            receivedMessages.Add(new ActionBenefit("this winter", DateTime.Now));
 
             return receivedMessages;
         }

@@ -1,4 +1,6 @@
+using Backend.Model.PharmacyModel;
 using IntegrationAdapter.RabbitMQServiceSupport;
+using IntegrationAdapter.SFTPServiceSupport;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +10,7 @@ namespace IntegrationAdapter
 {
     public class Program
     {
-        public static List<NewsMessage> NewsMessages = new List<NewsMessage>();
+        public static List<ActionBenefit> NewsMessages = new List<ActionBenefit>();
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -20,6 +22,8 @@ namespace IntegrationAdapter
                 {
                     services.AddHostedService<TimerService>();
                     services.AddHostedService<RabbitMQService>();
+                    services.AddHostedService<SFTPBackgroundService>();
+                    services.AddHostedService<SFTPTimerService>();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
