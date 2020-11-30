@@ -60,10 +60,7 @@ namespace Backend.Service.MiscService
             {
                 throw new EmptyStringException("String attribute cannot be empty.");
             }
-            if (entity.Timestamp == null)
-            {
-                throw new NullDateException("Date attribute cannot be null.");
-            }
+            
         }
     }
 }
