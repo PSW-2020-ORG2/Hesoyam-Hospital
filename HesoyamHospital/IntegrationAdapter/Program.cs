@@ -10,7 +10,7 @@ namespace IntegrationAdapter
 {
     public class Program
     {
-        public static readonly List<ActionBenefit> NewsMessages = new List<ActionBenefit>();
+        public static readonly ICollection<ActionBenefit> NewsMessages = new List<ActionBenefit>(); // List<ActionBenefit> NewsMessages = new List<ActionBenefit>();
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
