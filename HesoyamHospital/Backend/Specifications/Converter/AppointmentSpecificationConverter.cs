@@ -21,7 +21,7 @@ namespace Backend.Specifications.Converter
         }
         private ISpecification<Appointment> GetSpecificationByDoctorType(DoctorType type)
         {
-            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.DoctorType == type);
+            return new ExpressionSpecification<Appointment>(o => o.DoctorInAppointment == null ? false : o.DoctorInAppointment.Specialisation == type);
         }
 
         private ISpecification<Appointment> GetSpecificationByDoctor(Doctor doctor)

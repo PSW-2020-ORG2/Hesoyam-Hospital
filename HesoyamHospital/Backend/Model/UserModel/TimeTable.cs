@@ -1,63 +1,32 @@
-// File:    TimeTable.cs
-// Author:  Geri
-// Created: 18. april 2020 19:37:52
-// Purpose: Definition of Class TimeTable
-
 using Backend.Repository.Abstract;
-using Backend.Util;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Model.UserModel
 {
     public class TimeTable : IIdentifiable<long>
     {
         public long Id { get; set; }
-        public virtual List<DailyWorkingHours> WorkingHours { get; set; }
+        public virtual List<Shift> Shifts { get; set; }
 
-        public TimeTable(List<DailyWorkingHours> workingHours)
+        public TimeTable(List<Shift> shifts)
         {
-            WorkingHours = workingHours;
+            Shifts = shifts;
         }
 
-        public TimeTable(long id, List<DailyWorkingHours> workingHours)
+        public TimeTable(long id, List<Shift> shifts)
         {
             Id = id;
-            WorkingHours = workingHours;
+            Shifts = shifts;
         }
 
         public TimeTable()
         {
-            WorkingHours = new List<DailyWorkingHours>();
+            Shifts = new List<Shift>();
         }
 
         public TimeTable(long id)
         {
             Id = id;
-        }
-
-        public bool Edit()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DailyWorkingHours> getWorkingHours()
-        {
-            return WorkingHours;
-        }
-
-        public void setWorkingHours(DailyWorkingHours newDailyWorkingHours)
-        {
-            DailyWorkingHours dwh = WorkingHours.Find(d => d.Day == newDailyWorkingHours.Day);
-            if (dwh != null)
-            {
-                dwh.TimeInterval = newDailyWorkingHours.TimeInterval;
-            }
-            else
-            {
-                WorkingHours.Add(newDailyWorkingHours);
-            }
         }
 
         public long GetId() => Id;

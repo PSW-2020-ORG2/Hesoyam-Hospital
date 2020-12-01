@@ -57,17 +57,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
 
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
             => GetAll().Where(patient => IsDoctorIdEqualsDoctor(patient.SelectedDoctor, doctor));
-        
-
-        public IEnumerable<Patient> GetPatientByType(PatientType patientType)
-        {
-            var doctors = _doctorRepository.GetAllEager();
-            var patients = GetAll().Where(patient => patient.PatientType == patientType);
-
-            patients.ToList().ForEach(patient => patient.SelectedDoctor = GetDoctorByID(patient.SelectedDoctor, doctors));
-
-            return patients;
-        }
+       
 
         private bool IsDoctorIdEqualsDoctor(Doctor doctorId, Doctor doctor)
             => doctorId == null ? false : doctorId.GetId().Equals(doctor.GetId());
