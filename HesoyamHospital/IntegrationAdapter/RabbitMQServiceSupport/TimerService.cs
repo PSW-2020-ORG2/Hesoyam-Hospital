@@ -34,11 +34,11 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
 
         private void CollectMessage(object source, ElapsedEventArgs e)
         {
-            foreach (ActionBenefit message in Program.NewsMessages)
+            foreach (ActionBenefit message in RabbitMQService.NewsMessages)
             {
                 AppResources.getInstance().actionBenefitService.Create(message);
             }
-            Program.NewsMessages.Clear();
+            RabbitMQService.NewsMessages.Clear();
         }
 
     }

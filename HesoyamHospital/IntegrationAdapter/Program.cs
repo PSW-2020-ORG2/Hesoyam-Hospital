@@ -11,7 +11,7 @@ namespace IntegrationAdapter
 {
     public class Program
     {
-        public static List<ActionBenefit> NewsMessages = new List<ActionBenefit>(); 
+        
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
