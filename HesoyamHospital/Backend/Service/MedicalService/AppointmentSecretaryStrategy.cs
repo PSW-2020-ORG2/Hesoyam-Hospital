@@ -33,7 +33,7 @@ namespace Backend.Service.MedicalService
             Patient patient = appointment.Patient;
             Room room = appointment.Room;
 
-            if (appointmentType == AppointmentType.operation && (doctor.DoctorType == DoctorType.FAMILYMEDICINE))
+            if (appointmentType == AppointmentType.operation && (doctor.Specialisation == DoctorType.FAMILYMEDICINE))
                 throw new AppointmentServiceException("Family medicine doctor can not book operation!");
             if(appointmentType == AppointmentType.renovation)
                 throw new AppointmentServiceException("Secretary cannot book renovation!");

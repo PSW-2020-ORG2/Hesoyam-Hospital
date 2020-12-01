@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.PharmacyModel;
 using Backend.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Backend.Repository.MySQLRepository
 {
@@ -32,6 +27,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<RegisteredPharmacy> RegisteredPharmacies { get; set; }
         public DbSet<Therapy> PrescriptionsAndTherapies { get; set; }
+        public DbSet<Cancellation> Cancellations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

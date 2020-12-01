@@ -29,10 +29,6 @@ namespace Backend.Service.UsersService
             _userValidation = new UserValidation();
         }
 
-
-        public IEnumerable<Patient> GetPatientByType(PatientType patientType)
-            => _patientRepository.GetPatientByType(patientType);
-
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
             => _patientRepository.GetPatientByDoctor(doctor);
 

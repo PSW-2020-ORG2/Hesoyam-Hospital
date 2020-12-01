@@ -21,8 +21,6 @@ namespace Backend.Service.MedicalService
         private IAppointmentStrategy _appointmentStrategy;
         private AppointmentRepository _appointmentRepository;
         private AppointmentNotificationSender _notificationSender;
-        private DateTime dayBeforeAutoDelete;
-
         public IAppointmentStrategy AppointmentStrategy { get => _appointmentStrategy; set => _appointmentStrategy = value; }
 
         public AppointmentService(AppointmentRepository appointmentRepository,IAppointmentStrategy appointmentStrategy, AppointmentNotificationSender appointmentNotificationSender)
@@ -102,18 +100,6 @@ namespace Backend.Service.MedicalService
 
         public bool IsAppointmentChangeable(Appointment appointment)
             => _appointmentStrategy.isAppointmentChangeable(appointment);
-
-        public void AutoDeleteCanceledAppointments()
-        {
-            //Method that goes through all appointments that are far in the past to free the memory.
-            IEnumerable<Appointment> cancelledAppointments = GetCanceledAppointments();
-
-            foreach(Appointment appointment in cancelledAppointments)
-            {
-                if (appointment.TimeInterval.StartTime < dayBeforeAutoDelete)
-                    _appointmentRepository.Delete(appointment);
-            }
-        }
 
         public IEnumerable<Appointment> GetAll()
             => _appointmentRepository.GetAllEager();

@@ -26,9 +26,8 @@ namespace Backend.Model.UserModel
                             string cellPhone, 
                             string email1, 
                             string email2, 
-                            TimeTable timeTable, 
                             Hospital hospital) 
-            : base(timeTable, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
 
         }
@@ -47,9 +46,8 @@ namespace Backend.Model.UserModel
                             string cellPhone,
                             string email1,
                             string email2,
-                            TimeTable timeTable,
                             Hospital hospital)
-            : base(timeTable, hospital, userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(hospital, userName, password, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
 
         }
@@ -71,9 +69,8 @@ namespace Backend.Model.UserModel
                             string cellPhone, 
                             string email1, 
                             string email2, 
-                            TimeTable timeTable, 
                             Hospital hospital) 
-            : base(id, uid, timeTable, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
+            : base(id, uid, hospital, userName, password, dateCreated, name, surname, middleName, jmbg, sex, dateOfBirth, uidn, address, homePhone, cellPhone, email1, email2)
         {
 
         }

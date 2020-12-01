@@ -54,7 +54,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             => _userRepository.GetByUsername(userName) == null;
 
         public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
-            => _stream.ReadAll().Where(doctor => doctor.DoctorType == doctorType);
+            => _stream.ReadAll().Where(doctor => doctor.Specialisation == doctorType);
 
         public IEnumerable<Doctor> GetFilteredDoctors(DoctorFilter filter)
         {

@@ -20,11 +20,9 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         private const string ENTITY_NAME = "Patient";
         private const string NOT_UNIQUE_ERROR = "Patient username {0} is not unique!";
         private readonly IUserRepository _userRepository;
-        private readonly DoctorRepository _doctorRepository;
         
         public PatientRepository(IMySQLStream<Patient> stream, ISequencer<long> sequencer, DoctorRepository doctorRepository, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new PatientIdGeneratorStrategy())
         {
-            _doctorRepository = doctorRepository;
             _userRepository = userRepository;
         }
 
@@ -52,23 +50,9 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         private bool IsUsernameUnique(string userName)
             => _userRepository.GetByUsername(userName) == null;
 
-        private Doctor GetDoctorByID(Doctor doctorId, IEnumerable<Doctor> doctors)
-            => doctorId == null ? null : doctors.SingleOrDefault(d => d.GetId().Equals(doctorId.GetId()));
-
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
             => GetAll().Where(patient => IsDoctorIdEqualsDoctor(patient.SelectedDoctor, doctor));
-        
-
-        public IEnumerable<Patient> GetPatientByType(PatientType patientType)
-        {
-            var doctors = _doctorRepository.GetAllEager();
-            var patients = GetAll().Where(patient => patient.PatientType == patientType);
-
-            patients.ToList().ForEach(patient => patient.SelectedDoctor = GetDoctorByID(patient.SelectedDoctor, doctors));
-
-            return patients;
-        }
-
+       
         private bool IsDoctorIdEqualsDoctor(Doctor doctorId, Doctor doctor)
             => doctorId == null ? false : doctorId.GetId().Equals(doctor.GetId());
 
