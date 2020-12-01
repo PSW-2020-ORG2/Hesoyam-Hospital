@@ -59,5 +59,6 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
         {
             return Task.CompletedTask;
         }
+
     }
 }

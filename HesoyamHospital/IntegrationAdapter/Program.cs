@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace IntegrationAdapter
 {
     public class Program
     {
-        public static readonly ICollection<ActionBenefit> NewsMessages = new List<ActionBenefit>(); // List<ActionBenefit> NewsMessages = new List<ActionBenefit>();
+        public ICollection<ActionBenefit> NewsMessages = new List<ActionBenefit>(); 
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
