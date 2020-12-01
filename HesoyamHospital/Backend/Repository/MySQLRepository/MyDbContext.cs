@@ -31,6 +31,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<RegisteredPharmacy> RegisteredPharmacies { get; set; }
         public DbSet<ActionBenefit> ActionsBenefits { get; set; }
+        public DbSet<Therapy> PrescriptionsAndTherapies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
