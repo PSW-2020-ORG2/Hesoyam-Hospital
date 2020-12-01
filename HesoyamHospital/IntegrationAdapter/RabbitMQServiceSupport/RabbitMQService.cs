@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -16,11 +17,11 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
     {
         IConnection connection;
         IModel channel;
-        //public List<ActionBenefit> NewsMessages { get; set; }
-        //public RabbitMQService()
-       // {
-        //    NewsMessages = new List<ActionBenefit>();
-        //}
+        ConcurrentQueue<ActionBenefit> _queue;
+        public RabbitMQService(ConcurrentQueue<ActionBenefit> queue)
+        {
+            _queue = queue;
+        }
         public override Task StartAsync(CancellationToken cancellationToken)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -47,7 +48,7 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
                     message = JsonConvert.DeserializeObject<ActionBenefit>(jsonMessage, new MyDateTimeConverter());
                 }
                 message.Approved = false;
-                Program.NewsMessages.Enqueue(message);
+                _queue.Enqueue(message);
             };
             channel.BasicConsume(queue: "news",
                                     autoAck: true,

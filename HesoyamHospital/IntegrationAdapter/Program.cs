@@ -12,7 +12,7 @@ namespace IntegrationAdapter
 {
     public class Program
     {
-        public static ConcurrentQueue<ActionBenefit> NewsMessages = new ConcurrentQueue<ActionBenefit>();
+        
         //public static RabbitMQService rabbitService = new RabbitMQService();
         //public static TimerService newTimerService = new TimerService(rabbitService);
         public static void Main(string[] args)
@@ -24,8 +24,11 @@ namespace IntegrationAdapter
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<TimerService>();
-                    services.AddHostedService<RabbitMQService>();
+                    ConcurrentQueue<ActionBenefit> NewsMessages = new ConcurrentQueue<ActionBenefit>();
+                    services.AddSingleton<IHostedService>(provider => new TimerService(NewsMessages));
+                    services.AddSingleton<IHostedService>(provider => new RabbitMQService(NewsMessages));
+                    //services.AddHostedService<TimerService>(NewsMessages);
+                    //services.AddHostedService<RabbitMQService>(NewsMessages);
                     services.AddHostedService<SFTPBackgroundService>();
                     services.AddHostedService<SFTPTimerService>();
                 })
