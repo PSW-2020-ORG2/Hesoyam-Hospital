@@ -4,7 +4,6 @@
 // Purpose: Definition of Interface IAllergyRepository
 
 using Backend.Model.PatientModel;
-using System;
 
 namespace Backend.Repository.Abstract.MedicalAbstractRepository
 {

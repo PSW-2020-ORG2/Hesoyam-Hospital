@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Model.DoctorModel;
-using Backend.Model.ManagerModel;
-using Backend.Model.PatientModel;
+﻿using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.MySQLRepository;
 using Backend.Repository.MySQLRepository.MySQL.Stream;
 using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Repository.MySQLRepository.MedicalRepository;
@@ -88,7 +81,6 @@ namespace Backend
 
         // MedicalService
         public AppointmentService appointmentService;
-        public AppointmentRecommendationService appointmentRecommendationService;
         public DiagnosisService diagnosisService;
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
@@ -154,13 +146,11 @@ namespace Backend
 
 
             // UsersService
-            doctorService = new DoctorService(doctorRepository, userRepository, appointmentService);
+            doctorService = new DoctorService(doctorRepository);
             managerService = new ManagerService(managerRepository);
             patientService = new PatientService(patientRepository, medicalRecordRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             userService = new UserService(userRepository);
-
-            appointmentRecommendationService = new AppointmentRecommendationService(appointmentService, doctorService);
         }
 
         private void LoadRepositories()

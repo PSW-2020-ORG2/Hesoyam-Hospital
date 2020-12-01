@@ -31,7 +31,7 @@ namespace Backend.Specifications.Converter
 
         private ISpecification<Doctor> GetSpecificationByType(DoctorType type)
         {
-            return new ExpressionSpecification<Doctor>(o => o.DoctorType == type);
+            return new ExpressionSpecification<Doctor>(o => o.Specialisation == type);
         }
 
         public ISpecification<Doctor> GetSpecification()

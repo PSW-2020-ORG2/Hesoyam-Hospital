@@ -11,8 +11,6 @@ namespace Backend.Repository.Abstract.UsersAbstractRepository
 {
     public interface IPatientRepository : IRepository<Patient, long>
     {
-        IEnumerable<Patient> GetPatientByType(PatientType patientType);
-
         IEnumerable<Patient> GetPatientByDoctor(Doctor doctor);
 
     }

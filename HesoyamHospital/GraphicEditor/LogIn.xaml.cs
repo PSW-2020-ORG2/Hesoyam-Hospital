@@ -18,12 +18,12 @@ namespace GraphicEditor
         {
             InitializeComponent();
 
-            Manager manager = new Manager("upravnik", "upravnik", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "12126332555555", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new TimeTable(), new Hospital());
+            Manager manager = new Manager("upravnik", "upravnik", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "12126332555555", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new Hospital());
             manager_list.Add(manager);
 
             Doctor doctor = new Doctor("doktor", "doktor", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "1412965828733", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new TimeTable(), new Hospital(), new Room(9), new DoctorType());
 
-            Patient patient = new Patient("pacijent", "pacijent", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "01029336457896", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new PatientType(), doctor, "a");
+            Patient patient = new Patient("pacijent", "pacijent", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "01029336457896", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", doctor, "a");
 
             patients_list.Add(patient);
 
