@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace IntegrationAdapter.RabbitMQServiceSupport
 {
@@ -15,7 +16,11 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
     {
         IConnection connection;
         IModel channel;
-        public static List<ActionBenefit> NewsMessages = new List<ActionBenefit>();
+        //public List<ActionBenefit> NewsMessages { get; set; }
+        //public RabbitMQService()
+       // {
+        //    NewsMessages = new List<ActionBenefit>();
+        //}
         public override Task StartAsync(CancellationToken cancellationToken)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -42,7 +47,7 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
                     message = JsonConvert.DeserializeObject<ActionBenefit>(jsonMessage, new MyDateTimeConverter());
                 }
                 message.Approved = false;
-                NewsMessages.Add(message);
+                Program.NewsMessages.Enqueue(message);
             };
             channel.BasicConsume(queue: "news",
                                     autoAck: true,

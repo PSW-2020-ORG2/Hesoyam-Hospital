@@ -31,15 +31,13 @@ namespace IntegrationAdapter.RabbitMQServiceSupport
         {
             return base.StopAsync(cancellationToken);
         }
-
         private void CollectMessage(object source, ElapsedEventArgs e)
         {
-            foreach (ActionBenefit message in RabbitMQService.NewsMessages)
+            foreach (ActionBenefit message in Program.NewsMessages)
             {
                 AppResources.getInstance().actionBenefitService.Create(message);
             }
-            RabbitMQService.NewsMessages.Clear();
+            Program.NewsMessages.Clear();
         }
-
     }
 }
