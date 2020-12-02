@@ -90,6 +90,12 @@ namespace Backend.Model.UserModel
 
         public Doctor(long id) : base(id) { }
 
+        public bool IsGeneralPractitian()
+        {
+            if (Specialisation == DoctorType.GENERAL_PRACTITIONER) return true;
+            return false;
+        }
+
 
     }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
