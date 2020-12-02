@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MedicalRecordDto } from '../DTOs/medical-record-dto';
+import { DoctorDto } from '../DTOs/doctor-dto';
+import { SelectedDoctorDto } from '../DTOs/selected-doctor-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ import { MedicalRecordDto } from '../DTOs/medical-record-dto';
 export class MedicalRecordService {
 
   private _urlshowrecord:string = 'http://localhost:52166/api/medicalrecord/show/500';
+  private _urldoctors:string = 'http://localhost:52166/api/medicalrecord/allGeneralDoctors';
+  private _urlchange:string = 'http://localhost:52166/api/medicalrecord/changeSelectedDoctor';
 
   constructor(private _http : HttpClient) {}
 
@@ -16,4 +20,11 @@ export class MedicalRecordService {
       return this._http.get<MedicalRecordDto>(this._urlshowrecord);
   }
   
+  getGeneralDoctor(): Observable<DoctorDto[]>{
+    return this._http.get<DoctorDto[]>(this._urldoctors);
+  }
+
+  changeSelectedDoctor(dto : SelectedDoctorDto){
+    return this._http.post(this._urlchange, dto);
+  }
 }

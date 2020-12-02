@@ -1,4 +1,5 @@
 ﻿using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +10,7 @@ namespace WebApplication.MedicalRecords
 {
     public static class MedicalRecordMapper
     {
-        public static MedicalRecordDTO MedicalRecordToMedicalRecordDTO(MedicalRecord medicalRecord)
+        public static MedicalRecordDTO MedicalRecordToMedicalRecordDTO(Backend.Model.PatientModel.MedicalRecord medicalRecord)
         {
             MedicalRecordDTO dto = new MedicalRecordDTO
             {
@@ -26,12 +27,19 @@ namespace WebApplication.MedicalRecords
                 Username = medicalRecord.Patient.UserName,
                 Password = medicalRecord.Patient.Password,
                 BloodType = medicalRecord.BloodTypeToString(medicalRecord.PatientBloodType),
+                SelectedDoctorName = GetSelectedDoctorsName(medicalRecord.Patient),
                 Alergies = medicalRecord.AllergiesListToString(medicalRecord.Allergy),
                 Prescriptions = PrescriptionListToPrescriptionDTOList(medicalRecord.Prescriptions),
 
             };
 
             return dto;
+        }
+
+        private static string GetSelectedDoctorsName(Patient patient)
+        {
+            if (patient.SelectedDoctor == null) return "";
+            return patient.SelectedDoctor.FullName;
         }
 
         public static List<PrescriptionDTO> PrescriptionListToPrescriptionDTOList(List<Prescription> prescriptions) {

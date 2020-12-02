@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Backend.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,11 +21,12 @@ namespace WebApplication.MedicalRecords
         public string Username { get; set; }
         public string Password { get; set; }
         public string BloodType { get; set; }
+        public string SelectedDoctorName { get; set; }
         public List<string> Alergies { get; set; }
         public List<PrescriptionDTO> Prescriptions { get; set; }
 
         public MedicalRecordDTO() { }
-        public MedicalRecordDTO(string name, string surname, string middleName, string address, string date, string medicalId, string personalId, string phone, string homePhone, string email, string username, string password, string bloodType, List<string> alergies, List<PrescriptionDTO> presc) {
+        public MedicalRecordDTO(string name, string surname, string middleName, string address, string date, string medicalId, string personalId, string phone, string homePhone, string email, string username, string password, string bloodType, string selectedDoctorName, List<string> alergies, List<PrescriptionDTO> presc) {
             FirstName = name;
             LastName = surname;
             MiddleName = middleName;
@@ -38,6 +40,7 @@ namespace WebApplication.MedicalRecords
             Username = username;
             Password = password;
             BloodType = bloodType;
+            SelectedDoctorName = selectedDoctorName;
             Alergies = alergies;
             Prescriptions = presc;
         }
