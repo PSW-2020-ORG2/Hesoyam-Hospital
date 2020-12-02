@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
 import { SurveysAndSectionsComponent} from './feedback/admin/surveys-and-sections/surveys-and-sections.component'
 import { SurveysResultsComponent } from './feedback/admin/surveys-results/surveys-results.component';
 import { SurveysDoctorsComponent } from './feedback/admin/surveys-doctors/surveys-doctors.component';
+import { AppointmentRecommendationComponent } from './feedback/patient/appointment-recommendation/appointment-recommendation.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'survey/survey-results', component:SurveysResultsComponent},
   {path: 'survey/survey-doctors', component:SurveysDoctorsComponent},
   {path:'medical-record', component: ShowMedicalRecordComponent},
+  {path:'appointment-recommendation', component: AppointmentRecommendationComponent},
   
   {
     path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
