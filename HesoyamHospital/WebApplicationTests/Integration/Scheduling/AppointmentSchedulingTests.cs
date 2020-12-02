@@ -48,7 +48,7 @@ namespace WebApplicationTests.Integration.Scheduling
             new List<object[]>
             {
                 new object[] { "GENERAL_PRACTITIONER", HttpStatusCode.OK },
-                new object[] { "GENERAL_DOCTOR", HttpStatusCode.BadRequest },
+                new object[] { "GENERAL_DOCTOR", HttpStatusCode.NotFound },
             };
 
 
