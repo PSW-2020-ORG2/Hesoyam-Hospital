@@ -20,7 +20,7 @@ namespace WebApplication.Appointments
         public IActionResult GetAllByPatient(long id)
         {
             if (id != defaultPatientId) return BadRequest();
-            return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDTO(_appointmentService.GetAllByPatient(id).ToList()));
+            return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDto(_appointmentService.GetAllByPatient(id).ToList()));
         }
     }
 }

@@ -193,7 +193,6 @@ namespace WebApplication.HospitalSurvey
                 dtos.Add(dto);
             }
             return Ok(dtos.ToArray());
-            //  doctors.Select(doctor => DoctorMapper.DoctorToDoctorDTO(doctor)).ToArray();
 
         }
     }

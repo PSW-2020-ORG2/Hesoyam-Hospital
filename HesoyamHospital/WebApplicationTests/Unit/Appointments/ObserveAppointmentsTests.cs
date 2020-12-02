@@ -37,7 +37,7 @@ namespace WebApplicationTests.Unit.Appointments
 
             List<Appointment> appointments = (List<Appointment>)service.GetAllByPatient(patientId);
 
-            AppointmentMapper.AppointmentToAppointmentForObservationDTO(appointments[0]).AppointmentState.ShouldBeEquivalentTo(expectedState.ToString());
+            AppointmentMapper.AppointmentToAppointmentForObservationDto(appointments[0]).AppointmentState.ShouldBeEquivalentTo(expectedState.ToString());
         }
 
         private static IPatientRepository CreateStubRepository()

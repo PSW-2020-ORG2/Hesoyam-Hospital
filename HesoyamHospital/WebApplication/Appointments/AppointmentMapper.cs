@@ -5,17 +5,17 @@ using WebApplication.Appointments.DTOs;
 
 namespace WebApplication.Appointments
 {
-    public class AppointmentMapper
+    public static class AppointmentMapper
     {
-        public static List<AppointmentForObservationDTO> AppointmentToAppointmentForObservationDTO(List<Appointment> appointments)
+        public static List<AppointmentForObservationDTO> AppointmentToAppointmentForObservationDto(List<Appointment> appointments)
         {
             List<AppointmentForObservationDTO> result = new List<AppointmentForObservationDTO>();
             foreach (Appointment appointment in appointments)
-                result.Add(AppointmentToAppointmentForObservationDTO(appointment));
+                result.Add(AppointmentToAppointmentForObservationDto(appointment));
             return result;
         }
 
-        public static AppointmentForObservationDTO AppointmentToAppointmentForObservationDTO(Appointment appointment)
+        public static AppointmentForObservationDTO AppointmentToAppointmentForObservationDto(Appointment appointment)
         {
             return new AppointmentForObservationDTO(appointment.Id, CalculateAppointmentState(appointment), appointment.TimeInterval, appointment.DoctorInAppointment.Specialisation.ToString(), appointment.DoctorInAppointment.FullName, appointment.DoctorInAppointment.Office.RoomNumber, appointment.AbleToFillOutSurvey);
         }

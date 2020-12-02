@@ -1,9 +1,4 @@
-﻿using Backend;
-using Backend.Model.UserModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Backend.Model.UserModel;
 
 namespace WebApplication.HospitalSurvey
 {
