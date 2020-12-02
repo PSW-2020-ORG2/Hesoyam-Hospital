@@ -15,7 +15,7 @@ namespace IntegrationAdapterTests
         [Fact]
         public void Check_if_registered_pharmacy_contains_api_key()
         {
-            RegisteredPharmacyService service = new RegisteredPharmacyService(RegisteredPharmacyStubRepository.CreateRepository());
+            RegisteredPharmacyService service = new RegisteredPharmacyService(PharmacyIntegrationStubRepository.CreateRepository());
 
             AssertApiKey((List<RegisteredPharmacy>)service.GetAll());
         }
@@ -31,7 +31,7 @@ namespace IntegrationAdapterTests
         [Fact]
         public void Check_if_registered_pharmacy_contains_endpoint()
         {
-            RegisteredPharmacyService service = new RegisteredPharmacyService(RegisteredPharmacyStubRepository.CreateRepository());
+            RegisteredPharmacyService service = new RegisteredPharmacyService(PharmacyIntegrationStubRepository.CreateRepository());
 
             AssertEndpoints((List<RegisteredPharmacy>)service.GetAll());
         }

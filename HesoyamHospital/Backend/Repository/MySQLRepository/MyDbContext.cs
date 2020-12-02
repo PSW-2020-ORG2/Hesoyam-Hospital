@@ -10,7 +10,6 @@ namespace Backend.Repository.MySQLRepository
     {
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
-
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<User> Users { get; set; }
@@ -26,6 +25,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<RegisteredPharmacy> RegisteredPharmacies { get; set; }
+        public DbSet<ActionBenefit> ActionsBenefits { get; set; }
         public DbSet<Therapy> PrescriptionsAndTherapies { get; set; }
         public DbSet<Cancellation> Cancellations { get; set; }
 

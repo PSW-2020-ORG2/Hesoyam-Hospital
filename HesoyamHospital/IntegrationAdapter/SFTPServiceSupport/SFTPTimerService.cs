@@ -38,7 +38,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
         private void GenerateMessage(object source, ElapsedEventArgs e)
         {
             WriteToFile("Generate message at " + DateTime.Now);
-            string filePath = @"C:\Users\Gox\Desktop\psw-project\Hesoyam-Hospital\HesoyamHospital\IntegrationAdapter\PrescribedMedicineReport\prescribed_medicine_report.txt";
+            string filePath = @"D:\Users\Marko\Desktop\Hesoyam-Hospital\HesoyamHospital\IntegrationAdapter\PrescribedMedicineReport\prescribed_medicine_report.txt";
             PrescribedMedicineReportGenerator generator = new PrescribedMedicineReportGenerator(AppResources.getInstance().therapyService, filePath);
             generator.GenerateReport(new TimeInterval(DateTime.Now.AddDays(-7), DateTime.Now));
             SFTPService.ConnectAndSendPrescribedMedicineReport(filePath);

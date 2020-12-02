@@ -3,11 +3,10 @@ using Backend.Repository.Abstract.MiscAbstractRepository;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace IntegrationAdapterTests.Unit
 {
-    public class RegisteredPharmacyStubRepository
+    public class PharmacyIntegrationStubRepository
     {
         public static IRegisteredPharmacyRepository CreateRepository()
         {
@@ -22,5 +21,19 @@ namespace IntegrationAdapterTests.Unit
             stubRepository.Setup(m => m.GetAll()).Returns(registeredPharmacies);
             return stubRepository.Object;
         }
+
+        public static IActionBenefitRepository CreateIncomingActionsAndBenefits()
+        {
+            var stubRepo = new Mock<IActionBenefitRepository>();
+            List<ActionBenefit> receivedMessages = new List<ActionBenefit>();
+            receivedMessages.Add(new ActionBenefit("Action", DateTime.Now));
+            receivedMessages.Add(new ActionBenefit("Is", DateTime.Now));
+            receivedMessages.Add(new ActionBenefit("Coming", DateTime.Now));
+            receivedMessages.Add(new ActionBenefit("this winter", DateTime.Now));
+
+            stubRepo.Setup(m => m.GetAll()).Returns(receivedMessages);
+            return stubRepo.Object;
+        }
+
     }
 }
