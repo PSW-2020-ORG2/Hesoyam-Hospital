@@ -1,6 +1,6 @@
 <div style="display: flex; justify-content: center;">
-  <mat-card class="mat-elevation-z8" style="width: 80%; padding-top: 30px;">
-<mat-vertical-stepper #stepper>
+  <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 90%; padding-top: 30px; display: flex; justify-content: center;  align-items: center;  height: max-content;">
+<mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup" label="Choose time interval for appointment">
       <form>
           <mat-form-field appearance="fill">
@@ -77,6 +77,6 @@
         <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
     </mat-step>
-  </mat-vertical-stepper>
+  </mat-horizontal-stepper>
   </mat-card>
 </div>
