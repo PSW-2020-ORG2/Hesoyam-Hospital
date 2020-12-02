@@ -10,10 +10,11 @@ namespace WebApplication.Appointments.DTOs
         public string Department { get; set; }
         public string DoctorName { get; set; }
         public string RoomNumber { get; set; }
+        public bool AbleToFillOutSurvey { get; set; }
 
         public AppointmentForObservationDTO() { }
 
-        public AppointmentForObservationDTO(long appointmentId, string appointmentState, TimeInterval timeInterval, string department, string doctorName, string roomNumber)
+        public AppointmentForObservationDTO(long appointmentId, string appointmentState, TimeInterval timeInterval, string department, string doctorName, string roomNumber, bool ableToFillOutSurvey)
         {
             AppointmentId = appointmentId;
             AppointmentState = appointmentState;
@@ -21,6 +22,7 @@ namespace WebApplication.Appointments.DTOs
             Department = department;
             DoctorName = doctorName;
             RoomNumber = roomNumber;
+            AbleToFillOutSurvey = ableToFillOutSurvey;
         }
     }
 }

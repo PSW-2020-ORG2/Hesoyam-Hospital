@@ -17,7 +17,7 @@ namespace WebApplication.Appointments
 
         public static AppointmentForObservationDTO AppointmentToAppointmentForObservationDTO(Appointment appointment)
         {
-            return new AppointmentForObservationDTO(appointment.Id, CalculateAppointmentState(appointment), appointment.TimeInterval, appointment.DoctorInAppointment.Specialisation.ToString(), appointment.DoctorInAppointment.FullName, appointment.DoctorInAppointment.Office.RoomNumber);
+            return new AppointmentForObservationDTO(appointment.Id, CalculateAppointmentState(appointment), appointment.TimeInterval, appointment.DoctorInAppointment.Specialisation.ToString(), appointment.DoctorInAppointment.FullName, appointment.DoctorInAppointment.Office.RoomNumber, appointment.AbleToFillOutSurvey);
         }
 
         private static string CalculateAppointmentState(Appointment appointment)

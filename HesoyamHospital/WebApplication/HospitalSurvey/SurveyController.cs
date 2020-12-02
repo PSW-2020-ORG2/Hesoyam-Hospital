@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Backend;
 using Backend.Model.UserModel;
-using Backend.Service.UsersService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-using WebApplication.HospitalSurvey;
+using WebApplication.Appointments.Service;
 
 namespace WebApplication.HospitalSurvey
 {
@@ -16,12 +11,20 @@ namespace WebApplication.HospitalSurvey
     [ApiController]
     public class SurveyController : ControllerBase
     {
-        [HttpPost("send-answers")]
-        public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto)
+        private readonly IAppointmentService _appointmentService;
+        public SurveyController(IAppointmentService appointmentService)
+        {
+            _appointmentService = appointmentService;
+        }
+
+        [HttpPost("send-answers/{appointmentId}")]
+        public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto, long appointmentId)
         {
             if (!SurveyValidation.IsNewSurveyValid(dto)) return BadRequest();
-           
-            AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto));
+
+            Doctor doctor = _appointmentService.GetDoctorAtAppointment(appointmentId);
+            AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto, doctor));
+            _appointmentService.DeactivateFillingOutSurvey(appointmentId);
             
             return Ok();
         }

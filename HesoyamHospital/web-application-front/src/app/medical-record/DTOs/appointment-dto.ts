@@ -7,6 +7,7 @@ export class AppointmentDto {
         public timeInterval : TimeInterval,
         public department : string,
         public doctorName : string,
-        public roomNumber : string
+        public roomNumber : string,
+        public ableToFillOutSurvey : boolean
     ) {}
 }

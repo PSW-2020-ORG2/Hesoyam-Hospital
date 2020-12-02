@@ -136,7 +136,7 @@
             <ng-container matColumnDef="Survey">
               <th mat-header-cell *matHeaderCellDef> SURVEY </th>
               <td mat-cell *matCellDef="let element"> 
-                <button mat-stroked-button color="primary">Fill out</button>                                      
+                <button mat-stroked-button color="primary" *ngIf="element.ableToFillOutSurvey" (click)="fillOutSurvey(element.appointmentId)">Fill out</button>                                      
               </td>
             </ng-container>
         

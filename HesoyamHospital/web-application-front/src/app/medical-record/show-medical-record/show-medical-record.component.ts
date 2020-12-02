@@ -3,6 +3,7 @@ import { AppointmentDto } from '../DTOs/appointment-dto';
 import { MedicalRecordDto } from '../DTOs/medical-record-dto';
 import { AppointmentService } from '../service/appointment.service';
 import { MedicalRecordService } from '../service/medical-record.service';
+import { Router} from '@angular/router';
 declare var require: any
 
 @Component({
@@ -18,11 +19,13 @@ export class ShowMedicalRecordComponent implements OnInit {
   public imgPath = "";
   displayedColumns: string[] = ['State', 'Date', 'From', 'To', 'Department', 'Doctor', 'Room', 'Cancel', 'Survey'];
   
-  constructor(private _medService: MedicalRecordService, private _appService : AppointmentService) { }
+  constructor(private _medService: MedicalRecordService, private _appService : AppointmentService, private _router : Router) { }
 
   ngOnInit(): void {
     this._medService.getMedicalRecord().subscribe((data) => {this.record = data;  this.imagePath = "http://localhost:52166/Resources/Images/" + this.record.username + ".jpg"; this._appService.getAll().subscribe((data) => this.dataAppointments = data);} );
   }
-  
-  
+
+  fillOutSurvey(appointmentId) {
+    this._router.navigate(['/survey/survey-form', appointmentId])
+  }
 }

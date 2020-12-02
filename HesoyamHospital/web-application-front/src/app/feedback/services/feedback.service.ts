@@ -76,8 +76,8 @@ export class FeedbackService {
       return this._http.post<any>(this._urlpost, feedback);
   }
   
-  postSurvey(survey : SurveyDTO){
-    return this._http.post<any>(this._urlpostsurvey, survey)
+  postSurvey(survey : SurveyDTO, appointmentId : number){
+    return this._http.post<any>(this._urlpostsurvey + "/" + appointmentId, survey)
   }
   getAllDoctors() : Observable<DoctorDTO[]>{
     return this._http.get<DoctorDTO[]>(this._urlGetAllDoctors);
