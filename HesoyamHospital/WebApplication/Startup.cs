@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using WebApplication.Authentication;
+using WebApplication.Scheduling.Service;
 
 namespace WebApplication
 {
@@ -51,6 +52,8 @@ namespace WebApplication
             });
             services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer()), new ReportRepository(new MySQLStream<Report>(), new LongSequencer())));
             services.AddSingleton<ISendEmail, SendEmail>();
+            services.AddSingleton<IAppointmentSchedulingService, AppointmentSchedulingService>();
+
             services.AddMvc().AddJsonOptions(options =>
                     options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();
