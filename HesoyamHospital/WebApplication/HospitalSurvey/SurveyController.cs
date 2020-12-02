@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Backend;
+using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Appointments.Service;
@@ -20,7 +21,8 @@ namespace WebApplication.HospitalSurvey
         [HttpPost("send-answers/{appointmentId}")]
         public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto, long appointmentId)
         {
-            if (!SurveyValidation.IsNewSurveyValid(dto)) return BadRequest();
+            Appointment appointment = _appointmentService.GetByID(appointmentId);
+            if (!SurveyValidation.IsNewSurveyValid(dto, appointment)) return BadRequest();
 
             Doctor doctor = _appointmentService.GetDoctorAtAppointment(appointmentId);
             AppResources.getInstance().surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto, doctor));

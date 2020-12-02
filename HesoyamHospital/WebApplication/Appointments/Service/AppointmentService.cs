@@ -43,9 +43,7 @@ namespace WebApplication.Appointments.Service
             => _patientRepository.GetByID(patientId).Appointments;
 
         public Appointment GetByID(long id)
-        {
-            throw new NotImplementedException();
-        }
+            => _appointmentRepository.GetByID(id);
 
         public Doctor GetDoctorAtAppointment(long appointmentId)
             => _appointmentRepository.GetByID(appointmentId).DoctorInAppointment;
