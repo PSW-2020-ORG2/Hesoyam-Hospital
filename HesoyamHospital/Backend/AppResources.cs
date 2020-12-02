@@ -148,7 +148,7 @@ namespace Backend
             // UsersService
             doctorService = new DoctorService(doctorRepository);
             managerService = new ManagerService(managerRepository);
-            patientService = new PatientService(patientRepository, medicalRecordRepository);
+            patientService = new PatientService(patientRepository, medicalRecordRepository, doctorRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             userService = new UserService(userRepository);
         }

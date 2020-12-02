@@ -52,7 +52,10 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
 
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
             => GetAll().Where(patient => IsDoctorIdEqualsDoctor(patient.SelectedDoctor, doctor));
-       
+
+        public Patient GetPatientByUsername(string username)
+            => GetAll().SingleOrDefault(patient => patient.UserName == username);
+
         private bool IsDoctorIdEqualsDoctor(Doctor doctorId, Doctor doctor)
             => doctorId == null ? false : doctorId.GetId().Equals(doctor.GetId());
 
