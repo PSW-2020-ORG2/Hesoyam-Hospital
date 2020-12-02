@@ -1,8 +1,8 @@
 <div style="display: flex; justify-content: center;">
-  <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 90%; padding-top: 30px; display: flex; justify-content: center;  align-items: center;  height: max-content;">
+  <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 90%; padding-top: 30px; justify-content: center;  align-items: center;  height: max-content;">
 <mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup" label="Choose time interval for appointment">
-      <form>
+      <form  style="margin-top: 1%;">
           <mat-form-field appearance="fill">
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
@@ -18,7 +18,7 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Choose doctor's department">
-        <form [formGroup]="secondFormGroup">
+        <form [formGroup]="secondFormGroup" style="margin-top: 1%;">
             <mat-form-field appearance="fill">
                 <mat-label>Choose department</mat-label>
                 <mat-select >
@@ -37,7 +37,7 @@
         </form>
       </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Choose doctor for appointment">
-      <form [formGroup]="secondFormGroup">
+      <form [formGroup]="secondFormGroup" style="margin-top: 1%;">
         <mat-form-field appearance="fill">
             <mat-label>Choose doctor</mat-label>
             <mat-select>
@@ -56,7 +56,7 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Choose your priority">
-        <form >
+        <form style="margin-top: 1%;" >
         
             <mat-radio-group aria-label="Select an option">
                 <mat-radio-button value="1">Doctor</mat-radio-button>
