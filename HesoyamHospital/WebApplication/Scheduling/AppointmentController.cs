@@ -41,7 +41,6 @@ namespace WebApplication.Scheduling
         public IActionResult SaveAppointment(AppointmentDTO dto)
         {
             if (dto == null) return BadRequest();
-
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
             return Ok();
         }

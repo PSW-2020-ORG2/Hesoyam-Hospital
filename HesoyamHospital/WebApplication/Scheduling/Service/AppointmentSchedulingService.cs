@@ -1,6 +1,7 @@
 ﻿using Backend.Model.DoctorModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using Backend.Util;
 using System;
@@ -14,14 +15,17 @@ namespace WebApplication.Scheduling.Service
     public class AppointmentSchedulingService : IAppointmentSchedulingService
     {
         private readonly IDoctorRepository _doctorRepository;
-        
-        public AppointmentSchedulingService(IDoctorRepository doctorRepository)
+        private readonly IAppointmentRepository _appointmentRepository;
+
+        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
         {
             _doctorRepository = doctorRepository;
+            _appointmentRepository = appointmentRepository;
         }
         public Appointment Create(Appointment entity)
         {
-            throw new NotImplementedException();
+            Appointment appointment = _appointmentRepository.Create(entity);
+            return appointment;
         }
 
         public void Delete(Appointment entity)
@@ -54,7 +58,11 @@ namespace WebApplication.Scheduling.Service
 
         public Appointment SaveAppointment(Appointment appointment)
         {
-            return null;
+            Doctor doctor = _doctorRepository.GetByID(appointment.DoctorInAppointment.Id);
+            if (doctor == null || doctor.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
+            doctor.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
+            Create(appointment);
+            return appointment;
         }
 
         public void Update(Appointment entity)
