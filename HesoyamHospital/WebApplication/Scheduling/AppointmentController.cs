@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication.MedicalRecords;
 using WebApplication.Scheduling.Service;
 
 namespace WebApplication.Scheduling
@@ -20,8 +22,10 @@ namespace WebApplication.Scheduling
         [HttpGet("getDoctorsByType/{type}")]
         public IActionResult GetDoctorsByType(string type)
         {
-            _appointmentSchedulingService.GetDoctorsByType(type);
-            return Ok();
+            List<Doctor> doctors = _appointmentSchedulingService.GetDoctorsByType(type);
+            if (doctors == null) return NotFound();
+            List<DoctorDTO> dtos = DoctorMapper.DoctorListToDTOList(doctors);
+            return Ok(dtos.ToArray());
         }
 
         [HttpPost("getTimesForDoctor")]

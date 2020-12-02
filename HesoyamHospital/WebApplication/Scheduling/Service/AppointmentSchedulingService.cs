@@ -1,15 +1,24 @@
-﻿using Backend.Model.PatientModel;
+﻿using Backend.Model.DoctorModel;
+using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Repository.Abstract.UsersAbstractRepository;
 using Backend.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication.MedicalRecords;
 
 namespace WebApplication.Scheduling.Service
 {
     public class AppointmentSchedulingService : IAppointmentSchedulingService
     {
+        private readonly IDoctorRepository _doctorRepository;
+        
+        public AppointmentSchedulingService(IDoctorRepository doctorRepository)
+        {
+            _doctorRepository = doctorRepository;
+        }
         public Appointment Create(Appointment entity)
         {
             throw new NotImplementedException();
@@ -30,9 +39,12 @@ namespace WebApplication.Scheduling.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Doctor> GetDoctorsByType(string type)
+        public List<Doctor> GetDoctorsByType(string type)
         {
-            return null;
+            DoctorType doctorType = DoctorMapper.TextToDoctorType(type);
+            if (doctorType == DoctorType.UNDEFINED) return null;
+            List<Doctor> doctors = _doctorRepository.GetDoctorByType(doctorType).ToList();
+            return doctors;
         }
 
         public IEnumerable<TimeInterval> GetTimesForDoctorAndDate(long id, DateTime date)
