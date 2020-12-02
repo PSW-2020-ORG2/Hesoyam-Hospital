@@ -19,13 +19,15 @@ namespace Backend.Service.UsersService
     public class PatientService : IService<Patient, long>
     {
         readonly PatientRepository _patientRepository;
+        readonly DoctorRepository _doctorRepository;
         readonly MedicalRecordRepository _medicalRecordRepository;
         UserValidation _userValidation;
 
-        public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository)
+        public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository, DoctorRepository doctorRepository)
         {
             _patientRepository = patientRepository;
             _medicalRecordRepository = medicalRecordRepository;
+            _doctorRepository = doctorRepository;
             _userValidation = new UserValidation();
         }
 
@@ -37,6 +39,9 @@ namespace Backend.Service.UsersService
 
         public Patient GetByID(long id)
             => _patientRepository.GetByID(id);
+
+        public Patient GetByUsername(string username)
+            => _patientRepository.GetPatientByUsername(username);
 
         public Patient Create(Patient entity)
         {
@@ -53,6 +58,16 @@ namespace Backend.Service.UsersService
             Patient patient = _patientRepository.GetEager(id);
             if (patient == null) return null;
             patient.Active = true;
+            _patientRepository.Update(patient);
+            return patient;
+        }
+
+        public Patient ChangeSelectedDoctor(long doctorId, long patientId)
+        {
+            Patient patient = _patientRepository.GetEager(patientId);
+            Doctor selectedDoctor = _doctorRepository.GetByID(doctorId);
+            if (patient == null || selectedDoctor == null) return null;
+            patient.SelectedDoctor = selectedDoctor;
             _patientRepository.Update(patient);
             return patient;
         }

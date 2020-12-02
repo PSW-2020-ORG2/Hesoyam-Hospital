@@ -76,10 +76,28 @@
             <label>{{record.bloodType}}</label>
       </div>
       <div class="left">
+        <label class ="constLbl">Selected doctor:</label>
+        <label>{{record.selectedDoctorName}}</label>
+      </div>
+      <div class="left">
           <label class ="constLbl">Alergies:</label>
             <ul>
               <li *ngFor ="let a of record.alergies" style = "color: gray; ">{{a}}</li>
             </ul>
+      </div>
+      <div class="right">
+        <button mat-raised-button (click)=select.open() color="primary" style="padding: 12px 32px; margin-left: 12%;">Choose selected doctor
+          <mat-select
+          #select
+          [(ngModel)]="record.selectedDoctorName"
+          class="langSelect">
+            <mat-option (click)="changeDoctor(doctor)"
+            *ngFor="let doctor of doctors" 
+            [value]="doctor">
+            {{doctor.fullName}}
+            </mat-option>
+          </mat-select>
+        </button>
       </div>
     </form>
     </mat-card>

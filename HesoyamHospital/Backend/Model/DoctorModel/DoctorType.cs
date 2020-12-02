@@ -10,7 +10,7 @@ namespace Backend.Model.DoctorModel
     public enum DoctorType
     {
         UNDEFINED,
-        FAMILYMEDICINE,
+        GENERAL_PRACTITIONER,
         SURGEON,
         CARDIOLOGIST,
         DERMATOLOGIST,
