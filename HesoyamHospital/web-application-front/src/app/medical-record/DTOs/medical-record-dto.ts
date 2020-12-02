@@ -13,6 +13,7 @@ export class MedicalRecordDto {
         public password : string,
         public dateOfBirth : string,
         public bloodType : string,
+        public selectedDoctorName: string,
         public alergies : Array<string>
     ) {}
 }
