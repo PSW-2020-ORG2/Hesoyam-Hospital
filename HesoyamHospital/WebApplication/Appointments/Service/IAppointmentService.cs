@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Appointments.Service
 {
-    interface IAppointmentService : IService<Appointment, long>
+    public interface IAppointmentService : IService<Appointment, long>
     {
         public IEnumerable<Appointment> GetAllByPatient(long patientId);
     }

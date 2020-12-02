@@ -12,17 +12,18 @@ namespace WebApplication.Appointments
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private readonly AppointmentService _appointmentService;
+        private readonly IAppointmentService _appointmentService;
 
-        public AppointmentController(AppointmentService appointmentService)
+        public AppointmentController(IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;
         }
 
-        [HttpGet]
-        public IActionResult GetAllByPatient()
+        [HttpGet("{id}")]
+        public IActionResult GetAllByPatient(long id)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return Ok();
         }
     }
 }
