@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Appointments.Service;
 
@@ -13,6 +9,7 @@ namespace WebApplication.Appointments
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;
+        private readonly long defaultPatientId = 500;
 
         public AppointmentController(IAppointmentService appointmentService)
         {
@@ -22,8 +19,8 @@ namespace WebApplication.Appointments
         [HttpGet("{id}")]
         public IActionResult GetAllByPatient(long id)
         {
-            //throw new NotImplementedException();
-            return Ok();
+            if (id != defaultPatientId) return BadRequest();
+            return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDTO(_appointmentService.GetAllByPatient(id).ToList()));
         }
     }
 }

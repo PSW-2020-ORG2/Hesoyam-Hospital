@@ -2,8 +2,6 @@
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Appointments.Service
 {
@@ -31,9 +29,7 @@ namespace WebApplication.Appointments.Service
         }
 
         public IEnumerable<Appointment> GetAllByPatient(long patientId)
-        {
-            throw new NotImplementedException();
-        }
+            => _patientRepository.GetByID(patientId).Appointments;
 
         public Appointment GetByID(long id)
         {
