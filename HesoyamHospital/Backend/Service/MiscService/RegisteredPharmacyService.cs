@@ -9,36 +9,36 @@ namespace Backend.Service.MiscService
 {
     public class RegisteredPharmacyService : IService<RegisteredPharmacy, long>
     {
-        private IRegisteredPharmacyRepository _pharmacyApiKeyRepository;
+        private IRegisteredPharmacyRepository _registeredPharmacyRepository;
 
-        public RegisteredPharmacyService(IRegisteredPharmacyRepository pharmacyApiKeyRepository)
+        public RegisteredPharmacyService(IRegisteredPharmacyRepository registeredPharmacyRepository)
         {
-            _pharmacyApiKeyRepository = pharmacyApiKeyRepository;
+            _registeredPharmacyRepository = registeredPharmacyRepository;
         }
         public RegisteredPharmacy Create(RegisteredPharmacy entity)
         {
             Validate(entity);
-            return _pharmacyApiKeyRepository.Create(entity);
+            return _registeredPharmacyRepository.Create(entity);
         }
 
         public void Delete(RegisteredPharmacy entity)
         {
-            _pharmacyApiKeyRepository.Delete(entity);
+            _registeredPharmacyRepository.Delete(entity);
         }
 
         public IEnumerable<RegisteredPharmacy> GetAll()
         {
-            return _pharmacyApiKeyRepository.GetAll();
+            return _registeredPharmacyRepository.GetAll();
         }
 
         public RegisteredPharmacy GetByID(long id)
         {
-            return _pharmacyApiKeyRepository.GetByID(id);
+            return _registeredPharmacyRepository.GetByID(id);
         }
 
         private RegisteredPharmacy GetRegisteredPharmacyByName(string name)
         {
-            return _pharmacyApiKeyRepository.GetRegisteredPharmacyByName(name);
+            return _registeredPharmacyRepository.GetRegisteredPharmacyByName(name);
         }
 
         private bool IsPharmacyRegistered(string name) =>  GetRegisteredPharmacyByName(name) != null ? true : false;

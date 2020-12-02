@@ -1,5 +1,9 @@
 ﻿using Renci.SshNet;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IntegrationAdapter.SFTPServiceSupport
 {
@@ -7,7 +11,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
     {
         public static void ConnectAndSendPrescribedMedicineReport(string fileToSend)
         {
-            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.1.92", "tester", "password")))
+            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.1.103", "tester", "password")))
             {
                 client.Connect();
 
