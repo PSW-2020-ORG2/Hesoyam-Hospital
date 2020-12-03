@@ -91,10 +91,10 @@
           #select
           [(ngModel)]="record.selectedDoctorName"
           class="langSelect">
-            <mat-option (click)="changeDoctor(doctor)"
+            <mat-option (click)="pickDoctor(doctor)"
             *ngFor="let doctor of doctors" 
             [value]="doctor">
-            {{doctor.fullName}}
+              {{doctor.fullName}}
             </mat-option>
           </mat-select>
         </button>

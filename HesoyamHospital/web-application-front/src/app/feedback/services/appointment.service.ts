@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DoctorDto } from '../../medical-record/DTOs/doctor-dto';
+import { DoctorDateDTO } from '../patient/standard-appointment/DTOs/DoctorDateDTO';
+import { TimeInterval } from '../DTOs/time-interval';
+import { IntervalDTO } from '../patient/standard-appointment/DTOs/IntervalDTO';
+import { AppointmentDTO } from '../patient/standard-appointment/DTOs/AppointmentDTO';
 
 
 export interface Doctor {
@@ -14,13 +19,21 @@ export interface Doctor {
 export class AppointmentService {
 
   private _urlgetdoctors:string = "http://localhost:52166/api/appointment/getDoctorsByType/";
-  private _urlpost:string = "http://localhost:52166/api/document/simple-search/500";
-  private _urlpostadvanced:string = "http://localhost:52166/api/document/advanced-search/500";
+  private _urlgettimes:string = "http://localhost:52166/api/appointment/getTimesForDoctor/";
+  private _urlsave:string = "http://localhost:52166/api/appointment/saveAppointment";
 
   constructor( private _http : HttpClient) { }
 
-  getAll() : Observable<Doctor[]> {
-    return this._http.get<Doctor[]>(this._urlgetdoctors);
+  getAll(type : string) : Observable<DoctorDto[]> {
+    return this._http.get<DoctorDto[]>(this._urlgetdoctors + type);
+  }
+
+  getTimes(doctorDate : DoctorDateDTO) : Observable<IntervalDTO[]>{
+    return this._http.put<IntervalDTO[]>(this._urlgettimes, doctorDate);
+  }
+
+  createAppointment(appointment : AppointmentDTO){
+    return this._http.post(this._urlsave, appointment);
   }
 
 }
