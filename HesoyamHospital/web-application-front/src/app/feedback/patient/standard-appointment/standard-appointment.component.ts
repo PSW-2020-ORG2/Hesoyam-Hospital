@@ -13,6 +13,7 @@ export class StandardAppointmentComponent implements OnInit {
   secondFormGroup: FormGroup;
   minDate: Date;
   maxDate: Date;
+  department = "";
   
 
   constructor(private _formBuilder: FormBuilder) {
@@ -30,4 +31,6 @@ export class StandardAppointmentComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
   }
+
+  getDoctors(){}
 }

@@ -14,6 +14,7 @@ export class AppointmentRecommendationComponent implements OnInit {
   secondFormGroup: FormGroup;
   minDate: Date;
   maxDate: Date;
+  department = "";
   recommendedAppointment = new RecommendedAppointment("",new TimeInterval(new Date(), new Date()), null);
 
   constructor(private _formBuilder: FormBuilder) {
@@ -30,6 +31,10 @@ export class AppointmentRecommendationComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  getDoctors(){
+    console.log(this.department);
   }
 
 }
