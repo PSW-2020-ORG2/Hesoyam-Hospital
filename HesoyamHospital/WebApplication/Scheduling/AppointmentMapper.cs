@@ -21,11 +21,17 @@ namespace WebApplication.Scheduling
             appointment.AbleToFillOutSurvey = false;
             appointment.AppointmentType = AppointmentType.checkup;
             appointment.Patient = AppResources.getInstance().patientRepository.GetByID(dto.PatientId);
-            appointment.Room = doctorInAppointment.Office;
+            appointment.Room = GetRoom(doctorInAppointment);
             appointment.TimeInterval = new TimeInterval();
             appointment.TimeInterval.StartTime = dto.DateAndTime;
             appointment.TimeInterval.EndTime = dto.DateAndTime.AddMinutes(AppointmentDurationMinutes);
             return appointment;
+        }
+
+        private static Room GetRoom(Doctor doctor)
+        {
+            if (doctor == null || doctor.Office == null) return null;
+            return doctor.Office;
         }
     }
 }

@@ -7,5 +7,15 @@ namespace WebApplication.Scheduling
 {
     public class IntervalDTO
     {
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
+        public IntervalDTO() { }
+
+        public IntervalDTO(DateTime startTime, DateTime endTime)
+        {
+            StartTime = startTime;
+            EndTime = endTime;
+        }
     }
 }
