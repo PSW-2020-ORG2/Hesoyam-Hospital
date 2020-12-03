@@ -26,7 +26,8 @@ namespace WebApplicationTests.Unit.Scheduling
         public static IEnumerable<object[]> AppointmentData =>
            new List<object[]>
            {
-                new object[] { new AppointmentDTO(), Times.Once()},
+                new object[] { new AppointmentDTO(500, new DateTime(2020, 12, 3, 8, 0, 0), 501), Times.Once()},
+                new object[] { new AppointmentDTO(), Times.Never()},
                 new object[] { null, Times.Never() },
            };
     }

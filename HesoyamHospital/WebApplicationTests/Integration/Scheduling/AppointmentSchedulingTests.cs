@@ -55,7 +55,7 @@ namespace WebApplicationTests.Integration.Scheduling
         public static IEnumerable<object[]> DoctorTimeData =>
             new List<object[]>
             {
-                new object[] { new DoctorDateDTO(10, DateTime.Now), HttpStatusCode.OK },
+                new object[] { new DoctorDateDTO(501, new DateTime(2020, 12, 3)), HttpStatusCode.OK },
                 new object[] { null, HttpStatusCode.BadRequest },
             };
     }

@@ -11,7 +11,7 @@ namespace WebApplication.Scheduling.Service
 {
     public interface IAppointmentSchedulingService : IService<Appointment, long>
     {
-        public IEnumerable<TimeInterval> GetTimesForDoctorAndDate(long id, DateTime date);
+        public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date);
         public List<Doctor> GetDoctorsByType(string type);
         public Appointment SaveAppointment(Appointment appointment);
 
