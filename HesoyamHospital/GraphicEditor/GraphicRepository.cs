@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace GraphicEditor
 {
@@ -8,6 +9,7 @@ namespace GraphicEditor
     {
         public GraphicRepository()
         {
+
         }
 
         public List<GraphicalObject> ReadFromFile(string fileName)

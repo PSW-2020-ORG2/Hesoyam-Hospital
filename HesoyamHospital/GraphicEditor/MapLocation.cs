@@ -24,8 +24,5 @@ namespace GraphicEditor
             Floor = floor;
 
         }
-
-        
- 
     }
 }

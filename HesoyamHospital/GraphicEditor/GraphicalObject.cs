@@ -1,7 +1,10 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace GraphicEditor
 {
-    class GraphicalObject
+    public class GraphicalObject
     {
             public string Type { get; set; }
             public string Name { get; set; }
@@ -11,13 +14,10 @@ namespace GraphicEditor
             public long Left { get; set; }
             public string Shape { get; set; }
 
-
-
             public GraphicalObject()
             {
 
             }
-
             public GraphicalObject(string type, string name, long width, long height, long top, long left, string shape)
             {
                 Type = type;
@@ -27,7 +27,6 @@ namespace GraphicEditor
                 Top = top;
                 Left = left;
                 Shape = shape;
-
             }
     }
 }

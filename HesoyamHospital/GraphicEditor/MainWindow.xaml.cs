@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Shapes;
 
 namespace GraphicEditor
@@ -12,23 +11,24 @@ namespace GraphicEditor
     {
         public MainWindow()
         {
+            Global.serachObjectName = "";
             InitializeComponent();
 
-            DrawingShapesService drawing_shapes = new DrawingShapesService();
-            GraphicRepository graphic_repository = new GraphicRepository();
-            List<GraphicalObject> list = graphic_repository.ReadFromFile("hospitalmap.txt");
+            DrawingShapesService drawingShapes = new DrawingShapesService();
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<GraphicalObject> list = graphicRepository.ReadFromFile("hospitalmap.txt");
 
-            foreach (GraphicalObject graphical_object in list)
+            foreach (GraphicalObject graphicalObject in list)
             {
-                Shape shape = drawing_shapes.draw_Shapes(graphical_object);
+                Shape shape = drawingShapes.DrawShapes(graphicalObject);
                 canvas1.Children.Add(shape);
             }
         }
 
         public void Display_Hospital1(object sender, RoutedEventArgs e)
         {
-             Hospital1Window hospital1 = new Hospital1Window();
-             hospital1.Show();
+            Hospital1Window hospital1 = new Hospital1Window();
+            hospital1.Show();
         }
 
         public void Display_Hospital2(object sender, RoutedEventArgs e)
@@ -43,21 +43,10 @@ namespace GraphicEditor
              warehouse.Show();
         }
 
-        public void Exit(object sender, RoutedEventArgs e)
+        public void Display_Search_Window(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        public void MouseLeftButtonDown_Hospital1(object sender, MouseButtonEventArgs e)
-        {
-             Hospital1Window hospital1 = new Hospital1Window();
-             hospital1.Show();
-        }
-
-        public void MouseLeftButtonDown_Hospital2(object sender, MouseButtonEventArgs e)
-        {
-             Hospital2Window hospital2 = new Hospital2Window();
-             hospital2.Show();
+            Search search = new Search();
+            search.Show();
         }
 
         public void Display_Information_Window(object sender, RoutedEventArgs e)
@@ -66,15 +55,10 @@ namespace GraphicEditor
             information.Show();
         }
 
-        public void MouseLeftButtonDown_Warehouse(object sender, MouseButtonEventArgs e)
+        private void Exit(object sender, RoutedEventArgs e)
         {
-             WarehouseWindow warehouse = new WarehouseWindow();
-             warehouse.Show();
+            this.Close();
         }
-        public void Display_Search_Window(object sender, RoutedEventArgs e)
-        {
-            Search search = new Search();
-            search.Show();
-        }
+
     }
 }

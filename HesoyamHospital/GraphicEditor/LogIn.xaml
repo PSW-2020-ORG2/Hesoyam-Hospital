@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="LogIn" Height="550" Width="810"
         WindowStartupLocation="CenterScreen">
+
     <Grid x:Name="LogIn_grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
