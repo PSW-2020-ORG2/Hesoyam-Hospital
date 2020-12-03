@@ -67,7 +67,7 @@ namespace GraphicEditor
                     rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
 
-                    if (rectangle.Name == Global.serachObjectName)
+                    if (rectangle.Name == Global.SearchObjectName)
                     { 
                         rectangle.StrokeThickness = 7;
                         rectangle.Stroke = Brushes.Red;

@@ -11,7 +11,6 @@ namespace GraphicEditor
     /// </summary>
     public partial class LogIn : Window
     {
-        private User userloggedIn = new User();
         private List<Manager> managers = new List<Manager>();
         private List<Patient> patients = new List<Patient>();
 
@@ -35,11 +34,9 @@ namespace GraphicEditor
             bool found = false;
 
             found = FindManager();
-            Global.loggedInUserType = "manager";
             if (!found)
             {
                 found = FindPatient();
-                Global.loggedInUserType = "patient";
             }
 
                 if (!found)
@@ -67,7 +64,6 @@ namespace GraphicEditor
                     if (Password.Password.Equals(_patient.Password))
                     {
                         found = true;
-                        userloggedIn = _patient;
                         break;
                     }
                 }
@@ -85,7 +81,6 @@ namespace GraphicEditor
                     if (Password.Password.Equals(_manager.Password))
                     {
                         found = true;
-                        userloggedIn = _manager;
                         break;
                     }
                 }

@@ -11,7 +11,7 @@ namespace GraphicEditor
     {
         public MainWindow()
         {
-            Global.serachObjectName = "";
+            Global.SearchObjectName = "";
             InitializeComponent();
 
             DrawingShapesService drawingShapes = new DrawingShapesService();

@@ -13,7 +13,7 @@ namespace GraphicEditor
         {
             InitializeComponent();
             DataContext = this;
-            Global.serachObjectName = "";
+            Global.SearchObjectName = "";
            
         }
 
@@ -33,7 +33,7 @@ namespace GraphicEditor
                 return;
             }
             string name = mapLocation.Name;
-            Global.serachObjectName = name;
+            Global.SearchObjectName = name;
             string hospital = mapLocation.Hospital;
             string floor = mapLocation.Floor;
 
