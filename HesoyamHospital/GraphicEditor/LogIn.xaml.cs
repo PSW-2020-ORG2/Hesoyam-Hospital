@@ -19,12 +19,12 @@ namespace GraphicEditor
         {
             InitializeComponent();
 
-            Manager manager = new Manager("upravnik", "upravnik", new DateTime(2020,11,12), "Pera", "Peric", "P", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new TimeTable(), new Hospital());
+            Manager manager = new Manager("upravnik", "upravnik", new DateTime(2020,11,12), "Pera", "Peric", "P","1612998667722" ,Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new Hospital());
             managers.Add(manager);
 
-            Doctor doctor = new Doctor("doktor", "doktor", new DateTime(2020, 11, 12), "Pera", "Peric", "P", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new TimeTable(), new Hospital(), new Room(9), new DoctorType());
+            Doctor doctor = new Doctor("doktor", "doktor", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "1811977332222", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new TimeTable(), new Hospital(), new Room(9), new DoctorType());
 
-            Patient patient = new Patient("pacijent", "pacijent", new DateTime(2020, 11, 12), "Pera", "Peric", "P", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", new EmergencyContact(), new PatientType(),doctor);
+            Patient patient = new Patient("pacijent", "pacijent", new DateTime(2020, 11, 12), "Pera", "Peric", "P", "1811977332222", Sex.MALE, new DateTime(1994, 11, 12), "aa", new Address("Zmaj Jovina", new Location("Srbija", "Novi Sad")), "010101", "064", "aaa@gmail.com", "bbb@gmail.com", doctor, "1234");
            
             patients.Add(patient);
             

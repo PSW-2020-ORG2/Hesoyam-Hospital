@@ -33,13 +33,6 @@
             <ComboBoxItem>Search for equipment and medicines</ComboBoxItem>
             <ComboBoxItem>Search for available room</ComboBoxItem>
         </ComboBox>
-        <CheckBox Content="Advanced" Grid.Row="1" Grid.Column="5" Style="{StaticResource ResourceKey=checkAdvanced}" IsChecked="False"/>
-        <CheckBox Content="Advanced"
-                  FontSize="15" IsChecked="False"
-                  Width="126" Height="26" 
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Top"
-                  Margin="0,42,186,0"/>
         <Label Content="Enter the text here:"
                FontSize="15" FontWeight="DemiBold"  
                Margin="15,90,619,534"
