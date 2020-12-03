@@ -9,6 +9,7 @@ namespace WebApplication.Scheduling
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public string StartTimeText { get; set; }
 
         public IntervalDTO() { }
 
@@ -16,6 +17,7 @@ namespace WebApplication.Scheduling
         {
             StartTime = startTime;
             EndTime = endTime;
+            StartTimeText = startTime.ToString("HH:mm") + " - " + endTime.ToString("HH:mm");
         }
     }
 }

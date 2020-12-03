@@ -28,7 +28,7 @@ namespace WebApplication.Scheduling
             return Ok(dtos.ToArray());
         }
 
-        [HttpPost("getTimesForDoctor")]
+        [HttpPut("getTimesForDoctor")]
         public IActionResult GetTimesForDoctor(DoctorDateDTO dto)
         {
             if (dto == null) return BadRequest();

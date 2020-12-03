@@ -25,8 +25,7 @@ namespace WebApplication.Scheduling.Service
         }
         public Appointment Create(Appointment entity)
         {
-            Appointment appointment = _appointmentRepository.Create(entity);
-            return appointment;
+            return _appointmentRepository.Create(entity);
         }
 
         public List<Doctor> GetDoctorsByType(string type)
@@ -49,7 +48,7 @@ namespace WebApplication.Scheduling.Service
         public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date)
         {
             Doctor doctor = _doctorRepository.GetByID(id);
-            if (doctor == null || doctor.TimeTable.GetShiftByDate(date) == null) return null;
+            if (doctor == null || doctor.TimeTable == null || doctor.TimeTable.GetShiftByDate(date) == null) return null;
             return doctor.TimeTable.GetShiftByDate(date).GetAvailableTimes(APPOINTMENT_DURATION_MINUTES);
         }
 
