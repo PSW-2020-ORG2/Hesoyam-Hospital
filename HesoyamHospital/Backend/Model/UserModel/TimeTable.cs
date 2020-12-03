@@ -34,7 +34,7 @@ namespace Backend.Model.UserModel
         {
             foreach (Shift shift in Shifts)
             {
-                if (shift.Date.Day == dateTime.Day) return shift;
+                if (shift.Date.Date == dateTime.Date) return shift;
             }
             return null;
         }
