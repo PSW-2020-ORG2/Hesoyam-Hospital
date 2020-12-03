@@ -1,0 +1,87 @@
+<div style="display: flex; justify-content: center;">
+    <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 90%; padding-top: 30px; justify-content: center;  align-items: center;  height: max-content;">
+  <mat-horizontal-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup" label="Choose time interval for appointment">
+        <form  style="margin-top: 1%;">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Choose doctor's department">
+          <form [formGroup]="secondFormGroup" style="margin-top: 1%;">
+              <mat-form-field appearance="fill">
+                  <mat-label>Choose department</mat-label>
+                  <mat-select >
+                    <mat-option value = "cardio">
+                      Cardiology
+                    </mat-option>
+                    <mat-option value = "general">
+                      General praction
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Choose doctor for appointment">
+        <form [formGroup]="secondFormGroup" style="margin-top: 1%;">
+          <mat-form-field appearance="fill">
+              <mat-label>Choose doctor</mat-label>
+              <mat-select>
+                <mat-option value = "marko">
+                  Marko Markovic
+                </mat-option>
+                <mat-option value = "pera">
+                  Petar Petrovic
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Choose your term.">
+          <form style="margin-top: 1%;" >
+          
+            <mat-form-field appearance="fill">
+                <mat-label>Choose term</mat-label>
+                <mat-select>
+                  <mat-option value = "1">
+                    7:30 h
+                  </mat-option>
+                  <mat-option value = "2">
+                    8:00 h
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+    </mat-card>
+  </div>
+  

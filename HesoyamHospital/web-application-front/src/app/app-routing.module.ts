@@ -9,6 +9,7 @@ import { SurveysAndSectionsComponent} from './feedback/admin/surveys-and-section
 import { SurveysResultsComponent } from './feedback/admin/surveys-results/surveys-results.component';
 import { SurveysDoctorsComponent } from './feedback/admin/surveys-doctors/surveys-doctors.component';
 import { AppointmentRecommendationComponent } from './feedback/patient/appointment-recommendation/appointment-recommendation.component';
+import { StandardAppointmentComponent } from './feedback/patient/standard-appointment/standard-appointment.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'survey/survey-doctors', component:SurveysDoctorsComponent},
   {path:'medical-record', component: ShowMedicalRecordComponent},
   {path:'appointment-recommendation', component: AppointmentRecommendationComponent},
+  {path: 'standard-appointment', component: StandardAppointmentComponent},
   
   {
     path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)

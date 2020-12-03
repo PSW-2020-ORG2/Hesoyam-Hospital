@@ -10,12 +10,13 @@ import { SimpleSearchComponent } from './simple-search/simple-search.component';
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
-import { AppointmentRecommendationComponent } from './appointment-recommendation/appointment-recommendation.component'; 
+import { AppointmentRecommendationComponent } from './appointment-recommendation/appointment-recommendation.component';
+import { StandardAppointmentComponent } from './standard-appointment/standard-appointment.component'; 
 
 
 
 @NgModule({
-  declarations: [PostFeedbackComponent, SimpleSearchComponent, AdvancedSearchComponent, AppointmentRecommendationComponent],
+  declarations: [PostFeedbackComponent, SimpleSearchComponent, AdvancedSearchComponent, AppointmentRecommendationComponent, StandardAppointmentComponent],
   imports: [
     CommonModule,
     PatientRoutingModule,
