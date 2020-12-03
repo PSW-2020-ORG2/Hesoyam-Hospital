@@ -32,15 +32,15 @@ namespace WebApplication.Scheduling
         public IActionResult GetTimesForDoctor(DoctorDateDTO dto)
         {
             if (dto == null) return BadRequest();
-            
-           _appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date);
-            return Ok();
+            List<DateTime> availableAppointments =_appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date).ToList();
+            if (availableAppointments == null) return NotFound();
+            return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
 
         [HttpPost("saveAppointment")]
         public IActionResult SaveAppointment(AppointmentDTO dto)
         {
-            if (dto == null) return BadRequest();
+            if (dto == null || dto.DoctorId == 0) return BadRequest();
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
             return Ok();
         }
