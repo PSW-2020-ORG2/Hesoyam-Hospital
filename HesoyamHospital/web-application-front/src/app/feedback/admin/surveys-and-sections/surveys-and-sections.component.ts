@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedbackService } from '../../services/feedback.service'
 import { SurveyDTO } from '../../DTOs/survey-dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-surveys-and-sections',
@@ -27,18 +28,19 @@ export class SurveysAndSectionsComponent implements OnInit {
   public _AnswerFifteen;
   public _AnswerSixteen;
   
-
+  public _appointmentId;
 
   
 
-  constructor(private _feedbackService: FeedbackService) { }
+  constructor(private _feedbackService: FeedbackService, private _route : ActivatedRoute) { }
   
 
   ngOnInit(): void {
+    this._appointmentId = parseInt(this._route.snapshot.paramMap.get('id'));
   }
   submit() {
     this.prepareSurvey()
-    this._feedbackService.postSurvey(this.SurveyDTO).subscribe(
+    this._feedbackService.postSurvey(this.SurveyDTO, this._appointmentId).subscribe(
       (val) => {
         this.provideFeedback();
         

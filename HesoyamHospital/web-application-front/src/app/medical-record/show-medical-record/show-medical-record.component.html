@@ -1,19 +1,20 @@
 <h2 style="text-align: center; font-size: 25px;">
   MEDICAL RECORD
 </h2>
-<div style="height:100%; display: flex; justify-content:center;">
-    <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 40%; height: 80%; display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-            <form >
 
-                <h2 style="text-align: center;">
-                    Basic information
-                </h2>
+    <div style="display:block;">
+      <div style="height:100%; display: flex; justify-content:center;">
+        <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 40%; height: 80%; display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+                <form >
     
-                <div class="left">
-                    <label class ="constLbl">Name:</label>
-                    <label>{{record.firstName}}</label>
-                    
-                </div>
+                    <h2 style="text-align: center;">
+                        Basic information
+                    </h2>
+        
+                    <div class="left">
+                        <label class ="constLbl">Name:</label>
+                        <label>{{record.firstName}}</label>                       
+                    </div>
 
                 <div class="left">
                     <label class ="constLbl">Surname:</label>
@@ -56,14 +57,10 @@
               <div class="left">
                 <label class ="constLbl">Username:</label>
                 <label>{{record.username}}</label>
-            </div>
-                <div class="left">
-                    <label class ="constLbl">Password:</label>
-                    <label>{{record.password}}</label>
-                </div>
+              </div>
               </form>
     </mat-card>
-    <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 35%; height: 80%; display: flex; justify-content: center; align-items: top; padding-top: 20px;">
+    <mat-card class="mat-elevation-z8" style="margin-top: 1%; width: 40%; height: 80%; display: flex; justify-content: center; align-items: top; padding-top: 20px;">
     <form>
       <h2 style="text-align: center;">
         Medical information
@@ -86,7 +83,7 @@
             </ul>
       </div>
       <div class="right">
-        <button mat-raised-button (click)=select.open() color="primary" style="padding: 12px 32px; margin-left: 12%;">Choose selected doctor
+        <button mat-raised-button (click)=select.open() color="primary" style="padding: 0px 32px; margin-left: 12%;">Choose selected doctor
           <mat-select
           #select
           [(ngModel)]="record.selectedDoctorName"
@@ -101,4 +98,64 @@
       </div>
     </form>
     </mat-card>
-</div>      
+</div> 
+
+        <h2 style="text-align: center; font-size: 25px; margin-top: 20px;">
+          Appointment list
+        </h2>
+        <div style="display: flex; justify-content:center;">
+          <table mat-table [dataSource]="dataAppointments" style="margin-top: 1%">
+            <ng-container matColumnDef="State">
+              <th mat-header-cell *matHeaderCellDef> APPOINTMENT STATE </th>
+              <td mat-cell *matCellDef="let element"> {{element.appointmentState}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="Date">
+              <th mat-header-cell *matHeaderCellDef> DATE </th>
+              <td mat-cell *matCellDef="let element"> {{element.timeInterval.startTime | date : longDate}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="From">
+              <th mat-header-cell *matHeaderCellDef> FROM </th>
+              <td mat-cell *matCellDef="let element"> {{element.timeInterval.startTime | date : "shortTime"}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="To">
+              <th mat-header-cell *matHeaderCellDef> TO </th>
+              <td mat-cell *matCellDef="let element"> {{element.timeInterval.endTime | date : "shortTime"}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="Department">
+              <th mat-header-cell *matHeaderCellDef> DEPARTMENT </th>
+              <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="Doctor">
+              <th mat-header-cell *matHeaderCellDef> DOCTOR </th>
+              <td mat-cell *matCellDef="let element"> {{element.doctorName}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="Room">
+              <th mat-header-cell *matHeaderCellDef> ROOM </th>
+              <td mat-cell *matCellDef="let element"> {{element.roomNumber}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="Cancel">
+              <th mat-header-cell *matHeaderCellDef> CANCEL </th>
+              <td mat-cell *matCellDef="let element"> 
+                <button mat-stroked-button color="warn">Cancel</button>                                      
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="Survey">
+              <th mat-header-cell *matHeaderCellDef> SURVEY </th>
+              <td mat-cell *matCellDef="let element"> 
+                <button mat-stroked-button color="primary" *ngIf="element.ableToFillOutSurvey && element.appointmentState == 'FINISHED'" (click)="fillOutSurvey(element.appointmentId)">Fill out</button>                                      
+              </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+    </div>

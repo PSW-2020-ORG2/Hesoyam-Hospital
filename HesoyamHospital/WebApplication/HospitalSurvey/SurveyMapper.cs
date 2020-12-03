@@ -1,15 +1,10 @@
-﻿using Backend;
-using Backend.Model.UserModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Backend.Model.UserModel;
 
 namespace WebApplication.HospitalSurvey
 {
     public static class SurveyMapper
     {
-        public static Survey SurveyDTOToSurvey(SurveyDTO dto)
+        public static Survey SurveyDTOToSurvey(SurveyDTO dto, Doctor doctor)
         {
             Survey survey = new Survey();
 
@@ -18,7 +13,7 @@ namespace WebApplication.HospitalSurvey
             Section hygieneSection = new Section(dto.AnswerNine, dto.AnswerTen, dto.AnswerEleven, dto.AnswerTwelve);
             Section equipmentSection = new Section(dto.AnswerThirteen, dto.AnswerFourteen, dto.AnswerFifteen, dto.AnswerSixteen);
 
-            survey.Doctor = AppResources.getInstance().doctorService.GetByID(700);
+            survey.Doctor = doctor;
             survey.DoctorSection = doctorSection;
             survey.StaffSection = staffSection;
             survey.HygieneSection = hygieneSection;

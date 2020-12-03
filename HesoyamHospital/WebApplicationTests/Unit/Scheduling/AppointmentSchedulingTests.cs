@@ -17,7 +17,7 @@ namespace WebApplicationTests.Unit.Scheduling
         public void Saving_appointment_to_database(AppointmentDTO dto, Times times)
         {
             var appointmentService = new Mock<IAppointmentSchedulingService>();
-            var controller = new AppointmentController(appointmentService.Object);
+            var controller = new AppointmentSchedulingController(appointmentService.Object);
 
             controller.SaveAppointment(dto);
 

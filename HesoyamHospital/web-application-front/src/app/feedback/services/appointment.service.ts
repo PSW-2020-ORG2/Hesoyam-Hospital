@@ -18,9 +18,9 @@ export interface Doctor {
 })
 export class AppointmentService {
 
-  private _urlgetdoctors:string = "http://localhost:52166/api/appointment/getDoctorsByType/";
-  private _urlgettimes:string = "http://localhost:52166/api/appointment/getTimesForDoctor/";
-  private _urlsave:string = "http://localhost:52166/api/appointment/saveAppointment";
+  private _urlgetdoctors:string = "http://localhost:52166/api/appointmentscheduling/getDoctorsByType/";
+  private _urlgettimes:string = "http://localhost:52166/api/appointmentscheduling/getTimesForDoctor/";
+  private _urlsave:string = "http://localhost:52166/api/appointmentscheduling/saveAppointment";
 
   constructor( private _http : HttpClient) { }
 

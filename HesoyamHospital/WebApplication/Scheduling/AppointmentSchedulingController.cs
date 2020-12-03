@@ -11,10 +11,10 @@ namespace WebApplication.Scheduling
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController : ControllerBase
+    public class AppointmentSchedulingController : ControllerBase
     {
         private readonly IAppointmentSchedulingService _appointmentSchedulingService;
-        public AppointmentController(IAppointmentSchedulingService appointmentSchedulingService)
+        public AppointmentSchedulingController(IAppointmentSchedulingService appointmentSchedulingService)
         {
             _appointmentSchedulingService = appointmentSchedulingService;
         }

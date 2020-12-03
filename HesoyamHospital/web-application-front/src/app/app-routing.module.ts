@@ -15,7 +15,7 @@ import { StandardAppointmentComponent } from './feedback/patient/standard-appoin
 const routes: Routes = [
   {path: '', redirectTo: '/feedback/patient/post', pathMatch: 'full'},
   {path: 'feedback/patient/post', component: PostFeedbackComponent},
-  {path: 'survey/survey-form', component:SurveysAndSectionsComponent},
+  {path: 'survey/survey-form/:id', component:SurveysAndSectionsComponent},
   {path: 'survey/survey-results', component:SurveysResultsComponent},
   {path: 'survey/survey-doctors', component:SurveysDoctorsComponent},
   {path:'medical-record', component: ShowMedicalRecordComponent},
