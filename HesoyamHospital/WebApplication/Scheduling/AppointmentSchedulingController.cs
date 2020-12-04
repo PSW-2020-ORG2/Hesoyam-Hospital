@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend;
 using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.MedicalRecords;
@@ -33,14 +34,18 @@ namespace WebApplication.Scheduling
         {
             if (dto == null) return BadRequest();
             List<DateTime> availableAppointments =_appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date).ToList();
-            if (availableAppointments == null) return NotFound();
+            if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
 
         [HttpGet("getTimesForSelectedDoctor/{id}")]
         public IActionResult GetTimesForSelectedDoctor(long id)
         {
-            return Ok();
+            Patient patient = AppResources.getInstance().patientRepository.GetByID(id);
+            if (patient == null || patient.SelectedDoctor == null) return BadRequest();
+            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForSelectedDoctor(patient).ToList();
+            if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
+            return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
 
         [HttpPost("saveAppointment")]
@@ -54,7 +59,11 @@ namespace WebApplication.Scheduling
         [HttpPost("saveSelectedDoctorAppointment")]
         public IActionResult SaveSelecetdDoctorAppointment(AppointmentDTO dto)
         {
-            _appointmentSchedulingService.SaveSelectedDoctorAppointment();
+            if (dto == null || dto.PatientId == 0) return BadRequest();
+            Patient patient = AppResources.getInstance().patientRepository.GetByID(dto.PatientId);
+            if (patient.SelectedDoctor == null) return NotFound();
+            dto.DoctorId = patient.SelectedDoctor.Id;
+            _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
             return Ok();
         }
     }
