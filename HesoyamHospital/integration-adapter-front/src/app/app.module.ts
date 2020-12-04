@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 
 import { PharmacyRegistrationComponent } from './pharmacy-registration/pharmacy-registration.component';
+import { ActionBenefitComponent } from './action-benefit/action-benefit.component';
 
 import { ReactiveFormsModule ,FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -24,6 +25,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   declarations: [
     AppComponent,
     PharmacyRegistrationComponent,
+    ActionBenefitComponent
   ],
   imports: [
     BrowserModule,

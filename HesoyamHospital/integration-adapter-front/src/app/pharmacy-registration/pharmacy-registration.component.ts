@@ -28,7 +28,7 @@ export class PharmacyRegistrationComponent implements OnInit {
     this.Pharmacy.PharmacyName=this.myForm.get('pharmacyName').value;
     this.Pharmacy.Endpoint=this.myForm.get('endpoint').value;
     this.service.getPharmacy(this.Pharmacy).subscribe(res=>{
-      alert(res.toString());
+      alert("Pharmacy with name "+ this.Pharmacy.PharmacyName +" registered");
         });
   }
 
