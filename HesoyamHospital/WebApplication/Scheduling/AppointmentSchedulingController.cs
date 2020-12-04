@@ -37,6 +37,12 @@ namespace WebApplication.Scheduling
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
 
+        [HttpGet("getTimesForSelectedDoctor/{id}")]
+        public IActionResult GetTimesForSelectedDoctor(long id)
+        {
+            return Ok();
+        }
+
         [HttpPost("saveAppointment")]
         public IActionResult SaveAppointment(AppointmentDTO dto)
         {

@@ -16,12 +16,14 @@ namespace WebApplication.Scheduling.Service
     {
         private readonly IDoctorRepository _doctorRepository;
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IPatientRepository _patientRepository;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
 
-        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
+        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository, IPatientRepository patientRepository)
         {
             _doctorRepository = doctorRepository;
             _appointmentRepository = appointmentRepository;
+            _patientRepository = patientRepository;
         }
         public Appointment Create(Appointment entity)
         {
@@ -41,7 +43,7 @@ namespace WebApplication.Scheduling.Service
             Doctor doctor = _doctorRepository.GetByID(appointment.DoctorInAppointment.Id);
             if (doctor == null || doctor.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
             doctor.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
-            Create(appointment);
+            _doctorRepository.Update(doctor);
             return appointment;
         }
 

@@ -27,7 +27,8 @@ namespace Backend.Model.UserModel
         public List<DateTime> GetAvailableTimes(long durationInMinutes)
         {
             List<DateTime> dateTimes = new List<DateTime>();
-            DateTime emptyAppointment = ShiftType.StartTime;
+            DateTime emptyAppointment = new DateTime(Date.Year, Date.Month, Date.Day, ShiftType.StartTime.Hour, ShiftType.StartTime.Minute, 0);
+
             while(!TimesAreEqual(emptyAppointment, ShiftType.EndTime))
             {
                 if(!AppointmentExists(emptyAppointment))
