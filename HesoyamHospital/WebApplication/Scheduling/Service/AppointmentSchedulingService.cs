@@ -50,18 +50,15 @@ namespace WebApplication.Scheduling.Service
         public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date)
         {
             Doctor doctor = _doctorRepository.GetByID(id);
-            if (doctor == null || doctor.TimeTable == null || doctor.TimeTable.GetShiftByDate(date) == null) return null;
+            if (doctor == null || doctor.TimeTable == null || doctor.TimeTable.GetShiftByDate(date) == null) return new List<DateTime>();
             return doctor.TimeTable.GetShiftByDate(date).GetAvailableTimes(APPOINTMENT_DURATION_MINUTES);
         }
 
-        public Appointment SaveSelectedDoctorAppointment()
+        public IEnumerable<DateTime> GetTimesForSelectedDoctor(Patient patient)
         {
-            return null;
-        }
-
-        public IEnumerable<DateTime> GetTimesForSelectedDoctor(long id)
-        {
-            return null;
+            Doctor doctor = patient.SelectedDoctor;
+            if (doctor.TimeTable == null || doctor.TimeTable.Shifts == null) return new List<DateTime>();
+            return doctor.TimeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES);
         }
 
         public void Delete(Appointment entity)
