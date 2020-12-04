@@ -1,4 +1,5 @@
 using Backend.Repository.Abstract;
+using System;
 using System.Collections.Generic;
 
 namespace Backend.Model.UserModel
@@ -27,6 +28,15 @@ namespace Backend.Model.UserModel
         public TimeTable(long id)
         {
             Id = id;
+        }
+
+        public Shift GetShiftByDate(DateTime dateTime)
+        {
+            foreach (Shift shift in Shifts)
+            {
+                if (shift.Date.Date == dateTime.Date) return shift;
+            }
+            return null;
         }
 
         public long GetId() => Id;

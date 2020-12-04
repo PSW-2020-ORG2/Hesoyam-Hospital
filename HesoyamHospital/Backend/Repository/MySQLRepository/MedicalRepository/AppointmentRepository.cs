@@ -22,7 +22,7 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
     public class AppointmentRepository : MySQLRepository<Appointment, long>, IAppointmentRepository, IEagerRepository<Appointment, long>
     {
         private const string ENTITY_NAME = "Appointment";
-        
+
         public AppointmentRepository(IMySQLStream<Appointment> stream, ISequencer<long> sequencer) : base(ENTITY_NAME, stream, sequencer, new LongIdGeneratorStrategy<Appointment>())
         {
         }

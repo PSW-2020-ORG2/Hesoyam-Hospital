@@ -21,8 +21,10 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using WebApplication.Authentication;
-using WebApplication.Appointments.Service;
+using WebApplication.Scheduling.Service;
 using Backend.Model.UserModel;
+using Backend.Repository.Abstract.UsersAbstractRepository;
+using WebApplication.Appointments.Service;
 
 namespace WebApplication
 {
@@ -54,6 +56,8 @@ namespace WebApplication
             services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer()), new ReportRepository(new MySQLStream<Report>(), new LongSequencer())));
             services.AddSingleton<IAppointmentService, AppointmentService>(services => new AppointmentService(new PatientRepository(new MySQLStream<Patient>(), new LongSequencer(), new DoctorRepository(new MySQLStream<Doctor>(), new LongSequencer(), new UserRepository(new MySQLStream<User>(), new LongSequencer())), new UserRepository(new MySQLStream<User>(), new LongSequencer())), new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer())));
             services.AddSingleton<ISendEmail, SendEmail>();
+            services.AddSingleton<IAppointmentSchedulingService, AppointmentSchedulingService>(service=> new AppointmentSchedulingService(new DoctorRepository(new MySQLStream<Doctor>(), new LongSequencer(), new UserRepository(new MySQLStream<User>(), new LongSequencer())), new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer())));
+
             services.AddMvc().AddJsonOptions(options =>
                     options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();

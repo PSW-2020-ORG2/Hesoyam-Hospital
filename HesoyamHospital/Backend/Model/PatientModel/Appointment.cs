@@ -56,8 +56,10 @@ namespace Backend.Model.PatientModel
             Canceled = false;
         }
 
+        public Appointment()
+        {
+        }
 
-      
         public long GetId() => Id;
 
         public void SetId(long id) => Id = id;

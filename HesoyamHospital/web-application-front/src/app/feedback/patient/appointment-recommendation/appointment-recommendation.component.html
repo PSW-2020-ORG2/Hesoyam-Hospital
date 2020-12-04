@@ -1,0 +1,84 @@
+<div style="display: flex; justify-content: center;">
+  <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 90%; padding-top: 30px; justify-content: center;  align-items: center;  height: max-content;">
+<mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup" label="Choose time interval for appointment">
+      <form  style="margin-top: 1%;">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+              <input matStartDate placeholder="Start date" name = "startDate" [(ngModel)] = "recommendedAppointment.TimeInterval.StartTime">
+              <input matEndDate placeholder="End date" name  = "endDate" [(ngModel)] = "recommendedAppointment.TimeInterval.EndTime">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Choose doctor's department">
+        <form style="margin-top: 1%;">
+            <mat-form-field appearance="fill">
+                <mat-label>Choose department</mat-label>
+                <mat-select [(ngModel)] = "department" name = "department">
+                  <mat-option value = "GENERAL_PRACTITIONER">General practitioner</mat-option>
+                  <mat-option value = "SURGEON">Surgeon</mat-option>
+                  <mat-option value = "CARDIOLOGIST">Cardiologist</mat-option>
+                  <mat-option value = "DERMATOLOGIST">Dermatologist</mat-option>
+                  <mat-option value = "INFECTOLOGIST">Infectologist</mat-option>
+                  <mat-option value = "OPHTAMOLOGIST">Ophtamologist</mat-option>
+                  <mat-option value = "ENDOCRINIOLOGIST">Endocriniologist</mat-option>
+                  <mat-option value = "GASTROENEROLOGIST">Gastroenterologist</mat-option>
+                </mat-select>
+              </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext (click) = "getDoctors()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Choose doctor for appointment">
+      <form [formGroup]="secondFormGroup" style="margin-top: 1%;">
+        <mat-form-field appearance="fill">
+            <mat-label>Choose doctor</mat-label>
+            <mat-select>
+              <mat-option value = "marko">
+                Marko Markovic
+              </mat-option>
+              <mat-option value = "pera">
+                Petar Petrovic
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Choose your priority">
+        <form style="margin-top: 1%;" >
+        
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="1">Doctor</mat-radio-button>
+                <mat-radio-button value="2">Time interval</mat-radio-button>
+              </mat-radio-group>
+          
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  </mat-card>
+</div>
