@@ -26,7 +26,7 @@ namespace WebApplicationTests.Integration.Scheduling
         {
             HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/appointment/getDoctorsByType/" + type);
+            HttpResponseMessage response = await client.GetAsync("/api/appointmentscheduling/getDoctorsByType/" + type);
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
@@ -38,7 +38,18 @@ namespace WebApplicationTests.Integration.Scheduling
             HttpClient client = _factory.CreateClient();
             StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/appointment/getTimesForDoctor", bodyContent);
+            HttpResponseMessage response = await client.PostAsync("/api/appointmentscheduling/getTimesForDoctor", bodyContent);
+
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
+
+        [Theory]
+        [MemberData(nameof(SelectedDoctorData))]
+        public async void Getting_appointments_for_selected_doctor(long id, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.GetAsync("/api/appointmentscheduling/getTimesForSelectedDoctor/" + id.ToString());
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
@@ -57,6 +68,13 @@ namespace WebApplicationTests.Integration.Scheduling
             {
                 new object[] { new DoctorDateDTO(501, new DateTime(2020, 12, 3)), HttpStatusCode.OK },
                 new object[] { null, HttpStatusCode.BadRequest },
+            };
+
+        public static IEnumerable<object[]> SelectedDoctorData =>
+            new List<object[]>
+            {
+                new object[] { 501, HttpStatusCode.OK },
+                new object[] { 0, HttpStatusCode.BadRequest },
             };
     }
 }
