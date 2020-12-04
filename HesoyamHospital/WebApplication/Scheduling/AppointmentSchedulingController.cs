@@ -50,5 +50,12 @@ namespace WebApplication.Scheduling
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
             return Ok();
         }
+
+        [HttpPost("saveSelectedDoctorAppointment")]
+        public IActionResult SaveSelecetdDoctorAppointment(AppointmentDTO dto)
+        {
+            _appointmentSchedulingService.SaveSelectedDoctorAppointment();
+            return Ok();
+        }
     }
 }

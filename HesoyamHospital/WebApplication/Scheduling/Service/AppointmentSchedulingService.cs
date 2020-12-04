@@ -54,6 +54,16 @@ namespace WebApplication.Scheduling.Service
             return doctor.TimeTable.GetShiftByDate(date).GetAvailableTimes(APPOINTMENT_DURATION_MINUTES);
         }
 
+        public Appointment SaveSelectedDoctorAppointment()
+        {
+            return null;
+        }
+
+        public IEnumerable<DateTime> GetTimesForSelectedDoctor(long id)
+        {
+            return null;
+        }
+
         public void Delete(Appointment entity)
         {
             throw new NotImplementedException();
