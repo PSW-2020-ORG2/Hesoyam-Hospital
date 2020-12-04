@@ -33,7 +33,7 @@ namespace WebApplication.Scheduling
         public IActionResult GetTimesForDoctor(DoctorDateDTO dto)
         {
             if (dto == null) return BadRequest();
-            List<DateTime> availableAppointments =_appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date).ToList();
+            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date).ToList();
             if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
@@ -47,6 +47,15 @@ namespace WebApplication.Scheduling
             if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
+
+        [HttpPost("recommendation")]
+        public IActionResult GetTimesForDoctor(PriorityDTO dto)
+        {
+            if (dto == null) return BadRequest();
+            _appointmentSchedulingService.GetRecommendedTimes();
+            return Ok();
+        }
+
 
         [HttpPost("saveAppointment")]
         public IActionResult SaveAppointment(AppointmentDTO dto)

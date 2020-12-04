@@ -35,6 +35,7 @@ namespace WebApplicationTests.Unit.Scheduling
 
             appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
         }
+
         public static IEnumerable<object[]> AppointmentData =>
            new List<object[]>
            {

@@ -54,6 +54,18 @@ namespace WebApplicationTests.Integration.Scheduling
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
 
+        [Theory]
+        [MemberData(nameof(PriorityData))]
+        public async void Getting_recommended_appointments(PriorityDTO dto, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
+            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync("/api/appointmentscheduling/recommendation", bodyContent);
+
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
+
 
         public static IEnumerable<object[]> DoctorTypeData =>
             new List<object[]>
@@ -61,7 +73,6 @@ namespace WebApplicationTests.Integration.Scheduling
                 new object[] { "GENERAL_PRACTITIONER", HttpStatusCode.OK },
                 new object[] { "GENERAL_DOCTOR", HttpStatusCode.NotFound },
             };
-
 
         public static IEnumerable<object[]> DoctorTimeData =>
             new List<object[]>
@@ -75,6 +86,13 @@ namespace WebApplicationTests.Integration.Scheduling
             {
                 new object[] { 500, HttpStatusCode.OK },
                 new object[] { 0, HttpStatusCode.BadRequest },
+            };
+
+        public static IEnumerable<object[]> PriorityData =>
+            new List<object[]>
+            {
+                new object[] { new PriorityDTO(501, new DateTime(), new DateTime(), true), HttpStatusCode.OK },
+                new object[] { null, HttpStatusCode.BadRequest },
             };
     }
 }

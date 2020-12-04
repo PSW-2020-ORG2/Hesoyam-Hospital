@@ -59,6 +59,11 @@ namespace WebApplication.Scheduling.Service
             return doctor.TimeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES);
         }
 
+        public IEnumerable<DateTime> GetRecommendedTimes()
+        {
+            return null;
+        }
+
         public void Delete(Appointment entity)
         {
             throw new NotImplementedException();

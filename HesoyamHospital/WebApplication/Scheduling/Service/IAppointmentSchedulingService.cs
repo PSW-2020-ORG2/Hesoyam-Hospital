@@ -15,5 +15,6 @@ namespace WebApplication.Scheduling.Service
         public List<Doctor> GetDoctorsByType(string type);
         public Appointment SaveAppointment(Appointment appointment);
         public IEnumerable<DateTime> GetTimesForSelectedDoctor(Patient patient);
+        public IEnumerable<DateTime> GetRecommendedTimes();
     }
 }
