@@ -42,8 +42,8 @@ namespace GraphicEditor
             foreach (GraphicalObject obj in graphical_objects) {
                 if (obj.Name.Contains(name)) 
                 {
-                    string full_name = obj.Name;
-                    location = Get_Location_By_Filename(path, full_name);
+                    location = new MapLocation(obj.Hospital, obj.Floor, obj.Name, path);
+
                     locations.Add(location);
                     
                 }
@@ -51,34 +51,6 @@ namespace GraphicEditor
 
             return locations;
         
-        }
-
-        public MapLocation Get_Location_By_Filename(string path, string name) {
-            MapLocation location = new MapLocation();
-
-            location.Name = name;
-            if (path.Contains("1"))
-            {
-                location.Hospital = "Hospital 1";
-            }
-            if (path.Contains("2"))
-            {
-                location.Hospital = "Hospital 2";
-            }
-            if (path.Contains("first"))
-            {
-                location.Floor = "First Floor";
-            }
-            if (path.Contains("second"))
-            {
-                location.Floor = "Second Floor";
-            }
-            if (path.Contains("ground"))
-            {
-                location.Floor = "Ground Floor";
-            }
-
-            return location;
         }
 
     }

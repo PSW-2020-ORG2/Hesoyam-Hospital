@@ -59,13 +59,10 @@ namespace GraphicEditor
             Boolean found = false;
             foreach (Patient _patient in patients)
             {
-                if (Username.Text.Equals(_patient.UserName))
+                if (Username.Text.Equals(_patient.UserName) && Password.Password.Equals(_patient.Password))
                 {
-                    if (Password.Password.Equals(_patient.Password))
-                    {
                         found = true;
                         break;
-                    }
                 }
             }
             return found;
@@ -76,13 +73,10 @@ namespace GraphicEditor
             Boolean found = false;
             foreach (Manager _manager in managers)
             {
-                if (Username.Text.Equals(_manager.UserName))
+                if (Username.Text.Equals(_manager.UserName) && Password.Password.Equals(_manager.Password))
                 {
-                    if (Password.Password.Equals(_manager.Password))
-                    {
                         found = true;
                         break;
-                    }
                 }
             }
             return found;

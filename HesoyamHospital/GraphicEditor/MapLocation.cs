@@ -13,15 +13,18 @@ namespace GraphicEditor
 
         public string Floor { get; set; }
 
+        public string FilePath { get; set; }
+
         public MapLocation() 
         { 
         }
 
-        public MapLocation(string hospital, string floor, string name)
+        public MapLocation(string hospital, string floor, string name, string filePath)
         {
             Name = name;
             Hospital = hospital;
             Floor = floor;
+            FilePath = filePath;
 
         }
     }
