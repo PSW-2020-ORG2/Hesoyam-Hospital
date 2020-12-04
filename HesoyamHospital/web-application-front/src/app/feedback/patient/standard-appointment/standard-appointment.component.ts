@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { logging } from 'protractor';
 import { DoctorDto } from 'src/app/medical-record/DTOs/doctor-dto';
 import { TimeInterval } from '../../DTOs/time-interval';
 import { AppointmentService } from '../../services/appointment.service';
@@ -24,7 +25,7 @@ export class StandardAppointmentComponent implements OnInit {
   public doctors : DoctorDto[] = [];
   public times : IntervalDTO[] = [];
   public doctorDate : DoctorDateDTO =  new DoctorDateDTO(20, new Date());
-  public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(), 0);
+  public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(2020, 12, 6), 0);
   dateValidator = new FormControl('', Validators.required);
   departmentValidator = new FormControl('', Validators.required);
   
@@ -49,16 +50,33 @@ export class StandardAppointmentComponent implements OnInit {
     this._appoService.getAll(this.department).subscribe(
       data => this.doctors = data
     );
+    console.log(this.doctorDate.Date);
   }
 
-  pickDoctor(doctor){
+  selectDoctor(doctor){
     this.doctorDate.Id = doctor.id;
     this.appointment.DoctorId = doctor.id;
+    console.log(this.doctorDate.Date);
+  }
+
+  pickDoctor(){
+    console.log(this.doctorDate.Date);
+    this.doctorDate.Date.setTime(this.doctorDate.Date.getTime() + (1*60*60*1000));
     this._appoService.getTimes(this.doctorDate).subscribe(
       (data) => {
         this.times = data;
+      },
+      error => {
+        if (error.status = 404){
+          alert("No available appointments for selected date.")
+        }
       }
     );
+    console.log(this.doctorDate.Date);
+  }
+
+  selectDate(){
+    console.log(this.doctorDate.Date);
   }
 
   pickTime(time : IntervalDTO){

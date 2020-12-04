@@ -29,6 +29,7 @@ export class AppointmentService {
   }
 
   getTimes(doctorDate : DoctorDateDTO) : Observable<IntervalDTO[]>{
+    console.log(doctorDate);
     return this._http.put<IntervalDTO[]>(this._urlgettimes, doctorDate);
   }
 
