@@ -13,7 +13,7 @@ namespace GraphicEditor
         {
         }
 
-        public (SolidColorBrush, SolidColorBrush) Pick_color(string type)
+        public (SolidColorBrush, SolidColorBrush) PickColor(string type)
         {
             switch (type)
             {
@@ -50,51 +50,62 @@ namespace GraphicEditor
             }
         }
 
-        public Shape draw_Shapes(GraphicalObject graphical_object)
-        {
-
-            string shape = graphical_object.Shape;
+        public Shape DrawShapes(GraphicalObject graphicalObject)
+        { 
+            string shape = graphicalObject.Shape;
             SolidColorBrush brush;
             SolidColorBrush stroke;
-            (brush, stroke) = Pick_color(graphical_object.Type);
+            (brush, stroke) = PickColor(graphicalObject.Type);
+
             switch (shape)
             {
                 case "rectangle":
                     Rectangle rectangle = new Rectangle();
-                    rectangle.Width = graphical_object.Width;
-                    rectangle.Height = graphical_object.Height;
+                    rectangle.Width = graphicalObject.Width;
+                    rectangle.Height = graphicalObject.Height;
+                    
+                    rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
-                    rectangle.Name = graphical_object.Name;
 
+                    if (rectangle.Name == Global.SearchObjectName)
+                    { 
+                        rectangle.StrokeThickness = 7;
+                        rectangle.Stroke = Brushes.Red;
+                    }
+                    else {
+                       
+                        rectangle.Stroke = stroke;
+                    }
+
+                    rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
                     rectangle.MouseRightButtonDown += MouseRightButtonDown;
 
-                    rectangle.Stroke = stroke;
-
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
-                    Canvas.SetLeft(rectangle, graphical_object.Left);
-                    Canvas.SetTop(rectangle, graphical_object.Top);
+                    Canvas.SetLeft(rectangle, graphicalObject.Left);
+                    Canvas.SetTop(rectangle, graphicalObject.Top);
                     return rectangle;
 
                 case "elipse":
                     Ellipse ellipse = new Ellipse();
-                    ellipse.Width = graphical_object.Width;
-                    ellipse.Height = graphical_object.Height;
+                    ellipse.Width = graphicalObject.Width;
+                    ellipse.Height = graphicalObject.Height;
                     ellipse.Fill = brush;
+
                     ellipse.Stroke = stroke;
                     ellipse.VerticalAlignment = VerticalAlignment.Top;
-                    Canvas.SetLeft(ellipse, graphical_object.Left);
-                    Canvas.SetTop(ellipse, graphical_object.Top);
+                    Canvas.SetLeft(ellipse, graphicalObject.Left);
+                    Canvas.SetTop(ellipse, graphicalObject.Top);
                     return ellipse;
                 default:
                     return new Rectangle();
 
             }
         }
-
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+            Ellipse ellipse = sender as System.Windows.Shapes.Ellipse;
             MainWindow mainWindow = new MainWindow();
 
 
@@ -115,7 +126,6 @@ namespace GraphicEditor
                 return;
             }
         }
-
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
@@ -141,3 +151,4 @@ namespace GraphicEditor
 
     }
 }
+

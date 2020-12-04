@@ -12,13 +12,13 @@ namespace GraphicEditor
         public WarehouseWindow()
         {
             InitializeComponent();
-            DrawingShapesService drawing_shapes = new DrawingShapesService();
-            GraphicRepository graphic_repository = new GraphicRepository();
-            List<GraphicalObject> list = graphic_repository.ReadFromFile("warehouse.txt");
+            DrawingShapesService drawingShapes = new DrawingShapesService();
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<GraphicalObject> list = graphicRepository.ReadFromFile("warehouse.txt");
 
-            foreach (GraphicalObject graphical_object in list)
+            foreach (GraphicalObject graphicalObject in list)
             {
-                Shape shape = drawing_shapes.draw_Shapes(graphical_object);
+                Shape shape = drawingShapes.DrawShapes(graphicalObject);
                 canvas1.Children.Add(shape);
             }
         }
