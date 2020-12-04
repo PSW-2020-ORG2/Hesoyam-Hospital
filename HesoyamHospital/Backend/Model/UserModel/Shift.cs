@@ -31,7 +31,7 @@ namespace Backend.Model.UserModel
 
             while(!TimesAreEqual(emptyAppointment, ShiftType.EndTime))
             {
-                if(!AppointmentExists(emptyAppointment))
+                if(!AppointmentExists(emptyAppointment) && IsAppointmentActive(emptyAppointment))
                 {
                     dateTimes.Add(emptyAppointment);
                 }
@@ -43,6 +43,28 @@ namespace Backend.Model.UserModel
         private bool TimesAreEqual(DateTime firstTime, DateTime secondTime)
         {
             if (firstTime.Hour == secondTime.Hour && firstTime.Minute == secondTime.Minute) return true;
+            return false;
+        }
+
+        public bool IsActive()
+        {
+            if (Date.Year > DateTime.Now.Year) return true;
+            if (Date.Year == DateTime.Now.Year && Date.Month > DateTime.Now.Month) return true;
+            if (Date.Day >= DateTime.Now.Day && Date.Month == DateTime.Now.Month && Date.Year == DateTime.Now.Year) return true;
+            return false;
+        }
+
+        public bool IsAppointmentActive(DateTime startTime)
+        {
+            if (!IsCurrentDay()) return true;
+            if (startTime.Hour > DateTime.Now.Hour) return true;
+            if (startTime.Hour == DateTime.Now.Hour && startTime.Minute > DateTime.Now.Minute) return true;
+            return false;
+        }
+
+        private bool IsCurrentDay()
+        {
+            if (Date.Day == DateTime.Now.Day && Date.Month == DateTime.Now.Month && Date.Year == DateTime.Now.Year) return true;
             return false;
         }
 
