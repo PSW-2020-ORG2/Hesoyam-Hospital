@@ -16,14 +16,12 @@ namespace WebApplication.Scheduling.Service
     {
         private readonly IDoctorRepository _doctorRepository;
         private readonly IAppointmentRepository _appointmentRepository;
-        private readonly IPatientRepository _patientRepository;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
 
-        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository, IPatientRepository patientRepository)
+        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
         {
             _doctorRepository = doctorRepository;
             _appointmentRepository = appointmentRepository;
-            _patientRepository = patientRepository;
         }
         public Appointment Create(Appointment entity)
         {

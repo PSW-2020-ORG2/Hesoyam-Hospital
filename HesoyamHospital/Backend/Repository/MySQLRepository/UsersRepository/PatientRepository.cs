@@ -21,7 +21,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
         private const string NOT_UNIQUE_ERROR = "Patient username {0} is not unique!";
         private readonly IUserRepository _userRepository;
         
-        public PatientRepository(IMySQLStream<Patient> stream, ISequencer<long> sequencer, DoctorRepository doctorRepository, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new PatientIdGeneratorStrategy())
+        public PatientRepository(IMySQLStream<Patient> stream, ISequencer<long> sequencer, IUserRepository userRepository) : base(ENTITY_NAME, stream, sequencer, new PatientIdGeneratorStrategy())
         {
             _userRepository = userRepository;
         }
