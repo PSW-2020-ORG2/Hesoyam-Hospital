@@ -13,7 +13,7 @@
         
                     <div class="left">
                         <label class ="constLbl">Name:</label>
-                        <label>{{record.firstName}}</label>                       
+                        <label name="firstName">{{record.firstName}}</label>                       
                     </div>
 
                 <div class="left">
@@ -88,7 +88,7 @@
           #select
           [(ngModel)]="record.selectedDoctorName"
           class="langSelect">
-            <mat-option (click)="pickDoctor(doctor)"
+            <mat-option (click)="changeDoctor(doctor)"
             *ngFor="let doctor of doctors" 
             [value]="doctor">
               {{doctor.fullName}}

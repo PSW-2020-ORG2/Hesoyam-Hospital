@@ -21,6 +21,8 @@ export class AppointmentService {
   private _urlgetdoctors:string = "http://localhost:52166/api/appointmentscheduling/getDoctorsByType/";
   private _urlgettimes:string = "http://localhost:52166/api/appointmentscheduling/getTimesForDoctor/";
   private _urlsave:string = "http://localhost:52166/api/appointmentscheduling/saveAppointment";
+  private _urlgettimesselecteddoctor:string = "http://localhost:52166/api/appointmentscheduling/getTimesForSelectedDoctor/500";
+  private _urlsaveselecteddoctor:string = "http://localhost:52166/api/appointmentscheduling/saveSelectedDoctorAppointment";
 
   constructor( private _http : HttpClient) { }
 
@@ -29,12 +31,19 @@ export class AppointmentService {
   }
 
   getTimes(doctorDate : DoctorDateDTO) : Observable<IntervalDTO[]>{
-    console.log(doctorDate);
     return this._http.put<IntervalDTO[]>(this._urlgettimes, doctorDate);
   }
 
   createAppointment(appointment : AppointmentDTO){
     return this._http.post(this._urlsave, appointment);
+  }
+
+  getTimesForselectedDoctor() : Observable<IntervalDTO[]>{
+    return this._http.get<IntervalDTO[]>(this._urlgettimesselecteddoctor);
+  }
+
+  createAppointmentSelectedDoctor(appointment : AppointmentDTO){
+    return this._http.post(this._urlsaveselecteddoctor, appointment);
   }
 
 }

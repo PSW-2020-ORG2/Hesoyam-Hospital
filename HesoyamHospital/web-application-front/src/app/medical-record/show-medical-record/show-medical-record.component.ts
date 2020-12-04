@@ -41,6 +41,7 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
   getDoctors(){
     this._medService.getGeneralDoctor().subscribe((data) => this.doctors = data);
   };
+  
   changeDoctor(doctor) {
     this.record.selectedDoctorName = doctor.fullName;
     this.selectedD = new SelectedDoctorDto(doctor.id, this.record.username);
