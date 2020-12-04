@@ -23,6 +23,37 @@ namespace Backend.Model.UserModel
             ShiftType = shiftType;
             Appointments = appointments;
         }
+
+        public List<DateTime> GetAvailableTimes(long durationInMinutes)
+        {
+            List<DateTime> dateTimes = new List<DateTime>();
+            DateTime emptyAppointment = ShiftType.StartTime;
+            while(!TimesAreEqual(emptyAppointment, ShiftType.EndTime))
+            {
+                if(!AppointmentExists(emptyAppointment))
+                {
+                    dateTimes.Add(emptyAppointment);
+                }
+                emptyAppointment = emptyAppointment.AddMinutes(durationInMinutes);
+            }
+            return dateTimes;
+        }
+
+        private bool TimesAreEqual(DateTime firstTime, DateTime secondTime)
+        {
+            if (firstTime.Hour == secondTime.Hour && firstTime.Minute == secondTime.Minute) return true;
+            return false;
+        }
+
+        private bool AppointmentExists(DateTime startTime)
+        {
+            foreach (Appointment appointment in Appointments)
+            {
+                if (TimesAreEqual(appointment.TimeInterval.StartTime, startTime)) return true;
+            }
+            return false;
+        }
+
         public long GetId() => Id;
 
         public void SetId(long id) => Id = id;
