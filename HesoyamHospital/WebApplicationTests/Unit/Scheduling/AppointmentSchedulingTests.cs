@@ -33,7 +33,7 @@ namespace WebApplicationTests.Unit.Scheduling
 
             controller.SaveSelecetdDoctorAppointment(dto);
 
-            appointmentService.Verify(n => n.SaveSelectedDoctorAppointment(), times);
+            appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
         }
         public static IEnumerable<object[]> AppointmentData =>
            new List<object[]>

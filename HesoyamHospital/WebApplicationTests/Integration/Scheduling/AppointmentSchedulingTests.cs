@@ -73,7 +73,7 @@ namespace WebApplicationTests.Integration.Scheduling
         public static IEnumerable<object[]> SelectedDoctorData =>
             new List<object[]>
             {
-                new object[] { 501, HttpStatusCode.OK },
+                new object[] { 500, HttpStatusCode.OK },
                 new object[] { 0, HttpStatusCode.BadRequest },
             };
     }
