@@ -108,18 +108,18 @@ namespace GraphicEditor
             Ellipse ellipse = sender as System.Windows.Shapes.Ellipse;
             MainWindow mainWindow = new MainWindow();
 
-
+            
             if (rectangle.Name == "hospital1")
             {
-                mainWindow.Display_Hospital1(sender, e);
+                mainWindow.DisplayHospital(sender, e,"hospital1floors.txt", "Hospital 1" );
             }
             else if (rectangle.Name == "hospital2")
             {
-                mainWindow.Display_Hospital2(sender, e);
+                mainWindow.DisplayHospital(sender, e, "hospital2floors.txt", "Hospital 2");
             }
             else if (rectangle.Name == "warehouse")
             {
-                mainWindow.Display_Warehouse(sender, e);
+                mainWindow.DisplayHospital(sender, e, "warehousefloors.txt", "Warehouse");
             }
             else
             {

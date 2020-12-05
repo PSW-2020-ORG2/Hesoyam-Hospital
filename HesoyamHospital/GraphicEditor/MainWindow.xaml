@@ -30,24 +30,7 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0">
             <Menu DockPanel.Dock="Top"
                   Background="Beige">
-                <MenuItem Header="_Choose a hospital" Style="{StaticResource ResourceKey=menuItem}">
-                    <MenuItem Header="_Hospital 1" Click="Display_Hospital1">
-                        <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Hospital 2" Click="Display_Hospital2">
-                        <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Warehouse" Click="Display_Warehouse">
-                        <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="_Exit" Click="Exit"/>
+                <MenuItem x:Name="ChooseAHospital" Header="_Choose a hospital" Style="{StaticResource ResourceKey=menuItem}">
                 </MenuItem>
 
                 <MenuItem Header="Search" Style="{StaticResource ResourceKey=menuItem}">

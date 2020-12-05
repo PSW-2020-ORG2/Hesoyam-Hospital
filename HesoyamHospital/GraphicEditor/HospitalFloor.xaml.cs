@@ -5,16 +5,16 @@ using System.Windows.Shapes;
 namespace GraphicEditor
 {
     /// <summary>
-    /// Interaction logic for Hospital1FirstFloor.xaml
+    /// Interaction logic for Hospital1GroundFloor.xaml
     /// </summary>
-    public partial class Hospital1FirstFloor : Page
+    public partial class HospitalFloor : Page
     {
-        public Hospital1FirstFloor()
+        public HospitalFloor(string path)
         {
             InitializeComponent();
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
-            List<GraphicalObject> list = graphicRepository.ReadFromFile("hospital1firstfloor.txt");
+            List<GraphicalObject> list = graphicRepository.ReadFromFile(path);
 
             foreach (GraphicalObject graphicalObject in list)
             {
