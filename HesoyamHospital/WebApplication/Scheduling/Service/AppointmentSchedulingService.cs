@@ -59,9 +59,44 @@ namespace WebApplication.Scheduling.Service
             return doctor.TimeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES);
         }
 
-        public IEnumerable<DateTime> GetRecommendedTimes()
+        public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityDTO dto)
         {
-            return null;
+            Doctor doctor = _doctorRepository.GetByID(dto.Id);
+            if (doctor == null || doctor.TimeTable == null) return new List<PriorityIntervalDTO>();
+            List<DateTime> appointments = doctor.TimeTable.GetFirstAvailableTimeForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate);
+            if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
+            return GetByPriority(dto).ToList();
+        }
+
+        public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityDTO dto)
+        {
+            if (dto.PriorityDoctor) return GetWhenPriorityIsDoctor(dto);
+            return GetWhenPriorityIsInterval(dto);
+        }
+
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsDoctor(PriorityDTO dto)
+        {
+            Doctor doctor = _doctorRepository.GetByID(dto.Id);
+            if (doctor == null || doctor.TimeTable == null) return new List<PriorityIntervalDTO>();
+            List<DateTime> appointments = doctor.TimeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES).ToList();
+            if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
+            return new List<PriorityIntervalDTO>();
+        }
+
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityDTO dto)
+        {
+            List<PriorityIntervalDTO> appointments = new List<PriorityIntervalDTO>();
+            DoctorType specialisation = _doctorRepository.GetByID(dto.Id).Specialisation;
+            List<Doctor> doctors = _doctorRepository.GetDoctorByType(specialisation).ToList();
+            if (doctors == null || doctors.Count == 0) return appointments;
+            foreach(Doctor doctor in doctors)
+            {
+                if (doctor == null || doctor.TimeTable == null) break;
+                dto.Id = doctor.Id;
+                appointments.AddRange(PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, doctor.TimeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate).ToList()));
+                if (appointments.Count >= 3) return appointments;
+            }
+            return appointments;
         }
 
         public void Delete(Appointment entity)
