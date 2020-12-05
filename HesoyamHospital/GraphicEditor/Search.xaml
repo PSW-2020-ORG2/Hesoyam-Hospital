@@ -30,8 +30,8 @@
 
         <ComboBox x:Name="search_type" Grid.Row="1" Grid.Column="3" Style="{StaticResource ResourceKey=comboSearch}">
             <ComboBoxItem  IsSelected="True">Search for objects on the map</ComboBoxItem>
-            <ComboBoxItem>Search for equipment and medicines</ComboBoxItem>
             <ComboBoxItem>Search for available room</ComboBoxItem>
+            <ComboBoxItem x:Name="searchEquipmentAndMedicine">Search for equipment and medicines</ComboBoxItem>
         </ComboBox>
         <Label Content="Enter the text here:"
                FontSize="15" FontWeight="DemiBold"  
