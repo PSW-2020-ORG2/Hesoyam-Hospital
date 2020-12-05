@@ -24,6 +24,15 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
 
+    <Style x:Key="labelInfo" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Width" Value="225"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="25"/>
+    </Style>
+    
     <Style x:Key="labelCaptionUserLogin" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="FontSize" Value="30"/>
@@ -114,6 +123,16 @@
         <Setter Property="Grid.ColumnSpan" Value="3"/>
     </Style>
 
+    <Style x:Key="textBox" TargetType="TextBox">
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Grid.Column" Value="8"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="170"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
     <Style x:Key="txtBoxPurposeWareHouse" TargetType="TextBox">
         <Setter Property="Grid.Column" Value="1"/>
         <Setter Property="Grid.ColumnSpan" Value="2"/>
@@ -175,6 +194,14 @@
         <Setter Property="Height" Value="50"/>
         <Setter Property="Grid.Column" Value="1"/>
         <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="buttonChangeInfo" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Width" Value="225"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="6"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 

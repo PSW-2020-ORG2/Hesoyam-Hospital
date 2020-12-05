@@ -67,6 +67,7 @@ namespace GraphicEditor
                     
                     rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
+                    rectangle.ToolTip = rectangle.Name;
 
                     if (rectangle.Name == Global.SearchObjectName)
                     { 
@@ -115,6 +116,26 @@ namespace GraphicEditor
             {
                 if(inf.Name == rectangle.Name)
                     mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
+            }
+              
+        }
+        public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+
+            if (rectangle.Name.Contains("room"))
+            { 
+                Information information = new Information();
+                information.name.Text = rectangle.Name;
+                information.visiting.Text = Global.AdditionalInformation.VisitingHours;
+                information.working.Text = Global.AdditionalInformation.WorkingHours;
+                information.doctor.Text = Global.AdditionalInformation.Doctor;
+                information.name.IsEnabled = false;
+                information.visiting.IsEnabled = false;
+                information.doctor.IsEnabled = false;
+                information.working.IsEnabled = false;
+                information.Show();
+
             }
         }
 

@@ -1,0 +1,14 @@
+    <h1>Notification</h1>
+    <ul>
+        <li *ngFor="let ab of actions">
+           <div class="message">
+               <p class="text">{{ab.Text}}</p>
+                <p class="date">{{ab.Timestamp| date}}  {{ab.Timestamp| date:'shortTime'}}</p>
+            </div> 
+               <div class="action-button">
+                <button mat-raised-button (click)="Approved(ab.Id)"> Approve</button>
+               <!-- <button mat-raised-button (click)="Delete(ab)"> delete</button> --> 
+               </div> 
+        </li>
+    </ul>
+
