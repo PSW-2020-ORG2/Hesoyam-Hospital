@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
 
 namespace GraphicEditor
 {
@@ -49,6 +51,7 @@ namespace GraphicEditor
 
             HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
             window.Hospital.Content = new HospitalFloor(path);
+            window.HospitalFloors.Text = floor;
             window.Show();
 
             
