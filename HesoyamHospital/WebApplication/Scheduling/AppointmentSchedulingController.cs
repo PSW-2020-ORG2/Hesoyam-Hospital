@@ -52,8 +52,9 @@ namespace WebApplication.Scheduling
         public IActionResult GetTimesForDoctor(PriorityDTO dto)
         {
             if (dto == null) return BadRequest();
-            _appointmentSchedulingService.GetRecommendedTimes();
-            return Ok();
+            List<PriorityIntervalDTO> availableAppointments = _appointmentSchedulingService.GetRecommendedTimes(dto).ToList();
+            if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
+            return Ok(availableAppointments.ToArray());
         }
 
 
