@@ -1,0 +1,29 @@
+<div class="registration">
+    <h1><b> Pharmacy registration</b></h1>
+<form [formGroup]="myForm">
+   <!-- <div class="text">Value: {{myForm.value|json}}</div> -->
+    <hr>
+    <mat-form-field>
+        <input matInput placeholder="Pharmacy Name" formControlName="pharmacyName">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="ApiKey" formControlName="apiKey">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Endpoint" formControlName="endpoint">
+    </mat-form-field>
+    <br>
+
+    <button mat-raised-button [disabled]="myForm.invalid" (click)="AddPharmacy()" >Save</button>
+</form>
+</div>
+<table>
+    <!--<tr ngFor*="let r of RegList">
+        <td>{{r.Id}}</td>
+        <td>{{r.ApiKey}}</td>
+        <td>{{r.PharmacyName}}</td>
+    </tr>-->
+
+</table>

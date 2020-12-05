@@ -17,7 +17,7 @@ namespace IntegrationAdapter.Controllers
             try
             {
                 AppResources.getInstance().registeredPharmacyService.Create(pharmacy);
-                return Ok("Pharmacy with name " + pharmacy.PharmacyName + " registered.");
+                return Ok();
             } catch (RegisteredPharmacyNameNotUniqueException e)
             {
                 return BadRequest(e.Message);
