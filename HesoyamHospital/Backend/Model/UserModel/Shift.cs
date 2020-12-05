@@ -40,6 +40,19 @@ namespace Backend.Model.UserModel
             return dateTimes;
         }
 
+        public bool HasAvailableAppointment(long duration)
+        {
+            List<DateTime> availableAppointments = GetAvailableTimes(duration);
+            if (availableAppointments == null || availableAppointments.Count == 0) return false;
+            return true;
+        }
+
+        public DateTime GetFirstAvailableTime(long duration)
+        {
+            List<DateTime> availableAppointments = GetAvailableTimes(duration);
+            return availableAppointments[0];
+        }
+
         private bool TimesAreEqual(DateTime firstTime, DateTime secondTime)
         {
             if (firstTime.Hour == secondTime.Hour && firstTime.Minute == secondTime.Minute) return true;
@@ -51,6 +64,28 @@ namespace Backend.Model.UserModel
             if (Date.Year > DateTime.Now.Year) return true;
             if (Date.Year == DateTime.Now.Year && Date.Month > DateTime.Now.Month) return true;
             if (Date.Day >= DateTime.Now.Day && Date.Month == DateTime.Now.Month && Date.Year == DateTime.Now.Year) return true;
+            return false;
+        }
+
+        public bool IsShiftInInterval(DateTime startTime, DateTime endTime)
+        {
+            if (IsGreaterOrEqual(startTime) && IsLessOrEqual(endTime)) return true;
+            return false;
+        }
+
+        public bool IsGreaterOrEqual(DateTime startTime)
+        {
+            if (Date.Year > startTime.Year) return true;
+            if (Date.Year == startTime.Year && Date.Month > startTime.Month) return true;
+            if (Date.Year == startTime.Year && Date.Month == startTime.Month && Date.Day >= startTime.Day) return true;
+            return false;
+        }
+
+        public bool IsLessOrEqual(DateTime endTime)
+        {
+            if (Date.Year < endTime.Year) return true;
+            if (Date.Year == endTime.Year && Date.Month < endTime.Month) return true;
+            if (Date.Year == endTime.Year && Date.Month == endTime.Month && Date.Day <= endTime.Day) return true;
             return false;
         }
 
