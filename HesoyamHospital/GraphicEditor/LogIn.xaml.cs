@@ -34,9 +34,11 @@ namespace GraphicEditor
             bool found = false;
 
             found = FindManager();
+            Global.LoggedInUserType = "manager";
             if (!found)
             {
                 found = FindPatient();
+                Global.LoggedInUserType = "patient";
             }
 
                 if (!found)

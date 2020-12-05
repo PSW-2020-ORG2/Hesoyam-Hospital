@@ -14,7 +14,11 @@ namespace GraphicEditor
             InitializeComponent();
             DataContext = this;
             Global.SearchObjectName = "";
-           
+            if (Global.LoggedInUserType.Equals("patient"))
+            {
+                searchEquipmentAndMedicine.Visibility = Visibility.Hidden;
+            }
+
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
