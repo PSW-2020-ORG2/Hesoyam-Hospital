@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace GraphicEditor
 {
@@ -54,6 +55,38 @@ namespace GraphicEditor
 
             return new GraphicalObject(type, name, width, height, top, left, shape, hospital, floor);
 
+        }
+
+        public List<FileInformation> readFileInformation(string fileName) {
+            string path = Path.GetFullPath(fileName);
+            List<FileInformation> information = new List<FileInformation>();
+
+            if (File.Exists(path))
+            {
+                string[] lines = File.ReadAllLines(path);
+                foreach (string line in lines)
+                {
+                    FileInformation fileInformation = ConvertLineToFileInformation(line);
+                    if (fileInformation != null)
+                        information.Add(fileInformation);
+                }
+            }
+
+            return information;
+        }
+
+        private FileInformation ConvertLineToFileInformation(string line)
+        {
+            string[] fields = line.Split(',');
+            if (fields.Length != 2)
+            {
+
+                return null;
+            }
+            string name = fields[0].Trim();
+            string path = fields[1].Trim();
+
+            return new FileInformation(name, path);
         }
     }
 }

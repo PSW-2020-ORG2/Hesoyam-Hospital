@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
 
 namespace GraphicEditor
 {
@@ -39,55 +41,24 @@ namespace GraphicEditor
             string name = mapLocation.Name;
             Global.SearchObjectName = name;
             string hospital = mapLocation.Hospital;
+            string path = mapLocation.FilePath;
             string floor = mapLocation.Floor;
+            string comboBoxPath = "";
 
-
-            switch (floor)
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
+            foreach (FileInformation inf in menuInformation) 
             {
-                case "Ground Floor":
-                    if (hospital.Equals("Hospital 1"))
-                    {
-                        Hospital1Window hospital1_window = new Hospital1Window();
-                        hospital1_window.Content = new Hospital1GroundFloor();
-                        hospital1_window.Show();
-                    }
-                    else
-                    {
-                        Hospital1Window hospital2_window = new Hospital1Window();
-                        hospital2_window.Content = new Hospital2GroundFloor();
-                        hospital2_window.Show();
-                    }
-                    break;
-                case "First Floor":
-                    if (hospital.Equals("Hospital 1"))
-                    {
-                        Hospital1Window hospital1_window = new Hospital1Window();
-                        hospital1_window.Content = new Hospital1FirstFloor();
-                        hospital1_window.Show();
-                    }
-                    else
-                    {
-                        Hospital2Window hospital2_window = new Hospital2Window();
-                        hospital2_window.Content = new Hospital2FirstFloor();
-                        hospital2_window.Show();
-                    }
-                    break;
-                case "Second Floor":
-                    if (hospital.Equals("Hospital 1"))
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Hospital2Window hospital2_window = new Hospital2Window();
-                        hospital2_window.Content = new Hospital2SecondFloor();
-                        hospital2_window.Show();
-                    }
-                    break;
-                default:
-                    break;
-
+                if (inf.Name == hospital)
+                    comboBoxPath = inf.FilePath;
             }
+
+            HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
+            window.Hospital.Content = new HospitalFloor(path);
+            window.HospitalFloors.Text = floor;
+            window.Show();
+
+            
         }
     }
 }

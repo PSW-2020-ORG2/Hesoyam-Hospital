@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 
 namespace GraphicEditor
@@ -18,6 +21,16 @@ namespace GraphicEditor
 
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
+
+            foreach (FileInformation inf in menuInformation) 
+            {
+                MenuItem item = new MenuItem();
+                item.Header = inf.Name;
+                item.Click += (sender2, e2) => DisplayHospital(sender2, e2, inf.FilePath, inf.Name);
+                ChooseAHospital.Items.Add(item);
+            }
+
             List<GraphicalObject> list = graphicRepository.ReadFromFile("hospitalmap.txt");
 
             foreach (GraphicalObject graphicalObject in list)
@@ -25,25 +38,17 @@ namespace GraphicEditor
                 Shape shape = drawingShapes.DrawShapes(graphicalObject);
                 canvas1.Children.Add(shape);
             }
+
         }
 
-        public void Display_Hospital1(object sender, RoutedEventArgs e)
+
+
+        public void DisplayHospital(object sender, RoutedEventArgs e, string path, string name)
         {
-            Hospital1Window hospital1 = new Hospital1Window();
+            HospitalWindow hospital1 = new HospitalWindow(name, path);
             hospital1.Show();
         }
-
-        public void Display_Hospital2(object sender, RoutedEventArgs e)
-        {
-             Hospital2Window hospital2 = new Hospital2Window();
-             hospital2.Show();
-        }
-
-        public void Display_Warehouse(object sender, RoutedEventArgs e)
-        {
-             WarehouseWindow warehouse = new WarehouseWindow();
-             warehouse.Show();
-        }
+       
 
         public void Display_Search_Window(object sender, RoutedEventArgs e)
         {
@@ -51,10 +56,10 @@ namespace GraphicEditor
             search.Show();
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
+        public void Display_Information_Window(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Information information = new Information();
+            information.Show();
         }
-
     }
 }

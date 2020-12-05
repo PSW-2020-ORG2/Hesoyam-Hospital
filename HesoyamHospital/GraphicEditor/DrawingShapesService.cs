@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -80,7 +81,6 @@ namespace GraphicEditor
 
                     rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
-                    rectangle.MouseRightButtonDown += MouseRightButtonDown;
 
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
                     Canvas.SetLeft(rectangle, graphicalObject.Left);
@@ -109,21 +109,15 @@ namespace GraphicEditor
             Ellipse ellipse = sender as System.Windows.Shapes.Ellipse;
             MainWindow mainWindow = new MainWindow();
 
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
 
-            if (rectangle.Name == "hospital1")
+            foreach (FileInformation inf in menuInformation)
             {
-                mainWindow.Display_Hospital1(sender, e);
+                if(inf.Name == rectangle.Name)
+                    mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
             }
-            else if (rectangle.Name == "hospital2")
-            {
-                mainWindow.Display_Hospital2(sender, e);
-            }
-            else if (rectangle.Name == "warehouse")
-            {
-                mainWindow.Display_Warehouse(sender, e);
-            }
-                return;
-            
+              
         }
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -141,6 +135,7 @@ namespace GraphicEditor
                 information.doctor.IsEnabled = false;
                 information.working.IsEnabled = false;
                 information.Show();
+
             }
         }
 

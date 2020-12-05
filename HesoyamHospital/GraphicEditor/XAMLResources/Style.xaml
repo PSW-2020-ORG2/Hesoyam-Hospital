@@ -14,9 +14,7 @@
 
     <Style TargetType="{x:Type local:MainWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:LogIn}" BasedOn="{StaticResource {x:Type Window}}"/>
-    <Style TargetType="{x:Type local:Hospital1Window}" BasedOn="{StaticResource {x:Type Window}}"/>
-    <Style TargetType="{x:Type local:Hospital2Window}" BasedOn="{StaticResource {x:Type Window}}"/>
-    <Style TargetType="{x:Type local:WarehouseWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:HospitalWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:Information}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:Search}" BasedOn="{StaticResource {x:Type Window}}"/>
 
