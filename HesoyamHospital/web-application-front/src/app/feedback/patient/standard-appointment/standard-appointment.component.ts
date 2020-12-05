@@ -50,7 +50,6 @@ export class StandardAppointmentComponent implements OnInit {
     this._appoService.getAll(this.department).subscribe(
       data => this.doctors = data
     );
-    console.log(this.doctorDate.Date);
   }
 
   selectDoctor(doctor){
@@ -60,7 +59,6 @@ export class StandardAppointmentComponent implements OnInit {
   }
 
   pickDoctor(){
-    console.log(this.doctorDate.Date);
     this.doctorDate.Date.setTime(this.doctorDate.Date.getTime() + (1*60*60*1000));
     this._appoService.getTimes(this.doctorDate).subscribe(
       (data) => {
@@ -72,7 +70,7 @@ export class StandardAppointmentComponent implements OnInit {
         }
       }
     );
-    console.log(this.doctorDate.Date);
+    
   }
 
   selectDate(){
