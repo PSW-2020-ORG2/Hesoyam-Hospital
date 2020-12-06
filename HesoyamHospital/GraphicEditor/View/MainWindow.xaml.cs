@@ -62,10 +62,10 @@ namespace GraphicEditor
             search.Show();
         }
 
-        public void Display_Information_Window(object sender, RoutedEventArgs e)
+        public void Search_Available_Terms(object sender, RoutedEventArgs e)
         {
-            Information information = new Information();
-            information.Show();
+            SearchAvailableAppointmentWindow searchAvailableAppointment = new SearchAvailableAppointmentWindow();
+            searchAvailableAppointment.Show();
         }
     }
 }

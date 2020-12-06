@@ -38,6 +38,11 @@
                             <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="_Search for available terms" Click="Search_Available_Terms">
+                        <MenuItem.Icon>
+                            <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>

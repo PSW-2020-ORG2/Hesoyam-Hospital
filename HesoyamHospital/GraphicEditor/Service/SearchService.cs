@@ -16,7 +16,7 @@ namespace GraphicEditor
         }
         public List<EquipmentAndMedicine> GetEquipmentAndMedicineByName(string filename, string name)
         {
-            List<EquipmentAndMedicine> allEquipment = new List<EquipmentAndMedicine>();
+            List<EquipmentAndMedicine> allEquipment = null;
             List<EquipmentAndMedicine> findEquipmentAndMedicine = new List<EquipmentAndMedicine>();
             EquipmentAndMedicineRepository equipmentAndMedicineRepository = new EquipmentAndMedicineRepository();
 
