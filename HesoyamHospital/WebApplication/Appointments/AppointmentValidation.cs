@@ -5,7 +5,7 @@ namespace WebApplication.Appointments
     public class AppointmentValidation
     {
         public bool IsPossibleToCancelAppointment(Appointment appointment, long patientId)
-        => !appointment.CanBeCancelled()
+        =>  appointment.CanBeCancelled()
             && appointment.Patient.Id == patientId;
     }
 }
