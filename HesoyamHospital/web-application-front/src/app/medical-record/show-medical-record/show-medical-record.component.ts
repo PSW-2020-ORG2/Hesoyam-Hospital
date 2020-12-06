@@ -23,9 +23,8 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
   public imgPath = "";
   displayedColumns: string[] = ['State', 'Date', 'From', 'To', 'Department', 'Doctor', 'Room', 'Cancel', 'Survey'];
   public doctors : DoctorDto[] = [];
-
+  
   constructor(private _medService: MedicalRecordService, private _appService : AppointmentService, private _router : Router, private _snackBar: MatSnackBar) { }
-
   ngAfterViewInit(): void {
     this._appService.getAll().subscribe((data) => this.dataAppointments = data);
   }
@@ -60,5 +59,9 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
     this._snackBar.open(message, action, {
       duration: 10000,
     });
+  }
+
+  ableToCancel(appDate) {
+    return new Date(appDate) > new Date(new Date().getTime() + 1000*60*60*48);
   }
 }
