@@ -35,7 +35,7 @@
                 <MenuItem Header="Search" Style="{StaticResource ResourceKey=menuItem}">
                     <MenuItem Header="_Search" Click="Display_Search_Window">
                         <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
+                            <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
