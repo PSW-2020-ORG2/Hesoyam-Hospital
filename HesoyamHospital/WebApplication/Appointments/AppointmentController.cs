@@ -23,8 +23,8 @@ namespace WebApplication.Appointments
             return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDto(_appointmentService.GetAllByPatient(id).ToList()));
         }
 
-        [HttpPut("cancel/{id}")]
-        public IActionResult Cancel(long id)
+        [HttpPut("cancel")]
+        public IActionResult Cancel([FromBody]long id)
         {
             if (_appointmentService.GetByID(id) == null) return NotFound();
             _appointmentService.Cancel(id);
