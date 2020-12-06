@@ -22,5 +22,13 @@ namespace WebApplication.Appointments
             if (id != defaultPatientId) return BadRequest();
             return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDto(_appointmentService.GetAllByPatient(id).ToList()));
         }
+
+        [HttpPut("cancel/{id}")]
+        public IActionResult Cancel(long id)
+        {
+            if (_appointmentService.GetByID(id) == null) return NotFound();
+            _appointmentService.Cancel(id);
+            return Ok();
+        }
     }
 }

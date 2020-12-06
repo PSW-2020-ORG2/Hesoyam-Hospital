@@ -17,6 +17,12 @@ namespace WebApplication.Appointments.Service
             _patientRepository = patientRepository;
             _appointmentRepository = appointmentRepository;
         }
+
+        public void Cancel(long appointmentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Appointment Create(Appointment entity)
         {
             throw new NotImplementedException();

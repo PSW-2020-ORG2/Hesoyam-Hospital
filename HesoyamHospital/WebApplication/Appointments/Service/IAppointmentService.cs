@@ -10,5 +10,6 @@ namespace WebApplication.Appointments.Service
         public IEnumerable<Appointment> GetAllByPatient(long patientId);
         public void DeactivateFillingOutSurvey(long appointmentId);
         public Doctor GetDoctorAtAppointment(long appointmentId);
+        public void Cancel(long appointmentId);
     }
 }
