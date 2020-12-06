@@ -11,16 +11,26 @@ namespace WebApplication.Appointments.Service
     {
         private readonly IPatientRepository _patientRepository;
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly ICancellationRepository _cancellationRepository;
 
-        public AppointmentService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository)
+        public AppointmentService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository, ICancellationRepository cancellationRepository)
         {
             _patientRepository = patientRepository;
             _appointmentRepository = appointmentRepository;
+            _cancellationRepository = cancellationRepository;
         }
 
-        public void Cancel(long appointmentId)
+        public void Cancel(long patientId, long appointmentId)
         {
-            throw new NotImplementedException();
+            Appointment appointment = GetByID(appointmentId);
+            appointment.Canceled = true;
+            _appointmentRepository.Update(appointment);
+            SaveCancellationData(appointment);
+        }
+
+        private void SaveCancellationData(Appointment appointment)
+        {
+            _cancellationRepository.Create(new Cancellation(0, appointment, DateTime.Now));
         }
 
         public Appointment Create(Appointment entity)

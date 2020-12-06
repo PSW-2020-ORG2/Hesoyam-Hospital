@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Backend.Model.PatientModel;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Appointments.Service;
 
@@ -10,10 +11,13 @@ namespace WebApplication.Appointments
     {
         private readonly IAppointmentService _appointmentService;
         private readonly long defaultPatientId = 500;
+        private readonly AppointmentValidation _appointmentValidation;
+        private readonly int hoursToCancelBeforeAppointment = 48;
 
         public AppointmentController(IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;
+            _appointmentValidation = new AppointmentValidation(hoursToCancelBeforeAppointment);
         }
 
         [HttpGet("{id}")]
@@ -26,8 +30,10 @@ namespace WebApplication.Appointments
         [HttpPut("cancel")]
         public IActionResult Cancel([FromBody]long id)
         {
-            if (_appointmentService.GetByID(id) == null) return NotFound();
-            _appointmentService.Cancel(id);
+            Appointment appointment = _appointmentService.GetByID(id);
+            if (appointment == null) return NotFound();
+            if (!_appointmentValidation.IsPossibleToCancelAppointment(appointment, defaultPatientId)) return BadRequest();
+            _appointmentService.Cancel(defaultPatientId, id);
             return Ok();
         }
     }

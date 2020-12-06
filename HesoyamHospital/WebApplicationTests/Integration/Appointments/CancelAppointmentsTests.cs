@@ -2,6 +2,7 @@
 using Shouldly;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using WebApplication;
 using Xunit;
 
@@ -21,7 +22,7 @@ namespace WebApplicationTests.Integration.Appointments
         {
             HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.PutAsync("/api/appointment/cancel", new StringContent("1"));
+            HttpResponseMessage response = await client.PutAsync("/api/appointment/cancel", new StringContent("1", Encoding.UTF8, "application/json"));
 
             HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound};
             response.StatusCode.ShouldBeOneOf(possibleStatusCodes);

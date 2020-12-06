@@ -5,12 +5,18 @@ namespace WebApplication.Appointments
 {
     public class AppointmentValidation
     {
-        private readonly int hoursToCancelBeforeAppointment = 48;
+        private int _hoursToCancelBeforeAppointment;
+
+        public AppointmentValidation(int hoursToCancelBeforeAppointment)
+        {
+            _hoursToCancelBeforeAppointment = hoursToCancelBeforeAppointment;
+        }
+
         public bool IsPossibleToCancelAppointment(Appointment appointment, long patientId)
-            => !appointment.TimeInterval.IsInThePast() 
-            && !appointment.TimeInterval.IsDateTimeBetween(DateTime.Now) 
-            && !appointment.Canceled 
-            && appointment.Patient.Id == patientId 
-            && appointment.TimeInterval.EndTime.AddHours(hoursToCancelBeforeAppointment) < DateTime.Now;
+        => !appointment.TimeInterval.IsInThePast()
+            && !appointment.TimeInterval.IsDateTimeBetween(DateTime.Now)
+            && !appointment.Canceled
+            && appointment.Patient.Id == patientId
+            && appointment.TimeInterval.EndTime.AddHours(-_hoursToCancelBeforeAppointment) > DateTime.Now;
     }
 }

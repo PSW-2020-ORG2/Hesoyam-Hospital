@@ -16,7 +16,7 @@ namespace WebApplicationTests.Unit.Appointments
         [MemberData(nameof(Data))]
         public void Cancel_appointment(long patientId, long appointmentId, bool canceledStatus)
         {
-            AppointmentService service = new AppointmentService(CreatePatientStubRepository(), CreateAppointmentStubRepository());
+            AppointmentService service = new AppointmentService(CreatePatientStubRepository(), CreateAppointmentStubRepository(), CreateCancellationStubRepository());
 
             service.Cancel(patientId, appointmentId);
 
@@ -43,6 +43,11 @@ namespace WebApplicationTests.Unit.Appointments
             stubRepository.Setup(r => r.GetByID(0)).Returns(appointment);
 
             return stubRepository.Object;
+        }
+
+        private static ICancellationRepository CreateCancellationStubRepository()
+        {
+            return new Mock<ICancellationRepository>().Object;
         }
 
         public static IEnumerable<object[]> Data =>

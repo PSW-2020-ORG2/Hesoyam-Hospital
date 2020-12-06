@@ -1,6 +1,7 @@
 ﻿using Backend.Model.DoctorModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Repository.MySQLRepository.MySQL.Stream;
@@ -22,7 +23,7 @@ namespace WebApplicationTests.Unit.Appointments
         [Fact]
         public void Get_accurate_count_of_appointments()
         {
-            AppointmentService service = new AppointmentService(CreateStubRepository(), new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer()));
+            AppointmentService service = new AppointmentService(CreateStubRepository(), null, null);
 
             IEnumerable<Appointment> appointments = service.GetAllByPatient(0);
 
@@ -33,7 +34,7 @@ namespace WebApplicationTests.Unit.Appointments
         [MemberData(nameof(Data))]
         public void Get_accurate_appointment_status(long patientId, AppointmentState expectedState)
         {
-            AppointmentService service = new AppointmentService(CreateStubRepository(), new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer()));
+            AppointmentService service = new AppointmentService(CreateStubRepository(), null, null);
 
             List<Appointment> appointments = (List<Appointment>)service.GetAllByPatient(patientId);
 
