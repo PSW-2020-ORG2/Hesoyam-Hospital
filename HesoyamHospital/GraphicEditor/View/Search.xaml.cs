@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Internal;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -26,19 +27,9 @@ namespace GraphicEditor
             String name = objectName.Text;
             SearchService searchService = new SearchService();
 
-            if (searchType.SelectedIndex == 0)
+            if (searchType.SelectedIndex == 2)
             {
-                List<MapLocation> results = searchService.FindObjectsByName(name);
-                dataGridSearch.ItemsSource = results;
-            }
-            else if (searchType.SelectedIndex == 1)
-            {
-                List<MapLocation> results = searchService.FindObjectsByName(name);
-                dataGridSearch.ItemsSource = results;
-            }
-            else
-            {
-                if (name.Equals(""))
+                if (name.IsNullOrEmpty())
                 {
                     List<EquipmentAndMedicine> results = searchService.FindAllEquipmentAndMedicines("equipmentandmedicine.txt");
                     dataGridSearch.ItemsSource = results;
@@ -49,8 +40,11 @@ namespace GraphicEditor
                     List<EquipmentAndMedicine> results = searchService.GetEquipmentAndMedicineByName("equipmentandmedicine.txt", name);
                     dataGridSearch.ItemsSource = results;
                 }
-
-
+            }
+            else
+            {
+                List<MapLocation> results = searchService.FindObjectsByName(name);
+                dataGridSearch.ItemsSource = results;
             }
         }
 

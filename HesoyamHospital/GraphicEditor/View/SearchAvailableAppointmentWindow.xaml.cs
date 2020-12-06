@@ -28,10 +28,5 @@ namespace GraphicEditor
                 toDatePicker.IsDropDownOpen = true;
             }
         }
-
-        private void ButtonMakeAppointment_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

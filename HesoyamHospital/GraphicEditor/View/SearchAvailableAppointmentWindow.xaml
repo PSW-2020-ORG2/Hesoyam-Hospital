@@ -56,7 +56,7 @@
             </StackPanel>
         </GroupBox>
 
-        <Button x:Name="buttonRecommendAppointment" Content="Recommend an appointment" ToolTip="Recommend an appointment" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonMakeAppointment_Click"/>
+        <Button x:Name="buttonRecommendAppointment" Content="Recommend an appointment" ToolTip="Recommend an appointment" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}"/>
 
 
         <Label Content="Doctor : " Grid.Row="8" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
@@ -71,7 +71,7 @@
 
         <TextBox x:Name="recommendedTime" Grid.Row="10" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxAppointmentStyle}" IsEnabled="False"/>
 
-        <Button x:Name="buttonMakeAppointment" Content="Make an appointment" ToolTip="Make an appointment" Grid.Column="3" Grid.Row="11" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonMakeAppointment_Click" IsEnabled="False"/>
+        <Button x:Name="buttonMakeAppointment" Content="Make an appointment" ToolTip="Make an appointment" Grid.Column="3" Grid.Row="11" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" IsEnabled="False"/>
 
     </Grid>
 </Window>
