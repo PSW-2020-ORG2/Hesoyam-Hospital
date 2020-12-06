@@ -5,7 +5,7 @@ namespace WebApplication.Appointments
 {
     public class AppointmentValidation
     {
-        private int _hoursToCancelBeforeAppointment;
+        private readonly int _hoursToCancelBeforeAppointment;
 
         public AppointmentValidation(int hoursToCancelBeforeAppointment)
         {
