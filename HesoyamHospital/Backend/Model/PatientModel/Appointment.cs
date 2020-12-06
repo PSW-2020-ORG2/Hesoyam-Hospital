@@ -7,7 +7,6 @@ using Backend.Model.UserModel;
 using System;
 using Backend.Repository.Abstract;
 using Backend.Util;
-using Backend.Exceptions;
 
 namespace Backend.Model.PatientModel
 {
@@ -21,6 +20,8 @@ namespace Backend.Model.PatientModel
         public virtual Patient Patient { get; set; }
         public virtual Doctor DoctorInAppointment { get; set; }
         public virtual Room Room { get; set; }
+
+        private const int _hoursToCancelBeforeAppointment = 48;
 
         public Appointment(long id) => Id = id;
 
@@ -69,6 +70,9 @@ namespace Backend.Model.PatientModel
 
         public bool IsInFuture()
             => TimeInterval.StartTime >= DateTime.Now;
+
+        public bool CanBeCancelled()
+            => TimeInterval.EndTime.AddHours(-_hoursToCancelBeforeAppointment) > DateTime.Now;
 
         public override bool Equals(object obj)
         {

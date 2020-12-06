@@ -12,12 +12,11 @@ namespace WebApplication.Appointments
         private readonly IAppointmentService _appointmentService;
         private readonly long defaultPatientId = 500;
         private readonly AppointmentValidation _appointmentValidation;
-        private readonly int hoursToCancelBeforeAppointment = 48;
 
         public AppointmentController(IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;
-            _appointmentValidation = new AppointmentValidation(hoursToCancelBeforeAppointment);
+            _appointmentValidation = new AppointmentValidation();
         }
 
         [HttpGet("{id}")]
