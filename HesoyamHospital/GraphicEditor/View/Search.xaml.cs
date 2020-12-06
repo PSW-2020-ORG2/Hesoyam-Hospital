@@ -27,7 +27,6 @@ namespace GraphicEditor
             SearchService search_service = new SearchService();
             List<MapLocation> results = search_service.Find_objects_by_name(name);
             dataGridSearch.ItemsSource = results;
-
         }
 
         private void Advanced_Search_Click(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

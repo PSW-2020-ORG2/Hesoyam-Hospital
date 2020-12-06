@@ -10,6 +10,12 @@ namespace GraphicEditor
         public Information()
         {
             InitializeComponent();
+            Global.SearchObjectName = "";
+            if (Global.LoggedInUserType == "patient")
+            {
+                change.Visibility = Visibility.Hidden;
+            }
+
         }
         private void ChangeInformationClick(object sender, RoutedEventArgs e)
         {
