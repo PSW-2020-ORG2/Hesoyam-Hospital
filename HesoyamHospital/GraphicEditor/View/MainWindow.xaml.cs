@@ -29,6 +29,13 @@ namespace GraphicEditor
             {
                 MenuItem item = new MenuItem();
                 item.Header = inf.Name;
+                Image icon = new Image();
+                string relativePath = "/XAMLResources/icons/logohospital.png";
+                Uri resourceUri = new Uri(relativePath, UriKind.Relative);
+                icon.Source = new BitmapImage(resourceUri);
+                icon.Width = 25;
+                icon.Height = 25;
+                item.Icon = icon;
                 item.Click += (sender2, e2) => DisplayHospital(sender2, e2, inf.FilePath, inf.Name);
                 ChooseAHospital.Items.Add(item);
             }
