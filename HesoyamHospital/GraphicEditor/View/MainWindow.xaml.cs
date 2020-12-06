@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace GraphicEditor
 {
@@ -23,6 +24,7 @@ namespace GraphicEditor
             GraphicRepository graphicRepository = new GraphicRepository();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
 
+       
             foreach (FileInformation inf in menuInformation) 
             {
                 MenuItem item = new MenuItem();
@@ -40,8 +42,6 @@ namespace GraphicEditor
             }
 
         }
-
-
 
         public void DisplayHospital(object sender, RoutedEventArgs e, string path, string name)
         {

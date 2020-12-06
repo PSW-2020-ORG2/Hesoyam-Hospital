@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace GraphicEditor
 {
     class FileInformation
@@ -11,7 +8,6 @@ namespace GraphicEditor
             Name = name;
             FilePath = filePath;
         }
-
         public string Name { get; set; }
 
         public string FilePath { get; set; }

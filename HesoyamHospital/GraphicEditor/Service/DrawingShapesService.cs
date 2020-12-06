@@ -81,7 +81,7 @@ namespace GraphicEditor
 
                     rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
-
+                    rectangle.MouseRightButtonDown += MouseRightButtonDown;
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
                     Canvas.SetLeft(rectangle, graphicalObject.Left);
                     Canvas.SetTop(rectangle, graphicalObject.Top);

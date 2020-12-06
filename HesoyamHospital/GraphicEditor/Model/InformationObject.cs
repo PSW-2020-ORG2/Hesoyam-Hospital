@@ -1,5 +1,4 @@
-﻿using System.Windows;
-
+﻿
 namespace GraphicEditor
 {
     public class InformationObject

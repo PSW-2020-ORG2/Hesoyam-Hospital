@@ -30,8 +30,7 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0">
             <Menu DockPanel.Dock="Top"
                   Background="Beige">
-                <MenuItem x:Name="ChooseAHospital" Header="_Choose a hospital" Style="{StaticResource ResourceKey=menuItem}">
-                </MenuItem>
+                <MenuItem x:Name="ChooseAHospital" Header="_Choose a hospital" Style="{StaticResource ResourceKey=menuItem}"/>
 
                 <MenuItem Header="Search" Style="{StaticResource ResourceKey=menuItem}">
                     <MenuItem Header="_Search" Click="Display_Search_Window">

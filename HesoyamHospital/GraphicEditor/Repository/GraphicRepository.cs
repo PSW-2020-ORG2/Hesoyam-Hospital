@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace GraphicEditor
 {
@@ -80,7 +78,6 @@ namespace GraphicEditor
             string[] fields = line.Split(',');
             if (fields.Length != 2)
             {
-
                 return null;
             }
             string name = fields[0].Trim();
