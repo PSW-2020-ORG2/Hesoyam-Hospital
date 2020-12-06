@@ -24,9 +24,34 @@ namespace GraphicEditor
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
             String name = objectName.Text;
-            SearchService search_service = new SearchService();
-            List<MapLocation> results = search_service.Find_objects_by_name(name);
-            dataGridSearch.ItemsSource = results;
+            SearchService searchService = new SearchService();
+
+            if (searchType.SelectedIndex == 0)
+            {
+                List<MapLocation> results = searchService.FindObjectsByName(name);
+                dataGridSearch.ItemsSource = results;
+            }
+            else if (searchType.SelectedIndex == 1)
+            {
+                List<MapLocation> results = searchService.FindObjectsByName(name);
+                dataGridSearch.ItemsSource = results;
+            }
+            else
+            {
+                if (name.Equals(""))
+                {
+                    List<EquipmentAndMedicine> results = searchService.FindAllEquipmentAndMedicines("equipmentandmedicine.txt");
+                    dataGridSearch.ItemsSource = results;
+
+                }
+                else
+                {
+                    List<EquipmentAndMedicine> results = searchService.GetEquipmentAndMedicineByName("equipmentandmedicine.txt", name);
+                    dataGridSearch.ItemsSource = results;
+                }
+
+
+            }
         }
 
         private void Advanced_Search_Click(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
