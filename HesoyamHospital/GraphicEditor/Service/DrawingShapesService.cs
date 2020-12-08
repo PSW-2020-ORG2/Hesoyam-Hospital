@@ -81,7 +81,7 @@ namespace GraphicEditor
 
                     rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
-
+                    rectangle.MouseRightButtonDown += MouseRightButtonDown;
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
                     Canvas.SetLeft(rectangle, graphicalObject.Left);
                     Canvas.SetTop(rectangle, graphicalObject.Top);
@@ -106,7 +106,6 @@ namespace GraphicEditor
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
-            Ellipse ellipse = sender as System.Windows.Shapes.Ellipse;
             MainWindow mainWindow = new MainWindow();
 
             GraphicRepository graphicRepository = new GraphicRepository();

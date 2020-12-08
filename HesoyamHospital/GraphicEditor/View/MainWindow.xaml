@@ -30,13 +30,12 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0">
             <Menu DockPanel.Dock="Top"
                   Background="Beige">
-                <MenuItem x:Name="ChooseAHospital" Header="_Choose a hospital" Style="{StaticResource ResourceKey=menuItem}">
-                </MenuItem>
+                <MenuItem x:Name="ChooseAHospital" Header="_Choose a hospital" Style="{StaticResource ResourceKey=menuItem}"/>
 
                 <MenuItem Header="Search" Style="{StaticResource ResourceKey=menuItem}">
                     <MenuItem Header="_Search" Click="Display_Search_Window">
                         <MenuItem.Icon>
-                            <Image Source="/icons/logohospital.png" Width="25" Height="25"/>
+                            <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>

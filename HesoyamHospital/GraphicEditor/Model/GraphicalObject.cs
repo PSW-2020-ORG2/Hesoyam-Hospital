@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace GraphicEditor
 {
     public class GraphicalObject
@@ -16,10 +13,6 @@ namespace GraphicEditor
             public string Hospital { get; set; }
             public string Floor { get; set; }
 
-        public GraphicalObject()
-            {
-
-            }
             public GraphicalObject(string type, string name, long width, long height, long top, long left, string shape, string hospital, string floor)
             {
                 Type = type;
