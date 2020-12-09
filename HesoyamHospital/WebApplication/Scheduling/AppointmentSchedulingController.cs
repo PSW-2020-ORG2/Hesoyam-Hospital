@@ -24,7 +24,7 @@ namespace WebApplication.Scheduling
         public IActionResult GetDoctorsByType(string type)
         {
             List<Doctor> doctors = _appointmentSchedulingService.GetDoctorsByType(type);
-            if (doctors == null) return NotFound();
+            if (doctors == null || doctors.Count == 0) return NotFound();
             List<DoctorDTO> dtos = DoctorMapper.DoctorListToDTOList(doctors);
             return Ok(dtos.ToArray());
         }
@@ -62,6 +62,7 @@ namespace WebApplication.Scheduling
         public IActionResult SaveAppointment(AppointmentDTO dto)
         {
             if (dto == null || dto.DoctorId == 0) return BadRequest();
+            if (_appointmentSchedulingService.MultipleAppoitments(dto)) return BadRequest("SCHEDULING FAILED");
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
             return Ok();
         }
@@ -73,6 +74,7 @@ namespace WebApplication.Scheduling
             Patient patient = AppResources.getInstance().patientRepository.GetByID(dto.PatientId);
             if (patient.SelectedDoctor == null) return NotFound();
             dto.DoctorId = patient.SelectedDoctor.Id;
+            if (_appointmentSchedulingService.MultipleAppoitments(dto)) return BadRequest("SCHEDULING FAILED");
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
             return Ok();
         }
