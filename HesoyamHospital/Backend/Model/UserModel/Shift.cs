@@ -103,6 +103,16 @@ namespace Backend.Model.UserModel
             return false;
         }
 
+        public bool PatientAlreadyScheduledInThisShift(long patientId)
+        {
+            foreach (Appointment appointment in Appointments)
+            {
+                if (appointment.Patient == null) break;
+                if (appointment.Patient.Id == patientId) return true;
+            }
+            return false;
+        }
+
         private bool AppointmentExists(DateTime startTime)
         {
             foreach (Appointment appointment in Appointments)
