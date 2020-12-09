@@ -108,7 +108,7 @@ namespace Backend.Model.UserModel
             foreach (Appointment appointment in Appointments)
             {
                 if (appointment.Patient == null) break;
-                if (appointment.Patient.Id == patientId) return true;
+                if (appointment.Patient.Id == patientId && !appointment.Canceled) return true;
             }
             return false;
         }
@@ -117,7 +117,7 @@ namespace Backend.Model.UserModel
         {
             foreach (Appointment appointment in Appointments)
             {
-                if (TimesAreEqual(appointment.TimeInterval.StartTime, startTime)) return true;
+                if (TimesAreEqual(appointment.TimeInterval.StartTime, startTime) && !appointment.Canceled) return true;
             }
             return false;
         }
