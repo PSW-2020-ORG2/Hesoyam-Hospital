@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../../services/appointment.service';
 import { AppointmentDTO } from '../standard-appointment/DTOs/AppointmentDTO';
 import { IntervalDTO } from '../standard-appointment/DTOs/IntervalDTO';
+import { MatStepper } from '@angular/material/stepper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-selected-doctor',
@@ -14,7 +16,7 @@ export class SelectedDoctorComponent implements OnInit {
   scheduledTime : string = "";
   scheduledDate : string = "";
   public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(2020, 12, 6), 501);
-  constructor(private _appoService: AppointmentService) { }
+  constructor(private _appoService: AppointmentService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.pickDoctor();
@@ -27,7 +29,8 @@ export class SelectedDoctorComponent implements OnInit {
       },
       error => {
         if (error.status = 404){
-          alert("No available appointments for selected doctor.")
+          let message = "No available appointments for selected doctor. Try standard scheduling.";
+          this.openSnackBar(message, "Okay");
         }
       }
     );
@@ -39,9 +42,24 @@ export class SelectedDoctorComponent implements OnInit {
     this.scheduledDate = time.dateText;
   }
 
-  pickTime(){
-    this._appoService.createAppointmentSelectedDoctor(this.appointment).subscribe();
+  pickTime(stepper: MatStepper){
+    this._appoService.createAppointmentSelectedDoctor(this.appointment).subscribe(
+      (data) => {
+        stepper.next();
+      },
+      error => {
+        if (error.error == "SCHEDULING FAILED"){
+          let message = "Scheduling failed! You cannot schedule with one doctor multiple times per day.";
+          this.openSnackBar(message, "Okay");
+        }
+      }
+    );
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 20000,
+    });
+  }
 
 }

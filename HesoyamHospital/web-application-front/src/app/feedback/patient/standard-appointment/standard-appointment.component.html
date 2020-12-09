@@ -34,7 +34,7 @@
                 </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext (click) = "getDoctors()" [disabled]="departmentValidator.invalid">Next</button>
+              <button mat-button (click) = "getDoctors(stepper)" [disabled]="departmentValidator.invalid">Next</button>
             </div>
           </form>
         </mat-step>
@@ -50,7 +50,7 @@
             </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="pickDoctor()" matStepperNext>Next</button>
+            <button mat-button (click)="pickDoctor(stepper)">Next</button>
           </div>
         </form>
       </mat-step>
@@ -68,7 +68,7 @@
             
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext (click)="schedule()">Schedule</button>
+              <button mat-button (click)="schedule(stepper)">Schedule</button>
             </div>
           </form>
         </mat-step>
