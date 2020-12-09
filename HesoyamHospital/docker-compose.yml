@@ -2,31 +2,39 @@ version: "3.8"
 
 volumes:
   mysql_data: {}
+  mysql-data:
+  web-sql:
+  sql:
+
+networks:
+  hesoyamnet:
+    name: hesoyamnet
+    driver: bridge
 
 services:
-  Backend:
-    build: 
-      context: .
-      dockerfile: Backend/Dockerfile
-    image: gregvader/backend:latest
-    volumes:
-      - mysql_data:/var/lib/mysql/data
-    expose: 
-      - "5000"
-    ports:
-      - "5100:5000"
+  # Backend:
+  #   build: 
+  #     context: .
+  #     dockerfile: Backend/Dockerfile
+  #   image: gregvader/backend:latest
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql/data
+  #   expose: 
+  #     - "5000"
+  #   ports:
+  #     - "5100:5000"
 
-  IntegrationAdapter:
-    build: 
-      context: .
-      dockerfile: IntegrationAdapter/Dockerfile
-    image: gregvader/integrationadapter:latest
-    depends_on: 
-      - Backend
-    expose: 
-      - "5000"
-    ports:
-      - "5101:5000"
+  # IntegrationAdapter:
+  #   build: 
+  #     context: .
+  #     dockerfile: IntegrationAdapter/Dockerfile
+  #   image: gregvader/integrationadapter:latest
+  #   depends_on: 
+  #     - Backend
+  #   expose: 
+  #     - "5000"
+  #   ports:
+  #     - "5101:5000"
 
   WebApplication:
     build: 
@@ -34,11 +42,34 @@ services:
       dockerfile: WebApplication/Dockerfile
     image: gregvader/webapplication:latest
     depends_on:
-      - Backend
+      - mysql
+    restart: on-failure
+    environment:
+      DATABASE_HOST: mysql
+      MyDbConnectionString: "port=3306;database=mydb1;user=root;password=root"
+    volumes:
+      - web-sql:/app/sql
     expose: 
       - "80"
+    networks: 
+      - hesoyamnet
     ports:
       - "5000:80"
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    networks:
+      - hesoyamnet
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: hesoyam
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: mydb1
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./app:/docker-entrypoint-initdb.d/
 
   # WebApplicationFront:
   #   build:
@@ -53,27 +84,27 @@ services:
   #   ports:
   #     - "5105:80"
 
-  IntegrationAdapterTests:
-    build:
-      context: . 
-      dockerfile: IntegrationAdapterTests/Dockerfile
-    image: gregvader/integrationadaptertests:latest
-    depends_on:
-      - IntegrationAdapter
-    expose: 
-      - "80"
-    ports: 
-      - "5103:5000"
+  # IntegrationAdapterTests:
+  #   build:
+  #     context: . 
+  #     dockerfile: IntegrationAdapterTests/Dockerfile
+  #   image: gregvader/integrationadaptertests:latest
+  #   depends_on:
+  #     - IntegrationAdapter
+  #   expose: 
+  #     - "80"
+  #   ports: 
+  #     - "5103:5000"
 
-  WebApplicationTests:
-    build:
-      context: . 
-      dockerfile: WebApplicationTests/Dockerfile
-    image: gregvader/webapplicationtests:latest
-    depends_on:
-      - WebApplication
-    expose: 
-      - "5000"
-    ports: 
-      - "5104:5000"
+  # WebApplicationTests:
+  #   build:
+  #     context: . 
+  #     dockerfile: WebApplicationTests/Dockerfile
+  #   image: gregvader/webapplicationtests:latest
+  #   depends_on:
+  #     - WebApplication
+  #   expose: 
+  #     - "5000"
+  #   ports: 
+  #     - "5104:5000"
 

@@ -33,9 +33,14 @@ namespace Backend.Repository.MySQLRepository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = Environment.GetEnvironmentVariable("MyDbConnectionString");
-                optionsBuilder.UseLazyLoadingProxies().UseMySql(connectionString);
+                optionsBuilder.UseLazyLoadingProxies().UseMySql(GenerateConnectionString());
             }
+        }
+
+        private string GenerateConnectionString()
+        {
+            string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
