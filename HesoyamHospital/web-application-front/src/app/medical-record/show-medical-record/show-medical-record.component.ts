@@ -54,7 +54,7 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
   }
 
   cancel(id) {
-    this._appService.cancel(id).subscribe((val) => { this.openSnackBar("Appointment successfully cancelled!", "Okay"); this._appService.getAll().subscribe((data) => this.dataAppointments = data);});
+    this._appService.cancel(id).subscribe((val) => { this.openSnackBar("Appointment successfully cancelled!", "Okay"); this._appService.getAll().subscribe((data) => { data.sort((a, b) => new Date(a.timeInterval.startTime).getTime() - new Date(b.timeInterval.startTime).getTime()); this.dataAppointments = data;});});
   }
 
   openSnackBar(message: string, action: string) {
