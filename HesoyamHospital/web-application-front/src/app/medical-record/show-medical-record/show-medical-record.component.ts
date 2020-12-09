@@ -23,9 +23,8 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
   public imgPath = "";
   displayedColumns: string[] = ['State', 'Date', 'From', 'To', 'Department', 'Doctor', 'Room', 'Cancel', 'Survey'];
   public doctors : DoctorDto[] = [];
-
+  
   constructor(private _medService: MedicalRecordService, private _appService : AppointmentService, private _router : Router, private _snackBar: MatSnackBar) { }
-
   ngAfterViewInit(): void {
     this._appService.getAll().subscribe((data) => this.dataAppointments = data);
     this._medService.getMedicalRecord().subscribe((data) => {this.record = data;  this.imagePath = "http://localhost:52166/Resources/Images/" + this.record.username + ".jpg"; this.getDoctors();} );
@@ -54,9 +53,17 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
     );
   }
 
+  cancel(id) {
+    this._appService.cancel(id).subscribe((val) => { this.openSnackBar("Appointment successfully cancelled!", "Okay"); this._appService.getAll().subscribe((data) => this.dataAppointments = data);});
+  }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 10000,
     });
+  }
+
+  ableToCancel(appDate) {
+    return new Date(appDate) > new Date(new Date().getTime() + 1000*60*60*48);
   }
 }

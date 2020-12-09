@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace GraphicEditor
 {
     public class MapLocation
     {
-        
+
         public string Name { get; set; }
 
         public string Hospital { get; set; }
@@ -15,8 +12,8 @@ namespace GraphicEditor
 
         public string FilePath { get; set; }
 
-        public MapLocation() 
-        { 
+        public MapLocation()
+        {
         }
 
         public MapLocation(string hospital, string floor, string name, string filePath)

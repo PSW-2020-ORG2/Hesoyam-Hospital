@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Backend.Model.PatientModel;
 using Backend.Util;
 using Microsoft.AspNetCore.Mvc;
