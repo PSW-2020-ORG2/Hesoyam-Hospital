@@ -13,6 +13,6 @@ namespace WebApplication.Appointments.Service
         public Doctor GetDoctorAtAppointment(long appointmentId);
         public void Cancel(long patientId, long appointmentId);
         public List<BlockPatientDTO> GetSuspiciousPatients();
-        public void BlockPatient(Patient patient);
+        public Patient BlockPatient(Patient patient);
     }
 }

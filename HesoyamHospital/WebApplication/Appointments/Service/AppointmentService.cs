@@ -60,15 +60,18 @@ namespace WebApplication.Appointments.Service
             List<BlockPatientDTO> suspiciousPatients = new List<BlockPatientDTO>();
             foreach (var item in cancellationCounts)
             {
-                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(BlockPatientMapper.toDto(item.Key, item.Value));
+                Patient patient = _patientRepository.GetByID(item.Key);
+                if (patient == null) break;
+                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(new BlockPatientDTO(patient.UserName, item.Value, patient.FullName));
             }
             return suspiciousPatients;
         }
 
-        public void BlockPatient(Patient patient)
+        public Patient BlockPatient(Patient patient)
         {
             patient.Blocked = true;
             _patientRepository.Update(patient);
+            return patient;
         } 
 
         public void Delete(Appointment entity)
