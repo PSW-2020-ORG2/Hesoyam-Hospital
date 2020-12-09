@@ -28,6 +28,7 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this._appService.getAll().subscribe((data) => this.dataAppointments = data);
+    this._medService.getMedicalRecord().subscribe((data) => {this.record = data;  this.imagePath = "http://localhost:52166/Resources/Images/" + this.record.username + ".jpg"; this.getDoctors();} );
   }
 
   ngOnInit() {
