@@ -98,6 +98,19 @@ namespace Backend.Repository.MySQLRepository.MySQL
             }
         }
 
+        public void UpdateProperty(T entity, string propertyName)
+        {
+            try
+            {
+                if (GetAll().FirstOrDefault(e => e.GetId().CompareTo(entity.GetId()) == 0) != null)
+                    _stream.UpdateProperty(entity, propertyName);
+            }
+            catch (ArgumentException)
+            {
+                ThrowEntityNotFoundException("id", entity.GetId());
+            }
+        }
+
         private void ThrowEntityNotFoundException(string key, object value)
           => throw new EntityNotFoundException(string.Format(NOT_FOUND_ERROR, _entityName, key, value));
     }

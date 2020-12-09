@@ -41,12 +41,6 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             }
         }
 
-        public new void Update(Patient patient)
-        {
-            _userRepository.Update(patient);
-            base.Update(patient);
-        }
-
         private bool IsUsernameUnique(string userName)
             => _userRepository.GetByUsername(userName) == null;
 

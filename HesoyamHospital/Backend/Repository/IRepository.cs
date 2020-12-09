@@ -18,6 +18,8 @@ namespace Backend.Repository
 
         void Update(T entity);
 
+        void UpdateProperty(T entity, string propertyName);
+
         void Delete(T entity);
 
         IEnumerable<T> Find(Specifications.ISpecification<T> criteria);
