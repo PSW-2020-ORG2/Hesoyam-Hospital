@@ -26,7 +26,7 @@ namespace WebApplication.Appointments.Service
         {
             Appointment appointment = _appointmentRepository.GetByID(appointmentId);
             appointment.AbleToFillOutSurvey = false;
-            _appointmentRepository.Update(appointment);
+            _appointmentRepository.UpdateProperty(appointment, "AbleToFillOutSurvey");
         }
 
         public void Delete(Appointment entity)

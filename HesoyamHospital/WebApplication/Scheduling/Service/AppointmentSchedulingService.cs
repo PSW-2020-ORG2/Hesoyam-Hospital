@@ -39,9 +39,9 @@ namespace WebApplication.Scheduling.Service
         public Appointment SaveAppointment(Appointment appointment)
         {
             Doctor doctor = _doctorRepository.GetByID(appointment.DoctorInAppointment.Id);
-            if (doctor == null || doctor.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
-            doctor.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
-            _doctorRepository.Update(doctor);
+            if (appointment.DoctorInAppointment == null || appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
+            appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
+            _doctorRepository.UpdateProperty(appointment.DoctorInAppointment, "TimeTable");
             return appointment;
         }
 
