@@ -1,11 +1,8 @@
 ﻿using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Service;
-using Backend.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Scheduling.Service
 {

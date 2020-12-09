@@ -3,11 +3,9 @@ using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
-using Backend.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebApplication.MedicalRecords;
 
 namespace WebApplication.Scheduling.Service
@@ -31,14 +29,13 @@ namespace WebApplication.Scheduling.Service
         public List<Doctor> GetDoctorsByType(string type)
         {
             DoctorType doctorType = DoctorMapper.TextToDoctorType(type);
-            if (doctorType == DoctorType.UNDEFINED) return null;
+            if (doctorType == DoctorType.UNDEFINED) return new List<Doctor>();
             List<Doctor> doctors = _doctorRepository.GetDoctorByType(doctorType).ToList();
             return doctors;
         }
 
         public Appointment SaveAppointment(Appointment appointment)
         {
-            Doctor doctor = _doctorRepository.GetByID(appointment.DoctorInAppointment.Id);
             if (appointment.DoctorInAppointment == null || appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
             appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
             _doctorRepository.UpdateProperty(appointment.DoctorInAppointment, "TimeTable");

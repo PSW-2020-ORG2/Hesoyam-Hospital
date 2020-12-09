@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Backend;
 using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
@@ -38,16 +37,6 @@ namespace WebApplication.Scheduling
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
 
-        [HttpGet("getTimesForSelectedDoctor/{id}")]
-        public IActionResult GetTimesForSelectedDoctor(long id)
-        {
-            Patient patient = AppResources.getInstance().patientRepository.GetByID(id);
-            if (patient == null || patient.SelectedDoctor == null) return BadRequest();
-            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForSelectedDoctor(patient).ToList();
-            if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
-            return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
-        }
-
         [HttpPost("recommendation")]
         public IActionResult GetTimesForDoctor(PriorityDTO dto)
         {
@@ -57,6 +46,15 @@ namespace WebApplication.Scheduling
             return Ok(availableAppointments.ToArray());
         }
 
+        [HttpGet("getTimesForSelectedDoctor/{id}")]
+        public IActionResult GetTimesForSelectedDoctor(long id)
+        {
+            Patient patient = AppResources.getInstance().patientRepository.GetByID(id);
+            if (patient == null || patient.SelectedDoctor == null) return BadRequest();
+            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForSelectedDoctor(patient).ToList();
+            if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
+            return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
+        }
 
         [HttpPost("saveAppointment")]
         public IActionResult SaveAppointment(AppointmentDTO dto)
