@@ -11,5 +11,7 @@ namespace WebApplication.Appointments.Service
         public void DeactivateFillingOutSurvey(long appointmentId);
         public Doctor GetDoctorAtAppointment(long appointmentId);
         public void Cancel(long patientId, long appointmentId);
+        public List<Patient> GetSuspiciousPatients();
+        public Patient BlockPatient(string username);
     }
 }

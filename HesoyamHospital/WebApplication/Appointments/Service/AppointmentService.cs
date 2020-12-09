@@ -45,6 +45,16 @@ namespace WebApplication.Appointments.Service
             _appointmentRepository.UpdateProperty(appointment, "AbleToFillOutSurvey");
         }
 
+        public List<Patient> GetSuspiciousPatients()
+        {
+            return new List<Patient>();
+        }
+
+        public Patient BlockPatient(string username)
+        {
+            return null;
+        } 
+
         public void Delete(Appointment entity)
         {
             throw new NotImplementedException();
