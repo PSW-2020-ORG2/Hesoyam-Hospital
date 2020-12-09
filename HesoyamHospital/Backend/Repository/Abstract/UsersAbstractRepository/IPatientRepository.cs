@@ -12,6 +12,7 @@ namespace Backend.Repository.Abstract.UsersAbstractRepository
     public interface IPatientRepository : IRepository<Patient, long>
     {
         IEnumerable<Patient> GetPatientByDoctor(Doctor doctor);
+        public Patient GetPatientByUsername(string username);
 
     }
 }
