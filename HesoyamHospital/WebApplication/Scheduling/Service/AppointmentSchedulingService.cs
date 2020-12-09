@@ -99,6 +99,13 @@ namespace WebApplication.Scheduling.Service
             return appointments;
         }
 
+        public bool MultipleAppoitments(AppointmentDTO dto)
+        {
+            Doctor doctor = _doctorRepository.GetByID(dto.DoctorId);
+            if (doctor == null || doctor.TimeTable == null || doctor.TimeTable.GetShiftByDate(dto.DateAndTime) == null) return false;
+            return doctor.TimeTable.GetShiftByDate(dto.DateAndTime).PatientAlreadyScheduledInThisShift(dto.PatientId);
+        }
+
         public void Delete(Appointment entity)
         {
             throw new NotImplementedException();

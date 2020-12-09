@@ -16,5 +16,6 @@ namespace WebApplication.Scheduling.Service
         public Appointment SaveAppointment(Appointment appointment);
         public IEnumerable<DateTime> GetTimesForSelectedDoctor(Patient patient);
         public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityDTO dto);
+        public bool MultipleAppoitments(AppointmentDTO dto);
     }
 }
