@@ -4,6 +4,8 @@ using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using WebApplication.Appointments.DTOs;
 
 namespace WebApplication.Appointments.Service
 {
@@ -12,6 +14,7 @@ namespace WebApplication.Appointments.Service
         private readonly IPatientRepository _patientRepository;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly ICancellationRepository _cancellationRepository;
+        private readonly int CANCELLATION_COUNT = 3;
 
         public AppointmentService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository, ICancellationRepository cancellationRepository)
         {
@@ -45,14 +48,27 @@ namespace WebApplication.Appointments.Service
             _appointmentRepository.UpdateProperty(appointment, "AbleToFillOutSurvey");
         }
 
-        public List<Patient> GetSuspiciousPatients()
+        public List<BlockPatientDTO> GetSuspiciousPatients()
         {
-            return new List<Patient>();
+            Dictionary<long, int> cancellationCounts = _cancellationRepository.GetCancelledCountForPatients();
+            if (cancellationCounts.Count == 0) return null;
+            return PatientsWithMultipleCancellations(cancellationCounts);
         }
 
-        public Patient BlockPatient(string username)
+        public List<BlockPatientDTO> PatientsWithMultipleCancellations(Dictionary<long, int> cancellationCounts)
         {
-            return null;
+            List<BlockPatientDTO> suspiciousPatients = new List<BlockPatientDTO>();
+            foreach (var item in cancellationCounts)
+            {
+                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(BlockPatientMapper.toDto(item.Key, item.Value));
+            }
+            return suspiciousPatients;
+        }
+
+        public void BlockPatient(Patient patient)
+        {
+            patient.Blocked = true;
+            _patientRepository.Update(patient);
         } 
 
         public void Delete(Appointment entity)
