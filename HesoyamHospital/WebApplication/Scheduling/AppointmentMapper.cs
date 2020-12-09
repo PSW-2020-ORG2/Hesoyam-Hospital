@@ -2,10 +2,6 @@
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Scheduling
 {
@@ -18,7 +14,7 @@ namespace WebApplication.Scheduling
             Doctor doctorInAppointment = AppResources.getInstance().doctorRepository.GetByID(dto.DoctorId);
             appointment.DoctorInAppointment = doctorInAppointment;
             appointment.Canceled = false;
-            appointment.AbleToFillOutSurvey = false;
+            appointment.AbleToFillOutSurvey = true;
             appointment.AppointmentType = AppointmentType.checkup;
             appointment.Patient = AppResources.getInstance().patientRepository.GetByID(dto.PatientId);
             appointment.Room = GetRoom(doctorInAppointment);

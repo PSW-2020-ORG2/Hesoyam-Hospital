@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { logging } from 'protractor';
 import { DoctorDto } from 'src/app/medical-record/DTOs/doctor-dto';
 import { TimeInterval } from '../../DTOs/time-interval';
 import { AppointmentService } from '../../services/appointment.service';
 import { AppointmentDTO } from './DTOs/AppointmentDTO';
 import { DoctorDateDTO } from './DTOs/DoctorDateDTO';
 import { IntervalDTO } from './DTOs/IntervalDTO';
+import { MatStepper } from '@angular/material/stepper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-standard-appointment',
@@ -24,12 +27,12 @@ export class StandardAppointmentComponent implements OnInit {
   public doctors : DoctorDto[] = [];
   public times : IntervalDTO[] = [];
   public doctorDate : DoctorDateDTO =  new DoctorDateDTO(20, new Date());
-  public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(), 0);
+  public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(2020, 12, 6), 0);
   dateValidator = new FormControl('', Validators.required);
   departmentValidator = new FormControl('', Validators.required);
   
 
-  constructor(private _formBuilder: FormBuilder, private _appoService: AppointmentService) {
+  constructor(private _formBuilder: FormBuilder, private _appoService: AppointmentService, private _snackBar: MatSnackBar) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 11, 31);
@@ -45,20 +48,45 @@ export class StandardAppointmentComponent implements OnInit {
     });
   }
 
-  getDoctors(){
+  getDoctors(stepper : MatStepper){
     this._appoService.getAll(this.department).subscribe(
-      data => this.doctors = data
+      data => {
+        this.doctors = data;
+        stepper.next();
+      },
+      error => {
+        if (error.status = 404){
+          let message = "No doctors for selected specialisation.";
+          this.openSnackBar(message, "Okay");
+        }
+      }
     );
   }
 
-  pickDoctor(doctor){
+  selectDoctor(doctor){
     this.doctorDate.Id = doctor.id;
     this.appointment.DoctorId = doctor.id;
+    console.log(this.doctorDate.Date);
+  }
+
+  pickDoctor(stepper: MatStepper){
+    this.doctorDate.Date.setTime(this.doctorDate.Date.getTime() + (1*60*60*1000));
     this._appoService.getTimes(this.doctorDate).subscribe(
       (data) => {
         this.times = data;
+        stepper.next();
+      },
+      error => {
+        if (error.status = 404){
+          let message = "No available appointments for selected date.";
+          this.openSnackBar(message, "Okay");
+        }
       }
     );
+  }
+
+  selectDate(){
+    console.log(this.doctorDate.Date);
   }
 
   pickTime(time : IntervalDTO){
@@ -66,7 +94,23 @@ export class StandardAppointmentComponent implements OnInit {
     this.scheduledTime = time.startTimeText;
   }
 
-  schedule(){
-    this._appoService.createAppointment(this.appointment).subscribe();
+  schedule(stepper: MatStepper){
+    this._appoService.createAppointment(this.appointment).subscribe(
+      (data) => {
+        stepper.next();
+      },
+      error => {
+        if (error.error == "SCHEDULING FAILED"){
+          let message = "Scheduling failed! You cannot schedule with one doctor multiple times per day.";
+          this.openSnackBar(message, "Okay");
+        }
+      });
   }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 20000,
+    });
+  }
+
 }

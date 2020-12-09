@@ -17,5 +17,7 @@ namespace Backend.Repository.MySQLRepository.MySQL.Stream
         void Append(T entity);
 
         void Update(T entity);
+
+        void UpdateProperty(T entity, string propertyName);
     }
 }

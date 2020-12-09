@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeedbackService } from '../../services/feedback.service'
 import { SurveyDTO } from '../../DTOs/survey-dto';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-surveys-and-sections',
@@ -32,7 +33,7 @@ export class SurveysAndSectionsComponent implements OnInit {
 
   
 
-  constructor(private _feedbackService: FeedbackService, private _route : ActivatedRoute) { }
+  constructor(private _feedbackService: FeedbackService, private _route : ActivatedRoute, private _snackBar: MatSnackBar) { }
   
 
   ngOnInit(): void {
@@ -49,7 +50,8 @@ export class SurveysAndSectionsComponent implements OnInit {
     
   }
   provideFeedback(){
-    alert("Your survey is successfully submited!");
+    let message = "Your survey is successfully submited!";
+    this.openSnackBar(message, "Okay");
   }
   prepareSurvey() {
    this.SurveyDTO.AnswerOne = this._AnswerOne == 0 ? 1 : this._AnswerOne == 1 ? 2 : this._AnswerOne == 2 ? 3 : this._AnswerOne == 3 ? 4 : 5;
@@ -69,6 +71,12 @@ export class SurveysAndSectionsComponent implements OnInit {
    this.SurveyDTO.AnswerFifteen = this._AnswerFifteen == 0 ? 1 : this._AnswerFifteen == 1 ? 2 : this._AnswerFifteen == 2 ? 3 : this._AnswerFifteen == 3 ? 4 : 5;
    this.SurveyDTO.AnswerSixteen = this._AnswerSixteen == 0 ? 1 : this._AnswerSixteen == 1 ? 2 : this._AnswerSixteen == 2 ? 3 : this._AnswerSixteen == 3 ? 4 : 5;
 
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 20000,
+    });
   }
 
 

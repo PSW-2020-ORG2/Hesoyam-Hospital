@@ -7,7 +7,7 @@
         <form style="margin-top: 1%;">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="doctorDate.Date" required name="date">
+            <input matInput [matDatepicker]="picker" onselect="selectDate()" [(ngModel)]="doctorDate.Date" required name="date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -34,7 +34,7 @@
                 </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext (click) = "getDoctors()" [disabled]="departmentValidator.invalid">Next</button>
+              <button mat-button (click) = "getDoctors(stepper)" [disabled]="departmentValidator.invalid">Next</button>
             </div>
           </form>
         </mat-step>
@@ -43,14 +43,14 @@
           <mat-form-field appearance="fill">
               <mat-label>Choose doctor</mat-label>
               <mat-select>
-                <mat-option (click)="pickDoctor(doctor)" *ngFor="let doctor of doctors" [value]="doctor">
+                <mat-option (click)="selectDoctor(doctor)" *ngFor="let doctor of doctors" [value]="doctor">
                   {{doctor.fullName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button (click)="pickDoctor(stepper)">Next</button>
           </div>
         </form>
       </mat-step>
@@ -68,7 +68,7 @@
             
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext (click)="schedule()">Schedule</button>
+              <button mat-button (click)="schedule(stepper)">Schedule</button>
             </div>
           </form>
         </mat-step>

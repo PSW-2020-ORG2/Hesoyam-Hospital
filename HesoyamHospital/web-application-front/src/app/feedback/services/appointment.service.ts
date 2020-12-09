@@ -6,6 +6,8 @@ import { DoctorDateDTO } from '../patient/standard-appointment/DTOs/DoctorDateDT
 import { TimeInterval } from '../DTOs/time-interval';
 import { IntervalDTO } from '../patient/standard-appointment/DTOs/IntervalDTO';
 import { AppointmentDTO } from '../patient/standard-appointment/DTOs/AppointmentDTO';
+import { DoctorIntervalDto } from '../DTOs/doctor-interval-dto';
+import { PriorityIntervalDTO } from '../DTOs/priority-interval-dto';
 
 
 export interface Doctor {
@@ -21,6 +23,10 @@ export class AppointmentService {
   private _urlgetdoctors:string = "http://localhost:52166/api/appointmentscheduling/getDoctorsByType/";
   private _urlgettimes:string = "http://localhost:52166/api/appointmentscheduling/getTimesForDoctor/";
   private _urlsave:string = "http://localhost:52166/api/appointmentscheduling/saveAppointment";
+  private _urlgettimesselecteddoctor:string = "http://localhost:52166/api/appointmentscheduling/getTimesForSelectedDoctor/500";
+  private _urlsaveselecteddoctor:string = "http://localhost:52166/api/appointmentscheduling/saveSelectedDoctorAppointment";
+  private _urlgetrecommendedtimes:string = "http://localhost:52166/api/appointmentscheduling/recommendation";
+
 
   constructor( private _http : HttpClient) { }
 
@@ -36,4 +42,15 @@ export class AppointmentService {
     return this._http.post(this._urlsave, appointment);
   }
 
+  getTimesForselectedDoctor() : Observable<IntervalDTO[]>{
+    return this._http.get<IntervalDTO[]>(this._urlgettimesselecteddoctor);
+  }
+
+  createAppointmentSelectedDoctor(appointment : AppointmentDTO){
+    return this._http.post(this._urlsaveselecteddoctor, appointment);
+  }
+
+  getRecommendedTimes(doctorInterval : DoctorIntervalDto) : Observable<PriorityIntervalDTO[]>{
+    return this._http.post<PriorityIntervalDTO[]>(this._urlgetrecommendedtimes, doctorInterval);
+  }
 }
