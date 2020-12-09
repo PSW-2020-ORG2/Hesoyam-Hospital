@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -13,7 +14,7 @@ namespace GraphicEditor
         {
         }
 
-        public (SolidColorBrush, SolidColorBrush) Pick_color(string type)
+        public (SolidColorBrush, SolidColorBrush) PickColor(string type)
         {
             switch (type)
             {
@@ -50,94 +51,94 @@ namespace GraphicEditor
             }
         }
 
-        public Shape draw_Shapes(GraphicalObject graphical_object)
-        {
-
-            string shape = graphical_object.Shape;
+        public Shape DrawShapes(GraphicalObject graphicalObject)
+        { 
+            string shape = graphicalObject.Shape;
             SolidColorBrush brush;
             SolidColorBrush stroke;
-            (brush, stroke) = Pick_color(graphical_object.Type);
+            (brush, stroke) = PickColor(graphicalObject.Type);
+
             switch (shape)
             {
                 case "rectangle":
                     Rectangle rectangle = new Rectangle();
-                    rectangle.Width = graphical_object.Width;
-                    rectangle.Height = graphical_object.Height;
+                    rectangle.Width = graphicalObject.Width;
+                    rectangle.Height = graphicalObject.Height;
+                    
+                    rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
-                    rectangle.Name = graphical_object.Name;
+                    rectangle.ToolTip = rectangle.Name;
 
-                    rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
-                    rectangle.MouseRightButtonDown += MouseRightButtonDown;
+                    if (rectangle.Name == Global.SearchObjectName)
+                    { 
+                        rectangle.StrokeThickness = 7;
+                        rectangle.Stroke = Brushes.Red;
+                    }
+                    else {
+                       
+                        rectangle.Stroke = stroke;
+                    }
 
                     rectangle.Stroke = stroke;
+                    rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
 
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
-                    Canvas.SetLeft(rectangle, graphical_object.Left);
-                    Canvas.SetTop(rectangle, graphical_object.Top);
+                    Canvas.SetLeft(rectangle, graphicalObject.Left);
+                    Canvas.SetTop(rectangle, graphicalObject.Top);
                     return rectangle;
 
                 case "elipse":
                     Ellipse ellipse = new Ellipse();
-                    ellipse.Width = graphical_object.Width;
-                    ellipse.Height = graphical_object.Height;
+                    ellipse.Width = graphicalObject.Width;
+                    ellipse.Height = graphicalObject.Height;
                     ellipse.Fill = brush;
+
                     ellipse.Stroke = stroke;
                     ellipse.VerticalAlignment = VerticalAlignment.Top;
-                    Canvas.SetLeft(ellipse, graphical_object.Left);
-                    Canvas.SetTop(ellipse, graphical_object.Top);
+                    Canvas.SetLeft(ellipse, graphicalObject.Left);
+                    Canvas.SetTop(ellipse, graphicalObject.Top);
                     return ellipse;
                 default:
                     return new Rectangle();
 
             }
         }
-
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+            Ellipse ellipse = sender as System.Windows.Shapes.Ellipse;
             MainWindow mainWindow = new MainWindow();
 
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
 
-            if (rectangle.Name == "hospital1")
+            foreach (FileInformation inf in menuInformation)
             {
-                mainWindow.Display_Hospital1(sender, e);
+                if(inf.Name == rectangle.Name)
+                    mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
             }
-            else if (rectangle.Name == "hospital2")
-            {
-                mainWindow.Display_Hospital2(sender, e);
-            }
-            else if (rectangle.Name == "warehouse")
-            {
-                mainWindow.Display_Warehouse(sender, e);
-            }
-            else
-            {
-                return;
-            }
+              
         }
-
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
-            MainWindow mainWindow = new MainWindow();
 
-            if (rectangle.Name == "hospital1")
-            {
-                mainWindow.Display_Information_Window(sender, e);
-            }
-            else if (rectangle.Name == "hospital2")
-            {
-                mainWindow.Display_Information_Window(sender, e);
-            }
-            else if (rectangle.Name == "warehouse")
-            {
-                mainWindow.Display_Information_Window(sender, e);
-            }
-            else
-            {
-                return;
+            if (rectangle.Name.Contains("room"))
+            { 
+                Information information = new Information();
+                information.name.Text = rectangle.Name;
+                information.visiting.Text = Global.AdditionalInformation.VisitingHours;
+                information.working.Text = Global.AdditionalInformation.WorkingHours;
+                information.doctor.Text = Global.AdditionalInformation.Doctor;
+                information.name.IsEnabled = false;
+                information.visiting.IsEnabled = false;
+                information.doctor.IsEnabled = false;
+                information.working.IsEnabled = false;
+                information.Show();
+
             }
         }
 
     }
 }
+

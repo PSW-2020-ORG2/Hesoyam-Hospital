@@ -35,7 +35,7 @@ namespace IntegrationAdapter.Controllers
             var action = AppResources.getInstance().actionBenefitService.GetByID(id);
             action.Approved = true;
             AppResources.getInstance().actionBenefitService.Update(action);
-            return Ok("Action benefit approved.");
+            return Ok();
         }
 
         /*

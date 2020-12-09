@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace GraphicEditor
 {
@@ -12,12 +11,24 @@ namespace GraphicEditor
         {
             InitializeComponent();
         }
-        public void Display_Additional_Info_Window(object sender, RoutedEventArgs e)
+        private void ChangeInformationClick(object sender, RoutedEventArgs e)
         {
-            InformationPage informationPage = new InformationPage();
-            _window.Children.Clear();
-            Frame.Navigate(informationPage);
-            Frame.Refresh();
+            visiting.IsEnabled = true;
+            working.IsEnabled = true;
+            doctor.IsEnabled = true;
+            change.Visibility = Visibility.Hidden;
+            save.Visibility = Visibility.Visible;
         }
+
+        private void saveChangedInformation(object sender, RoutedEventArgs e)
+        {
+            InformationObject informationObject = new InformationObject();
+            informationObject.VisitingHours = visiting.Text;
+            informationObject.WorkingHours = working.Text;
+            informationObject.Doctor = doctor.Text;
+            Global.AdditionalInformation = informationObject;
+            Close();
+        }
+
     }
 }

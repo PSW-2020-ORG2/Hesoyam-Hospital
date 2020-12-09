@@ -30,20 +30,25 @@
 
         <ComboBox x:Name="search_type" Grid.Row="1" Grid.Column="3" Style="{StaticResource ResourceKey=comboSearch}">
             <ComboBoxItem  IsSelected="True">Search for objects on the map</ComboBoxItem>
-            <ComboBoxItem>Search for equipment and medicines</ComboBoxItem>
             <ComboBoxItem>Search for available room</ComboBoxItem>
+            <ComboBoxItem x:Name="searchEquipmentAndMedicine">Search for equipment and medicines</ComboBoxItem>
         </ComboBox>
-
-        <CheckBox Content="Advanced" Grid.Row="1" Grid.Column="5" Style="{StaticResource ResourceKey=checkAdvanced}" IsChecked="False"/>
-
-        <Label Content="Enter the text here :" Grid.Row="2" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
-
+        <Label Content="Enter the text here:"
+               FontSize="15" FontWeight="DemiBold"  
+               Margin="15,90,619,534"
+               VerticalContentAlignment="Center"/>
         <TextBox x:Name="object_name" Grid.Row="2" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxSearch}"/>
-
-        <Button Content="Search" Grid.Row="2" Grid.Column="5" Height="36" Width="120" Click="Search_Button_Click"/>
-
-        <DataGrid x:Name="_search" Grid.Row="3" ColumnWidth="*" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridSearch}">
-
+        <Button Content="Search" 
+                Margin="500,97,209,541" 
+                FontSize="15" 
+                Background="BurlyWood"
+                Click="Search_Button_Click" />
+        <DataGrid x:Name="_search" Grid.Row="3" ColumnWidth="*" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridSearch}" SelectionChanged="Advanced_Search_Click">
         </DataGrid>
+            <Label Content="Enter the text here :" Grid.Row="2" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
+
+            <Button Content="Search" Grid.Row="2" Grid.Column="5" Height="36" Width="120" Click="Search_Button_Click"/>
+
+       
     </Grid>
 </Window>
