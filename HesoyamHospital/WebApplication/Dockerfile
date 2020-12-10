@@ -1,11 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
 
-# RUN groupadd -g 1024 appuser && \
-#     useradd -r -u 1024 -g appuser appuser
-
-# USER appuser
-
-
 WORKDIR /app/
 WORKDIR /app/Backend/
 WORKDIR /app/
@@ -13,15 +7,14 @@ COPY ./Backend ./Backend/
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish/
 COPY ./WebApplication .
-# COPY ./WebApplication ./WebApplication
+
 
 COPY ./WebApplication/WebApplication.csproj .
 
-# WORKDIR /app/Backend
-# ENV PATH $PATH:/root/.dotnet/tools
-# RUN dotnet tool install --global dotnet-ef --version 3.1.0
-# RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
-
+WORKDIR /app/Backend
+ENV PATH $PATH:/root/.dotnet/tools
+RUN dotnet tool install --global dotnet-ef --version 3.1.0
+RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
 
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5 as runtime
@@ -32,12 +25,7 @@ WORKDIR /app/
 
 COPY --from=build /app .
 COPY --from=build /app/Resources /app/publish/Resources
-# COPY --from=build /app/sql /app/sql
-# COPY --from=build /app/WebApplication /app/publish
-
-# WORKDIR /app/sql/
-# VOLUME /app/sql/
 
 WORKDIR /app/publish/
-#ENTRYPOINT ["dotnet", "WebApplication.dll"]
+
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet WebApplication.dll
