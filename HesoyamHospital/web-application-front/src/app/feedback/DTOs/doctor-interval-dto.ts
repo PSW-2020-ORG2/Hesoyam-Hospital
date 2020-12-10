@@ -1,5 +1,3 @@
-import { TimeInterval } from './time-interval';
-
 export class DoctorIntervalDto {
     constructor(
         public Id : number,

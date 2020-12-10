@@ -2,14 +2,12 @@
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using Moq;
 using Shouldly;
-using System;
 using System.Collections.Generic;
 using Xunit;
 using WebApplication.Appointments.Service;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
 using WebApplication.Appointments.DTOs;
 using Backend.Model.PatientModel;
-using Backend.Util;
 
 namespace WebApplicationTests.Unit.Appointments
 {
@@ -45,11 +43,13 @@ namespace WebApplicationTests.Unit.Appointments
             patient1.UserName = "perapera";
             patient1.Name = "Pera";
             patient1.Surname = "Peric";
+            patient1.Blocked = false;
             Patient patient2 = new Patient(1);
             patient2.Appointments = new List<Appointment>();
             patient2.UserName = "mikamika";
             patient2.Name = "Mika";
             patient2.Surname = "Mikic";
+            patient2.Blocked = false;
 
             stubRepository.Setup(r => r.GetPatientByUsername("perapera")).Returns(patient1);
             stubRepository.Setup(r => r.GetPatientByUsername("mikamika")).Returns(patient2);
