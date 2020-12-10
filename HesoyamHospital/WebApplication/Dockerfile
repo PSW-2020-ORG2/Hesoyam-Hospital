@@ -10,7 +10,7 @@ WORKDIR /app
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish
 COPY ./WebApplication .
-COPY ./WebApplication ./WebApplication
+# COPY ./WebApplication ./WebApplication
 
 COPY ./WebApplication/WebApplication.csproj .
 
@@ -29,8 +29,9 @@ EXPOSE 80
 WORKDIR /app
 
 COPY --from=build /app .
+COPY --from=build /app/Resources /app/publish/Resources
 COPY --from=build /app/sql /app/sql
-COPY --from=build /app/WebApplication /app/publish
+# COPY --from=build /app/WebApplication /app/publish
 
 WORKDIR /app/sql
 VOLUME /app/sql
