@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
 # USER appuser
 
 WORKDIR /app
-
+COPY ./Backend ./Backend/
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish
 COPY ./WebApplication .
@@ -15,7 +15,7 @@ COPY ./WebApplication .
 COPY ./WebApplication/WebApplication.csproj .
 
 ENV PATH $PATH:/root/.dotnet/tools
-COPY ./Backend ./Backend/
+
 WORKDIR /app/Backend
 RUN dotnet tool install --global dotnet-ef --version 3.1.0
 RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
