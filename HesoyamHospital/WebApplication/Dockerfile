@@ -10,7 +10,7 @@ WORKDIR /app
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish
 COPY ./WebApplication .
-COPY ./WebApplication /app/WebApplication
+COPY ./WebApplication ./WebApplication
 
 COPY ./WebApplication/WebApplication.csproj .
 
