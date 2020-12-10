@@ -62,7 +62,7 @@ namespace WebApplication.Appointments.Service
             {
                 Patient patient = _patientRepository.GetByID(item.Key);
                 if (patient == null) break;
-                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(new BlockPatientDTO(patient.UserName, item.Value, patient.FullName));
+                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(new BlockPatientDTO(patient.UserName, item.Value, patient.FullName, patient.Blocked));
             }
             return suspiciousPatients;
         }
