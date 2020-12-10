@@ -5,8 +5,11 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
 
 # USER appuser
 
+
 WORKDIR /app/
-COPY ./Backend /app/Backend/
+WORKDIR /app/Backend/
+WORKDIR /app/
+COPY ./Backend ./Backend/
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish/
 COPY ./WebApplication .
@@ -31,7 +34,7 @@ WORKDIR /app/
 COPY --from=build /app .
 COPY --from=build /app/Resources /app/publish/Resources
 COPY --from=build /app/sql /app/sql
-COPY --from=build /app/WebApplication /app/publish
+# COPY --from=build /app/WebApplication /app/publish
 
 WORKDIR /app/sql/
 VOLUME /app/sql/
