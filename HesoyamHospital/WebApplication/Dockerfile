@@ -14,11 +14,11 @@ COPY ./WebApplication .
 
 COPY ./WebApplication/WebApplication.csproj .
 
-# ENV PATH $PATH:/root/.dotnet/tools
+ENV PATH $PATH:/root/.dotnet/tools
 
-# WORKDIR /app/Backend
-# RUN dotnet tool install --global dotnet-ef --version 3.1.0
-# RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
+WORKDIR /app/Backend/
+RUN dotnet tool install --global dotnet-ef --version 3.1.0
+RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
 
 
 
@@ -30,11 +30,11 @@ WORKDIR /app/
 
 COPY --from=build /app .
 COPY --from=build /app/Resources /app/publish/Resources
-# COPY --from=build /app/sql /app/sql
-# COPY --from=build /app/WebApplication /app/publish
+COPY --from=build /app/sql /app/sql
+COPY --from=build /app/WebApplication /app/publish
 
-# WORKDIR /app/sql
-# VOLUME /app/sql
+WORKDIR /app/sql/
+VOLUME /app/sql/
 
 WORKDIR /app/publish/
 #ENTRYPOINT ["dotnet", "WebApplication.dll"]
