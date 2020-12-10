@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
 # USER appuser
 
 WORKDIR /app
-COPY ./Backend ./Backend/
+COPY ./Backend ./Backend
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish
 COPY ./WebApplication .
