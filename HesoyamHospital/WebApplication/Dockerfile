@@ -17,9 +17,8 @@ COPY ./WebApplication .
 
 COPY ./WebApplication/WebApplication.csproj .
 
+WORKDIR /app/Backend
 ENV PATH $PATH:/root/.dotnet/tools
-
-WORKDIR /app/Backend/
 RUN dotnet tool install --global dotnet-ef --version 3.1.0
 RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
 
