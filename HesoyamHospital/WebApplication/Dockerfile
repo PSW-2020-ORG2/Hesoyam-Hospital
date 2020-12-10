@@ -21,6 +21,7 @@ RUN dotnet tool install --global dotnet-ef --version 3.1.0
 RUN dotnet-ef migrations script -p "Backend.csproj" -o /app/sql/init.sql
 
 
+
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5 as runtime
 
 EXPOSE 80
