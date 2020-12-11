@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option csharp_namespace = "IntegrationAdapter.Protos";
+package medicine_availability;
+	
+message MedicineNameProto {
+	string medicineName = 1;
+}
+
+message MedicineAvailabilityProto {
+	bool available = 1;
+}
