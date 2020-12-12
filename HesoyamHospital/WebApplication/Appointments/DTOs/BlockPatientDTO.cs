@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApplication.Appointments.DTOs
+﻿namespace WebApplication.Appointments.DTOs
 {
     public class BlockPatientDTO
     {

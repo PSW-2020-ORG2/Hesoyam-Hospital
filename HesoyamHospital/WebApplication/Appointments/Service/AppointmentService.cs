@@ -4,7 +4,6 @@ using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using WebApplication.Appointments.DTOs;
 
 namespace WebApplication.Appointments.Service
@@ -51,7 +50,7 @@ namespace WebApplication.Appointments.Service
         public List<BlockPatientDTO> GetSuspiciousPatients()
         {
             Dictionary<long, int> cancellationCounts = _cancellationRepository.GetCancelledCountForPatients();
-            if (cancellationCounts.Count == 0) return null;
+            if (cancellationCounts.Count == 0) return new List<BlockPatientDTO>();
             return PatientsWithMultipleCancellations(cancellationCounts);
         }
 
