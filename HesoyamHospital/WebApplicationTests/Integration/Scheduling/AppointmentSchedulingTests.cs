@@ -38,7 +38,7 @@ namespace WebApplicationTests.Integration.Scheduling
             HttpClient client = _factory.CreateClient();
             StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/appointmentscheduling/getTimesForDoctor", bodyContent);
+            HttpResponseMessage response = await client.PutAsync("/api/appointmentscheduling/getTimesForDoctor", bodyContent);
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }

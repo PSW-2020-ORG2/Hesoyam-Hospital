@@ -59,7 +59,7 @@ namespace WebApplication.Scheduling.Service
         public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityDTO dto)
         {
             Doctor doctor = _doctorRepository.GetByID(dto.Id);
-            if (doctor == null || doctor.TimeTable == null) return new List<PriorityIntervalDTO>();
+            if (doctor == null || doctor.TimeTable == null) return GetByPriority(dto).ToList();
             List<DateTime> appointments = doctor.TimeTable.GetFirstAvailableTimeForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate);
             if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
             return GetByPriority(dto).ToList();

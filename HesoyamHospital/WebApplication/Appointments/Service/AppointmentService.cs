@@ -4,6 +4,7 @@ using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
 using System;
 using System.Collections.Generic;
+using WebApplication.Appointments.DTOs;
 
 namespace WebApplication.Appointments.Service
 {
@@ -12,6 +13,7 @@ namespace WebApplication.Appointments.Service
         private readonly IPatientRepository _patientRepository;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly ICancellationRepository _cancellationRepository;
+        private readonly int CANCELLATION_COUNT = 3;
 
         public AppointmentService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository, ICancellationRepository cancellationRepository)
         {
@@ -44,6 +46,32 @@ namespace WebApplication.Appointments.Service
             appointment.AbleToFillOutSurvey = false;
             _appointmentRepository.UpdateProperty(appointment, "AbleToFillOutSurvey");
         }
+
+        public List<BlockPatientDTO> GetSuspiciousPatients()
+        {
+            Dictionary<long, int> cancellationCounts = _cancellationRepository.GetCancelledCountForPatients();
+            if (cancellationCounts.Count == 0) return new List<BlockPatientDTO>();
+            return PatientsWithMultipleCancellations(cancellationCounts);
+        }
+
+        public List<BlockPatientDTO> PatientsWithMultipleCancellations(Dictionary<long, int> cancellationCounts)
+        {
+            List<BlockPatientDTO> suspiciousPatients = new List<BlockPatientDTO>();
+            foreach (var item in cancellationCounts)
+            {
+                Patient patient = _patientRepository.GetByID(item.Key);
+                if (patient == null) break;
+                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(new BlockPatientDTO(patient.UserName, item.Value, patient.FullName, patient.Blocked));
+            }
+            return suspiciousPatients;
+        }
+
+        public Patient BlockPatient(Patient patient)
+        {
+            patient.Blocked = true;
+            _patientRepository.Update(patient);
+            return patient;
+        } 
 
         public void Delete(Appointment entity)
         {
