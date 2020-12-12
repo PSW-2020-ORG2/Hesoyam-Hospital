@@ -23,7 +23,9 @@
       "launchBrowser": true,
       "launchUrl": "api/feedback",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "MyDbConnectionString": "Port=5432;Database=mydb1;User Id=username;Password=secret",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "USES_POSTGRES": "TRUE"
       },
       "applicationUrl": "http://localhost:5000"
     }
