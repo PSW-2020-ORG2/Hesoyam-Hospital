@@ -11,7 +11,6 @@ COPY ./WebApplication .
 
 COPY ./WebApplication/WebApplication.csproj .
 
-
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.5 as runtime
 
 EXPOSE 80

@@ -31,7 +31,7 @@ namespace Backend.Repository.MySQLRepository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (isPostgres())
+            if (!isPostgres())
             {
                 if (!optionsBuilder.IsConfigured)
                 {
@@ -59,7 +59,7 @@ namespace Backend.Repository.MySQLRepository
         private string GeneratePostgresConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
-            return "Password=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
+            return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

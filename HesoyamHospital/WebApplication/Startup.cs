@@ -59,6 +59,9 @@ namespace WebApplication
                 services.AddDbContext<MyDbContext>(options =>
                     options.UseNpgsql(GetConnectionString()));
             }
+            else { 
+                
+            }
             
 
             services.AddMvc().AddJsonOptions(options =>
@@ -105,6 +108,8 @@ namespace WebApplication
                     RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
                     if (!databaseCreator.HasTables())
                         databaseCreator.CreateTables();
+                    //databaseCreator.CreateTables();
+                    //context.Database.Migrate();
                 }
             }
 
