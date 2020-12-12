@@ -1,4 +1,8 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<h1 style="margin-top: 15px; margin-bottom: 15px; text-align: center;">
+  List of suspicious patients
+</h1>
+<div style="display: flex; justify-content: center;">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef> Username </th>
@@ -25,3 +29,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>
