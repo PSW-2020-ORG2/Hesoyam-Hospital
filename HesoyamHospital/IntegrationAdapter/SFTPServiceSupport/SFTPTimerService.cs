@@ -42,7 +42,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
             string filePath = @"\PrescribedMedicineReport\pharmacy_reports\prescribed_medicine_report.txt";
             PrescribedMedicineReportGenerator generator = new PrescribedMedicineReportGenerator(AppResources.getInstance().therapyService, startupPath + filePath);
             generator.GenerateReport(new TimeInterval(DateTime.Now.AddDays(-7), DateTime.Now));
-            SFTPService.ConnectAndSendPrescribedMedicineReport(startupPath + filePath);
+            SFTPService.ConnectAndSendPrescribedMedicineReport(startupPath + filePath,"");
         }
 
         public void WriteToFile(string Message)

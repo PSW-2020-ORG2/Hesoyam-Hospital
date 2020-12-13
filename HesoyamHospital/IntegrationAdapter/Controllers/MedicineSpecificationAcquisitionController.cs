@@ -1,6 +1,7 @@
 ﻿using Backend;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using IntegrationAdapter.SFTPServiceSupport;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,8 +32,7 @@ namespace IntegrationAdapter.Controllers
         [HttpGet("specification/{name}")]
         public IActionResult GetSpecification(string name)
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            string text = System.IO.File.ReadAllText(startupPath + @"\PrescribedMedicineReport\specifications\"+name+".txt");
+            string text = SFTPService.ConnectAndReceiveSpecifications(name+".txt");
             return Ok(text);
         }
         [HttpPut("prescription")]
@@ -45,6 +45,7 @@ namespace IntegrationAdapter.Controllers
             {
                 sw.WriteLine(text);
             }
+            SFTPService.ConnectAndSendPrescribedMedicineReport("", startupPath + filepath);
             return Ok();
         }
     }
