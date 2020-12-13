@@ -18,15 +18,16 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication": {
+    "MySql": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/feedback",
       "environmentVariables": {
-        "MyDbConnectionString": "Port=5432;Database=mydb1;User Id=username;Password=secret",
+        "MyDbConnectionString": "port=3306;database=mydb1;user=root;password=root",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "USES_POSTGRES": "TRUE"
+        "USES_POSTGRES": "FALSE"
       },
+      
       "applicationUrl": "http://localhost:5000"
     }
   }
