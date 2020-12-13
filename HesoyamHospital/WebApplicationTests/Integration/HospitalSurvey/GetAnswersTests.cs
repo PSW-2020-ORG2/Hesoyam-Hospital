@@ -32,27 +32,27 @@ namespace WebApplicationTests.Integration.HospitalSurvey
 
             response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         }
-        [Theory]
-        [MemberData(nameof(Data2))]
-        public async void Getting_answers_per_each_doctor_status_code_tests(int id , HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
+        //[Theory]
+        //[MemberData(nameof(Data2))]
+        //public async void Getting_answers_per_each_doctor_status_code_tests(int id , HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/survey/answers-per-doctors/" + id);
+        //    HttpResponseMessage response = await client.GetAsync("/api/survey/answers-per-doctors/" + id);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
-        [Theory]
-        [MemberData(nameof(Data2))]
-        public async void Getting_average_grade_per_each_doctor_status_code_tests(int id, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
+        //[Theory]
+        //[MemberData(nameof(Data2))]
+        //public async void Getting_average_grade_per_each_doctor_status_code_tests(int id, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/survey/average-grade-per-doctor/" + id);
+        //    HttpResponseMessage response = await client.GetAsync("/api/survey/average-grade-per-doctor/" + id);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
         [Theory]
         [MemberData(nameof(Data))]
         public async void Mean_values_per_section_status_code_tests( HttpStatusCode expectedStatusCode)

@@ -22,17 +22,17 @@ namespace WebApplicationTests.Integration.Authentication
             _factory = factory;
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async void Registration_tests(NewPatientDTO newPatient, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(newPatient), System.Text.Encoding.UTF8, "application/json");
+        //[Theory]
+        //[MemberData(nameof(Data))]
+        //public async void Registration_tests(NewPatientDTO newPatient, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
+        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(newPatient), System.Text.Encoding.UTF8, "application/json");
             
-            HttpResponseMessage response = await client.PostAsync("/api/registration", bodyContent);
+        //    HttpResponseMessage response = await client.PostAsync("/api/registration", bodyContent);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>

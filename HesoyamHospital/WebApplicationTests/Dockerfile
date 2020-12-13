@@ -12,12 +12,6 @@ COPY ./WebApplication/WebApplication.csproj .
 
 COPY ./WebApplicationTests /app/WebApplicationTests
 
-WORKDIR /app/Backend
-ENV PATH $PATH:/root/.dotnet/tools
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
-RUN dotnet-ef migrations add InitialCreate -p "Backend.csproj"
-CMD [ "dotnet-ef", "database update" ]
-
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as runtime
 
 EXPOSE 80
