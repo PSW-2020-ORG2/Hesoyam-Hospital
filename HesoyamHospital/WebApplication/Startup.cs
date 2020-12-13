@@ -105,8 +105,8 @@ namespace WebApplication
                     RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
                     if (!databaseCreator.HasTables())
                         databaseCreator.CreateTables();
-                    else
-                        context.Database.Migrate();
+                    //else
+                    //    context.Database.Migrate();
 
                 }
             }
