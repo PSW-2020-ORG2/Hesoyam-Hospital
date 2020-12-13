@@ -21,7 +21,7 @@ namespace GraphicEditor
 
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
-            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
 
        
             foreach (FileInformation inf in menuInformation) 
@@ -39,7 +39,7 @@ namespace GraphicEditor
                 ChooseAHospital.Items.Add(item);
             }
 
-            List<GraphicalObject> list = graphicRepository.ReadFromFile("hospitalmap.txt");
+            List<GraphicalObject> list = graphicRepository.ReadFromFile("Map_Files\\hospitalmap.txt");
 
             foreach (GraphicalObject graphicalObject in list)
             {

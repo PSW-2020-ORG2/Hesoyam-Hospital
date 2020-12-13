@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace GraphicEditor
 {
@@ -36,21 +37,16 @@ namespace GraphicEditor
         public List<MapLocation> FindObjectsByName(string name)
         {
             List<MapLocation> mapLocations = new List<MapLocation>();
-            List<MapLocation> mapLocation1 = ReadObjects("hospital1groundfloor.txt", name);
-            List<MapLocation> mapLocation2 = ReadObjects("hospital1firstfloor.txt", name);
-            List<MapLocation> mapLocation3 = ReadObjects("hospital2groundfloor.txt", name);
-            List<MapLocation> mapLocation4 = ReadObjects("hospital2firstfloor.txt", name);
-            List<MapLocation> mapLocation5 = ReadObjects("hospital2secondfloor.txt", name);
 
-            mapLocations.AddRange(mapLocation1);
-
-            mapLocations.AddRange(mapLocation2);
-
-            mapLocations.AddRange(mapLocation3);
-
-            mapLocations.AddRange(mapLocation4);
-
-            mapLocations.AddRange(mapLocation5);
+            string[] fileEntries = Directory.GetFiles("Map_Files");
+            foreach (string fileName in fileEntries)
+            {
+                if (fileName.ToLower().EndsWith(".txt"))
+                {
+                    List<MapLocation> mapLocation1 = ReadObjects(fileName, name);
+                    mapLocations.AddRange(mapLocation1);
+                }
+            }
 
             return mapLocations;
         }

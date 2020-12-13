@@ -62,7 +62,7 @@ namespace GraphicEditor
             string comboBoxPath = "";
 
             GraphicRepository graphicRepository = new GraphicRepository();
-            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
             foreach (FileInformation inf in menuInformation) 
             {
                 if (inf.Name == hospital)
