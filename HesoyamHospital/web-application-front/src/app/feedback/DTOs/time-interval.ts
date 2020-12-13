@@ -1,6 +1,6 @@
 export class TimeInterval {
     constructor(
-        public StartTime : Date,
-        public EndTime : Date
+        public startTime : Date,
+        public endTime : Date
     ) {}
 }

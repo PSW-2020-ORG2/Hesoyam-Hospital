@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Scheduling
 {
@@ -10,6 +7,7 @@ namespace WebApplication.Scheduling
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string StartTimeText { get; set; }
+        public string DateText { get; set; }
 
         public IntervalDTO() { }
 
@@ -18,6 +16,7 @@ namespace WebApplication.Scheduling
             StartTime = startTime;
             EndTime = endTime;
             StartTimeText = startTime.ToString("HH:mm") + " - " + endTime.ToString("HH:mm");
+            DateText = startTime.ToString("dd.MM.yyyy");
         }
     }
 }

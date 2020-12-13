@@ -23,6 +23,19 @@ namespace WebApplicationTests.Unit.Scheduling
 
             appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
         }
+
+        [Theory]
+        [MemberData(nameof(AppointmentData))]
+        public void Saving_selected_doctor_appointment_to_database(AppointmentDTO dto, Times times)
+        {
+            var appointmentService = new Mock<IAppointmentSchedulingService>();
+            var controller = new AppointmentSchedulingController(appointmentService.Object);
+
+            controller.SaveSelecetdDoctorAppointment(dto);
+
+            appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
+        }
+
         public static IEnumerable<object[]> AppointmentData =>
            new List<object[]>
            {

@@ -10,7 +10,9 @@ import { SurveysResultsComponent } from './feedback/admin/surveys-results/survey
 import { SurveysDoctorsComponent } from './feedback/admin/surveys-doctors/surveys-doctors.component';
 import { AppointmentRecommendationComponent } from './feedback/patient/appointment-recommendation/appointment-recommendation.component';
 import { StandardAppointmentComponent } from './feedback/patient/standard-appointment/standard-appointment.component';
-
+import { ChooseSchedulingTypeComponent } from './feedback/patient/choose-scheduling-type/choose-scheduling-type.component';
+import { SelectedDoctorComponent } from './feedback/patient/selected-doctor/selected-doctor.component';
+import { BlockPatientsComponent } from './feedback/admin/block-patients/block-patients.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/feedback/patient/post', pathMatch: 'full'},
@@ -21,6 +23,9 @@ const routes: Routes = [
   {path:'medical-record', component: ShowMedicalRecordComponent},
   {path:'appointment-recommendation', component: AppointmentRecommendationComponent},
   {path: 'standard-appointment', component: StandardAppointmentComponent},
+  {path: 'choose-scheduling', component: ChooseSchedulingTypeComponent},
+  {path: 'selected-doctor', component: SelectedDoctorComponent},
+  {path: 'block-patients', component: BlockPatientsComponent},
   
   {
     path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)

@@ -6,8 +6,8 @@
           <mat-form-field appearance="fill">
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
-              <input matStartDate placeholder="Start date" name = "startDate" [(ngModel)] = "recommendedAppointment.TimeInterval.StartTime">
-              <input matEndDate placeholder="End date" name  = "endDate" [(ngModel)] = "recommendedAppointment.TimeInterval.EndTime">
+              <input matStartDate placeholder="Start date" name = "startDate" [(ngModel)] = "doctorInterval.StartDate">
+              <input matEndDate placeholder="End date" name  = "endDate" [(ngModel)] = "doctorInterval.EndDate">
             </mat-date-range-input>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
@@ -17,7 +17,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Choose doctor's department">
+    <mat-step [stepControl]="secondFormGroup" label="Choose doctor's specialisation">
         <form style="margin-top: 1%;">
             <mat-form-field appearance="fill">
                 <mat-label>Choose department</mat-label>
@@ -34,7 +34,7 @@
               </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext (click) = "getDoctors()">Next</button>
+            <button mat-button (click) = "getDoctors(stepper)">Next</button>
           </div>
         </form>
       </mat-step>
@@ -43,11 +43,8 @@
         <mat-form-field appearance="fill">
             <mat-label>Choose doctor</mat-label>
             <mat-select>
-              <mat-option value = "marko">
-                Marko Markovic
-              </mat-option>
-              <mat-option value = "pera">
-                Petar Petrovic
+              <mat-option (click) = "selectDoctor(doctor)" *ngFor="let doctor of doctors" [value]="doctor">
+                {{doctor.fullName}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -60,20 +57,36 @@
     <mat-step [stepControl]="secondFormGroup" label="Choose your priority">
         <form style="margin-top: 1%;" >
         
-            <mat-radio-group aria-label="Select an option">
-                <mat-radio-button value="1">Doctor</mat-radio-button>
-                <mat-radio-button value="2">Time interval</mat-radio-button>
-              </mat-radio-group>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="doctorInterval.PriorityDoctor" name="priority" style="margin-bottom: 10px;">
+                <mat-radio-button value="true">Doctor</mat-radio-button>
+                <mat-radio-button value="false" style="margin-left: 10px; margin-bottom: 10px;">Time interval</mat-radio-button>
+            </mat-radio-group>
           
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext (click) = "selectAll()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Choose appointment">
+        <form [formGroup]="secondFormGroup" style="margin-top: 1%;">
+          <mat-form-field appearance="fill">
+              <mat-label>Choose appointment</mat-label>
+              <mat-select>
+                <mat-option (click) = "pickTime(interval)" *ngFor="let interval of priorityIntervalDto" [value]="interval">
+                  {{interval.startTimeText + ",  " + interval.dateText + ", Dr " + interval.fullName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click) = "schedule(stepper)">Next</button>
           </div>
         </form>
       </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+      <p style="margin-top: 10px;">{{scheduledTime}}</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
