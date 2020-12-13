@@ -8,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplic
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F} = {49226B60-869E-428E-8C7F-C573E3DDFC9F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{49226B60-869E-428E-8C7F-C573E3DDFC9F}"
 EndProject
@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapter", "Integ
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F} = {49226B60-869E-428E-8C7F-C573E3DDFC9F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationE2ETests", "WebApplicationE2ETests\WebApplicationE2ETests.csproj", "{CB5E8D08-1D70-4D76-B863-DC58C22B2B1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB5E8D08-1D70-4D76-B863-DC58C22B2B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB5E8D08-1D70-4D76-B863-DC58C22B2B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB5E8D08-1D70-4D76-B863-DC58C22B2B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB5E8D08-1D70-4D76-B863-DC58C22B2B1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
