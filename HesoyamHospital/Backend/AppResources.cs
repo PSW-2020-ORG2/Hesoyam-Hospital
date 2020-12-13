@@ -12,6 +12,7 @@ using Backend.Service.MiscService;
 using Backend.Service.UsersService;
 using Backend.Util;
 using Backend.Model.PharmacyModel;
+using Backend.Model.ManagerModel;
 
 namespace Backend
 {
@@ -162,6 +163,7 @@ namespace Backend
             locationRepository = new LocationRepository(new MySQLStream<Location>(), new LongSequencer());
             feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
             medicineRepository = new MedicineRepository(new MySQLStream<Medicine>(), new LongSequencer());
+            inventoryItemRepository = new InventoryItemRepository(new MySQLStream<InventoryItem>(), new LongSequencer());
             prescriptionRepository = new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer());
             reportRepository = new ReportRepository(new MySQLStream<Report>(), new LongSequencer());
             allergyRepository = new AllergyRepository(new MySQLStream<Allergy>(), new LongSequencer());

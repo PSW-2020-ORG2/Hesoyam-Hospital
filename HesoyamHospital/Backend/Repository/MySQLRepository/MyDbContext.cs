@@ -1,4 +1,5 @@
 ﻿using System;
+using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.PharmacyModel;
 using Backend.Model.UserModel;
@@ -17,6 +18,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Medicine> Medicine { get; set; }
+        public DbSet<InventoryItem> InventoryItem { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Allergy> Allergies { get; set; }

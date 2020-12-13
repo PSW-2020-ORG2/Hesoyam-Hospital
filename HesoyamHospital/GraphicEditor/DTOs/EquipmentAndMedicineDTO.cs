@@ -1,7 +1,7 @@
 ﻿
 namespace GraphicEditor
 {
-    class EquipmentAndMedicine
+    class EquipmentAndMedicineDTO
     {
         public string Type { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace GraphicEditor
         public int Quantity { get; set; }
 
 
-        public EquipmentAndMedicine(string type, string name, string mapObject, string floor, string room, int quantity)
+        public EquipmentAndMedicineDTO(string type, string name, string mapObject, string floor, string room, int quantity)
         {
             Type = type;
             Name = name;

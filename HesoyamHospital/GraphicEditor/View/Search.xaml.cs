@@ -31,13 +31,13 @@ namespace GraphicEditor
             {
                 if (name.IsNullOrEmpty())
                 {
-                    List<EquipmentAndMedicine> results = searchService.FindAllEquipmentAndMedicines("equipmentandmedicine.txt");
+                    List<EquipmentAndMedicineDTO> results = searchService.FindAllEquipmentAndMedicines("equipmentandmedicine.txt");
                     dataGridSearch.ItemsSource = results;
 
                 }
                 else
                 {
-                    List<EquipmentAndMedicine> results = searchService.GetEquipmentAndMedicineByName("equipmentandmedicine.txt", name);
+                    List<EquipmentAndMedicineDTO> results = searchService.GetEquipmentAndMedicineByName("equipmentandmedicine.txt", name);
                     dataGridSearch.ItemsSource = results;
                 }
             }

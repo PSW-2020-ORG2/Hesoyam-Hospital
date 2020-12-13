@@ -6,17 +6,17 @@ namespace GraphicEditor
 {
     class EquipmentAndMedicineRepository
     {
-        public List<EquipmentAndMedicine> GetAllEquipmentAndMedicines(string fileName)
+        public List<EquipmentAndMedicineDTO> GetAllEquipmentAndMedicines(string fileName)
         {
             string path = Path.GetFullPath(fileName);
-            List<EquipmentAndMedicine> list = new List<EquipmentAndMedicine>();
+            List<EquipmentAndMedicineDTO> list = new List<EquipmentAndMedicineDTO>();
 
             if (File.Exists(path))
             {
                 string[] lines = File.ReadAllLines(path);
                 foreach (string line in lines)
                 {
-                    EquipmentAndMedicine equipmentAndMedicine = GetEquipmentAndMedicine(line);
+                    EquipmentAndMedicineDTO equipmentAndMedicine = GetEquipmentAndMedicine(line);
                     list.Add(equipmentAndMedicine);
                 }
             }
@@ -27,7 +27,7 @@ namespace GraphicEditor
             return list;
         }
 
-        private EquipmentAndMedicine GetEquipmentAndMedicine(string line)
+        private EquipmentAndMedicineDTO GetEquipmentAndMedicine(string line)
         {
             string[] fields = line.Split(',');
             string type = fields[0].ToString();
@@ -37,7 +37,7 @@ namespace GraphicEditor
             string room = fields[4].ToString();
             int quantity = Int32.Parse(fields[5]);
 
-            return new EquipmentAndMedicine(type, name, mapObject, floor, room, quantity);
+            return new EquipmentAndMedicineDTO(type, name, mapObject, floor, room, quantity);
 
         }
     }
