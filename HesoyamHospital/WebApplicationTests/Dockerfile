@@ -4,10 +4,15 @@ WORKDIR /app/
 WORKDIR /app/Backend/
 WORKDIR /app/
 COPY ./Backend /app/Backend
+RUN true
 COPY ./WebApplication /app/WebApplication
+RUN true
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
+RUN true
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish/
+RUN true
 COPY ./WebApplication .
+RUN true
 COPY ./WebApplication/WebApplication.csproj .
 
 COPY ./WebApplicationTests /app/WebApplicationTests
