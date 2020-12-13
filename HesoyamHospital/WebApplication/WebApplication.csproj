@@ -16,6 +16,7 @@
     <EmbeddedResource Remove="wwwroot\images\**" />
     <None Remove="Resources\**" />
     <None Remove="wwwroot\images\**" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.9" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
   </ItemGroup>
 

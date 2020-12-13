@@ -21,6 +21,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.Extensions;
 
 namespace WebApplication
 {
@@ -64,6 +65,12 @@ namespace WebApplication
             services.AddMvc().AddJsonOptions(options =>
                     options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "Public";
+            });
+
             services.Configure<FormOptions>(o =>
             {
                 o.ValueLengthLimit = int.MaxValue;
@@ -94,6 +101,18 @@ namespace WebApplication
                 FileProvider = new PhysicalFileProvider(
                 Path.Combine(env.ContentRootPath, "Resources")),
                 RequestPath = "/Resources"
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Public")),
+                RequestPath = ""
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "Public";
             });
 
             if (isPostgres()) 
