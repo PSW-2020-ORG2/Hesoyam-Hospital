@@ -39,5 +39,5 @@ COPY --from=nodebuilder /usr/src/app/dist/web-application-front/. /app/Public/
 
 WORKDIR /app
 
-#CMD ASPNETCORE_URLS=http://*:$PORT dotnet WebApplication.dll
-ENTRYPOINT [ "dotnet", "WebApplication.dll" ]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet WebApplication.dll
+#ENTRYPOINT [ "dotnet", "WebApplication.dll" ]
