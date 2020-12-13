@@ -31,7 +31,7 @@ services:
     networks: 
       - hesoyamnet
     ports:
-      - "5000:80"
+      - "52166:80"
 
   postgres:
     image: postgres:latest
