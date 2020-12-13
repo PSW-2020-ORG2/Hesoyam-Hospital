@@ -8,32 +8,7 @@ namespace GraphicEditor
         public SearchService()
         {
         }
-        public List<EquipmentAndMedicineDTO> FindAllEquipmentAndMedicines(string filename)
-        {
-            List<EquipmentAndMedicineDTO> allEquipment = null;
-            EquipmentAndMedicineRepository equipmentAndMedicineRepository = new EquipmentAndMedicineRepository();
-            allEquipment = equipmentAndMedicineRepository.GetAllEquipmentAndMedicines(filename);
-            return allEquipment;
-        }
-        public List<EquipmentAndMedicineDTO> GetEquipmentAndMedicineByName(string filename, string name)
-        {
-            List<EquipmentAndMedicineDTO> allEquipment = null;
-            List<EquipmentAndMedicineDTO> findEquipmentAndMedicine = new List<EquipmentAndMedicineDTO>();
-            EquipmentAndMedicineRepository equipmentAndMedicineRepository = new EquipmentAndMedicineRepository();
-
-            allEquipment = equipmentAndMedicineRepository.GetAllEquipmentAndMedicines(filename);
-
-            foreach (EquipmentAndMedicineDTO e in allEquipment)
-            {
-                if (e.Name.Equals(name))
-                {
-                    findEquipmentAndMedicine.Add(e);
-                }
-            }
-
-            return findEquipmentAndMedicine;
-        }
-
+       
         public List<MapLocation> FindObjectsByName(string name)
         {
             List<MapLocation> mapLocations = new List<MapLocation>();

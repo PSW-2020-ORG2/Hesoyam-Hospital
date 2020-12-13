@@ -33,18 +33,13 @@ namespace GraphicEditor
                 List<MapLocation> results = searchService.FindObjectsByName(name);
                 dataGridSearch.ItemsSource = results;
             }
-            else if (searchType.SelectedIndex == 1)
-            {
 
-            }
-            else if (searchType.SelectedIndex == 2)
-            {
-                // equipment
-            }
-            else
-            {
-                // medicine
-            }
+            // avaiable rooms - 1
+
+            // equipment - 2
+
+            // medicine - 3
+            
         }
 
         private void Advanced_Search_Click(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
