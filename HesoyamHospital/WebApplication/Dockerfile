@@ -4,17 +4,18 @@ WORKDIR /app/
 WORKDIR /app/Backend/
 WORKDIR /app/
 COPY ./Backend ./Backend/
+WORKDIR /app/Backend
+ENV PATH $PATH:/root/.dotnet/tools
+RUN dotnet tool install --global dotnet-ef --version 3.1.0
+RUN dotnet-ef migrations add InitialCreate -p "Backend.csproj"
+CMD [ "dotnet-ef", "database update" ]
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish/
 COPY ./WebApplication .
 
 COPY ./WebApplication/WebApplication.csproj .
 
-WORKDIR /app/Backend
-ENV PATH $PATH:/root/.dotnet/tools
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
-RUN dotnet-ef migrations add InitialCreate -p "Backend.csproj"
-CMD [ "dotnet-ef", "database update" ]
+
 
 FROM node:14.15.1-buster as nodebuilder
 RUN mkdir /usr/src/app
