@@ -18,7 +18,8 @@ export class PharmacyRegistrationComponent implements OnInit {
     this.myForm=this.fb.group({
       pharmacyName :['',[Validators.required]],
       apiKey:['',[Validators.required]],
-      endpoint:['',[Validators.required]]
+      endpoint:['',[Validators.required]],
+      grpcPort:['', [Validators.pattern("^[0-9]*$")]]
     })
 
   }
@@ -27,6 +28,7 @@ export class PharmacyRegistrationComponent implements OnInit {
     this.Pharmacy.ApiKey=this.myForm.get('apiKey').value;
     this.Pharmacy.PharmacyName=this.myForm.get('pharmacyName').value;
     this.Pharmacy.Endpoint=this.myForm.get('endpoint').value;
+    this.Pharmacy.GrpcPort=this.myForm.get('grpcPort').value;
     this.service.getPharmacy(this.Pharmacy).subscribe(res=>{
       alert("Pharmacy with name "+ this.Pharmacy.PharmacyName +" registered");
         });

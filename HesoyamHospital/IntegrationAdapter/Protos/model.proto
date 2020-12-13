@@ -9,4 +9,5 @@ message MedicineNameProto {
 
 message MedicineAvailabilityProto {
 	bool available = 1;
+	repeated string addresses = 2;
 }

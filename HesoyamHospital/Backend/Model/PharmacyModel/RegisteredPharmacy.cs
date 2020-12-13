@@ -15,6 +15,7 @@ namespace Backend.Model.PharmacyModel
         public string PharmacyName { get; set; }
         [Required]
         public string Endpoint { get; set; }
+        public string GrpcPort { get; set; }
         public RegisteredPharmacy(string apiKey, string pharmacyName, string endpoint)
         {
             ApiKey = apiKey;

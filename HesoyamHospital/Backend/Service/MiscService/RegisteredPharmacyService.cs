@@ -36,7 +36,7 @@ namespace Backend.Service.MiscService
             return _registeredPharmacyRepository.GetByID(id);
         }
 
-        private RegisteredPharmacy GetRegisteredPharmacyByName(string name)
+        public RegisteredPharmacy GetRegisteredPharmacyByName(string name)
         {
             return _registeredPharmacyRepository.GetRegisteredPharmacyByName(name);
         }
@@ -59,10 +59,6 @@ namespace Backend.Service.MiscService
             if (IsPharmacyRegistered(entity.PharmacyName))
             {
                 throw new RegisteredPharmacyNameNotUniqueException("Pharmacy with name " + entity.PharmacyName + " already exists.");
-            }
-            if (!IsEndpointValid(entity.Endpoint))
-            {
-                throw new InvalidRegisteredPharmacyEndpointException("Invalid endpoint.");
             }
         }
     }
