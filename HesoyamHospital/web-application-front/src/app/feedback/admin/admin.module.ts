@@ -11,9 +11,10 @@ import { FormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider';
 import { SurveysResultsComponent } from './surveys-results/surveys-results.component';
 import { SurveysDoctorsComponent } from './surveys-doctors/surveys-doctors.component';
+import { BlockPatientsComponent } from './block-patients/block-patients.component';
 
 @NgModule({
-  declarations: [PublishListComponent, SurveysAndSectionsComponent, SurveysResultsComponent, SurveysDoctorsComponent],
+  declarations: [PublishListComponent, SurveysAndSectionsComponent, SurveysResultsComponent, SurveysDoctorsComponent, BlockPatientsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
