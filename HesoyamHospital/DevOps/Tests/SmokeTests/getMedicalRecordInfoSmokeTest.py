@@ -2,6 +2,7 @@ import sys
 import requests
 import requests.exceptions
 
+MEDICAL_RECORD_ID = -1
 GET_MEDICAL_RECORD_URL = 'https://hesoyam-hospital.herokuapp.com/api/medicalrecord/show/{}'.format(MEDICAL_RECORD_ID)
 TIMEOUT = 10
 
