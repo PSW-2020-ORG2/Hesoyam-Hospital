@@ -10,7 +10,7 @@ namespace Backend.Model.UserModel
     public enum RoomType
     {
         OPERATION,
-        EXAMINATIONROOM,
+        EXAMINATION,
         PATIENTROOM,
         ONCALLROOM,
         PHYSICALTHERAPYROOM,
