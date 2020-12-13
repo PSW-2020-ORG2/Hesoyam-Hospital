@@ -17,7 +17,8 @@ namespace GraphicEditor
             Global.SearchObjectName = "";
             if (Global.LoggedInUserType.Equals("patient"))
             {
-                searchEquipmentAndMedicine.Visibility = Visibility.Hidden;
+                searchEquipment.Visibility = Visibility.Hidden;
+                searchMedicine.Visibility = Visibility.Hidden;
             }
 
         }
@@ -27,24 +28,22 @@ namespace GraphicEditor
             String name = objectName.Text;
             SearchService searchService = new SearchService();
 
-            if (searchType.SelectedIndex == 2)
-            {
-                if (name.IsNullOrEmpty())
-                {
-                    List<EquipmentAndMedicineDTO> results = searchService.FindAllEquipmentAndMedicines("equipmentandmedicine.txt");
-                    dataGridSearch.ItemsSource = results;
-
-                }
-                else
-                {
-                    List<EquipmentAndMedicineDTO> results = searchService.GetEquipmentAndMedicineByName("equipmentandmedicine.txt", name);
-                    dataGridSearch.ItemsSource = results;
-                }
-            }
-            else
+            if (searchType.SelectedIndex == 0)
             {
                 List<MapLocation> results = searchService.FindObjectsByName(name);
                 dataGridSearch.ItemsSource = results;
+            }
+            else if (searchType.SelectedIndex == 1)
+            {
+
+            }
+            else if (searchType.SelectedIndex == 2)
+            {
+                // equipment
+            }
+            else
+            {
+                // medicine
             }
         }
 

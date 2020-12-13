@@ -32,12 +32,10 @@ namespace GraphicEditor
             string[] fields = line.Split(',');
             string type = fields[0].ToString();
             string name = fields[1].ToString();
-            string mapObject = fields[2].ToString();
-            string floor = fields[3].ToString();
-            string room = fields[4].ToString();
+            long room = Int32.Parse(fields[4]);
             int quantity = Int32.Parse(fields[5]);
 
-            return new EquipmentAndMedicineDTO(type, name, mapObject, floor, room, quantity);
+            return new EquipmentAndMedicineDTO(type, name, room, quantity);
 
         }
     }
