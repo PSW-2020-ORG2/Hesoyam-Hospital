@@ -9,6 +9,7 @@ namespace GraphicEditor
 {
     class DrawingShapesService
     {
+        private GraphicRepository graphicRepository = new GraphicRepository();
 
         public DrawingShapesService()
         {
@@ -107,8 +108,6 @@ namespace GraphicEditor
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
             MainWindow mainWindow = new MainWindow();
-
-            GraphicRepository graphicRepository = new GraphicRepository();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
 
             foreach (FileInformation inf in menuInformation)
