@@ -12,26 +12,26 @@ networks:
     driver: bridge
 
 services:
-  #WebApplication:
-  #  build: 
-  #    context: .
-  #    dockerfile: WebApplication/Dockerfile
-  #  image: gregvader/webapplication:latest
-  #  depends_on:
-  #    - postgres
-  #  restart: on-failure
-  #  environment:
-  #    DATABASE_HOST: postgres
-  #    USES_POSTGRES: "TRUE"
-  #    MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
-  #  volumes:
-  #    - web-sql:/app/sql
-  #  expose: 
-  #    - "80"
-  #  networks: 
-  #    - hesoyamnet
-  #  ports:
-  #    - "5000:80"
+  WebApplication:
+    build: 
+      context: .
+      dockerfile: WebApplication/Dockerfile
+    image: gregvader/webapplication:latest
+    depends_on:
+      - postgres
+    restart: on-failure
+    environment:
+      DATABASE_HOST: postgres
+      USES_POSTGRES: "TRUE"
+      MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+    volumes:
+      - web-sql:/app/sql
+    expose: 
+      - "80"
+    networks: 
+      - hesoyamnet
+    ports:
+      - "5000:80"
 
   postgres:
     image: postgres:latest
