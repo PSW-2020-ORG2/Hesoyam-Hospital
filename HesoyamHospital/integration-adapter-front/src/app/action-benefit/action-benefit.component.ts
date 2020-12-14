@@ -25,10 +25,11 @@ export class ActionBenefitComponent implements OnInit {
     .subscribe( 
       (data) =>{
         console.log(data);
+        this.ngOnInit();
 
       }, 
       err => {
-        this.ngOnInit();
+        
         console.log(err);
       } 
      );
