@@ -35,7 +35,7 @@ namespace Backend.Repository.MySQLRepository.MedicalRepository
             => GetAllEager().Where(therapy => therapy.Prescription.MedicalTherapies.Find(mt => mt.Medicine.Equals(medicine)) != null);
 
         public virtual IEnumerable<Therapy> GetTherapyByDatePrescribed(TimeInterval dateRange)
-            => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.DatePrescribed));
+            => GetAllEager().Where(therapy => dateRange.IsDateTimeBetween(therapy.Prescription.DateCreated));
 
         public IEnumerable<Therapy> GetTherapyByPatient(Patient patient)
         {
