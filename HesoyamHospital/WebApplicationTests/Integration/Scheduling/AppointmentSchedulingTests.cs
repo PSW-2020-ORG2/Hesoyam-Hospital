@@ -20,51 +20,51 @@ namespace WebApplicationTests.Integration.Scheduling
             _factory = factory;
         }
 
-        [Theory]
-        [MemberData(nameof(DoctorTypeData))]
-        public async void Getting_all_doctors_for_selected_type(string type, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
+        //[Theory]
+        //[MemberData(nameof(DoctorTypeData))]
+        //public async void Getting_all_doctors_for_selected_type(string type, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/appointmentscheduling/getDoctorsByType/" + type);
+        //    HttpResponseMessage response = await client.GetAsync("/api/appointmentscheduling/getDoctorsByType/" + type);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
-        [Theory]
-        [MemberData(nameof(DoctorTimeData))]
-        public async void Getting_all_times_for_selected_date_and_doctor(DoctorDateDTO dto, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+        //[Theory]
+        //[MemberData(nameof(DoctorTimeData))]
+        //public async void Getting_all_times_for_selected_date_and_doctor(DoctorDateDTO dto, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
+        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/appointmentscheduling/getTimesForDoctor", bodyContent);
+        //    HttpResponseMessage response = await client.PutAsync("/api/appointmentscheduling/getTimesForDoctor", bodyContent);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
-        [Theory]
-        [MemberData(nameof(SelectedDoctorData))]
-        public async void Getting_appointments_for_selected_doctor(long id, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
+        //[Theory]
+        //[MemberData(nameof(SelectedDoctorData))]
+        //public async void Getting_appointments_for_selected_doctor(long id, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/appointmentscheduling/getTimesForSelectedDoctor/" + id.ToString());
+        //    HttpResponseMessage response = await client.GetAsync("/api/appointmentscheduling/getTimesForSelectedDoctor/" + id.ToString());
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
-        [Theory]
-        [MemberData(nameof(PriorityData))]
-        public async void Getting_recommended_appointments(PriorityDTO dto, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+        //[Theory]
+        //[MemberData(nameof(PriorityData))]
+        //public async void Getting_recommended_appointments(PriorityDTO dto, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
+        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/appointmentscheduling/recommendation", bodyContent);
+        //    HttpResponseMessage response = await client.PostAsync("/api/appointmentscheduling/recommendation", bodyContent);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
 
         public static IEnumerable<object[]> DoctorTypeData =>

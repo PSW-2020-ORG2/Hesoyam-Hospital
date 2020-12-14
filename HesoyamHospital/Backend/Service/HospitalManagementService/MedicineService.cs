@@ -33,6 +33,19 @@ namespace Backend.Service.HospitalManagementService
         public Medicine GetMedicineByName(string name)
             => _medicineRepository.GetMedicineByName(name);
 
+        public IEnumerable<Medicine> GetMedicinesByPartName(string name)
+        {
+            List<Medicine> result = new List<Medicine>();
+            List<Medicine> medicines = (List<Medicine>)_medicineRepository.GetAllEager();
+            foreach (Medicine m in medicines)
+            {
+                if (m.Name.Contains(name))
+                    result.Add(m);
+
+            }
+            return result;
+        }
+
         public IEnumerable<Medicine> GetFilteredMedicine(Util.MedicineFilter medicineFilter)
             => _medicineRepository.GetFilteredMedicine(medicineFilter);
 
