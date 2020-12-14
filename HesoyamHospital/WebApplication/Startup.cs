@@ -16,6 +16,12 @@ using WebApplication.Scheduling.Service;
 using Backend.Model.UserModel;
 using WebApplication.Appointments.Service;
 using Backend.Repository.MySQLRepository.MedicalRepository;
+using Backend.Repository.MySQLRepository;
+using System;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.Extensions;
 
 namespace WebApplication
 {
@@ -49,10 +55,22 @@ namespace WebApplication
             services.AddSingleton<ISendEmail, SendEmail>();
             services.AddSingleton<IAppointmentSchedulingService, AppointmentSchedulingService>(service=> new AppointmentSchedulingService(new DoctorRepository(new MySQLStream<Doctor>(), new LongSequencer(), new UserRepository(new MySQLStream<User>(), new LongSequencer())), new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer())));
 
+            if (isPostgres())
+            {
+                services.AddDbContext<MyDbContext>(options =>
+                    options.UseNpgsql(GetConnectionString()));
+            }
+
 
             services.AddMvc().AddJsonOptions(options =>
                     options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers();
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "Public";
+            });
+
             services.Configure<FormOptions>(o =>
             {
                 o.ValueLengthLimit = int.MaxValue;
@@ -60,6 +78,13 @@ namespace WebApplication
                 o.MemoryBufferThreshold = int.MaxValue;
             });
             services.AddControllers().AddNewtonsoftJson();
+        }
+
+        private string GetConnectionString()
+        {
+            string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            Console.WriteLine("Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString"));
+            return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -78,6 +103,33 @@ namespace WebApplication
                 RequestPath = "/Resources"
             });
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Public")),
+                RequestPath = ""
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "Public";
+            });
+
+            if (isPostgres()) 
+            {
+                using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
+
+                    RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
+                    if (!databaseCreator.HasTables())
+                        databaseCreator.CreateTables();
+                    //else
+                    //    context.Database.Migrate();
+
+                }
+            }
+
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
@@ -86,6 +138,11 @@ namespace WebApplication
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private bool isPostgres()
+        {
+            return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
     }
 }

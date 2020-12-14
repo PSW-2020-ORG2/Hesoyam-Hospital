@@ -20,16 +20,16 @@ namespace WebApplicationTests.Integration.MedicalRecords
             _factory = factory;
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async void Medical_Record_Status_Code_Test(long id, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
+        //[Theory]
+        //[MemberData(nameof(Data))]
+        //public async void Medical_Record_Status_Code_Test(long id, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
             
-            var response = await client.GetAsync("/api/medicalrecord/show/"+ id );
+        //    var response = await client.GetAsync("/api/medicalrecord/show/"+ id );
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>

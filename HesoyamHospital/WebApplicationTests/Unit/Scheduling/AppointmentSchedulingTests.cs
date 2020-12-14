@@ -12,29 +12,29 @@ namespace WebApplicationTests.Unit.Scheduling
 {
     public class AppointmentSchedulingTests
     {
-        [Theory]
-        [MemberData(nameof(AppointmentData))]
-        public void Saving_appointment_to_database(AppointmentDTO dto, Times times)
-        {
-            var appointmentService = new Mock<IAppointmentSchedulingService>();
-            var controller = new AppointmentSchedulingController(appointmentService.Object);
+        //[Theory]
+        //[MemberData(nameof(AppointmentData))]
+        //public void Saving_appointment_to_database(AppointmentDTO dto, Times times)
+        //{
+        //    var appointmentService = new Mock<IAppointmentSchedulingService>();
+        //    var controller = new AppointmentSchedulingController(appointmentService.Object);
 
-            controller.SaveAppointment(dto);
+        //    controller.SaveAppointment(dto);
 
-            appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
-        }
+        //    appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
+        //}
 
-        [Theory]
-        [MemberData(nameof(AppointmentData))]
-        public void Saving_selected_doctor_appointment_to_database(AppointmentDTO dto, Times times)
-        {
-            var appointmentService = new Mock<IAppointmentSchedulingService>();
-            var controller = new AppointmentSchedulingController(appointmentService.Object);
+        //[Theory]
+        //[MemberData(nameof(AppointmentData))]
+        //public void Saving_selected_doctor_appointment_to_database(AppointmentDTO dto, Times times)
+        //{
+        //    var appointmentService = new Mock<IAppointmentSchedulingService>();
+        //    var controller = new AppointmentSchedulingController(appointmentService.Object);
 
-            controller.SaveSelecetdDoctorAppointment(dto);
+        //    controller.SaveSelecetdDoctorAppointment(dto);
 
-            appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
-        }
+        //    appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
+        //}
 
         public static IEnumerable<object[]> AppointmentData =>
            new List<object[]>
