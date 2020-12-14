@@ -1,7 +1,6 @@
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
 using System;
@@ -22,6 +21,7 @@ namespace GraphicEditor
         private List<EquipmentDTO> inventoryItemsDTOs;
         private InventoryService inventoryService;
         private RoomService roomService;
+        private SearchService searchService;
 
         public Search()
         {
@@ -37,6 +37,7 @@ namespace GraphicEditor
             inventoryService = Backend.AppResources.getInstance().inventoryService;
             medicineService = Backend.AppResources.getInstance().medicineService;
             roomService = Backend.AppResources.getInstance().roomService;
+            searchService = new SearchService();
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
@@ -51,8 +52,7 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 1)
             {
-                List<MapLocation> results = searchService.FindObjectsByName(name);
-                dataGridSearch.ItemsSource = results;
+                Console.WriteLine("Uraditi pregled dostupnih soba");
             }
             else if (searchType.SelectedIndex == 2)
             {
@@ -156,29 +156,10 @@ namespace GraphicEditor
                     return;
                 }
                 string room = equipment.Room;
-                SearchService searchService = new SearchService();
-                List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
-                MapLocation mapLocation = mapLocations[0];
 
-                string name = mapLocation.Name;
-                Global.SearchObjectName = name;
-                string hospital = mapLocation.Hospital;
-                string path = mapLocation.FilePath;
-                string floor = mapLocation.Floor;
-                string comboBoxPath = "";
+                MapLocation mapLocation = GetLocationByRoomName(room);
 
-                GraphicRepository graphicRepository = new GraphicRepository();
-                List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-                foreach (FileInformation inf in menuInformation)
-                {
-                    if (inf.Name == hospital)
-                        comboBoxPath = inf.FilePath;
-                }
-
-                HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
-                window.Hospital.Content = new HospitalFloor(path);
-                window.HospitalFloors.Text = floor;
-                window.Show();
+                DisplayResaults(mapLocation);
             }
             else if(searchType.SelectedIndex == 3)
             {
@@ -189,30 +170,39 @@ namespace GraphicEditor
                 }
 
                 string room = medicineDTO.Room;
-                SearchService searchService = new SearchService();
-                List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
-                MapLocation mapLocation = mapLocations[0];
 
-                string name = mapLocation.Name;
-                Global.SearchObjectName = name;
-                string hospital = mapLocation.Hospital;
-                string path = mapLocation.FilePath;
-                string floor = mapLocation.Floor;
-                string comboBoxPath = "";
+                MapLocation mapLocation = GetLocationByRoomName(room);
 
-                GraphicRepository graphicRepository = new GraphicRepository();
-                List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-                foreach (FileInformation inf in menuInformation)
-                {
-                    if (inf.Name == hospital)
-                        comboBoxPath = inf.FilePath;
-                }
-
-                HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
-                window.Hospital.Content = new HospitalFloor(path);
-                window.HospitalFloors.Text = floor;
-                window.Show();
+                DisplayResaults(mapLocation);
             }
+        }
+
+        private MapLocation GetLocationByRoomName(string room)
+        {
+            List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
+            return mapLocations[0];
+        }
+
+        private void DisplayResaults(MapLocation mapLocation)
+        {
+            Global.SearchObjectName = mapLocation.Name;
+            string hospital = mapLocation.Hospital;
+            string path = mapLocation.FilePath;
+            string floor = mapLocation.Floor;
+            string comboBoxPath = "";
+
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+            foreach (FileInformation inf in menuInformation)
+            {
+                if (inf.Name == hospital)
+                    comboBoxPath = inf.FilePath;
+            }
+
+            HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
+            window.Hospital.Content = new HospitalFloor(path);
+            window.HospitalFloors.Text = floor;
+            window.Show();
         }
     }
 }
