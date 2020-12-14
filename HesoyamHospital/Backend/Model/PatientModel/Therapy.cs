@@ -17,7 +17,7 @@ namespace Backend.Model.PatientModel
 
         private TimeInterval _timeInterval;
         private Prescription _prescription;
-        private DateTime _datePrescribed;
+        private string _comment;
         private long _timeIntervalID;
         private long _prescriptionID;
 
@@ -25,12 +25,13 @@ namespace Backend.Model.PatientModel
         public long PrescriptionID { get => _prescriptionID; set => _prescriptionID = value; }
         public virtual TimeInterval TimeInterval { get => _timeInterval; set { _timeInterval = value; _timeIntervalID = value.Id; } }
         public virtual Prescription Prescription { get => _prescription; set { _prescription = value; _prescriptionID = value.Id; } }
-        public DateTime DatePrescribed { get => _datePrescribed; set { _datePrescribed = value; } }
+        public string Comment { get => _comment; set { _comment = value; } }
 
         public Therapy(long id)
         {
             _id = id;
         }
+        public Therapy() { }
 
         public Therapy(long id, TimeInterval timeInterval, Prescription prescription)
         {

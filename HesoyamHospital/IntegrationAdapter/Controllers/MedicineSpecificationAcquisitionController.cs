@@ -1,14 +1,13 @@
 ﻿using Backend;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using IntegrationAdapter.DTOs;
+using IntegrationAdapter.PrescribedMedicineReport;
 using IntegrationAdapter.SFTPServiceSupport;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IntegrationAdapter.Controllers
 {
@@ -32,20 +31,23 @@ namespace IntegrationAdapter.Controllers
         [HttpGet("specification/{name}")]
         public IActionResult GetSpecification(string name)
         {
-            string text = SFTPService.ConnectAndReceiveSpecifications(name+".txt");
+            string text = SFTPService.ConnectAndReceiveSpecifications(name + ".txt");
             return Ok(text);
         }
         [HttpPut("prescription")]
-        public IActionResult CreatePrescriptionFile(long id,string text)
+        public IActionResult AddTherapy(TherapyDTO dto)
         {
-            //Patient patient = AppResources.getInstance().patientService.GetByID(id);
+            Therapy therapy = TherapyDTO.TherapyDTOToTherapy(dto);
+            AppResources.getInstance().therapyService.Create(therapy);
             string startupPath = Directory.GetCurrentDirectory();
-            string filepath = @"\PrescribedMedicineReport\prescriptions\" + id +"_"+ DateTime.Now.Hour +"-" + DateTime.Now.Minute + ".txt";   //id promeniti na patient.Name
+            PrescriptionTextGenerator generator = new PrescriptionTextGenerator(therapy);
+            string text = generator.GeneratePrescriptionText();
+            string filepath = @"\PrescribedMedicineReport\prescriptions\" + therapy.Prescription.Patient.Jmbg +"_"+ DateTime.Now.Hour +"-" + DateTime.Now.Minute + ".txt";
             using (StreamWriter sw = System.IO.File.CreateText(startupPath + filepath))
             {
                 sw.WriteLine(text);
             }
-            SFTPService.ConnectAndSendPrescribedMedicineReport("", startupPath + filepath);
+            SFTPService.ConnectAndSendPrescription(startupPath + filepath);
             return Ok();
         }
     }

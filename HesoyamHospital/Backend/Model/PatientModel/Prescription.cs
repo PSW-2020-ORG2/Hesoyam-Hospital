@@ -40,6 +40,8 @@ namespace Backend.Model.PatientModel
             Id = id;
             Type = DocumentType.PRESCRIPTION;
         }
+
+        public Prescription() { }
         public Prescription(long id, PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies)
         {
             Id = id;

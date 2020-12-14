@@ -9,26 +9,29 @@ namespace IntegrationAdapter.SFTPServiceSupport
 {
     public class SFTPService
     {
-        private static readonly string serverIP = "192.168.1.103";
+        private static readonly string serverIP = "192.168.0.13";
         private static readonly string user = "tester";
         private static readonly string password = "password"; 
-        public static void ConnectAndSendPrescribedMedicineReport(string fileToSend,string prescriptionToSend)
+        public static void ConnectAndSendPrescribedMedicineReport(string fileToSend)
         {
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo(serverIP, user, password)))
             {
                 client.Connect();
-                if (fileToSend != "")
+                using (Stream stream = File.OpenRead(fileToSend))
                 {
-                    using (Stream stream = File.OpenRead(fileToSend))
-                    {
-                        client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend), null);
-                    }
-                }else if(prescriptionToSend != "")
+                    client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend), null);
+                }
+                client.Disconnect();
+            }
+        }
+        public static void ConnectAndSendPrescription(string prescriptionToSend)
+        {
+            using (SftpClient client = new SftpClient(new PasswordConnectionInfo(serverIP, user, password)))
+            {
+                client.Connect();
+                using (Stream stream = File.OpenRead(prescriptionToSend))
                 {
-                    using (Stream stream = File.OpenRead(prescriptionToSend))
-                    {
-                        client.UploadFile(stream, @"\prescriptions\" + Path.GetFileName(prescriptionToSend), null);
-                    }
+                    client.UploadFile(stream, @"\prescriptions\" + Path.GetFileName(prescriptionToSend), null);
                 }
                 client.Disconnect();
             }
