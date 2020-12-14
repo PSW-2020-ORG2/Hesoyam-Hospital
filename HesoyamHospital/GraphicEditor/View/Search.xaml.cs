@@ -16,10 +16,10 @@ namespace GraphicEditor
     public partial class Search : Window
     {
         private MedicineService medicineService;
-        private List<Medicine> medicines = new List<Medicine>();
-        private List<MedicineDTO> medicineDTOs = new List<MedicineDTO>();
-        private List<InventoryItem> inventoryItems = new List<InventoryItem>();
-        private List<EquipmentDTO> inventoryItemsDTOs = new List<EquipmentDTO>();
+        private List<Medicine> medicines;
+        private List<MedicineDTO> medicineDTOs;
+        private List<InventoryItem> inventoryItems;
+        private List<EquipmentDTO> inventoryItemsDTOs;
         private InventoryService inventoryService;
         private RoomService roomService;
 
@@ -43,7 +43,7 @@ namespace GraphicEditor
         {
             String name = objectName.Text;
             SearchService searchService = new SearchService();
-
+  
             if (searchType.SelectedIndex == 0)
             {
                 List<MapLocation> results = searchService.FindObjectsByName(name);
@@ -51,12 +51,12 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 1)
             {
-                // avaiable rooms 1
                 List<MapLocation> results = searchService.FindObjectsByName(name);
                 dataGridSearch.ItemsSource = results;
             }
             else if (searchType.SelectedIndex == 2)
             {
+                inventoryItemsDTOs = new List<EquipmentDTO>();
                 inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByName(name);
                 foreach (InventoryItem item in inventoryItems)
                 {
@@ -67,7 +67,8 @@ namespace GraphicEditor
             }
             else
             {
-                medicines = (List<Medicine>)medicineService.GetAll();
+                medicineDTOs = new List<MedicineDTO>();
+                medicines = (List<Medicine>)medicineService.GetMedicinesByPartName(name);
                 
                 foreach (Medicine m in  medicines)
                 {
@@ -109,9 +110,11 @@ namespace GraphicEditor
                     medicineDTO.Quantity = m.InStock;
                     Room foundRoom = roomService.GetByID(m.RoomID);
                     medicineDTO.Room = foundRoom.RoomNumber;
+                    
                     medicineDTOs.Add(medicineDTO);
-
+                    
                 }
+
                 dataGridSearch.ItemsSource = medicineDTOs;
             }
        
@@ -153,6 +156,39 @@ namespace GraphicEditor
                     return;
                 }
                 string room = equipment.Room;
+                SearchService searchService = new SearchService();
+                List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
+                MapLocation mapLocation = mapLocations[0];
+
+                string name = mapLocation.Name;
+                Global.SearchObjectName = name;
+                string hospital = mapLocation.Hospital;
+                string path = mapLocation.FilePath;
+                string floor = mapLocation.Floor;
+                string comboBoxPath = "";
+
+                GraphicRepository graphicRepository = new GraphicRepository();
+                List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+                foreach (FileInformation inf in menuInformation)
+                {
+                    if (inf.Name == hospital)
+                        comboBoxPath = inf.FilePath;
+                }
+
+                HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
+                window.Hospital.Content = new HospitalFloor(path);
+                window.HospitalFloors.Text = floor;
+                window.Show();
+            }
+            else if(searchType.SelectedIndex == 3)
+            {
+                MedicineDTO medicineDTO = (MedicineDTO)dataGridSearch.SelectedItem;
+                if (medicineDTO == null)
+                {
+                    return;
+                }
+
+                string room = medicineDTO.Room;
                 SearchService searchService = new SearchService();
                 List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
                 MapLocation mapLocation = mapLocations[0];
