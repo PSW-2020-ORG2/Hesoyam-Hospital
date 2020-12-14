@@ -40,15 +40,19 @@ namespace Backend.Repository.MySQLRepository
             }
         }
 
+
+
         private string GenerateConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            
             return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
+            
             modelBuilder.Entity<User>()
                     .ToTable("Users")
                     .HasDiscriminator<string>("ContentType")
