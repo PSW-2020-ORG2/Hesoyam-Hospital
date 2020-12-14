@@ -34,6 +34,7 @@ namespace IntegrationAdapter.Controllers
             string text = SFTPService.ConnectAndReceiveSpecifications(name + ".txt");
             return Ok(text);
         }
+
         [HttpPut("prescription")]
         public IActionResult AddTherapy(TherapyDTO dto)
         {

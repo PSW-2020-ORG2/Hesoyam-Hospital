@@ -6,7 +6,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
 {
     public class SFTPService
     {
-        private static readonly string serverIP = "192.168.1.92";
+        private static readonly string serverIP = Environment.GetEnvironmentVariable("SFTPServerIPAddress");
         private static readonly string user = "tester";
         private static readonly string password = "password";
         public static void ConnectAndSendPrescribedMedicineReport(string fileToSend)
@@ -26,29 +26,37 @@ namespace IntegrationAdapter.SFTPServiceSupport
         }
         public static void ConnectAndSendPrescription(string prescriptionToSend)
         {
+            string filePath = @"\prescriptions\" + Path.GetFileName(prescriptionToSend);
+
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo(serverIP, user, password)))
             {
                 client.Connect();
                 using (Stream stream = File.OpenRead(prescriptionToSend))
                 {
-                    client.UploadFile(stream, @"\prescriptions\" + Path.GetFileName(prescriptionToSend), uploaded =>
+                    client.UploadFile(stream, filePath, uploaded =>
                     {
                         Console.WriteLine($"Uploaded {Math.Round((double)uploaded / stream.Length * 100)}% of the file.");
                     });
                 }
                 client.Disconnect();
+
+                if (File.Exists(prescriptionToSend))
+                {
+                    File.Delete(prescriptionToSend);
+                }
             }
         }
         public static string ConnectAndReceiveSpecifications(string specificationToRead)
         {
             string text = "";
+            string filePath = @"\specifications\" + Path.GetFileName(specificationToRead);
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo(serverIP, user, password)))
             {
                 client.Connect();
                 if (specificationToRead != "")
                     try
                     {
-                        text = client.ReadAllText(@"\specifications\" + Path.GetFileName(specificationToRead));
+                        text = client.ReadAllText(filePath);
                     }
                     catch
                     {
@@ -60,6 +68,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
                         client.Disconnect();
                     }
             }
+
             return text;
         }
     }

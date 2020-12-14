@@ -76,6 +76,16 @@ namespace Backend.Model.PatientModel
             Type = DocumentType.PRESCRIPTION;
         }
 
+        public Prescription(DateTime dateCreated, Patient patient, Doctor doctor, List<MedicalTherapy> medicalTherapies)
+        {
+            DateCreated = dateCreated;
+            Status = PrescriptionStatus.ACTIVE;
+            Doctor = doctor;
+            MedicalTherapies = medicalTherapies;
+            Patient = patient;
+            Type = DocumentType.PRESCRIPTION;
+        }
+
         public void AddMedicine(MedicalTherapy mt)
       {
          if (mt == null)
