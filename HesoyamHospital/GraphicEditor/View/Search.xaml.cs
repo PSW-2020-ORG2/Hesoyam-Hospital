@@ -1,5 +1,8 @@
-﻿using Backend.Model.PatientModel;
+using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
+using GraphicEditor.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -14,6 +17,10 @@ namespace GraphicEditor
         private MedicineService medicineService;
         private List<Medicine> medicines = new List<Medicine>();
         private List<MedicineDTO> medicineDTOs = new List<MedicineDTO>();
+        private List<InventoryItem> inventoryItems = new List<InventoryItem>();
+        private List<EquipmentDTO> inventoryItemsDTOs = new List<EquipmentDTO>();
+        private InventoryService inventoryService;
+
         public Search()
         {
             InitializeComponent();
@@ -25,6 +32,7 @@ namespace GraphicEditor
                 searchMedicine.Visibility = Visibility.Hidden;
             }
 
+            inventoryService = Backend.AppResources.getInstance().inventoryService;
             this.medicineService = Backend.AppResources.getInstance().medicineService;
         }
 
@@ -46,7 +54,13 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 2)
             {
-                Console.WriteLine("equipment - 2");
+                inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByName(name);
+                foreach (InventoryItem item in inventoryItems)
+                {
+                    EquipmentDTO dto = new EquipmentDTO(item.Name, item.Room.RoomNumber, item.InStock);
+                    inventoryItemsDTOs.Add(dto);
+                }
+                dataGridSearch.ItemsSource = inventoryItemsDTOs;
             }
             else
             {
@@ -102,29 +116,34 @@ namespace GraphicEditor
 
         private void Advanced_Search_Click(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            MapLocation mapLocation = (MapLocation)dataGridSearch.SelectedItem;
-            if (mapLocation == null) {
-                return;
-            }
-            string name = mapLocation.Name;
-            Global.SearchObjectName = name;
-            string hospital = mapLocation.Hospital;
-            string path = mapLocation.FilePath;
-            string floor = mapLocation.Floor;
-            string comboBoxPath = "";
-
-            GraphicRepository graphicRepository = new GraphicRepository();
-            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-            foreach (FileInformation inf in menuInformation) 
+            if (searchType.SelectedIndex == 0)
             {
-                if (inf.Name == hospital)
-                    comboBoxPath = inf.FilePath;
-            }
+                MapLocation mapLocation = (MapLocation)dataGridSearch.SelectedItem;
+                if (mapLocation == null)
+                {
+                    return;
+                }
+                string name = mapLocation.Name;
+                Global.SearchObjectName = name;
+                string hospital = mapLocation.Hospital;
+                string path = mapLocation.FilePath;
+                string floor = mapLocation.Floor;
+                string comboBoxPath = "";
 
-            HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
-            window.Hospital.Content = new HospitalFloor(path);
-            window.HospitalFloors.Text = floor;
-            window.Show();
+                GraphicRepository graphicRepository = new GraphicRepository();
+                List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+                foreach (FileInformation inf in menuInformation)
+                {
+                    if (inf.Name == hospital)
+                        comboBoxPath = inf.FilePath;
+                }
+
+                HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
+                window.Hospital.Content = new HospitalFloor(path);
+                window.HospitalFloors.Text = floor;
+                window.Show();
+            }
+            else if (searchType.SelectedIndex == 2) { }
         }
     }
 }

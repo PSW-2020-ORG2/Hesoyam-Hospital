@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
@@ -54,6 +55,21 @@ namespace Backend.Service.HospitalManagementService
 
         public IEnumerable<InventoryItem> GetInventoryItems()
             => _inventoryItemRepository.GetAllEager();
+
+        public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
+        {
+            List<InventoryItem> result = new List<InventoryItem>();
+            List<InventoryItem> inventoryItems = (List<InventoryItem>) _inventoryItemRepository.GetAllEager();
+            foreach (InventoryItem item in inventoryItems) 
+            {
+                if (item.Name.Contains(name))
+                    result.Add(item);
+            
+            }
+            return result;
+
+        }
+        
 
         public IEnumerable<Inventory> GetAll()
             => _inventoryRepository.GetAllEager();
