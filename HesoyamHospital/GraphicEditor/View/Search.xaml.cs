@@ -143,7 +143,37 @@ namespace GraphicEditor
                 window.HospitalFloors.Text = floor;
                 window.Show();
             }
-            else if (searchType.SelectedIndex == 2) { }
+            else if (searchType.SelectedIndex == 2)
+            {
+                EquipmentDTO equipment = (EquipmentDTO)dataGridSearch.SelectedItem;
+                if (equipment == null) {
+                    return;
+                }
+                string room = equipment.Room;
+                SearchService searchService = new SearchService();
+                List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
+                MapLocation mapLocation = mapLocations[0];
+
+                string name = mapLocation.Name;
+                Global.SearchObjectName = name;
+                string hospital = mapLocation.Hospital;
+                string path = mapLocation.FilePath;
+                string floor = mapLocation.Floor;
+                string comboBoxPath = "";
+
+                GraphicRepository graphicRepository = new GraphicRepository();
+                List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+                foreach (FileInformation inf in menuInformation)
+                {
+                    if (inf.Name == hospital)
+                        comboBoxPath = inf.FilePath;
+                }
+
+                HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
+                window.Hospital.Content = new HospitalFloor(path);
+                window.HospitalFloors.Text = floor;
+                window.Show();
+            }
         }
     }
 }
