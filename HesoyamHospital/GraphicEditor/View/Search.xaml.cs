@@ -43,8 +43,6 @@ namespace GraphicEditor
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
             String name = objectName.Text;
-            SearchService searchService = new SearchService();
-  
             if (searchType.SelectedIndex == 0)
             {
                 List<MapLocation> results = searchService.FindObjectsByName(name);
@@ -129,25 +127,8 @@ namespace GraphicEditor
                 {
                     return;
                 }
-                string name = mapLocation.Name;
-                Global.SearchObjectName = name;
-                string hospital = mapLocation.Hospital;
-                string path = mapLocation.FilePath;
-                string floor = mapLocation.Floor;
-                string comboBoxPath = "";
 
-                GraphicRepository graphicRepository = new GraphicRepository();
-                List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-                foreach (FileInformation inf in menuInformation)
-                {
-                    if (inf.Name == hospital)
-                        comboBoxPath = inf.FilePath;
-                }
-
-                HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
-                window.Hospital.Content = new HospitalFloor(path);
-                window.HospitalFloors.Text = floor;
-                window.Show();
+                DisplayResaults(mapLocation);
             }
             else if (searchType.SelectedIndex == 2)
             {

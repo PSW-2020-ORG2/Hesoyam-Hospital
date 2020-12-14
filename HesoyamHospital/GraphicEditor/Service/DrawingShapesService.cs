@@ -9,10 +9,11 @@ namespace GraphicEditor
 {
     class DrawingShapesService
     {
-        private GraphicRepository graphicRepository = new GraphicRepository();
+        private readonly GraphicRepository graphicRepository;
 
         public DrawingShapesService()
         {
+            graphicRepository = new GraphicRepository();
         }
 
         public (SolidColorBrush, SolidColorBrush) PickColor(string type)
