@@ -1,5 +1,6 @@
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
 using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
@@ -20,6 +21,7 @@ namespace GraphicEditor
         private List<InventoryItem> inventoryItems = new List<InventoryItem>();
         private List<EquipmentDTO> inventoryItemsDTOs = new List<EquipmentDTO>();
         private InventoryService inventoryService;
+        private RoomService roomService;
 
         public Search()
         {
@@ -33,7 +35,8 @@ namespace GraphicEditor
             }
 
             inventoryService = Backend.AppResources.getInstance().inventoryService;
-            this.medicineService = Backend.AppResources.getInstance().medicineService;
+            medicineService = Backend.AppResources.getInstance().medicineService;
+            roomService = Backend.AppResources.getInstance().roomService;
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
@@ -104,8 +107,8 @@ namespace GraphicEditor
                     }
 
                     medicineDTO.Quantity = m.InStock;
-                    medicineDTO.Room = m.RoomID;
-
+                    Room foundRoom = roomService.GetByID(m.RoomID);
+                    medicineDTO.Room = foundRoom.RoomNumber;
                     medicineDTOs.Add(medicineDTO);
 
                 }
