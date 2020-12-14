@@ -31,7 +31,7 @@ import { SpecificationComponent } from './specification/specification.component'
     AppComponent,
     PharmacyRegistrationComponent,
     ActionBenefitComponent,
-    PrescribeTherapyComponent,
+    SpecificationComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,7 @@ namespace IntegrationAdapter.SFTPServiceSupport
 {
     public class SFTPService
     {
-        private static readonly string serverIP = "192.168.0.13";
+        private static readonly string serverIP = "192.168.1.103";
         private static readonly string user = "tester";
         private static readonly string password = "password"; 
         public static void ConnectAndSendPrescribedMedicineReport(string fileToSend)
@@ -19,7 +19,10 @@ namespace IntegrationAdapter.SFTPServiceSupport
                 client.Connect();
                 using (Stream stream = File.OpenRead(fileToSend))
                 {
-                    client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend), null);
+                    client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend), uploaded =>
+                    {
+                        Console.WriteLine($"Uploaded {Math.Round((double)uploaded / stream.Length * 100)}% of the file.");
+                    });
                 }
                 client.Disconnect();
             }
@@ -31,7 +34,10 @@ namespace IntegrationAdapter.SFTPServiceSupport
                 client.Connect();
                 using (Stream stream = File.OpenRead(prescriptionToSend))
                 {
-                    client.UploadFile(stream, @"\prescriptions\" + Path.GetFileName(prescriptionToSend), null);
+                    client.UploadFile(stream, @"\prescriptions\" + Path.GetFileName(prescriptionToSend), uploaded =>
+                    {
+                        Console.WriteLine($"Uploaded {Math.Round((double)uploaded / stream.Length * 100)}% of the file.");
+                    });
                 }
                 client.Disconnect();
             }
