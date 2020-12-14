@@ -21,6 +21,13 @@ namespace Backend.Model.PatientModel
             DateCancelled = dateCancelled;
         }
 
+        public bool InPreviousMonth()
+        {
+            DateTime beforeOneMonth = DateTime.Now.AddDays(-30);
+            if (DateCancelled >= beforeOneMonth) return true;
+            return false;
+        }
+
         public long GetId() => Id;
 
         public void SetId(long id) => Id = id;

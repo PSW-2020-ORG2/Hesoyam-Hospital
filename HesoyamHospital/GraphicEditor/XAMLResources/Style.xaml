@@ -17,6 +17,7 @@
     <Style TargetType="{x:Type local:HospitalWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:Information}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:Search}" BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type local:SearchAvailableAppointmentWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
 
 
     <Style TargetType="Label">
@@ -111,6 +112,15 @@
         <Setter Property="Visibility" Value="Hidden"/>
     </Style>
 
+    <Style x:Key="labeleAppointmentStyle" TargetType="Label"  BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+
     <Style x:Key="textBoxUserLogin" TargetType="TextBox">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="25"/>
@@ -170,6 +180,15 @@
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
+    <Style x:Key="textBoxAppointmentStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="370"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+    </Style>
+
     <Style TargetType="MenuItem">
         <Setter Property="Background" Value="Beige"/>
     </Style>
@@ -214,10 +233,39 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
+    <Style x:Key="buttonAppointmentStyle" TargetType="Button">
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Background" Value="BurlyWood"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Width" Value="370"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <Style x:Key="groupBoxStyle" TargetType="GroupBox">
+        <Setter Property="Background" Value="BurlyWood"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Width" Value="370"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Grid.ColumnSpan" Value="3"/>
+    </Style>
+
     <Style TargetType="ComboBox">
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="BurlyWood"/>
+    </Style>
+
+    <Style x:Key="comboBoxAppointmentStyle" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Width" Value="370"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
     </Style>
 
     <Style x:Key="comboBoxForFloor" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
@@ -297,6 +345,18 @@
         <Setter Property="Margin" Value="10,12,10,10"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="dataPickerStyle" TargetType="DatePicker">
+        <Setter Property="Background" Value="BurlyWood"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="370"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FirstDayOfWeek" Value="Monday"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="IsHitTestVisible" Value="True"/>
     </Style>
 
     <Style x:Key="dataGridSearch" TargetType="DataGrid">

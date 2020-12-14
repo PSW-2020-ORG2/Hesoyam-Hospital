@@ -39,20 +39,19 @@ namespace GraphicEditor
         private GraphicalObject ConvertLineToGraphicalObject(string line, string hospital, string floor)
         {
             string[] fields = line.Split(',');
-            if (fields.Length != 7) {
+            if (fields.Length != 8) {
 
                 return null;
             }
-            string type = fields[0].Trim();
-            string name = fields[1].Trim();
-            long width = Convert.ToInt64(fields[2]);
-            long height = Convert.ToInt64(fields[3]);
-            long top = Convert.ToInt64(fields[4]);
-            long left = Convert.ToInt64(fields[5]);
-            string shape = fields[6].Trim();
-
-            return new GraphicalObject(type, name, width, height, top, left, shape, hospital, floor);
-
+            long id = Convert.ToInt64(fields[0]);
+            string type = fields[1].Trim();
+            string name = fields[2].Trim();
+            long width = Convert.ToInt64(fields[3]);
+            long height = Convert.ToInt64(fields[4]);
+            long top = Convert.ToInt64(fields[5]);
+            long left = Convert.ToInt64(fields[6]);
+            string shape = fields[7].Trim();
+            return new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
         }
 
         public List<FileInformation> readFileInformation(string fileName) {

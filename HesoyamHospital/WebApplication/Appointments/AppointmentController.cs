@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Backend;
 using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication.Appointments.DTOs;
 using WebApplication.Appointments.Service;
 
 namespace WebApplication.Appointments
@@ -27,12 +31,29 @@ namespace WebApplication.Appointments
         }
 
         [HttpPut("cancel")]
-        public IActionResult Cancel([FromBody]long id)
+        public IActionResult Cancel([FromBody] long id)
         {
             Appointment appointment = _appointmentService.GetByID(id);
             if (appointment == null) return NotFound();
             if (!_appointmentValidation.IsPossibleToCancelAppointment(appointment, defaultPatientId)) return BadRequest();
             _appointmentService.Cancel(defaultPatientId, id);
+            return Ok();
+        }
+
+        [HttpGet("getSuspiciousPatients")]
+        public IActionResult GetSuspiciousPatients()
+        {
+            List<BlockPatientDTO> suspiciousPatients = _appointmentService.GetSuspiciousPatients();
+            if (suspiciousPatients == null || suspiciousPatients.Count == 0) return NotFound();
+            return Ok(suspiciousPatients);
+        }
+
+        [HttpPut("block/{username}")]
+        public IActionResult BlockPatient(string username)
+        {
+            Patient patient = AppResources.getInstance().patientRepository.GetPatientByUsername(username);
+            if (patient == null) return BadRequest();
+            _appointmentService.BlockPatient(patient);
             return Ok();
         }
     }

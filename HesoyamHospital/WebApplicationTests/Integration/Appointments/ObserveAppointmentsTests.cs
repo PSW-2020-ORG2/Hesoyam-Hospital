@@ -17,16 +17,16 @@ namespace WebApplicationTests.Integration.Appointments
             _factory = factory;
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async void Observe_appointments_status_code(long patientId, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
+        //[Theory]
+        //[MemberData(nameof(Data))]
+        //public async void Observe_appointments_status_code(long patientId, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("/api/appointment/" + patientId);
+        //    HttpResponseMessage response = await client.GetAsync("/api/appointment/" + patientId);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>

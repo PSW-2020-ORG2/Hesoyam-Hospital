@@ -14,7 +14,12 @@ namespace Backend.Model.PatientModel
     {
         public bool IsValid { get; set; }
         public MedicineType MedicineType { get; set; }
+        
         private List<Ingredient> _ingredient;
+
+        private long _roomID;
+        public long RoomID { get => _roomID; set => _roomID = value; }
+        
         public virtual List<Ingredient> Ingredient
         {
             get
@@ -64,7 +69,7 @@ namespace Backend.Model.PatientModel
             UsedFor = new List<DiseaseMedicine>();
         }
 
-
+      
         public Medicine(string name, MedicineType medicineType, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient,int inStock, int minNumber) : base(name, inStock, minNumber)
         {
             MedicineType = medicineType;
@@ -79,6 +84,15 @@ namespace Backend.Model.PatientModel
             IsValid = isValid;
             Ingredient = ingredient;
             UsedFor = usedFor;
+        }
+
+        public Medicine(long id, string name, MedicineType medicineType, bool isValid, List<DiseaseMedicine> usedFor, List<Ingredient> ingredient, int inStock, int minNumber, long roomID) : base(id, name, inStock, minNumber)
+        {
+            MedicineType = medicineType;
+            IsValid = isValid;
+            Ingredient = ingredient;
+            UsedFor = usedFor;
+            RoomID = roomID;
         }
 
         public void AddIngredient(Ingredient newIngredient)

@@ -23,18 +23,18 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             _factory = factory;
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async void Sending_answers_status_code_tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+        //[Theory]
+        //[MemberData(nameof(Data))]
+        //public async void Sending_answers_status_code_tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
+        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/survey/send-answers", bodyContent);
+        //    HttpResponseMessage response = await client.PostAsync("/api/survey/send-answers", bodyContent);
             
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
           
-        }
+        //}
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>

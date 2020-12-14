@@ -22,29 +22,29 @@ namespace WebApplicationTests.Integration.Documents
             _factory = factory;
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async void Simple_search_status_code_tests(DocumentSearchCriteria criteria, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
+        //[Theory]
+        //[MemberData(nameof(Data))]
+        //public async void Simple_search_status_code_tests(DocumentSearchCriteria criteria, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
+        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/document/simple-search/500", bodyContent);
+        //    HttpResponseMessage response = await client.PostAsync("/api/document/simple-search/500", bodyContent);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
-        [Theory]
-        [MemberData(nameof(DataAdvanced))]
-        public async void Advanced_search_status_code_tests(AdvancedDocumentSearchCriteria criteria, HttpStatusCode expectedStatusCode)
-        {
-            HttpClient client = _factory.CreateClient();
-            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
+        //[Theory]
+        //[MemberData(nameof(DataAdvanced))]
+        //public async void Advanced_search_status_code_tests(AdvancedDocumentSearchCriteria criteria, HttpStatusCode expectedStatusCode)
+        //{
+        //    HttpClient client = _factory.CreateClient();
+        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PostAsync("/api/document/advanced-search/500", bodyContent);
+        //    HttpResponseMessage response = await client.PostAsync("/api/document/advanced-search/500", bodyContent);
 
-            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        }
+        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        //}
 
         
 

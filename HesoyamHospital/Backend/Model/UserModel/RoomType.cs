@@ -11,6 +11,12 @@ namespace Backend.Model.UserModel
     {
         OPERATION,
         EXAMINATION,
-        AFTERCARE
+        PATIENTROOM,
+        ONCALLROOM,
+        PHYSICALTHERAPYROOM,
+        EMERGENCYROOM,
+        AFTERCARE,
+        MEDICINESTORAGE,
+        EQUIPMENTSORAGE
     }
 }
