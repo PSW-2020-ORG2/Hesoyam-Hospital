@@ -1,6 +1,4 @@
-﻿using Backend.Model.ManagerModel;
-using Backend.Repository.MySQLRepository.HospitalManagementRepository;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace GraphicEditor
