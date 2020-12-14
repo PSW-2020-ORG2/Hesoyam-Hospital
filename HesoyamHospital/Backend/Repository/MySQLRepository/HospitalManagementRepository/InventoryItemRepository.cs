@@ -25,6 +25,9 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
             => GetAll().ToList().Where(item => item.Room.Equals(room));
 
         public IEnumerable<InventoryItem> GetInventoryItems()
-            => GetAll();
+            => GetAll().ToList();
+
+        public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
+            => GetAllEager().Where(item => item.Name.Contains(name));
     }
 }
