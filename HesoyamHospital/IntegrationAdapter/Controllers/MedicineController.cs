@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using RestSharp;
 
 namespace IntegrationAdapter.Controllers
 {
@@ -89,7 +90,13 @@ namespace IntegrationAdapter.Controllers
 
         private MedicineAvailabilityDTO SendHttpRequest(RegisteredPharmacy pharmacy, string medicineName)
         {
-            throw new NotImplementedException();
+            var client = new RestClient(pharmacy.Endpoint);
+            var request = new RestRequest("/api/availablemedicine");
+            request.AddParameter("medicine", medicineName);
+            var response = client.Get<MedicineAvailabilityDTO>(request);
+            MedicineAvailabilityDTO retVal = response.Data;
+            Console.WriteLine(retVal.Available);
+            return retVal;
         }
     }
 }
