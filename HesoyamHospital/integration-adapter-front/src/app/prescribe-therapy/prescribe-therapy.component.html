@@ -1,0 +1,43 @@
+<div class="therapy_form">
+    <form [formGroup]="therapyForm">
+        <mat-form-field  >
+            <mat-select [(value)]="patientId" placeholder="PatientID"  #selectedPatient>
+                <mat-option *ngFor="let p of patients" [value]="p">
+                {{p}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
+        <br>
+         <mat-form-field class="example-full-width">
+            <input matInput [min]="minDate" [matDatepicker]="start" placeholder="Choose a date" formControlName="Start">
+            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+            <mat-datepicker #start  ></mat-datepicker>
+          </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+            <input matInput [min]="minDate" [matDatepicker]="end" placeholder="Choose a date" formControlName="End">
+            <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+            <mat-datepicker #end ></mat-datepicker>
+          </mat-form-field>
+         <br>    
+         <div class="registration">
+            <mat-form-field  >
+                <mat-select [(value)]="medID" placeholder="Medicine"  #selectedMedicine>
+                    <mat-option *ngFor="let m of medicines" [value]="m.Id">
+                    {{m.Name}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+                
+                <button mat-raised-button [disabled]="selectedMedicine.empty" (click)="AddMedicine()" style="margin:15px">Add</button>
+                <p *ngFor="let therapyMed of selectedMed">
+                   {{therapyMed}}
+               </p>
+            </div>
+            
+            <br>
+            
+     
+         <button mat-raised-button [disabled]="therapyForm.invalid||selectedPatient.empty" (click)="SendTherapy()" >Send</button>
+     </form>
+</div>

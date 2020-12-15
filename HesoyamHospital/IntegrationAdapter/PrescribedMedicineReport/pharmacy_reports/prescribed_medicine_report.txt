@@ -1,8 +1,12 @@
 Hesoyam Hospital
-Prescribed medicine report for period: 12/7/2020 11:36:23 PM - 12/14/2020 11:36:23 PM
+Prescribed medicine report for period: 08/12/2020 07:53:44 - 15/12/2020 07:53:44
 
-Total number of different medicines prescribed: 0.
+Total number of different medicines prescribed: 3.
 
 Most prescribed medicines:
+Paracetamol : 8
+Brufen : 4
+Andol : 3
 
 Most prescribed medicine types:
+PILL : 15

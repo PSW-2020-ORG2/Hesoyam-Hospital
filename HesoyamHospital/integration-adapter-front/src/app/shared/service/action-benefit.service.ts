@@ -12,7 +12,7 @@ export class ActionBenefitService {
 
   constructor(private _http : HttpClient) { }
   
-  getAllAcrionBenefit(): Observable<any> {
+  getAllActionBenefit(): Observable<any> {
     return this._http.get(this._APIUrl + '/unapproved' )
   }
 

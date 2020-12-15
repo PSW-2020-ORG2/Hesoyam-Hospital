@@ -1,10 +1,14 @@
 ﻿using Backend;
 using Backend.Model.PatientModel;
+using Backend.Model.PharmacyModel;
 using Backend.Model.UserModel;
 using IntegrationAdapter.DTOs;
 using IntegrationAdapter.PrescribedMedicineReport;
 using IntegrationAdapter.SFTPServiceSupport;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +19,13 @@ namespace IntegrationAdapter.Controllers
     [ApiController]
     public class MedicineSpecificationAcquisitionController : ControllerBase
     {
+        private readonly IWebHostEnvironment _environment;
+
+        public MedicineSpecificationAcquisitionController(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
+
         [HttpGet]
         public IActionResult GetAllMedicines()
         {
@@ -35,21 +46,42 @@ namespace IntegrationAdapter.Controllers
             return Ok(text);
         }
 
-        [HttpPut("prescription")]
-        public IActionResult AddTherapy(TherapyDTO dto)
+        [HttpPut("prescription/{pharmacyName}")]
+        public IActionResult AddTherapy(TherapyDTO dto, string pharmacyName)
         {
+            RegisteredPharmacy pharmacy = AppResources.getInstance().registeredPharmacyService.GetRegisteredPharmacyByName(pharmacyName);
             Therapy therapy = TherapyDTO.TherapyDTOToTherapy(dto);
             AppResources.getInstance().therapyService.Create(therapy);
-            string startupPath = Directory.GetCurrentDirectory();
             PrescriptionTextGenerator generator = new PrescriptionTextGenerator(therapy);
             string text = generator.GeneratePrescriptionText();
-            string filepath = @"\PrescribedMedicineReport\prescriptions\" + therapy.Prescription.Patient.Jmbg +"_"+ DateTime.Now.Hour +"-" + DateTime.Now.Minute + ".txt";
+            if (_environment.IsDevelopment())
+            {
+                SendViaSFTP(therapy, text);
+            }
+            else
+            {
+                SendViaHttp(pharmacy, text);
+            }
+            return Ok(text);
+        }
+
+        private void SendViaHttp(RegisteredPharmacy pharmacy, string text)
+        {
+            var client = new RestClient(pharmacy.Endpoint);
+            var request = new RestRequest("/prescription");
+            request.AddParameter("prescription", text);
+            client.Put<string>(request);
+        }
+
+        private void SendViaSFTP(Therapy therapy, string text)
+        {
+            string startupPath = Directory.GetCurrentDirectory();
+            string filepath = @"\PrescribedMedicineReport\prescriptions\" + therapy.Prescription.Patient.Jmbg + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + ".txt";
             using (StreamWriter sw = System.IO.File.CreateText(startupPath + filepath))
             {
                 sw.WriteLine(text);
             }
             SFTPService.ConnectAndSendPrescription(startupPath + filepath);
-            return Ok();
         }
     }
 }

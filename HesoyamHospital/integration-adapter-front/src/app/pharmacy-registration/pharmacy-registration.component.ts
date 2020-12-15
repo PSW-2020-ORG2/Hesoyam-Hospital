@@ -14,6 +14,8 @@ export class PharmacyRegistrationComponent implements OnInit {
 
   constructor(private fb: FormBuilder,private service:RegistrationService) { }
   Pharmacy:RegisteredPharmacy=new RegisteredPharmacy();
+
+
   ngOnInit(): void {
     this.myForm=this.fb.group({
       pharmacyName :['',[Validators.required]],
@@ -23,6 +25,8 @@ export class PharmacyRegistrationComponent implements OnInit {
     })
 
   }
+
+  
 
   AddPharmacy(){
     this.Pharmacy.ApiKey=this.myForm.get('apiKey').value;

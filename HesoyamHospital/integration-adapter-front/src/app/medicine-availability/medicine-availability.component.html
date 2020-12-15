@@ -1,0 +1,24 @@
+<form [formGroup]="availabilityForm">
+    <div class="registration">
+        <mat-form-field  >
+            <mat-select [(value)]="medID" placeholder="Medicine"  #selectedMedicine>
+                <mat-option *ngFor="let m of medicines" [value]="m.Id">
+                {{m.Name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field  >
+            <mat-select [(value)]="pyrmacyName" placeholder="Pharmacy"  #selectedPharmacy>
+                <mat-option *ngFor="let p of pharmacies" [value]="p.Id">
+                {{p.PharmacyName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 90%;">
+            <textarea matInput  cdkTextareaAutosize [readonly]=true [(value)]="availableAdresses" ></textarea>
+          </mat-form-field>
+            <button mat-raised-button  [disabled]="selectedMedicine.empty||selectedPharmacy.empty" (click)="CheckMedicine()" style="margin:15px">Check</button>
+        </div>
+</form>
+
+
