@@ -36,9 +36,7 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
 
         public Medicine GetMedicineByName(string name)
             => GetAll().SingleOrDefault(med => med.Name == name);
-
-        public IEnumerable<Medicine> GetAllMedicine()
-          => GetAll().ToList();
+       
 
         public IEnumerable<Medicine> GetFilteredMedicine(MedicineFilter medicineFilter)
         {
