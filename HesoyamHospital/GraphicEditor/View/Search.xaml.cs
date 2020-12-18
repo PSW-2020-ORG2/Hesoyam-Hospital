@@ -1,11 +1,14 @@
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GraphicEditor
 {
@@ -14,11 +17,13 @@ namespace GraphicEditor
     /// </summary>
     public partial class Search : Window
     {
+        private RoomRepository roomRepository;
         private MedicineService medicineService;
         private List<Medicine> medicines;
         private List<MedicineDTO> medicineDTOs;
         private List<InventoryItem> inventoryItems;
         private List<EquipmentDTO> inventoryItemsDTOs;
+        private List<RoomDTO> roomDTOs;
         private InventoryService inventoryService;
         private RoomService roomService;
         private SearchService searchService;
@@ -39,6 +44,27 @@ namespace GraphicEditor
             roomService = Backend.AppResources.getInstance().roomService;
             searchService = new SearchService();
         }
+        public void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (searchType.SelectedIndex == 1)
+            {
+                if (labelText != null)
+                {
+                    labelText.Visibility = Visibility.Hidden;
+                    objectName.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                if (labelText != null)
+                {
+                    labelText.Visibility = Visibility.Visible;
+                    objectName.Visibility = Visibility.Visible;
+                }
+            }
+
+        }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -50,7 +76,16 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 1)
             {
-                Console.WriteLine("Uraditi pregled dostupnih soba");
+                roomDTOs = new List<RoomDTO>();
+
+                roomRepository = Backend.AppResources.getInstance().roomRepository;
+                List<Room> results = roomRepository.GetRoomsByOccupied().ToList();
+                foreach (Room room in results)
+                {
+                    RoomDTO dto = new RoomDTO(room.RoomNumber, room.RoomType, room.Floor);
+                    roomDTOs.Add(dto);
+                }
+                dataGridSearch.ItemsSource = roomDTOs;
             }
             else if (searchType.SelectedIndex == 2)
             {
