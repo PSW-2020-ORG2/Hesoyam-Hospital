@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using Backend.Model.UserModel;
-using GraphicEditor.Service;
+using Backend.Service.UsersService;
 
 namespace GraphicEditor
 {
@@ -10,7 +9,7 @@ namespace GraphicEditor
     /// </summary>
     public partial class LogIn : Window
     {
-        private LogInService logInService = new LogInService();
+        private UserService userService = Backend.AppResources.getInstance().userService;
 
         public LogIn()
         {
@@ -19,38 +18,13 @@ namespace GraphicEditor
 
         public void Button_Click_Map(object sender, RoutedEventArgs e)
         {
-            bool found;
-
-            logInService.getAllManagers();
-            logInService.getAllPatients();
-            logInService.getAllSecretaries();
-
             string username = Username.Text;
             string password = Password.Password;
 
-            found = logInService.FindManager(username, password);
-
-            Global.LoggedInUserType = "manager";
-
-            if (!found)
-            {
-                found = logInService.FindPatient(username, password);
-                Global.LoggedInUserType = "patient";
-            }
-
-            if (!found)
-            {
-                found = logInService.FindSecretary(username, password);
-                Global.LoggedInUserType = "secretary";
-            }
-
-            if (!found)
-            {
-                found = logInService.FindDoctor(username, password);
-                Global.LoggedInUserType = "doctor";
-            }
-
-            if (!found)
+            userService.Login(username, password);
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+            
+            if(loggedIn == null)
             {
                 MessageBox.Show("Ne postoji korisnik sa unetim podacima.");
             }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Backend.Model.UserModel;
+using System.Windows;
 
 namespace GraphicEditor
 {
@@ -11,7 +12,8 @@ namespace GraphicEditor
         {
             InitializeComponent();
             Global.SearchObjectName = "";
-            if (Global.LoggedInUserType == "patient")
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+            if (loggedIn.GetUserType() == UserType.PATIENT)
             {
                 change.Visibility = Visibility.Hidden;
             }
