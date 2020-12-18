@@ -9,7 +9,6 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,7 +21,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -50,28 +48,19 @@
         <Label Content="Choose  priority :" Grid.Row="6" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
 
         <GroupBox x:Name="DoctorDate"  Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=groupBoxStyle}">
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <RadioButton x:Name="priorityDoctor"  GroupName="Priority" Content="Doctor" Grid.Column="3" HorizontalAlignment="Left" IsChecked="True"/>
                 <RadioButton x:Name="priorityDate"  GroupName="Priority" Content="Date" Grid.Column="3" HorizontalAlignment="Left"/>
             </StackPanel>
         </GroupBox>
 
-        <Button x:Name="buttonRecommendAppointment" Content="Recommend an appointment" ToolTip="Recommend an appointment" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}"/>
+        <Button x:Name="buttonSearchAppointment" Content="Search" ToolTip="Search" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}"/>
+                
+        <!--<Button x:Name="buttonMakeAppointment" Content="Make an appointment" ToolTip="Make an appointment" Grid.Column="3" Grid.Row="11" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" IsEnabled="False"/>-->
 
+        <DataGrid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}">
+        </DataGrid>
 
-        <Label Content="Doctor : " Grid.Row="8" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
-
-        <TextBox x:Name="doctor" Grid.Row="8" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxAppointmentStyle}" IsEnabled="False"/>
-
-        <Label Content="Date : " Grid.Row="9" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
-
-        <TextBox x:Name="recommendedDate" Grid.Row="9" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxAppointmentStyle}" IsEnabled="False"/>
-
-        <Label Content="Time : " Grid.Row="10" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
-
-        <TextBox x:Name="recommendedTime" Grid.Row="10" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxAppointmentStyle}" IsEnabled="False"/>
-
-        <Button x:Name="buttonMakeAppointment" Content="Make an appointment" ToolTip="Make an appointment" Grid.Column="3" Grid.Row="11" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" IsEnabled="False"/>
 
     </Grid>
 </Window>
