@@ -1,11 +1,6 @@
-﻿using System;
-using Xunit;
-using GraphicEditor.Service;
-using Backend.Model.UserModel;
+﻿using Xunit;
 using System.Collections.Generic;
-using System.Text;
 using Backend.Model.ManagerModel;
-using System.Windows.Input;
 
 namespace GraphicEditorTests
 {

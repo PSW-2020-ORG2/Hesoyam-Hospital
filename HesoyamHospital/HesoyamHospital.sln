@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapter", "Integ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicEditorTests", "GraphicEditorTests\GraphicEditorTests.csproj", "{74914C8C-D156-4865-84B0-F90B263E2CCE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74914C8C-D156-4865-84B0-F90B263E2CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74914C8C-D156-4865-84B0-F90B263E2CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74914C8C-D156-4865-84B0-F90B263E2CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74914C8C-D156-4865-84B0-F90B263E2CCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
