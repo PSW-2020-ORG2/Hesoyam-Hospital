@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Backend.Model.UserModel;
 using Backend.Repository.MySQLRepository.UsersRepository;
+using Backend.Service.UsersService;
 
 namespace GraphicEditor
 {
@@ -15,14 +16,13 @@ namespace GraphicEditor
     public partial class SearchAvailableAppointmentWindow : Window
     {
         private List<Doctor> doctors = new List<Doctor>();
-        private DoctorRepository doctorRepository;
+        private readonly DoctorService doctorService;
 
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
-            this.doctorRepository = Backend.AppResources.getInstance().doctorRepository;
-
-            doctors = getAllDoctors();
+            this.doctorService = Backend.AppResources.getInstance().doctorService;
+            doctors = (List<Doctor>) doctorService.GetAll();
 
             foreach (Doctor doctor in doctors)
             {
@@ -31,17 +31,6 @@ namespace GraphicEditor
                 item.Content = doctor.FullName;
                 searchDoctor.Items.Add(item);
             }
-
-        }
-
-        public List<Doctor> getAllDoctors()
-        {
-            if (doctorRepository.GetAll() == null)
-            {
-                return null;
-            }
-            doctors = doctorRepository.GetAll().ToList();
-            return doctors;
         }
 
         private void FromtDate_KeyUp(object sender, KeyEventArgs e)
