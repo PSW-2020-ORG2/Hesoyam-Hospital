@@ -1,6 +1,7 @@
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
 using System;
@@ -14,11 +15,13 @@ namespace GraphicEditor
     /// </summary>
     public partial class Search : Window
     {
+        private readonly RoomRepository roomRepository;
         private MedicineService medicineService;
         private List<Medicine> medicines;
         private List<MedicineDTO> medicineDTOs;
         private List<InventoryItem> inventoryItems;
         private List<EquipmentDTO> inventoryItemsDTOs;
+        private List<RoomDTO> roomDTOs;
         private InventoryService inventoryService;
         private RoomService roomService;
         private SearchService searchService;
@@ -50,7 +53,7 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 1)
             {
-                Console.WriteLine("Uraditi pregled dostupnih soba");
+                
             }
             else if (searchType.SelectedIndex == 2)
             {
