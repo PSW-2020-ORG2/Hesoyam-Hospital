@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GraphicEditor
 {
@@ -42,6 +43,27 @@ namespace GraphicEditor
             medicineService = Backend.AppResources.getInstance().medicineService;
             roomService = Backend.AppResources.getInstance().roomService;
             searchService = new SearchService();
+        }
+        public void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (searchType.SelectedIndex == 1)
+            {
+                if (labelText != null)
+                {
+                    labelText.Visibility = Visibility.Hidden;
+                    objectName.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                if (labelText != null)
+                {
+                    labelText.Visibility = Visibility.Visible;
+                    objectName.Visibility = Visibility.Visible;
+                }
+            }
+
         }
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
