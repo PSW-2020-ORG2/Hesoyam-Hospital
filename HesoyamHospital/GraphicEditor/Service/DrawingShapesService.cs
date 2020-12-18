@@ -125,16 +125,14 @@ namespace GraphicEditor
             if (rectangle.Name.Contains("room"))
             { 
                 Information information = new Information();
-                information.name.Text = rectangle.Name;
-                information.visiting.Text = Global.AdditionalInformation.VisitingHours;
-                information.working.Text = Global.AdditionalInformation.WorkingHours;
+/*                information.name.Text = rectangle.Name;
                 information.doctor.Text = Global.AdditionalInformation.Doctor;
                 information.name.IsEnabled = false;
                 information.visiting.IsEnabled = false;
                 information.doctor.IsEnabled = false;
                 information.working.IsEnabled = false;
                 information.Show();
-
+                */
             }
         }
 

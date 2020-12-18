@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
-        Title="Information" Height="400" Width="450"
+        Title="Information" Height="330" Width="450"
         WindowStartupLocation="CenterScreen">
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
@@ -29,21 +29,17 @@
 
         <Label Content="Name:" Grid.Row="2" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
-        <Label Content="Visiting hours:" Grid.Row="3" Style="{StaticResource ResourceKey=labelInforamtion}"/>
+        <Label Content="Occupied:" Grid.Row="3" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
-        <Label Content="Working hours:" Grid.Row="4" Style="{StaticResource ResourceKey=labelInforamtion}"/>
-
-        <Label Content="Doctor:" Grid.Row="5" Style="{StaticResource ResourceKey=labelInforamtion}"/>
+        <Label Content="Room Type:" Grid.Row="4" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
         <TextBox x:Name="name" Grid.Row="2" Style="{StaticResource ResourceKey=textBox}"/>
 
-        <TextBox x:Name="visiting" Grid.Row="3" Style="{StaticResource ResourceKey=textBox}"/>
+        <TextBox x:Name="occupied" Grid.Row="3" Style="{StaticResource ResourceKey=textBox}"/>
 
-        <TextBox  x:Name="working" Grid.Row="4" Style="{StaticResource ResourceKey=textBox}"/>
+        <TextBox  x:Name="roomType" Grid.Row="4" Style="{StaticResource ResourceKey=textBox}"/>
 
-        <TextBox  x:Name="doctor" Grid.Row="5" Style="{StaticResource ResourceKey=textBox}"/>
-
-        <Button Grid.Row="7" x:Name="change" Content="Change information" Style="{StaticResource ResourceKey=buttonChangeInfo}" Click="ChangeInformationClick"/>
+        <Button Grid.Row="6" x:Name="change" Content="Change information" Style="{StaticResource ResourceKey=buttonChangeInfo}" Click="ChangeInformationClick"/>
         <Button Grid.Row="7" x:Name="save" Content="Save information" Style="{StaticResource ResourceKey=buttonChangeInfo}"  Visibility="Hidden" Click="saveChangedInformation"/>
 
         <Grid x:Name="_window" Grid.ColumnSpan="6" Grid.RowSpan="7"/>
