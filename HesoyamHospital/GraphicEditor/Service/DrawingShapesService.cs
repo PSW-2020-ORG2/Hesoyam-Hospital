@@ -131,14 +131,7 @@ namespace GraphicEditor
                 Room room = roomService.GetRoomByName(rectangle.Name);
 
                 information.name.Text = room.RoomNumber;
-                if (room.Occupied)
-                {
-                    information.occupied.IsChecked = true;
-                }
-                else
-                {
-                    information.occupied.IsChecked = false;
-                }
+                information.occupied.IsChecked = room.Occupied;
                 information.roomType.Text = room.RoomType.ToString();
 
                 information.name.IsEnabled = false;
