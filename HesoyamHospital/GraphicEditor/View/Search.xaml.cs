@@ -6,6 +6,7 @@ using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace GraphicEditor
@@ -15,7 +16,7 @@ namespace GraphicEditor
     /// </summary>
     public partial class Search : Window
     {
-        private readonly RoomRepository roomRepository;
+        private RoomRepository roomRepository;
         private MedicineService medicineService;
         private List<Medicine> medicines;
         private List<MedicineDTO> medicineDTOs;
@@ -53,7 +54,16 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 1)
             {
-                
+                roomDTOs = new List<RoomDTO>();
+
+                roomRepository = Backend.AppResources.getInstance().roomRepository;
+                List<Room> results = roomRepository.GetRoomsByOccupied().ToList();
+                foreach (Room room in results)
+                {
+                    RoomDTO dto = new RoomDTO(room.RoomNumber, room.RoomType, room.Floor);
+                    roomDTOs.Add(dto);
+                }
+                dataGridSearch.ItemsSource = roomDTOs;
             }
             else if (searchType.SelectedIndex == 2)
             {
