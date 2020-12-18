@@ -16,8 +16,8 @@ namespace GraphicEditor
     class DrawingShapesService
     {
         private readonly GraphicRepository graphicRepository;
-        private MedicineService medicineService = Backend.AppResources.getInstance().medicineService;
-        private InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
+        private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
+        private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
 
         public DrawingShapesService()
         {
