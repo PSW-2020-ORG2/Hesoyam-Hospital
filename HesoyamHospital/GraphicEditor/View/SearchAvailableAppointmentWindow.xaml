@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="SearchAvaiableTermsWindow" Height="650" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -39,11 +40,11 @@
 
         <Label Content="From date :"  Grid.Row="4" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
 
-        <DatePicker x:Name="fromDatePicker" Grid.Row="4" Grid.Column="3" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="FromtDate_KeyUp" SelectedDate="12/4/2020" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
+        <DatePicker x:Name="fromDatePicker" Grid.Row="4" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="FromtDate_KeyUp" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
         <Label Content="To date :" Grid.Row="5" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
 
-        <DatePicker x:Name="toDatePicker" Grid.Row="5" Grid.Column="3" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="12/4/2020" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
+        <DatePicker x:Name="toDatePicker" Grid.Row="5" Grid.Column="3" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
         <Label Content="Choose  priority :" Grid.Row="6" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
 
