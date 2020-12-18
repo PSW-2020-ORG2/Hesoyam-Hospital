@@ -96,14 +96,14 @@ namespace Backend.Service.HospitalManagementService
         public void Validate(Room entity)
         {
             CheckFloorNumber(entity.Floor);
-            CheckRoomNumber(entity.RoomNumber);
+            //CheckRoomNumber(entity.RoomNumber);
         }
 
-        private void CheckRoomNumber(string roomNumber)
+   /*     private void CheckRoomNumber(string roomNumber)
         {
             if (!Regex.Match(roomNumber, Regexes.roomNumberPattern).Success)
                 throw new RoomServiceException("RoomNumber contains illegal characters!");
-        }
+        }*/
 
         private void CheckFloorNumber(int floor)
         {
