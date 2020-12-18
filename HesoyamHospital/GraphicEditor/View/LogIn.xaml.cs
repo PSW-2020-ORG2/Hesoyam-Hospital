@@ -19,11 +19,11 @@ namespace GraphicEditor
 
         public void Button_Click_Map(object sender, RoutedEventArgs e)
         {
-            bool found = false;
+            bool found;
 
-            List<Manager> managers = logInService.getAllManagers();
-            List<Patient> patients = logInService.getAllPatients();
-            List<Secretary> secretaries = logInService.getAllSecretaries();
+            logInService.getAllManagers();
+            logInService.getAllPatients();
+            logInService.getAllSecretaries();
 
             string username = Username.Text;
             string password = Password.Password;

@@ -8,10 +8,10 @@ namespace GraphicEditor.Service
 {
     public class LogInService
     {
-        private ManagerRepository managerRepository;
-        private DoctorRepository doctorRepository;
-        private PatientRepository patientRepository;
-        private SecretaryRepository secretaryRepository;
+        private readonly ManagerRepository managerRepository;
+        private readonly DoctorRepository doctorRepository;
+        private readonly PatientRepository patientRepository;
+        private readonly SecretaryRepository secretaryRepository;
 
         List<Patient> patients = new List<Patient>();
         List<Manager> managers = new List<Manager>();
