@@ -29,15 +29,15 @@
 
         <Label Content="Name:" Grid.Row="2" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
-        <Label Content="Occupied:" Grid.Row="3" Style="{StaticResource ResourceKey=labelInforamtion}"/>
+        <Label Content="Room Type:" Grid.Row="3" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
-        <Label Content="Room Type:" Grid.Row="4" Style="{StaticResource ResourceKey=labelInforamtion}"/>
+        <Label Content="Occupied:" Grid.Row="4" Style="{StaticResource ResourceKey=labelInforamtion}"/>
 
         <TextBox x:Name="name" Grid.Row="2" Style="{StaticResource ResourceKey=textBox}"/>
 
-        <TextBox x:Name="occupied" Grid.Row="3" Style="{StaticResource ResourceKey=textBox}"/>
+        <CheckBox x:Name="occupied" Grid.Row="4" Style="{StaticResource ResourceKey=checkBoxOccupied}"/>
 
-        <TextBox  x:Name="roomType" Grid.Row="4" Style="{StaticResource ResourceKey=textBox}"/>
+        <TextBox  x:Name="roomType" Grid.Row="3" Style="{StaticResource ResourceKey=textBox}"/>
 
         <Button Grid.Row="6" x:Name="change" Content="Change information" Style="{StaticResource ResourceKey=buttonChangeInfo}" Click="ChangeInformationClick"/>
         <Button Grid.Row="7" x:Name="save" Content="Save information" Style="{StaticResource ResourceKey=buttonChangeInfo}"  Visibility="Hidden" Click="saveChangedInformation"/>
