@@ -16,6 +16,8 @@ namespace GraphicEditor
     class DrawingShapesService
     {
         private readonly GraphicRepository graphicRepository;
+        private MedicineService medicineService = Backend.AppResources.getInstance().medicineService;
+        private InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
 
         public DrawingShapesService()
         {
@@ -116,33 +118,51 @@ namespace GraphicEditor
 
         public void DoubleClick(object sender, MouseButtonEventArgs e, string roomName)
         {
-            if (e.ClickCount == 2)
+            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
+            if (e.ClickCount == 2 && rectangle.Name.Contains("room"))
             {
                 RoomService roomService = Backend.AppResources.getInstance().roomService;
                 Room room = roomService.GetRoomByName(roomName);
                 long id = room.Id;
-                MedicineService medicineService = Backend.AppResources.getInstance().medicineService;
-                InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
+
                 List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
                 List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
-                List<EquipmentDTO> dto = new List<EquipmentDTO>();
-                foreach (Medicine m in medicine)
-                {
-                    EquipmentDTO item = new EquipmentDTO(m.Name, roomName, m.InStock);
-                    dto.Add(item);
-                }
 
-                foreach (InventoryItem m in inventoryItems)
-                {
-                    EquipmentDTO item = new EquipmentDTO(m.Name, m.Room.RoomNumber, m.InStock);
-                    dto.Add(item);
-                }
+                List<InventoryItemDTO> inventoryItemDTO = ConvertToIventoryItemToDTO(inventoryItems);
+                List<InventoryItemDTO> medicineDTO = ConvertToMedicineToDTO(medicine, roomName);
+                result.AddRange(inventoryItemDTO);
+                result.AddRange(medicineDTO);
+
                 OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
-                window.dataGridOverview.ItemsSource = dto;
+                window.dataGridOverview.ItemsSource = result;
                 window.Show();
 
             }
         }
+
+        public List<InventoryItemDTO> ConvertToIventoryItemToDTO(List<InventoryItem> inventoryItems) {
+            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
+            foreach (InventoryItem m in inventoryItems)
+            {
+                InventoryItemDTO item = new InventoryItemDTO(m.Name, m.Room.RoomNumber, m.InStock);
+                result.Add(item);
+            }
+            return result;
+        }
+
+        public List<InventoryItemDTO> ConvertToMedicineToDTO(List<Medicine> medicine, string roomName) {
+
+            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
+            foreach (Medicine m in medicine)
+            {
+                InventoryItemDTO item = new InventoryItemDTO(m.Name, roomName, m.InStock);
+                result.Add(item);
+            }
+            return result;
+
+        }
+
 
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

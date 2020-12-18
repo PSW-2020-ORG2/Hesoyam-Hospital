@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OverviewEquipmentAndMedicine" Height="400" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="Beige">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="80"/>

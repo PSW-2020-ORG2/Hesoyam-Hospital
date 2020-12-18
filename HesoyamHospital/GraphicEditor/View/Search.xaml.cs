@@ -18,7 +18,7 @@ namespace GraphicEditor
         private List<Medicine> medicines;
         private List<MedicineDTO> medicineDTOs;
         private List<InventoryItem> inventoryItems;
-        private List<EquipmentDTO> inventoryItemsDTOs;
+        private List<InventoryItemDTO> inventoryItemsDTOs;
         private InventoryService inventoryService;
         private RoomService roomService;
         private SearchService searchService;
@@ -54,11 +54,11 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 2)
             {
-                inventoryItemsDTOs = new List<EquipmentDTO>();
+                inventoryItemsDTOs = new List<InventoryItemDTO>();
                 inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByName(name);
                 foreach (InventoryItem item in inventoryItems)
                 {
-                    EquipmentDTO dto = new EquipmentDTO(item.Name, item.Room.RoomNumber, item.InStock);
+                    InventoryItemDTO dto = new InventoryItemDTO(item.Name, item.Room.RoomNumber, item.InStock);
                     inventoryItemsDTOs.Add(dto);
                 }
                 dataGridSearch.ItemsSource = inventoryItemsDTOs;
@@ -132,7 +132,7 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 2)
             {
-                EquipmentDTO equipment = (EquipmentDTO)dataGridSearch.SelectedItem;
+                InventoryItemDTO equipment = (InventoryItemDTO)dataGridSearch.SelectedItem;
                 if (equipment == null) {
                     return;
                 }
