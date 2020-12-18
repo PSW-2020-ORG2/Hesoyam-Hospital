@@ -120,7 +120,13 @@
         <Setter Property="Margin" Value="5"/>
     </Style>
 
-
+    <Style x:Key="labelOverview" TargetType="Label"  BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Grid.ColumnSpan" Value="5"/>
+        <Setter Property="Width" Value="550"/>
+    </Style>
+    
     <Style x:Key="textBoxUserLogin" TargetType="TextBox">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="25"/>
@@ -358,7 +364,7 @@
         <Setter Property="Grid.ColumnSpan" Value="2"/>
         <Setter Property="IsHitTestVisible" Value="True"/>
     </Style>
-
+    
     <Style x:Key="dataGridSearch" TargetType="DataGrid">
         <Setter Property="Background" Value="Beige"/>
         <Setter Property="RowBackground" Value="Beige"/>
@@ -377,5 +383,25 @@
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Margin" Value="10"/>
     </Style>
-    
+
+    <Style x:Key="dataGridOverview" TargetType="DataGrid">
+        <Setter Property="Background" Value="Beige"/>
+        <Setter Property="RowBackground" Value="Beige"/>
+        <Setter Property="BorderBrush" Value="Beige"/>
+        <Setter Property="AlternatingRowBackground" Value="BurlyWood"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="Height" Value="300"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="5"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+
 </ResourceDictionary>

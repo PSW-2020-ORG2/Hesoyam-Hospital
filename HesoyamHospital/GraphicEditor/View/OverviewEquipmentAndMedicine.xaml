@@ -5,27 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor.View"
         mc:Ignorable="d"
-        Title="OverviewEquipmentAndMedicine" Height="450" Width="800"
+        Title="OverviewEquipmentAndMedicine" Height="400" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dataGridOverview" Grid.Row="3" ColumnWidth="*" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridSearch}">
-                </DataGrid>
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="labelOverview" Content="Overview of equipment and medicines" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="100"  Style="{StaticResource ResourceKey=labelOverview}"/>
+
+        <DataGrid x:Name="dataGridOverview" Grid.Row="2" ColumnWidth="*" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridOverview}">
+        </DataGrid>
+    </Grid>
 </Window>
