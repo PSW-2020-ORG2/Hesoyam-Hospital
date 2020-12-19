@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Backend.Model.UserModel;
+using Backend.Service.HospitalManagementService;
+using System.Windows;
 
 namespace GraphicEditor
 {
@@ -7,6 +9,7 @@ namespace GraphicEditor
     /// </summary>
     public partial class Information : Window
     {
+        private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
         public Information()
         {
             InitializeComponent();
@@ -19,20 +22,25 @@ namespace GraphicEditor
         }
         private void ChangeInformationClick(object sender, RoutedEventArgs e)
         {
-            visiting.IsEnabled = true;
-            working.IsEnabled = true;
-            doctor.IsEnabled = true;
+            name.IsEnabled = false;
+            occupied.IsEnabled = true;
+            roomType.IsEnabled = true;
             change.Visibility = Visibility.Hidden;
             save.Visibility = Visibility.Visible;
         }
 
         private void saveChangedInformation(object sender, RoutedEventArgs e)
         {
-            InformationObject informationObject = new InformationObject();
-            informationObject.VisitingHours = visiting.Text;
-            informationObject.WorkingHours = working.Text;
-            informationObject.Doctor = doctor.Text;
-            Global.AdditionalInformation = informationObject;
+            
+            string roomName = name.Text;
+            bool roomOccupied = (bool)occupied.IsChecked;
+            string t = roomType.Text;
+            RoomType.TryParse(t, out RoomType type);
+            Room room = roomService.GetRoomByName(roomName);
+            room.Occupied = roomOccupied;
+            room.RoomType = type;
+            roomService.Update(room);
+
             Close();
         }
 

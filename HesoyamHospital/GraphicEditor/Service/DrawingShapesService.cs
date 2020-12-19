@@ -1,3 +1,6 @@
+
+﻿using Backend.Model.UserModel;
+using Backend.Service.HospitalManagementService;
 ﻿using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
@@ -162,16 +165,18 @@ namespace GraphicEditor
             if (rectangle.Name.Contains("room"))
             { 
                 Information information = new Information();
-                information.name.Text = rectangle.Name;
-                information.visiting.Text = Global.AdditionalInformation.VisitingHours;
-                information.working.Text = Global.AdditionalInformation.WorkingHours;
-                information.doctor.Text = Global.AdditionalInformation.Doctor;
-                information.name.IsEnabled = false;
-                information.visiting.IsEnabled = false;
-                information.doctor.IsEnabled = false;
-                information.working.IsEnabled = false;
-                information.Show();
+                RoomService roomService = Backend.AppResources.getInstance().roomService;
+                Room room = roomService.GetRoomByName(rectangle.Name);
 
+                information.name.Text = room.RoomNumber;
+                information.occupied.IsChecked = room.Occupied;
+                information.roomType.Text = room.RoomType.ToString();
+
+                information.name.IsEnabled = false;
+                information.occupied.IsEnabled = false;
+                information.roomType.IsEnabled = false;
+
+                information.Show();
             }
         }
 
