@@ -108,44 +108,12 @@ namespace GraphicEditor
                     MedicineDTO medicineDTO = new MedicineDTO();
 
                     medicineDTO.Name = m.Name;
-
-                    switch (m.MedicineType)
-                    {
-                        case MedicineType.PILL:
-                            medicineDTO.Type = "PILL";
-                            break;
-                        case MedicineType.IV:
-                            medicineDTO.Type = "IV";
-                            break;
-                        case MedicineType.LIQUID:
-                            medicineDTO.Type = "LIQUID";
-                            break;
-                        case MedicineType.TABLET:
-                            medicineDTO.Type = "TABLET";
-                            break;
-                        case MedicineType.TOPICAL_MEDICINE:
-                            medicineDTO.Type = "TOPICAL_MEDICINE";
-                            break;
-                        case MedicineType.DROPS:
-                            medicineDTO.Type = "DROPS";
-                            break;
-                        case MedicineType.SUPPOSITORIES:
-                            medicineDTO.Type = "SUPPOSITORIES";
-                            break;
-                        case MedicineType.INHALERS:
-                            medicineDTO.Type = "INHALERS";
-                            break;
-                        default:
-                            medicineDTO.Type = "INJECTIONS";
-                            break;
-                    }
-
+                    medicineDTO.Type = m.MedicineType.ToString();
                     medicineDTO.Quantity = m.InStock;
                     Room foundRoom = roomService.GetByID(m.RoomID);
                     medicineDTO.Room = foundRoom.RoomNumber;
                     
                     medicineDTOs.Add(medicineDTO);
-                    
                 }
 
                 dataGridSearch.ItemsSource = medicineDTOs;
