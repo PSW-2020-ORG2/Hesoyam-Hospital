@@ -54,7 +54,7 @@ namespace GraphicEditor
         }
 
         public Shape DrawShapes(GraphicalObject graphicalObject)
-        { 
+        {
             string shape = graphicalObject.Shape;
             SolidColorBrush brush;
             SolidColorBrush stroke;
@@ -66,18 +66,19 @@ namespace GraphicEditor
                     Rectangle rectangle = new Rectangle();
                     rectangle.Width = graphicalObject.Width;
                     rectangle.Height = graphicalObject.Height;
-                    
+
                     rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
                     rectangle.ToolTip = rectangle.Name;
 
                     if (rectangle.Name == Global.SearchObjectName)
-                    { 
+                    {
                         rectangle.StrokeThickness = 7;
                         rectangle.Stroke = Brushes.Red;
                     }
-                    else {
-                       
+                    else
+                    {
+
                         rectangle.Stroke = stroke;
                     }
 
@@ -113,17 +114,17 @@ namespace GraphicEditor
 
             foreach (FileInformation inf in menuInformation)
             {
-                if(inf.Name == rectangle.Name)
+                if (inf.Name == rectangle.Name)
                     mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
             }
-              
+
         }
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
 
             if (rectangle.Name.Contains("room"))
-            { 
+            {
                 Information information = new Information();
                 information.name.Text = rectangle.Name;
                 information.visiting.Text = Global.AdditionalInformation.VisitingHours;
