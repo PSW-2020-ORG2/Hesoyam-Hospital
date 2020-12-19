@@ -1,7 +1,7 @@
 ﻿
 namespace GraphicEditor.DTOs
 {
-    class InventoryItemDTO
+    public class InventoryItemDTO
     {
         public string Name { get; set; }
         public string Room { get; set; }

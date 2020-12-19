@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using System.Windows.Shapes; 
 
 namespace GraphicEditor
 {
@@ -129,8 +129,8 @@ namespace GraphicEditor
                 List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
                 List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
 
-                List<InventoryItemDTO> inventoryItemDTO = ConvertToIventoryItemToDTO(inventoryItems);
-                List<InventoryItemDTO> medicineDTO = ConvertToMedicineToDTO(medicine, roomName);
+                List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
                 result.AddRange(inventoryItemDTO);
                 result.AddRange(medicineDTO);
 
@@ -139,28 +139,6 @@ namespace GraphicEditor
                 window.Show();
 
             }
-        }
-
-        public List<InventoryItemDTO> ConvertToIventoryItemToDTO(List<InventoryItem> inventoryItems) {
-            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
-            foreach (InventoryItem m in inventoryItems)
-            {
-                InventoryItemDTO item = new InventoryItemDTO(m.Name, m.Room.RoomNumber, m.InStock);
-                result.Add(item);
-            }
-            return result;
-        }
-
-        public List<InventoryItemDTO> ConvertToMedicineToDTO(List<Medicine> medicine, string roomName) {
-
-            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
-            foreach (Medicine m in medicine)
-            {
-                InventoryItemDTO item = new InventoryItemDTO(m.Name, roomName, m.InStock);
-                result.Add(item);
-            }
-            return result;
-
         }
 
 
