@@ -1,8 +1,6 @@
 ﻿using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GraphicEditor.DTOs
 {
