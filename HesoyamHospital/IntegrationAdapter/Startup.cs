@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IntegrationAdapter.HTTPServiceSupport;
 using IntegrationAdapter.SFTPServiceSupport;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,14 +27,7 @@ namespace IntegrationAdapter
 
         public void ConfigureServices(IServiceCollection services)
         {
-            if (_env.IsDevelopment())
-            {
-                services.AddHostedService<SFTPTimerService>();
-            }
-            else if (_env.IsProduction())
-            {
-                services.AddHostedService<HTTPTimerService>();
-            }
+            services.AddHostedService<ReportTimerService>();
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrgin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
