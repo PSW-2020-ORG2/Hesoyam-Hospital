@@ -98,5 +98,17 @@ namespace Backend.Service.HospitalManagementService
                 throw new MedicineServiceException("InStock is less than zero!");
         }
 
+        public IEnumerable<Medicine> GetMedicinesByRoom(long roomId)
+        {
+            List<Medicine> result = new List<Medicine>();
+            List<Medicine> medicines = (List<Medicine>)_medicineRepository.GetAllEager();
+            foreach (Medicine m in medicines)
+            {
+                if (m.RoomID == roomId)
+                    result.Add(m);
+
+            }
+            return result;
+        }
     }
 }

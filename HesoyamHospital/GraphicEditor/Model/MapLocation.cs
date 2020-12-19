@@ -1,5 +1,4 @@
-﻿
-namespace GraphicEditor
+﻿namespace GraphicEditor
 {
     public class MapLocation
     {
