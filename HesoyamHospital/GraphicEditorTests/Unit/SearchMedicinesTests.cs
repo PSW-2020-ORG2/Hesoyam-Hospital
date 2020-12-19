@@ -22,7 +22,7 @@ namespace GraphicEditorTests
         }
 
         [Fact]
-        public void Not_Find_medicine_by_id()
+        public void Not_find_medicine_by_id()
         {
             MedicineRepository medicineRepository = AppResources.getInstance().medicineRepository;
 
