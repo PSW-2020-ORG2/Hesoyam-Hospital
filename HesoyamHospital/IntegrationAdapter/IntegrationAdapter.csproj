@@ -13,5 +13,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Backend\Backend.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="PrescribedMedicineReport\prescriptions\" />
+	</ItemGroup>
 
 </Project>

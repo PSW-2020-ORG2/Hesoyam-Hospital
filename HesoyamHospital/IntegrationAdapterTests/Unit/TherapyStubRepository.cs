@@ -30,7 +30,7 @@ namespace IntegrationAdapterTests.Unit
             p1.MedicalTherapies = medicalTherapies1;
             Therapy t1 = new Therapy(1);
             t1.Prescription = p1;
-            t1.DatePrescribed = new DateTime(2020, 10, 15);
+            t1.Prescription.DateCreated = new DateTime(2020, 10, 15);
             therapies.Add(t1);
 
             List<MedicalTherapy> medicalTherapies2 = new List<MedicalTherapy>();
@@ -39,7 +39,7 @@ namespace IntegrationAdapterTests.Unit
             p2.MedicalTherapies = medicalTherapies2;
             Therapy t2 = new Therapy(2);
             t2.Prescription = p2;
-            t2.DatePrescribed = new DateTime(2020, 11, 7);
+            t2.Prescription.DateCreated = new DateTime(2020, 11, 7);
             therapies.Add(t2);
 
             List<Therapy> filtered = filterByTimeInterval(therapies, interval);
@@ -54,7 +54,7 @@ namespace IntegrationAdapterTests.Unit
             List<Therapy> retVal = new List<Therapy>();
             foreach(Therapy t in therapies)
             {
-                if (interval.IsDateTimeBetween(t.DatePrescribed))
+                if (interval.IsDateTimeBetween(t.Prescription.DateCreated))
                 {
                     retVal.Add(t);
                 }

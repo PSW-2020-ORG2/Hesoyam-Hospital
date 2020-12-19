@@ -1,0 +1,14 @@
+<div class="specification">
+<form [formGroup]="specificationForm" >
+  <div class="inputGrup">
+    <mat-form-field>
+      <input matInput placeholder="Medicine" formControlName="medicineName" >
+</mat-form-field>
+<button mat-raised-button [disabled]="specificationForm.invalid" (click)="GetSpecification()">Get</button>
+  </div>  
+<br>
+<mat-form-field style="width: 90%;">
+    <textarea matInput  cdkTextareaAutosize [readonly]=true [(value)]="medicineSpecification" ></textarea>
+  </mat-form-field>
+</form>
+</div>
