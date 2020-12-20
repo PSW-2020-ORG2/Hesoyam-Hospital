@@ -11,7 +11,7 @@ namespace GraphicEditorTests
         public void log_in_user()
         {
             UserService userService = Backend.AppResources.getInstance().userService;
-            userService.Login("jasna", "jasna123");
+            userService.Login("lenka", "lenka123");
             Assert.NotNull(Backend.AppResources.getInstance().loggedInUser);
         }
 
