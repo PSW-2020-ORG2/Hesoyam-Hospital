@@ -8,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplic
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F} = {49226B60-869E-428E-8C7F-C573E3DDFC9F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{202D3F6B-3C0B-4C1C-A186-FDC698CEFD39}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{49226B60-869E-428E-8C7F-C573E3DDFC9F}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapter", "Integ
 		{49226B60-869E-428E-8C7F-C573E3DDFC9F} = {49226B60-869E-428E-8C7F-C573E3DDFC9F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

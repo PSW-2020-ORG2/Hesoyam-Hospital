@@ -160,6 +160,8 @@ namespace Backend
             hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             doctorRepository = new DoctorRepository(new MySQLStream<Doctor>(), new LongSequencer(), userRepository);
             patientRepository = new PatientRepository(new MySQLStream<Patient>(), new LongSequencer(), userRepository);
+            managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new LongSequencer(), userRepository);
+            secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
             locationRepository = new LocationRepository(new MySQLStream<Location>(), new LongSequencer());
             feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
             medicineRepository = new MedicineRepository(new MySQLStream<Medicine>(), new LongSequencer());
