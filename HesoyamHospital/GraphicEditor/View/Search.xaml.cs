@@ -33,7 +33,9 @@ namespace GraphicEditor
             InitializeComponent();
             DataContext = this;
             Global.SearchObjectName = "";
-            if (Global.LoggedInUserType.Equals("patient"))
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+            
+            if (loggedIn.GetUserType() == UserType.PATIENT)
             {
                 searchEquipment.Visibility = Visibility.Hidden;
                 searchMedicine.Visibility = Visibility.Hidden;

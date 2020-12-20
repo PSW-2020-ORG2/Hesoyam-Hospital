@@ -28,11 +28,11 @@ namespace GraphicEditorTests
 
             MedicineService medicineService = new MedicineService(medicineRepository);
 
-            Medicine medicine1 = new Medicine(107, "Marisol", MedicineType.SUPPOSITORIES, true, null,  null, 20, 5, 204);
+            Medicine medicine1 = new Medicine(109, "Marisol", MedicineType.SUPPOSITORIES, true, null, null, 20, 5, 101);
 
             Medicine medicine = medicineService.GetByID(medicine1.Id);
 
-            Assert.Null(medicine);           
+            Assert.Null(medicine);
         }
     }
 }
