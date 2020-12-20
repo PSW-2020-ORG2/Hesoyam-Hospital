@@ -1,15 +1,26 @@
-﻿using System.Collections.Generic;
+
+﻿using Backend.Model.UserModel;
+using Backend.Service.HospitalManagementService;
+﻿using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
+using Backend.Service.HospitalManagementService;
+using GraphicEditor.DTOs;
+using GraphicEditor.View;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using System.Windows.Shapes; 
 
 namespace GraphicEditor
 {
     class DrawingShapesService
     {
         private readonly GraphicRepository graphicRepository;
+        private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
+        private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
 
         public DrawingShapesService()
         {
@@ -54,7 +65,7 @@ namespace GraphicEditor
         }
 
         public Shape DrawShapes(GraphicalObject graphicalObject)
-        { 
+        {
             string shape = graphicalObject.Shape;
             SolidColorBrush brush;
             SolidColorBrush stroke;
@@ -66,24 +77,26 @@ namespace GraphicEditor
                     Rectangle rectangle = new Rectangle();
                     rectangle.Width = graphicalObject.Width;
                     rectangle.Height = graphicalObject.Height;
-                    
+
                     rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
                     rectangle.ToolTip = rectangle.Name;
 
                     if (rectangle.Name == Global.SearchObjectName)
-                    { 
+                    {
                         rectangle.StrokeThickness = 7;
                         rectangle.Stroke = Brushes.Red;
                     }
-                    else {
-                       
+                    else
+                    {
+
                         rectangle.Stroke = stroke;
                     }
 
                     rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
                     rectangle.MouseRightButtonDown += MouseRightButtonDown;
+                    rectangle.MouseLeftButtonDown += (sender2, e2) => DoubleClick(sender2, e2, rectangle.Name);
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
                     Canvas.SetLeft(rectangle, graphicalObject.Left);
                     Canvas.SetTop(rectangle, graphicalObject.Top);
@@ -105,6 +118,33 @@ namespace GraphicEditor
 
             }
         }
+
+        public void DoubleClick(object sender, MouseButtonEventArgs e, string roomName)
+        {
+            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
+            if (e.ClickCount == 2 && rectangle.Name.Contains("room"))
+            {
+                RoomService roomService = Backend.AppResources.getInstance().roomService;
+                Room room = roomService.GetRoomByName(roomName);
+                long id = room.Id;
+
+                List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
+                List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
+
+                List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
+                result.AddRange(inventoryItemDTO);
+                result.AddRange(medicineDTO);
+
+                OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
+                window.dataGridOverview.ItemsSource = result;
+                window.Show();
+
+            }
+        }
+
+
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
@@ -125,16 +165,18 @@ namespace GraphicEditor
             if (rectangle.Name.Contains("room"))
             { 
                 Information information = new Information();
-                information.name.Text = rectangle.Name;
-                information.visiting.Text = Global.AdditionalInformation.VisitingHours;
-                information.working.Text = Global.AdditionalInformation.WorkingHours;
-                information.doctor.Text = Global.AdditionalInformation.Doctor;
-                information.name.IsEnabled = false;
-                information.visiting.IsEnabled = false;
-                information.doctor.IsEnabled = false;
-                information.working.IsEnabled = false;
-                information.Show();
+                RoomService roomService = Backend.AppResources.getInstance().roomService;
+                Room room = roomService.GetRoomByName(rectangle.Name);
 
+                information.name.Text = room.RoomNumber;
+                information.occupied.IsChecked = room.Occupied;
+                information.roomType.Text = room.RoomType.ToString();
+
+                information.name.IsEnabled = false;
+                information.occupied.IsEnabled = false;
+                information.roomType.IsEnabled = false;
+
+                information.Show();
             }
         }
 

@@ -2,17 +2,24 @@
 using Backend.Util;
 using IntegrationAdapter.MedicineReport;
 using Microsoft.Extensions.Hosting;
+using RestSharp;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace IntegrationAdapter.SFTPServiceSupport
 {
-    public class SFTPTimerService : BackgroundService
+    public class ReportTimerService : BackgroundService
     {
         System.Timers.Timer generatorTimer = new System.Timers.Timer();
+        private readonly IWebHostEnvironment _env;
+        public ReportTimerService(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
@@ -42,9 +49,27 @@ namespace IntegrationAdapter.SFTPServiceSupport
             string filePath = @"\PrescribedMedicineReport\pharmacy_reports\prescribed_medicine_report.txt";
             PrescribedMedicineReportGenerator generator = new PrescribedMedicineReportGenerator(AppResources.getInstance().therapyService, startupPath + filePath);
             generator.GenerateReport(new TimeInterval(DateTime.Now.AddDays(-7), DateTime.Now));
-            SFTPService.ConnectAndSendPrescribedMedicineReport(startupPath + filePath);
+            if(_env.IsDevelopment())
+                SFTPService.ConnectAndSendPrescribedMedicineReport(startupPath + filePath);
+            else
+                SendHttpRequest(startupPath + filePath);
         }
+        private static void SendHttpRequest(string filePath)
+        {
+            var client = new RestSharp.RestClient("http://localhost:8080");
+            var request = new RestRequest("/prescribedmedicinereport");
 
+            request.AddParameter("file", ReadFromFile(filePath));
+            IRestResponse response = client.Post(request);
+            Console.WriteLine("Status: " + response.StatusCode.ToString());
+        }
+        private static string ReadFromFile(string filePath)
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                return sr.ReadToEnd();
+            }
+        }
         public void WriteToFile(string Message)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\SFTPLogs";

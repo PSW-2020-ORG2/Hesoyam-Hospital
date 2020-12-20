@@ -7,8 +7,8 @@ namespace IntegrationAdapter.SFTPServiceSupport
     public class SFTPService
     {
         private static readonly string serverIP = Environment.GetEnvironmentVariable("SFTPServerIPAddress");
-        private static readonly string user = "tester";
-        private static readonly string password = "password";
+        private static readonly string user = Environment.GetEnvironmentVariable("SFTPUsername");
+        private static readonly string password = Environment.GetEnvironmentVariable("SFTPPassword");
         public static void ConnectAndSendPrescribedMedicineReport(string fileToSend)
         {
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo(serverIP, user, password)))

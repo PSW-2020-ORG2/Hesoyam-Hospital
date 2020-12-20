@@ -92,5 +92,18 @@ namespace Backend.Service.HospitalManagementService
 
         public IInventoryRepository iInventoryRepository;
 
+        public IEnumerable<InventoryItem> GetInventoryItemsByRoom(string name)
+        {
+            List<InventoryItem> result = new List<InventoryItem>();
+            List<InventoryItem> inventoryItems = (List<InventoryItem>)_inventoryItemRepository.GetAllEager();
+            foreach (InventoryItem item in inventoryItems)
+            {
+                if (item.Room.RoomNumber == name)
+                    result.Add(item);
+
+            }
+            return result;
+
+        }
     }
 }
