@@ -26,7 +26,7 @@ namespace GraphicEditor
             name.IsEnabled = false;
             occupied.IsEnabled = true;
             roomType.IsEnabled = true;
-            chanlog-in-usege.Visibility = Visibility.Hidden;
+            change.Visibility = Visibility.Hidden;
             save.Visibility = Visibility.Visible;
         }
 
