@@ -25,7 +25,7 @@ namespace GraphicEditor
                 foreach (string line in lines)
                 {
                     GraphicalObject graphical_object = ConvertLineToGraphicalObject(line, hospital, floor);
-                    if(graphical_object != null)
+                    if (graphical_object != null)
                         list.Add(graphical_object);
                 }
             }
@@ -39,7 +39,8 @@ namespace GraphicEditor
         private GraphicalObject ConvertLineToGraphicalObject(string line, string hospital, string floor)
         {
             string[] fields = line.Split(',');
-            if (fields.Length != 8) {
+            if (fields.Length != 8)
+            {
 
                 return null;
             }
@@ -54,7 +55,8 @@ namespace GraphicEditor
             return new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
         }
 
-        public List<FileInformation> readFileInformation(string fileName) {
+        public List<FileInformation> readFileInformation(string fileName)
+        {
             string path = Path.GetFullPath(fileName);
             List<FileInformation> information = new List<FileInformation>();
 

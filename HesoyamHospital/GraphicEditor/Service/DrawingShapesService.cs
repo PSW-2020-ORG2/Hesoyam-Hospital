@@ -153,17 +153,17 @@ namespace GraphicEditor
 
             foreach (FileInformation inf in menuInformation)
             {
-                if(inf.Name == rectangle.Name)
+                if (inf.Name == rectangle.Name)
                     mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
             }
-              
+
         }
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
 
             if (rectangle.Name.Contains("room"))
-            { 
+            {
                 Information information = new Information();
                 RoomService roomService = Backend.AppResources.getInstance().roomService;
                 Room room = roomService.GetRoomByName(rectangle.Name);
