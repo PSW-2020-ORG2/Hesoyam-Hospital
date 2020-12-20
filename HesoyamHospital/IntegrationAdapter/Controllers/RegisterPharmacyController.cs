@@ -3,6 +3,7 @@ using Backend.Exceptions;
 using Backend.Model.PharmacyModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IntegrationAdapter.Controllers
@@ -34,6 +35,12 @@ namespace IntegrationAdapter.Controllers
             {
                 return StatusCode(500);
             }
+        }
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            List<RegisteredPharmacy> pharmacyList = (List<RegisteredPharmacy>)AppResources.getInstance().registeredPharmacyService.GetAll();
+            return Ok(pharmacyList);
         }
     }
 }

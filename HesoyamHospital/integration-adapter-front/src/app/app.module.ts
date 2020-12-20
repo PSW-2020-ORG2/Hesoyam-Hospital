@@ -22,7 +22,9 @@ import { MatChipsModule } from '@angular/material/chips'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { PrescribeTherapyComponent } from './prescribe-therapy/prescribe-therapy.component';
 import { SpecificationComponent } from './specification/specification.component';
+import { MedicineAvailabilityComponent } from './medicine-availability/medicine-availability.component';
 
 
 
@@ -31,7 +33,9 @@ import { SpecificationComponent } from './specification/specification.component'
     AppComponent,
     PharmacyRegistrationComponent,
     ActionBenefitComponent,
-    SpecificationComponent
+    PrescribeTherapyComponent,
+    SpecificationComponent,
+    MedicineAvailabilityComponent
   ],
   imports: [
     BrowserModule,

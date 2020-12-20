@@ -16,8 +16,6 @@ namespace GraphicEditor
         {
             Global.SearchObjectName = "";
             InitializeComponent();
-            
-            Global.AdditionalInformation = new InformationObject("14:00h-16:00h", "08:00h-17:00h", "Marija Prokic");
 
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
