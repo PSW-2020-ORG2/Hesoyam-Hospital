@@ -8,16 +8,11 @@ namespace GraphicEditor.DTOs
         public RoomType Type { get; set; }
         public int Floor { get; set; }
 
-        public RoomDTO()
-        {
-
-        }
         public RoomDTO(string name, RoomType type, int floor)
         {
             Name = name;
             Type = type;
             Floor = floor;
-
         }
     }
 }

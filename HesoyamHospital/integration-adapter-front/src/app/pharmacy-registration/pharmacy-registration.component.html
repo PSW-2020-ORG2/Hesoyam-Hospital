@@ -15,15 +15,11 @@
         <input matInput placeholder="Endpoint" formControlName="endpoint">
     </mat-form-field>
     <br>
+    <mat-form-field>
+        <input matInput placeholder="GrpcPort" formControlName="grpcPort">
+    </mat-form-field>
+    <br>
 
     <button mat-raised-button [disabled]="myForm.invalid" (click)="AddPharmacy()" >Save</button>
 </form>
 </div>
-<table>
-    <!--<tr ngFor*="let r of RegList">
-        <td>{{r.Id}}</td>
-        <td>{{r.ApiKey}}</td>
-        <td>{{r.PharmacyName}}</td>
-    </tr>-->
-
-</table>

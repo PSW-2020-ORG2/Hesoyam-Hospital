@@ -9,7 +9,7 @@ namespace GraphicEditor
         public SearchService()
         {
         }
-       
+
         public List<MapLocation> FindObjectsByName(string name)
         {
             List<MapLocation> mapLocations = new List<MapLocation>();

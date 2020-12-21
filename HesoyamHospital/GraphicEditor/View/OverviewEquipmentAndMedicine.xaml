@@ -1,0 +1,33 @@
+﻿<Window x:Class="GraphicEditor.View.OverviewEquipmentAndMedicine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphicEditor.View"
+        mc:Ignorable="d"
+        Title="OverviewEquipmentAndMedicine" Height="400" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="labelOverview" Content="Overview of equipment and medicines" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="100"  Style="{StaticResource ResourceKey=labelOverview}"/>
+
+        <DataGrid x:Name="dataGridOverview" Grid.Row="2" ColumnWidth="*" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridOverview}">
+        </DataGrid>
+    </Grid>
+</Window>

@@ -22,7 +22,7 @@ namespace GraphicEditor
         private List<Medicine> medicines;
         private List<MedicineDTO> medicineDTOs;
         private List<InventoryItem> inventoryItems;
-        private List<EquipmentDTO> inventoryItemsDTOs;
+        private List<InventoryItemDTO> inventoryItemsDTOs;
         private List<RoomDTO> roomDTOs;
         private InventoryService inventoryService;
         private RoomService roomService;
@@ -33,7 +33,9 @@ namespace GraphicEditor
             InitializeComponent();
             DataContext = this;
             Global.SearchObjectName = "";
-            if (Global.LoggedInUserType.Equals("patient"))
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+            
+            if (loggedIn.GetUserType() == UserType.PATIENT)
             {
                 searchEquipment.Visibility = Visibility.Hidden;
                 searchMedicine.Visibility = Visibility.Hidden;
@@ -89,11 +91,11 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 2)
             {
-                inventoryItemsDTOs = new List<EquipmentDTO>();
+                inventoryItemsDTOs = new List<InventoryItemDTO>();
                 inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByName(name);
                 foreach (InventoryItem item in inventoryItems)
                 {
-                    EquipmentDTO dto = new EquipmentDTO(item.Name, item.Room.RoomNumber, item.InStock);
+                    InventoryItemDTO dto = new InventoryItemDTO(item.Name, item.Room.RoomNumber, item.InStock);
                     inventoryItemsDTOs.Add(dto);
                 }
                 dataGridSearch.ItemsSource = inventoryItemsDTOs;
@@ -108,44 +110,12 @@ namespace GraphicEditor
                     MedicineDTO medicineDTO = new MedicineDTO();
 
                     medicineDTO.Name = m.Name;
-
-                    switch (m.MedicineType)
-                    {
-                        case MedicineType.PILL:
-                            medicineDTO.Type = "PILL";
-                            break;
-                        case MedicineType.IV:
-                            medicineDTO.Type = "IV";
-                            break;
-                        case MedicineType.LIQUID:
-                            medicineDTO.Type = "LIQUID";
-                            break;
-                        case MedicineType.TABLET:
-                            medicineDTO.Type = "TABLET";
-                            break;
-                        case MedicineType.TOPICAL_MEDICINE:
-                            medicineDTO.Type = "TOPICAL_MEDICINE";
-                            break;
-                        case MedicineType.DROPS:
-                            medicineDTO.Type = "DROPS";
-                            break;
-                        case MedicineType.SUPPOSITORIES:
-                            medicineDTO.Type = "SUPPOSITORIES";
-                            break;
-                        case MedicineType.INHALERS:
-                            medicineDTO.Type = "INHALERS";
-                            break;
-                        default:
-                            medicineDTO.Type = "INJECTIONS";
-                            break;
-                    }
-
+                    medicineDTO.Type = m.MedicineType.ToString();
                     medicineDTO.Quantity = m.InStock;
                     Room foundRoom = roomService.GetByID(m.RoomID);
                     medicineDTO.Room = foundRoom.RoomNumber;
                     
                     medicineDTOs.Add(medicineDTO);
-                    
                 }
 
                 dataGridSearch.ItemsSource = medicineDTOs;
@@ -167,7 +137,7 @@ namespace GraphicEditor
             }
             else if (searchType.SelectedIndex == 2)
             {
-                EquipmentDTO equipment = (EquipmentDTO)dataGridSearch.SelectedItem;
+                InventoryItemDTO equipment = (InventoryItemDTO)dataGridSearch.SelectedItem;
                 if (equipment == null) {
                     return;
                 }

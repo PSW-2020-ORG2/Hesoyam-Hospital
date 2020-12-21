@@ -2,36 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IntegrationAdapter.SFTPServiceSupport;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Logging;
-using System.IO;
+using Newtonsoft.Json.Serialization;
 
 namespace IntegrationAdapter
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddCors(c=>
-			{
-				c.AddPolicy("AllowOrgin",options=>options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-			});
+            services.AddHostedService<ReportTimerService>();
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrgin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
 
-            //JSON Serializer
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
@@ -41,15 +43,17 @@ namespace IntegrationAdapter
             services.AddControllers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            if (_env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             app.UseRouting();
 
             app.UseAuthorization();
