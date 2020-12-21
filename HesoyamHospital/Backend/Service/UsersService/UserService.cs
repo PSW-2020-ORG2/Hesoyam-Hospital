@@ -40,8 +40,6 @@ namespace Backend.Service.UsersService
                 AppResources.getInstance().loggedInUser = user;
             else
                 AppResources.getInstance().loggedInUser = null;
-
-            LoadUserResources(user);
         }
 
         private void LoadUserResources(User user)
