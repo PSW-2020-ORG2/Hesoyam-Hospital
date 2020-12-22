@@ -11,26 +11,18 @@ namespace Backend.Service.MedicalService
 {
     public class AppointmentSchedulingService : IAppointmentSchedulingService
     {
-<<<<<<< Updated upstream
-        private readonly IDoctorRepository _doctorRepository;
-        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IDoctorRepository DoctorRepository;
+        private readonly IAppointmentRepository AppointmentRepository;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
 
         public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
         {
-            _doctorRepository = doctorRepository;
-            _appointmentRepository = appointmentRepository;
+            DoctorRepository = doctorRepository;
+            AppointmentRepository = appointmentRepository;
         }
-
-=======
-        private readonly IAppointmentRepository appointmentRepository;
-        private readonly IDoctorRepository doctorRepository;
-        public readonly long APPOINTMENT_DURATION_MINUTES = 30;
-
->>>>>>> Stashed changes
         public Appointment Create(Appointment entity)
         {
-            return appointmentRepository.Create(entity);
+            return AppointmentRepository.Create(entity);
         }
 
         public void Delete(Appointment entity)
@@ -55,7 +47,7 @@ namespace Backend.Service.MedicalService
 
         public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityIntervalDTO dto)
         {
-            Doctor doctor = doctorRepository.GetByID(dto.DoctorId);
+            Doctor doctor = DoctorRepository.GetByID(dto.DoctorId);
             if (doctor == null || doctor.TimeTable == null)
             {
                 return GetByPriority(dto).ToList();
@@ -81,7 +73,7 @@ namespace Backend.Service.MedicalService
 
         public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsDoctor(PriorityIntervalDTO dto)
         {
-            Doctor doctor = doctorRepository.GetByID(dto.DoctorId);
+            Doctor doctor = DoctorRepository.GetByID(dto.DoctorId);
             if (doctor == null || doctor.TimeTable == null)
             {
                 return new List<PriorityIntervalDTO>();
@@ -99,8 +91,8 @@ namespace Backend.Service.MedicalService
         public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityIntervalDTO dto)
         {
             List<PriorityIntervalDTO> appointments = new List<PriorityIntervalDTO>();
-            DoctorType specialisation = doctorRepository.GetByID(dto.DoctorId).Specialisation;
-            List<Doctor> doctors = doctorRepository.GetDoctorByType(specialisation).ToList();
+            DoctorType specialisation = DoctorRepository.GetByID(dto.DoctorId).Specialisation;
+            List<Doctor> doctors = DoctorRepository.GetDoctorByType(specialisation).ToList();
             if (doctors == null || doctors.Count == 0)
             {
                 return appointments;
