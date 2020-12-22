@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Service.MedicalService
 {
-    interface IAppointmentSchedulingService : IService<Appointment, long>
+   public interface IAppointmentSchedulingService : IService<Appointment, long>
     {
         public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date);
         public List<Doctor> GetDoctorsByType(string type);

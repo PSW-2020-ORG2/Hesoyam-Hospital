@@ -1,5 +1,7 @@
 ﻿using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Repository.Abstract.MedicalAbstractRepository;
+using Backend.Repository.Abstract.UsersAbstractRepository;
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +9,16 @@ namespace Backend.Service.MedicalService
 {
     public class AppointmentSchedulingService : IAppointmentSchedulingService
     {
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
+        public readonly long APPOINTMENT_DURATION_MINUTES = 30;
+
+        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
+        {
+            _doctorRepository = doctorRepository;
+            _appointmentRepository = appointmentRepository;
+        }
+
         public Appointment Create(Appointment entity)
         {
             throw new NotImplementedException();
