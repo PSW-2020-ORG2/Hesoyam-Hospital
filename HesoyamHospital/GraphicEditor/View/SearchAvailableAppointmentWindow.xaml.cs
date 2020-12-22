@@ -25,6 +25,7 @@ namespace GraphicEditor
         {
             InitializeComponent();
             this.doctorService = Backend.AppResources.getInstance().doctorService;
+            this.appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             doctors = (List<Doctor>) doctorService.GetAll();
             
 
@@ -67,7 +68,7 @@ namespace GraphicEditor
             PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, priority);
 
             priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
-
+            searchAvailable.ItemsSource = priorityIntervalDTOs;
         }
     }
 }
