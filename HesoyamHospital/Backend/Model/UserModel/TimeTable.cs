@@ -78,6 +78,17 @@ namespace Backend.Model.UserModel
             return appointments;
         }
 
+        public List<DateTime> GetAllAvailableAppointments(long duration)
+        {
+            List<DateTime> appointments = new List<DateTime>();
+            List<Shift> activeShifts = GetActiveShifts();
+            foreach (Shift shift in activeShifts)
+            {
+                AddToList(appointments, shift.GetAvailableTimes(duration));
+            }
+            return appointments;
+        }
+
         private List<DateTime> AddToList(List<DateTime> appointments, List<DateTime> newAvailable)
         {
             foreach (DateTime dateTime in newAvailable)

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Backend.Model.UserModel;
 using Backend.Repository.MySQLRepository.UsersRepository;
+using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
 
 namespace GraphicEditor
@@ -17,12 +18,15 @@ namespace GraphicEditor
     {
         private List<Doctor> doctors = new List<Doctor>();
         private readonly DoctorService doctorService;
+        private List<PriorityIntervalDTO> priorityIntervalDTOs;
+        private readonly AppointmentSchedulingService appointmentSchedulingService;
 
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
             this.doctorService = Backend.AppResources.getInstance().doctorService;
             doctors = (List<Doctor>) doctorService.GetAll();
+            
 
             foreach (Doctor doctor in doctors)
             {
@@ -48,6 +52,22 @@ namespace GraphicEditor
             {
                 toDatePicker.IsDropDownOpen = true;
             }
+        }
+
+        private void SearchAvailableAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            String doctorName = searchDoctor.SelectedItem.ToString();
+            DateTime startTime = fromDatePicker.SelectedDate.Value;
+            DateTime endTime = toDatePicker.SelectedDate.Value;
+            bool priority = priorityDoctor.IsChecked.Value;
+
+
+            priorityIntervalDTOs = new List<PriorityIntervalDTO>();
+
+            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, priority);
+
+            priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
+
         }
     }
 }

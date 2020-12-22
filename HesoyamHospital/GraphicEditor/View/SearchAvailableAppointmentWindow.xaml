@@ -55,7 +55,7 @@
             </StackPanel>
         </GroupBox>
 
-        <Button x:Name="buttonSearchAppointment" Content="Search" ToolTip="Search" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}"/>
+        <Button x:Name="buttonSearchAppointment" Content="Search" ToolTip="Search" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="SearchAvailableAppointmentClick"/>
 
         <DataGrid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" ItemsSource="{Binding result}" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}">
         </DataGrid>
