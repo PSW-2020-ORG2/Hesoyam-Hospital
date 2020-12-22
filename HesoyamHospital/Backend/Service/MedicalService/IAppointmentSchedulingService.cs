@@ -13,7 +13,7 @@ namespace Backend.Service.MedicalService
         public List<Doctor> GetDoctorsByType(string type);
         public Appointment SaveAppointment(Appointment appointment);
         public IEnumerable<DateTime> GetTimesForSelectedDoctor(Patient patient);
-        public IEnumerable<Appointment> GetRecommendedTimes(PriorityIntervalDTO dto);
+        public IEnumerable<Appointment> GetRecommendedTimes(Appointment appointment, Boolean priorityDoctor);
         public bool MultipleAppoitments(Appointment appointment);
     
     }

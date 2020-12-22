@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Backend.Service.MedicalService
+namespace Backend.Service
 {
     public class PriorityIntervalDTO
     {
@@ -31,6 +31,14 @@ namespace Backend.Service.MedicalService
             EndTime = endTime;
             DoctorName = doctorName;
             Priority = priority;
+        }
+
+        public PriorityIntervalDTO(DateTime startTime, DateTime endTime, string doctorName, long doctorId)
+        {
+            StartTime = startTime;
+            EndTime = endTime;
+            DoctorName = doctorName;
+            DoctorId = doctorId;
         }
     }
 }

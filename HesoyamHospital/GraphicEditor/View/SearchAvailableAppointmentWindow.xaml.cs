@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Backend.Model.UserModel;
 using Backend.Repository.MySQLRepository.UsersRepository;
+using Backend.Service;
 using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
 
@@ -58,8 +59,6 @@ namespace GraphicEditor
         private void SearchAvailableAppointmentClick(object sender, RoutedEventArgs e)
         {
             String doctorName = searchDoctor.SelectedItem.ToString();
-            ComboBoxItem item = (ComboBoxItem)searchDoctor.SelectedItem;
-            Doctor doctor = (Doctor)item.Tag;
             DateTime startTime = fromDatePicker.SelectedDate.Value;
             DateTime endTime = toDatePicker.SelectedDate.Value;
             bool priority = priorityDoctor.IsChecked.Value;
@@ -67,7 +66,7 @@ namespace GraphicEditor
 
             priorityIntervalDTOs = new List<PriorityIntervalDTO>();
 
-            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName,doctor.Id, priority);
+            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, priority);
 
             priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
             searchAvailable.ItemsSource = priorityIntervalDTOs;

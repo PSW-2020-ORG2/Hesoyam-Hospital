@@ -8,6 +8,7 @@ using Backend.Service.MedicalService;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Shouldly;
+using Backend.Service;
 
 namespace GraphicEditorTests.Unit
 {
