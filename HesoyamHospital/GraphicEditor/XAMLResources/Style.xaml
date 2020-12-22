@@ -367,6 +367,7 @@
     <Style x:Key="dataPickerStyle" TargetType="DatePicker">
         <Setter Property="Background" Value="BurlyWood"/>
         <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="Height" Value="35"/>
         <Setter Property="Width" Value="370"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
