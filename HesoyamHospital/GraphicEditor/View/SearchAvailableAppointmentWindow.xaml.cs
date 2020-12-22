@@ -58,6 +58,8 @@ namespace GraphicEditor
         private void SearchAvailableAppointmentClick(object sender, RoutedEventArgs e)
         {
             String doctorName = searchDoctor.SelectedItem.ToString();
+            ComboBoxItem item = (ComboBoxItem)searchDoctor.SelectedItem;
+            Doctor doctor = (Doctor)item.Tag;
             DateTime startTime = fromDatePicker.SelectedDate.Value;
             DateTime endTime = toDatePicker.SelectedDate.Value;
             bool priority = priorityDoctor.IsChecked.Value;
@@ -65,7 +67,7 @@ namespace GraphicEditor
 
             priorityIntervalDTOs = new List<PriorityIntervalDTO>();
 
-            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, priority);
+            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName,doctor.Id, priority);
 
             priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
             searchAvailable.ItemsSource = priorityIntervalDTOs;
