@@ -1,6 +1,4 @@
 using Xunit;
-using Backend.Model.UserModel;
-using System.Collections.Generic;
 using Backend.Service.UsersService;
 
 namespace GraphicEditorTests
