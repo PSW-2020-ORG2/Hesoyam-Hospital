@@ -48,6 +48,9 @@ namespace Backend.Service.HospitalManagementService
         public Medicine GetByID(long id)
             => _medicineRepository.GetByID(id);
 
+        public IEnumerable<Medicine> GetMedicinesByRoom(long roomId)
+            => _medicineRepository.GetMedicinesByRoom(roomId);
+
         public Medicine Create(Medicine entity)
         {
             Validate(entity);
@@ -86,19 +89,6 @@ namespace Backend.Service.HospitalManagementService
         {
             if (inStock < 0)
                 throw new MedicineServiceException("InStock is less than zero!");
-        }
-
-        public IEnumerable<Medicine> GetMedicinesByRoom(long roomId)
-        {
-            List<Medicine> result = new List<Medicine>();
-            List<Medicine> medicines = (List<Medicine>)_medicineRepository.GetAllEager();
-            foreach (Medicine m in medicines)
-            {
-                if (m.RoomID == roomId)
-                    result.Add(m);
-
-            }
-            return result;
         }
     }
 }

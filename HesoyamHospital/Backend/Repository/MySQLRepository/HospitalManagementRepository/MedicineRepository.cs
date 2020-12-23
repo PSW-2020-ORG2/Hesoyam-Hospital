@@ -37,6 +37,17 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         public Medicine GetMedicineByName(string name)
             => GetAll().SingleOrDefault(med => med.Name == name);
 
+        public IEnumerable<Medicine> GetMedicinesByRoom(long roomId)
+        {
+            List<Medicine> result = new List<Medicine>();
+            List<Medicine> medicines = (List<Medicine>)GetAllEager();
+            foreach (Medicine m in medicines)
+                if (m.RoomID == roomId)
+                    result.Add(m);
+            
+            return result;
+        }
+
         public IEnumerable<Medicine> GetMedicinesByPartName(string partOfTheName)
             => GetAllEager().Where(med => med.Name.Contains(partOfTheName)).ToList();
         
