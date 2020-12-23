@@ -17,9 +17,9 @@ namespace GraphicEditor
     /// </summary>
     public partial class Search : Window
     {
-        private RoomRepository roomRepository;
         private MedicineService medicineService;
         private List<Medicine> medicines;
+        private List<Room> rooms;
         private List<MedicineDTO> medicineDTOs;
         private List<InventoryItem> inventoryItems;
         private List<InventoryItemDTO> inventoryItemsDTOs;
@@ -75,18 +75,12 @@ namespace GraphicEditor
             {
                 List<MapLocation> results = searchService.FindObjectsByName(name);
                 dataGridSearch.ItemsSource = results;
+                dataGridSearch.Columns[3].Visibility = Visibility.Hidden;
             }
             else if (searchType.SelectedIndex == 1)
             {
-                roomDTOs = new List<RoomDTO>();
-
-                roomRepository = Backend.AppResources.getInstance().roomRepository;
-                List<Room> results = roomRepository.GetRoomsByOccupied().ToList();
-                foreach (Room room in results)
-                {
-                    RoomDTO dto = new RoomDTO(room.RoomNumber, room.RoomType, room.Floor);
-                    roomDTOs.Add(dto);
-                }
+                rooms = roomService.GetRoomsByOccupied(false).ToList();
+                roomDTOs = ConvertRoomsToDTOs(rooms);
                 dataGridSearch.ItemsSource = roomDTOs;
             }
             else if (searchType.SelectedIndex == 2)
@@ -109,19 +103,16 @@ namespace GraphicEditor
             if (searchType.SelectedIndex == 0)
             {
                 MapLocation mapLocation = (MapLocation)dataGridSearch.SelectedItem;
-                if (mapLocation == null)
-                {
-                    return;
-                }
+                if (mapLocation == null) return;
 
                 DisplayResaults(mapLocation);
             }
             else if (searchType.SelectedIndex == 2)
             {
                 InventoryItemDTO equipment = (InventoryItemDTO)dataGridSearch.SelectedItem;
-                if (equipment == null) {
-                    return;
-                }
+                
+                if (equipment == null) return;
+                
                 string room = equipment.Room;
 
                 MapLocation mapLocation = GetLocationByRoomName(room);
@@ -131,11 +122,9 @@ namespace GraphicEditor
             else if(searchType.SelectedIndex == 3)
             {
                 MedicineDTO medicineDTO = (MedicineDTO)dataGridSearch.SelectedItem;
-                if (medicineDTO == null)
-                {
-                    return;
-                }
-
+                
+                if (medicineDTO == null) return;
+                
                 string room = medicineDTO.Room;
 
                 MapLocation mapLocation = GetLocationByRoomName(room);
@@ -160,17 +149,30 @@ namespace GraphicEditor
 
             GraphicRepository graphicRepository = new GraphicRepository();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+            
             foreach (FileInformation inf in menuInformation)
-            {
                 if (inf.Name == hospital)
                     comboBoxPath = inf.FilePath;
-            }
-
+            
             HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
             window.Hospital.Content = new HospitalFloor(path);
             window.HospitalFloors.Text = floor;
             window.Show();
         }
+
+        private List<RoomDTO> ConvertRoomsToDTOs(List<Room> rooms)
+        {
+            List<RoomDTO> roomDTOs = new List<RoomDTO>();
+
+            foreach (Room room in rooms)
+            {
+                RoomDTO dto = new RoomDTO(room.RoomNumber, room.RoomType, room.Floor);
+                roomDTOs.Add(dto);
+            }
+
+            return roomDTOs;
+        }
+
         private List<MedicineDTO> ConvertMedicinesToDTOs(List<Medicine> medicines)
         {
             List<MedicineDTO> medicineDTOs = new List<MedicineDTO>();
