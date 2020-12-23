@@ -6,7 +6,6 @@ using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
-using GraphicEditor.View;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

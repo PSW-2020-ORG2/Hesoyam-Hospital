@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GraphicEditor.View
+namespace GraphicEditor
 {
     /// <summary>
     /// Interaction logic for OverviewEquipmentAndMedicine.xaml

@@ -18,7 +18,7 @@
     <Style TargetType="{x:Type local:Information}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:Search}" BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type local:SearchAvailableAppointmentWindow}" BasedOn="{StaticResource {x:Type Window}}"/>
-
+    <Style TargetType="{x:Type local:OverviewEquipmentAndMedicine}" BasedOn="{StaticResource {x:Type Window}}"/>
 
     <Style TargetType="Label">
         <Setter Property="FontWeight" Value="DemiBold"/>
