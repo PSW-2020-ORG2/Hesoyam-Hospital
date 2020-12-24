@@ -4,6 +4,7 @@ using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
 using System.Collections.Generic;
 using Xunit;
+using Shouldly;
 
 namespace GraphicEditorTests
 {
@@ -18,7 +19,7 @@ namespace GraphicEditorTests
 
             List<Medicine> medicines = (List<Medicine>)medicineService.GetMedicinesByPartName("B");
 
-            Assert.NotEmpty(medicines);
+            medicines.ShouldNotBeEmpty();
         }
 
         [Fact]
@@ -32,7 +33,7 @@ namespace GraphicEditorTests
 
             Medicine medicine = medicineService.GetByID(medicine1.Id);
 
-            Assert.Null(medicine);
+            medicine.ShouldBeNull();
         }
     }
 }

@@ -17,5 +17,6 @@ namespace Backend.Repository.Abstract.HospitalManagementAbstractRepository
 
         IEnumerable<Room> GetRoomsByFloor(int floor);
 
+        IEnumerable<Room> GetRoomsByOccupied(bool isOccupied);
     }
 }

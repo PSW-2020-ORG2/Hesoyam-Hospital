@@ -21,5 +21,8 @@ namespace Backend.Repository.Abstract.HospitalManagementAbstractRepository
 
         IEnumerable<Medicine> GetMedicinePendingApproval();
 
+        IEnumerable<Medicine> GetMedicinesByPartName(string partOfTheName);
+
+        IEnumerable<Medicine> GetMedicinesByRoomId(long roomId);
     }
 }

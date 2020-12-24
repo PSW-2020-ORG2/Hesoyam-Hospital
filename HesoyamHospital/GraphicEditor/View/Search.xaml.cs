@@ -1,7 +1,6 @@
 using Backend.Model.ManagerModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.MySQLRepository.HospitalManagementRepository;
 using Backend.Service.HospitalManagementService;
 using GraphicEditor.DTOs;
 using System;
@@ -17,9 +16,9 @@ namespace GraphicEditor
     /// </summary>
     public partial class Search : Window
     {
-        private RoomRepository roomRepository;
         private MedicineService medicineService;
         private List<Medicine> medicines;
+        private List<Room> rooms;
         private List<MedicineDTO> medicineDTOs;
         private List<InventoryItem> inventoryItems;
         private List<InventoryItemDTO> inventoryItemsDTOs;
@@ -75,49 +74,24 @@ namespace GraphicEditor
             {
                 List<MapLocation> results = searchService.FindObjectsByName(name);
                 dataGridSearch.ItemsSource = results;
+                dataGridSearch.Columns[3].Visibility = Visibility.Hidden;
             }
             else if (searchType.SelectedIndex == 1)
             {
-                roomDTOs = new List<RoomDTO>();
-
-                roomRepository = Backend.AppResources.getInstance().roomRepository;
-                List<Room> results = roomRepository.GetRoomsByOccupied().ToList();
-                foreach (Room room in results)
-                {
-                    RoomDTO dto = new RoomDTO(room.RoomNumber, room.RoomType, room.Floor);
-                    roomDTOs.Add(dto);
-                }
+                rooms = roomService.GetRoomsByOccupied(false).ToList();
+                roomDTOs = ConvertFromRoomToDTO(rooms);
                 dataGridSearch.ItemsSource = roomDTOs;
             }
             else if (searchType.SelectedIndex == 2)
             {
-                inventoryItemsDTOs = new List<InventoryItemDTO>();
                 inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByName(name);
-                foreach (InventoryItem item in inventoryItems)
-                {
-                    InventoryItemDTO dto = new InventoryItemDTO(item.Name, item.Room.RoomNumber, item.InStock);
-                    inventoryItemsDTOs.Add(dto);
-                }
+                inventoryItemsDTOs = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
                 dataGridSearch.ItemsSource = inventoryItemsDTOs;
             }
             else
             {
-                medicineDTOs = new List<MedicineDTO>();
                 medicines = (List<Medicine>)medicineService.GetMedicinesByPartName(name);
-                
-                foreach (Medicine m in  medicines)
-                {
-                    MedicineDTO medicineDTO = new MedicineDTO();
-
-                    medicineDTO.Name = m.Name;
-                    medicineDTO.Type = m.MedicineType.ToString();
-                    medicineDTO.Quantity = m.InStock;
-                    Room foundRoom = roomService.GetByID(m.RoomID);
-                    medicineDTO.Room = foundRoom.RoomNumber;
-                    
-                    medicineDTOs.Add(medicineDTO);
-                }
-
+                medicineDTOs = ConvertMedicineToDTO(medicines);
                 dataGridSearch.ItemsSource = medicineDTOs;
             }
        
@@ -128,19 +102,16 @@ namespace GraphicEditor
             if (searchType.SelectedIndex == 0)
             {
                 MapLocation mapLocation = (MapLocation)dataGridSearch.SelectedItem;
-                if (mapLocation == null)
-                {
-                    return;
-                }
+                if (mapLocation == null) return;
 
                 DisplayResaults(mapLocation);
             }
             else if (searchType.SelectedIndex == 2)
             {
                 InventoryItemDTO equipment = (InventoryItemDTO)dataGridSearch.SelectedItem;
-                if (equipment == null) {
-                    return;
-                }
+                
+                if (equipment == null) return;
+                
                 string room = equipment.Room;
 
                 MapLocation mapLocation = GetLocationByRoomName(room);
@@ -150,11 +121,9 @@ namespace GraphicEditor
             else if(searchType.SelectedIndex == 3)
             {
                 MedicineDTO medicineDTO = (MedicineDTO)dataGridSearch.SelectedItem;
-                if (medicineDTO == null)
-                {
-                    return;
-                }
-
+                
+                if (medicineDTO == null) return;
+                
                 string room = medicineDTO.Room;
 
                 MapLocation mapLocation = GetLocationByRoomName(room);
@@ -179,16 +148,36 @@ namespace GraphicEditor
 
             GraphicRepository graphicRepository = new GraphicRepository();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+            
             foreach (FileInformation inf in menuInformation)
-            {
                 if (inf.Name == hospital)
                     comboBoxPath = inf.FilePath;
-            }
-
+            
             HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
             window.Hospital.Content = new HospitalFloor(path);
             window.HospitalFloors.Text = floor;
             window.Show();
+        }
+
+        private List<RoomDTO> ConvertFromRoomToDTO(List<Room> rooms)
+        {
+            List<RoomDTO> result = new List<RoomDTO>();
+
+            foreach (Room r in rooms)
+                result.Add(new RoomDTO(r.RoomNumber, r.RoomType, r.Floor));
+
+            return result;
+        }
+
+        private List<MedicineDTO> ConvertMedicineToDTO(List<Medicine> medicines)
+        {
+            List<MedicineDTO> medicineDTOs = new List<MedicineDTO>();
+
+            foreach (Medicine m in medicines)
+                medicineDTOs.Add(new MedicineDTO(m.Name, m.MedicineType.ToString(), 
+                                 roomService.GetByID(m.RoomID).RoomNumber, m.InStock));
+            
+            return medicineDTOs;
         }
     }
 }

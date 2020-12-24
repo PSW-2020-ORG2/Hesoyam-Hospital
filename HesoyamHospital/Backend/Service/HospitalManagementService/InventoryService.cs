@@ -55,19 +55,7 @@ namespace Backend.Service.HospitalManagementService
         public IEnumerable<InventoryItem> GetInventoryItems()
             => _inventoryItemRepository.GetAllEager();
 
-        public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
-        {
-            List<InventoryItem> result = new List<InventoryItem>();
-            List<InventoryItem> inventoryItems = (List<InventoryItem>) _inventoryItemRepository.GetAllEager();
-            foreach (InventoryItem item in inventoryItems) 
-            {
-                if (item.Name.Contains(name))
-                    result.Add(item);
-            
-            }
-            return result;
-
-        }
+      
         
 
         public IEnumerable<Inventory> GetAll()
@@ -92,18 +80,31 @@ namespace Backend.Service.HospitalManagementService
 
         public IInventoryRepository iInventoryRepository;
 
-        public IEnumerable<InventoryItem> GetInventoryItemsByRoom(string name)
+       
+
+        public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
         {
             List<InventoryItem> result = new List<InventoryItem>();
             List<InventoryItem> inventoryItems = (List<InventoryItem>)_inventoryItemRepository.GetAllEager();
             foreach (InventoryItem item in inventoryItems)
             {
-                if (item.Room.RoomNumber == name)
+                if (item.Name.Contains(name))
                     result.Add(item);
 
             }
             return result;
 
         }
+
+         public IEnumerable<InventoryItem> GetInventoryItemsByRoomId(long id)
+        {
+            List<InventoryItem> result = new List<InventoryItem>();
+            List<InventoryItem> inventoryItems = (List<InventoryItem>)_inventoryItemRepository.GetAllEager();
+            foreach (InventoryItem item in inventoryItems)
+                if (item.RoomID == id)
+                    result.Add(item);
+            return result;
+        }
+
     }
 }

@@ -6,13 +6,12 @@ namespace GraphicEditor.DTOs
 {
     public static class InvertoryItemMapper
     {
-
         public static List<InventoryItemDTO> ConvertFromIventoryItemToDTO(List<InventoryItem> inventoryItems)
         {
             List<InventoryItemDTO> result = new List<InventoryItemDTO>();
-            foreach (InventoryItem m in inventoryItems)
+            foreach (InventoryItem i in inventoryItems)
             {
-                InventoryItemDTO item = new InventoryItemDTO(m.Name, m.Room.RoomNumber, m.InStock);
+                InventoryItemDTO item = new InventoryItemDTO(i.Name, i.Room.RoomNumber, i.InStock);
                 result.Add(item);
             }
             return result;
