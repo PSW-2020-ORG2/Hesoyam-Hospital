@@ -79,7 +79,7 @@ namespace GraphicEditor
             else if (searchType.SelectedIndex == 1)
             {
                 rooms = roomService.GetRoomsByOccupied(false).ToList();
-                roomDTOs = ConvertRoomsToDTOs(rooms);
+                roomDTOs = ConvertFromRoomToDTO(rooms);
                 dataGridSearch.ItemsSource = roomDTOs;
             }
             else if (searchType.SelectedIndex == 2)
@@ -91,7 +91,7 @@ namespace GraphicEditor
             else
             {
                 medicines = (List<Medicine>)medicineService.GetMedicinesByPartName(name);
-                medicineDTOs = ConvertMedicinesToDTOs(medicines);
+                medicineDTOs = ConvertMedicineToDTO(medicines);
                 dataGridSearch.ItemsSource = medicineDTOs;
             }
        
@@ -159,38 +159,25 @@ namespace GraphicEditor
             window.Show();
         }
 
-        private List<RoomDTO> ConvertRoomsToDTOs(List<Room> rooms)
+        private List<RoomDTO> ConvertFromRoomToDTO(List<Room> rooms)
         {
-            List<RoomDTO> roomDTOs = new List<RoomDTO>();
+            List<RoomDTO> result = new List<RoomDTO>();
 
-            foreach (Room room in rooms)
-            {
-                RoomDTO dto = new RoomDTO(room.RoomNumber, room.RoomType, room.Floor);
-                roomDTOs.Add(dto);
-            }
+            foreach (Room r in rooms)
+                result.Add(new RoomDTO(r.RoomNumber, r.RoomType, r.Floor));
 
-            return roomDTOs;
+            return result;
         }
 
-        private List<MedicineDTO> ConvertMedicinesToDTOs(List<Medicine> medicines)
+        private List<MedicineDTO> ConvertMedicineToDTO(List<Medicine> medicines)
         {
             List<MedicineDTO> medicineDTOs = new List<MedicineDTO>();
 
             foreach (Medicine m in medicines)
-            {
-                MedicineDTO medicineDTO = new MedicineDTO();
-
-                medicineDTO.Name = m.Name;
-                medicineDTO.Type = m.MedicineType.ToString();
-                medicineDTO.Quantity = m.InStock;
-                Room foundRoom = roomService.GetByID(m.RoomID);
-                medicineDTO.Room = foundRoom.RoomNumber;
-
-                medicineDTOs.Add(medicineDTO);
-            }
-
+                medicineDTOs.Add(new MedicineDTO(m.Name, m.MedicineType.ToString(), 
+                                 roomService.GetByID(m.RoomID).RoomNumber, m.InStock));
+            
             return medicineDTOs;
         }
-
     }
 }
