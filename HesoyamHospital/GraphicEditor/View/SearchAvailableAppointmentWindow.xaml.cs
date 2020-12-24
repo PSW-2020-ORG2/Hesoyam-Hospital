@@ -28,7 +28,7 @@ namespace GraphicEditor
             this.doctorService = Backend.AppResources.getInstance().doctorService;
             this.appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             doctors = (List<Doctor>) doctorService.GetAll();
-            
+
             foreach (Doctor doctor in doctors)
             {
                 ComboBoxItem item = new ComboBoxItem();
