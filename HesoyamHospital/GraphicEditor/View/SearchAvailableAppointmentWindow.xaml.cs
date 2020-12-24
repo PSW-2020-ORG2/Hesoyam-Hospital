@@ -62,11 +62,13 @@ namespace GraphicEditor
             DateTime startTime = fromDatePicker.SelectedDate.Value;
             DateTime endTime = toDatePicker.SelectedDate.Value;
             bool priority = priorityDoctor.IsChecked.Value;
+            ComboBoxItem item = (ComboBoxItem)searchDoctor.SelectedItem;
+            Doctor doctor = (Doctor)item.Tag;
 
 
             priorityIntervalDTOs = new List<PriorityIntervalDTO>();
 
-            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, priority);
+            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, doctor.Id, priority);
 
             priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
             searchAvailable.ItemsSource = priorityIntervalDTOs;

@@ -66,6 +66,18 @@ namespace Backend.Model.UserModel
             return appointments;
         }
 
+        public List<DateTime> GetAllAvailableTimesForInterval(long duration, DateTime startDate, DateTime endDate)
+        {
+            List<DateTime> appointments = new List<DateTime>();
+            List<Shift> activeShiftsInInterval = GetActiveShiftsInInterval(startDate, endDate);
+            foreach (Shift shift in activeShiftsInInterval)
+            {
+                appointments.AddRange(shift.GetAvailableTimes(duration));
+                
+            }
+            return appointments;
+        }
+
         public List<DateTime> GetFirstTenAppointments(long duration)
         {
             List<DateTime> appointments = new List<DateTime>();

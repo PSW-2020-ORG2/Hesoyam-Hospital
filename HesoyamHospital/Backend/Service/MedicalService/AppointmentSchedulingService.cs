@@ -55,7 +55,7 @@ namespace Backend.Service.MedicalService
             {
                 return GetByPriority(dto).ToList();
             }
-            List<DateTime> appointments = doctor.TimeTable.GetFirstAvailableTimeForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartTime, dto.EndTime);
+            List<DateTime> appointments = doctor.TimeTable.GetAllAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartTime, dto.EndTime);
             if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
             return GetByPriority(dto).ToList();
         }
