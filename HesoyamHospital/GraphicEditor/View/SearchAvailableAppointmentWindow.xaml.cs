@@ -72,7 +72,8 @@ namespace GraphicEditor
             
             searchAvailable.ItemsSource = priorityIntervalDTOs;
             
-            searchAvailable.Columns[4].Visibility = Visibility.Hidden; 
+            searchAvailable.Columns[4].Visibility = Visibility.Hidden;
+            searchAvailable.Columns[3].Visibility = Visibility.Hidden;
         }
     }
 }
