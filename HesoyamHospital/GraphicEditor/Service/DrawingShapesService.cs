@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System;
 
 namespace GraphicEditor
 {
@@ -18,7 +19,9 @@ namespace GraphicEditor
         private readonly GraphicRepository graphicRepository;
         private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
+        private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
         private readonly User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+       
         public DrawingShapesService()
         {
             graphicRepository = new GraphicRepository();
@@ -120,29 +123,26 @@ namespace GraphicEditor
             if (loggedIn.GetUserType() != UserType.PATIENT)
             {
                 Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
-                List<InventoryItemDTO> result = new List<InventoryItemDTO>();
+                List<InventoryItemDTO> inventories = new List<InventoryItemDTO>();
+
                 if (e.ClickCount == 2 && (rectangle.Name.Contains("room") || rectangle.Name.Contains("Storage")))
                 {
-                    RoomService roomService = Backend.AppResources.getInstance().roomService;
-                    Room room = roomService.GetRoomByName(roomName);
-                    long id = room.Id;
 
-                    List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
-                    List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
+                    long idRoom = FindIdForRoomName(roomName);
 
-                    List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                    List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoomId(idRoom);
                     List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
-                    result.AddRange(inventoryItemDTO);
-                    result.AddRange(medicineDTO);
+                    inventories.AddRange(medicineDTO);
 
-                    OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
-                    window.dataGridOverview.ItemsSource = result;
-                    window.ShowDialog();
+                    List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoomId(idRoom);
+                    List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                    inventories.AddRange(inventoryItemDTO);
+
+                    DisplayInventories(inventories);
 
                 }
             }
         }
-
 
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -173,6 +173,19 @@ namespace GraphicEditor
 
                 information.Show();
             }
+        }
+
+        private long FindIdForRoomName(string roomName)
+        {
+            Room room = roomService.GetRoomByName(roomName);
+            return room.Id;
+        }
+
+        private static void DisplayInventories(List<InventoryItemDTO> result)
+        {
+            OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
+            window.dataGridOverview.ItemsSource = result;
+            window.ShowDialog();
         }
 
     }
