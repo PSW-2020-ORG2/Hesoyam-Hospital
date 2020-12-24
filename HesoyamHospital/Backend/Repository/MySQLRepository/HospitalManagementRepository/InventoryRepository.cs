@@ -5,8 +5,6 @@
 
 using Backend.Exceptions;
 using Backend.Model.ManagerModel;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
 using Backend.Repository.MySQLRepository.MySQL;
 using Backend.Repository.MySQLRepository.MySQL.IdGenerator;
@@ -14,7 +12,6 @@ using Backend.Repository.MySQLRepository.MySQL.Stream;
 using Backend.Repository.Sequencer;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Backend.Repository.MySQLRepository.HospitalManagementRepository

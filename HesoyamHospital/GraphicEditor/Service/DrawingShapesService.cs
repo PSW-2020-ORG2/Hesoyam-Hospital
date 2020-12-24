@@ -1,18 +1,16 @@
 
-﻿using Backend.Model.UserModel;
-using Backend.Service.HospitalManagementService;
-﻿using Backend.Model.ManagerModel;
-using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
+using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
 using GraphicEditor.DTOs;
-using GraphicEditor.View;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes; 
+using System.Windows.Shapes;
+using System;
 
 namespace GraphicEditor
 {
@@ -21,7 +19,9 @@ namespace GraphicEditor
         private readonly GraphicRepository graphicRepository;
         private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
-
+        private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
+        private readonly User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+       
         public DrawingShapesService()
         {
             graphicRepository = new GraphicRepository();
@@ -88,8 +88,7 @@ namespace GraphicEditor
                         rectangle.Stroke = Brushes.Red;
                     }
                     else
-                    {
-
+                    { 
                         rectangle.Stroke = stroke;
                     }
 
@@ -121,29 +120,29 @@ namespace GraphicEditor
 
         public void DoubleClick(object sender, MouseButtonEventArgs e, string roomName)
         {
-            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
-            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
-            if (e.ClickCount == 2 && rectangle.Name.Contains("room"))
+            if (loggedIn.GetUserType() != UserType.PATIENT)
             {
-                RoomService roomService = Backend.AppResources.getInstance().roomService;
-                Room room = roomService.GetRoomByName(roomName);
-                long id = room.Id;
+                Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+                List<InventoryItemDTO> inventories = new List<InventoryItemDTO>();
 
-                List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
-                List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
+                if (e.ClickCount == 2 && (rectangle.Name.Contains("room") || rectangle.Name.Contains("Storage")))
+                {
 
-                List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
-                List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
-                result.AddRange(inventoryItemDTO);
-                result.AddRange(medicineDTO);
+                    long idRoom = FindIdForRoomName(roomName);
 
-                OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
-                window.dataGridOverview.ItemsSource = result;
-                window.Show();
+                    List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoomId(idRoom);
+                    List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
+                    inventories.AddRange(medicineDTO);
 
+                    List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoomId(idRoom);
+                    List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                    inventories.AddRange(inventoryItemDTO);
+
+                    DisplayInventories(inventories);
+
+                }
             }
         }
-
 
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -152,11 +151,7 @@ namespace GraphicEditor
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
 
             foreach (FileInformation inf in menuInformation)
-            {
-                if (inf.Name == rectangle.Name)
-                    mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
-            }
-
+                if (inf.Name == rectangle.Name) mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
         }
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -178,6 +173,19 @@ namespace GraphicEditor
 
                 information.Show();
             }
+        }
+
+        private long FindIdForRoomName(string roomName)
+        {
+            Room room = roomService.GetRoomByName(roomName);
+            return room.Id;
+        }
+
+        private static void DisplayInventories(List<InventoryItemDTO> result)
+        {
+            OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
+            window.dataGridOverview.ItemsSource = result;
+            window.ShowDialog();
         }
 
     }

@@ -73,6 +73,9 @@ namespace Backend.Service.HospitalManagementService
         public Room GetByID(long id)
             => this.GetAll().SingleOrDefault(room => room.GetId() == id);
 
+        public IEnumerable<Room> GetRoomsByOccupied(bool isOccupied)
+            => _roomRepository.GetRoomsByOccupied(isOccupied);
+
         public Room Create(Room entity)
         {
             Validate(entity);
