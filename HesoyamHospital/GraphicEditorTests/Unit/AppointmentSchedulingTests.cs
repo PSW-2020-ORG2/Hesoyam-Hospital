@@ -16,11 +16,11 @@ namespace GraphicEditorTests.Unit
     {
 
         [Fact]
-        public void reccomend_appointments()
+        public void recommend_appointments()
         {
             AppointmentSchedulingService appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
-            var priorityInterval = new PriorityIntervalDTO(new DateTime(2020,12,28),new DateTime(2021,2,2),"Ivan",true);
-            List<Appointment>appointments = (List<Appointment>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
+            var priorityInterval = new PriorityIntervalDTO(new DateTime(2020,12,28),new DateTime(2021,2,2),"Ivan Ivanovic",101,true);
+            List<PriorityIntervalDTO>appointments = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
             appointments.ShouldNotBeNull();
         }
 
