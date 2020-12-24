@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GraphicEditor.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -37,17 +38,21 @@ namespace GraphicEditor
         {
             string[] fields = line.Split(',');
 
-            if (fields.Length != 8) return null;
-            
-            long id = Convert.ToInt64(fields[0]);
-            string type = fields[1].Trim();
-            string name = fields[2].Trim();
-            long width = Convert.ToInt64(fields[3]);
-            long height = Convert.ToInt64(fields[4]);
-            long top = Convert.ToInt64(fields[5]);
-            long left = Convert.ToInt64(fields[6]);
-            string shape = fields[7].Trim();
-            return new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
+            if (fields.Length == 8)
+            {
+                long id = Convert.ToInt64(fields[0]);
+                string type = fields[1].Trim();
+                string name = fields[2].Trim();
+                long width = Convert.ToInt64(fields[3]);
+                long height = Convert.ToInt64(fields[4]);
+                long top = Convert.ToInt64(fields[5]);
+                long left = Convert.ToInt64(fields[6]);
+                string shape = fields[7].Trim();
+
+                return new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
+            }
+
+            throw new InvalidFieldCountException("Not enough fields passed to create graphic editor object!");
         }
 
         public List<FileInformation> readFileInformation(string fileName)
@@ -72,13 +77,16 @@ namespace GraphicEditor
         private FileInformation ConvertLineToFileInformation(string line)
         {
             string[] fields = line.Split(',');
-            
-            if (fields.Length != 2) return null;
-            
-            string name = fields[0].Trim();
-            string path = fields[1].Trim();
 
-            return new FileInformation(name, path);
+            if (fields.Length == 2)
+            {
+                string name = fields[0].Trim();
+                string path = fields[1].Trim();
+
+                return new FileInformation(name, path);
+            }
+
+            throw new InvalidFieldCountException("Not enough fields passed to create graphic editor object!");
         }
     }
 }
