@@ -36,9 +36,12 @@ namespace GraphicEditor
 
         private GraphicalObject ConvertLineToGraphicalObject(string line, string hospital, string floor)
         {
+            
             string[] fields = line.Split(',');
 
-            if (fields.Length == 8)
+            GraphicalObject graphicalObject = null;
+
+            try
             {
                 long id = Convert.ToInt64(fields[0]);
                 string type = fields[1].Trim();
@@ -48,11 +51,14 @@ namespace GraphicEditor
                 long top = Convert.ToInt64(fields[5]);
                 long left = Convert.ToInt64(fields[6]);
                 string shape = fields[7].Trim();
-
-                return new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
+                graphicalObject = new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Not enough fields passed to create graphic editor object!");
             }
 
-            throw new InvalidFieldCountException("Not enough fields passed to create graphic editor object!");
+            return graphicalObject;
         }
 
         public List<FileInformation> readFileInformation(string fileName)
@@ -77,16 +83,21 @@ namespace GraphicEditor
         private FileInformation ConvertLineToFileInformation(string line)
         {
             string[] fields = line.Split(',');
+            FileInformation fileInformation = null;
 
-            if (fields.Length == 2)
+            try
             {
                 string name = fields[0].Trim();
                 string path = fields[1].Trim();
 
-                return new FileInformation(name, path);
+                fileInformation =  new FileInformation(name, path);
+            }
+            catch (Exception)
+            {
+                throw new InvalidFieldCountException("Not enough fields passed to create graphic editor object!");
             }
 
-            throw new InvalidFieldCountException("Not enough fields passed to create graphic editor object!");
+            return fileInformation;
         }
     }
 }

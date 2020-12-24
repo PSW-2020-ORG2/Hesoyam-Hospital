@@ -6,7 +6,6 @@ namespace GraphicEditor.DTOs
 {
     public static class InvertoryItemMapper
     {
-
         public static List<InventoryItemDTO> ConvertFromIventoryItemToDTO(List<InventoryItem> inventoryItems)
         {
             List<InventoryItemDTO> result = new List<InventoryItemDTO>();

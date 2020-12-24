@@ -37,7 +37,7 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         public Medicine GetMedicineByName(string name)
             => GetAll().SingleOrDefault(med => med.Name == name);
 
-        public IEnumerable<Medicine> GetMedicinesByRoom(long roomId)
+        public IEnumerable<Medicine> GetMedicinesByRoomId(long roomId)
         {
             List<Medicine> result = new List<Medicine>();
             List<Medicine> medicines = (List<Medicine>)GetAllEager();

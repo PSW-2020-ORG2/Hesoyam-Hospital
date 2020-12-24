@@ -23,6 +23,6 @@ namespace Backend.Repository.Abstract.HospitalManagementAbstractRepository
 
         IEnumerable<Medicine> GetMedicinesByPartName(string partOfTheName);
 
-        IEnumerable<Medicine> GetMedicinesByRoom(long roomId);
+        IEnumerable<Medicine> GetMedicinesByRoomId(long roomId);
     }
 }

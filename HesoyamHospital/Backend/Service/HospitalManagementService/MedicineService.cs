@@ -48,8 +48,8 @@ namespace Backend.Service.HospitalManagementService
         public Medicine GetByID(long id)
             => _medicineRepository.GetByID(id);
 
-        public IEnumerable<Medicine> GetMedicinesByRoom(long roomId)
-            => _medicineRepository.GetMedicinesByRoom(roomId);
+        public IEnumerable<Medicine> GetMedicinesByRoomId(long roomId)
+            => _medicineRepository.GetMedicinesByRoomId(roomId);
 
         public Medicine Create(Medicine entity)
         {
