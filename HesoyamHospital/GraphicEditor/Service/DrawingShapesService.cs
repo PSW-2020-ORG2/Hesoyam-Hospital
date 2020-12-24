@@ -1,17 +1,15 @@
 
-﻿using Backend.Model.UserModel;
-using Backend.Service.HospitalManagementService;
-﻿using Backend.Model.ManagerModel;
-using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
+using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
 using GraphicEditor.DTOs;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes; 
+using System.Windows.Shapes;
 
 namespace GraphicEditor
 {
@@ -87,8 +85,7 @@ namespace GraphicEditor
                         rectangle.Stroke = Brushes.Red;
                     }
                     else
-                    {
-
+                    { 
                         rectangle.Stroke = stroke;
                     }
 
@@ -120,26 +117,31 @@ namespace GraphicEditor
 
         public void DoubleClick(object sender, MouseButtonEventArgs e, string roomName)
         {
-            Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
-            List<InventoryItemDTO> result = new List<InventoryItemDTO>();
-            if (e.ClickCount == 2 && rectangle.Name.Contains("room"))
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+
+            if (loggedIn.GetUserType() != UserType.PATIENT)
             {
-                RoomService roomService = Backend.AppResources.getInstance().roomService;
-                Room room = roomService.GetRoomByName(roomName);
-                long id = room.Id;
+                Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+                List<InventoryItemDTO> result = new List<InventoryItemDTO>();
+                if (e.ClickCount == 2 && (rectangle.Name.Contains("room") || rectangle.Name.Contains("Storage")))
+                {
+                    RoomService roomService = Backend.AppResources.getInstance().roomService;
+                    Room room = roomService.GetRoomByName(roomName);
+                    long id = room.Id;
 
-                List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
-                List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
+                    List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoom(id);
+                    List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoom(roomName);
 
-                List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
-                List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
-                result.AddRange(inventoryItemDTO);
-                result.AddRange(medicineDTO);
+                    List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                    List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
+                    result.AddRange(inventoryItemDTO);
+                    result.AddRange(medicineDTO);
 
-                OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
-                window.dataGridOverview.ItemsSource = result;
-                window.Show();
+                    OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
+                    window.dataGridOverview.ItemsSource = result;
+                    window.Show();
 
+                }
             }
         }
 
@@ -151,11 +153,7 @@ namespace GraphicEditor
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
 
             foreach (FileInformation inf in menuInformation)
-            {
-                if (inf.Name == rectangle.Name)
-                    mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
-            }
-
+                if (inf.Name == rectangle.Name) mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
         }
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
