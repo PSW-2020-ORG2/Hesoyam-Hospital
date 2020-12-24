@@ -17,7 +17,7 @@ namespace GraphicEditorTests
             InventoryItemRepository inventoryItemRepository = AppResources.getInstance().inventoryItemRepository;
             InventoryService inventoryService = new InventoryService(null, inventoryItemRepository, null);
 
-            List<InventoryItem> items = (List<InventoryItem>)inventoryService.GetInventoryItemsByName("t");
+            List<InventoryItem> items = (List<InventoryItem>)inventoryService.GetInventoryItemsByName("stolica");
 
             items.ShouldNotBeEmpty();
         }
