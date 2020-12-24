@@ -29,21 +29,16 @@ namespace GraphicEditor
                         list.Add(graphical_object);
                 }
             }
-            else
-            {
-                return list;
-            }
+            
             return list;
         }
 
         private GraphicalObject ConvertLineToGraphicalObject(string line, string hospital, string floor)
         {
             string[] fields = line.Split(',');
-            if (fields.Length != 8)
-            {
 
-                return null;
-            }
+            if (fields.Length != 8) return null;
+            
             long id = Convert.ToInt64(fields[0]);
             string type = fields[1].Trim();
             string name = fields[2].Trim();
@@ -77,10 +72,9 @@ namespace GraphicEditor
         private FileInformation ConvertLineToFileInformation(string line)
         {
             string[] fields = line.Split(',');
-            if (fields.Length != 2)
-            {
-                return null;
-            }
+            
+            if (fields.Length != 2) return null;
+            
             string name = fields[0].Trim();
             string path = fields[1].Trim();
 

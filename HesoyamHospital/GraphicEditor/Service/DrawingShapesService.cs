@@ -18,7 +18,7 @@ namespace GraphicEditor
         private readonly GraphicRepository graphicRepository;
         private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
-
+        private readonly User loggedIn = Backend.AppResources.getInstance().loggedInUser;
         public DrawingShapesService()
         {
             graphicRepository = new GraphicRepository();
@@ -117,8 +117,6 @@ namespace GraphicEditor
 
         public void DoubleClick(object sender, MouseButtonEventArgs e, string roomName)
         {
-            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
-
             if (loggedIn.GetUserType() != UserType.PATIENT)
             {
                 Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
@@ -139,7 +137,7 @@ namespace GraphicEditor
 
                     OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
                     window.dataGridOverview.ItemsSource = result;
-                    window.Show();
+                    window.ShowDialog();
 
                 }
             }
