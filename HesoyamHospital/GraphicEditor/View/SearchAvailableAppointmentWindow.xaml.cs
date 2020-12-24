@@ -29,7 +29,6 @@ namespace GraphicEditor
             this.appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             doctors = (List<Doctor>) doctorService.GetAll();
             
-
             foreach (Doctor doctor in doctors)
             {
                 ComboBoxItem item = new ComboBoxItem();
@@ -65,13 +64,15 @@ namespace GraphicEditor
             ComboBoxItem item = (ComboBoxItem)searchDoctor.SelectedItem;
             Doctor doctor = (Doctor)item.Tag;
 
-
             priorityIntervalDTOs = new List<PriorityIntervalDTO>();
 
             PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, doctor.Id, priority);
 
             priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
+            
             searchAvailable.ItemsSource = priorityIntervalDTOs;
+            
+            searchAvailable.Columns[4].Visibility = Visibility.Hidden; 
         }
     }
 }
