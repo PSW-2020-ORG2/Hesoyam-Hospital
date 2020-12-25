@@ -1,5 +1,6 @@
 ﻿using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
+using Backend.Service.UsersService;
 using Backend.Util;
 
 namespace Backend.Service
@@ -7,19 +8,14 @@ namespace Backend.Service
     public static class AppointmentMapper
     {
         public const long AppointmentDurationMinutes = 30;
+        private static readonly DoctorService doctorService = AppResources.getInstance().doctorService;
+
         public static Appointment AppointmentDtoToAppointment(AppointmentDTO dto)
         {
-            Appointment appointment = new Appointment();
-            Doctor doctorInAppointment = AppResources.getInstance().doctorRepository.GetByID(dto.DoctorId);
-            appointment.DoctorInAppointment = doctorInAppointment;
-            appointment.Canceled = false;
-            appointment.AbleToFillOutSurvey = true;
-            appointment.AppointmentType = AppointmentType.checkup;
-            appointment.Room = GetRoom(doctorInAppointment);
-            appointment.TimeInterval = new TimeInterval();
-            appointment.TimeInterval.StartTime = dto.DateAndTime;
-            appointment.TimeInterval.EndTime = dto.DateAndTime.AddMinutes(AppointmentDurationMinutes);
-            return appointment;
+            Doctor doctorInAppointment = doctorService.GetByID(dto.DoctorId);
+
+            return new Appointment(doctorInAppointment, false, true, AppointmentType.checkup, GetRoom(doctorInAppointment), 
+                                    new TimeInterval(dto.DateAndTime, dto.DateAndTime.AddMinutes(AppointmentDurationMinutes)));
         }
 
         private static Room GetRoom(Doctor doctor)
