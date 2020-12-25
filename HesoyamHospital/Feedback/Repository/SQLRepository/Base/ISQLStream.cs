@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Feedback.Repository.SQLRepository.Base
+namespace Feedbacks.Repository.SQLRepository.Base
 {
     public interface ISQLStream<T>
     {

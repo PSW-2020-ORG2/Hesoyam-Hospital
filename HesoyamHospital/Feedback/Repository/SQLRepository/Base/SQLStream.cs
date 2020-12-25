@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feedback.Repository.SQLRepository.Base
+namespace Feedbacks.Repository.SQLRepository.Base
 {
     public class SQLStream<T> : ISQLStream<T> where T : class
     {

@@ -3,7 +3,7 @@ using Backend.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Feedback.Repository.SQLRepository.Base
+namespace Feedbacks.Repository.SQLRepository.Base
 {
     public class MyDbContext : DbContext
     {
@@ -30,8 +30,6 @@ namespace Feedback.Repository.SQLRepository.Base
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
 
-
-
         private string GenerateConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
@@ -40,6 +38,7 @@ namespace Feedback.Repository.SQLRepository.Base
 
             return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
+
         private string GeneratePostgresConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
