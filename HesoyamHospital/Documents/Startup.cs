@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
+using Documents.Repository;
+using Documents.Repository.SQLRepository.Base;
+using Documents.Service;
+using Documents.Service.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Documents
 {
@@ -38,6 +38,10 @@ namespace Documents
                                       .AllowAnyMethod();
                                   });
             });
+            services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new SQLStream<Prescription>()), new ReportRepository(new SQLStream<Report>())));
+            services.AddSingleton<IMedicalRecordService, MedicalRecordService>(service => new MedicalRecordService(new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
+            services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
+            services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()), new DoctorRepository(new SQLStream<Doctor>())));
             services.AddControllers();
             //services.AddControllers().AddNewtonsoftJson();
         }
@@ -49,6 +53,8 @@ namespace Documents
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 
