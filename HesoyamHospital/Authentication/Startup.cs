@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Authentication.Repository;
+using Authentication.Repository.SQLRepository.Base;
+using Authentication.Service;
+using Authentication.Service.Abstract;
+using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Authentication
 {
@@ -38,6 +38,9 @@ namespace Authentication
                                       .AllowAnyMethod();
                                   });
             });
+            services.AddSingleton<ISendEmailService, SendEmailService>(service => new SendEmailService());
+            services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
+            services.AddSingleton<IMedicalRecordService, MedicalRecordService>(service => new MedicalRecordService(new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
             services.AddControllers();
             //services.AddControllers().AddNewtonsoftJson();
         }
@@ -49,6 +52,8 @@ namespace Authentication
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 
