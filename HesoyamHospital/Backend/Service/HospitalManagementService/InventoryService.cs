@@ -20,7 +20,7 @@ namespace Backend.Service.HospitalManagementService
         private InventoryRepository _inventoryRepository;
         private InventoryItemRepository _inventoryItemRepository;
         private MedicineRepository _medicineRepository;
-        
+
         public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {
             _inventoryRepository = inventoryRepository;
@@ -40,6 +40,12 @@ namespace Backend.Service.HospitalManagementService
         public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
             => _inventoryItemRepository.GetAllEager().Where(ii => ii.Room.GetId() == room.GetId());
 
+        public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
+            => _inventoryItemRepository.GetInventoryItemsByName(name);
+
+        public IEnumerable<InventoryItem> GetInventoryItemsByRoomId(long id)
+            => _inventoryItemRepository.GetInventoryItemsByRoomId(id);
+
 
         public IEnumerable<Item> GetResupply()
         {
@@ -55,8 +61,6 @@ namespace Backend.Service.HospitalManagementService
         public IEnumerable<InventoryItem> GetInventoryItems()
             => _inventoryItemRepository.GetAllEager();
 
-      
-        
 
         public IEnumerable<Inventory> GetAll()
             => _inventoryRepository.GetAllEager();
@@ -79,32 +83,5 @@ namespace Backend.Service.HospitalManagementService
         }
 
         public IInventoryRepository iInventoryRepository;
-
-       
-
-        public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
-        {
-            List<InventoryItem> result = new List<InventoryItem>();
-            List<InventoryItem> inventoryItems = (List<InventoryItem>)_inventoryItemRepository.GetAllEager();
-            foreach (InventoryItem item in inventoryItems)
-            {
-                if (item.Name.Contains(name))
-                    result.Add(item);
-
-            }
-            return result;
-
-        }
-
-         public IEnumerable<InventoryItem> GetInventoryItemsByRoomId(long id)
-        {
-            List<InventoryItem> result = new List<InventoryItem>();
-            List<InventoryItem> inventoryItems = (List<InventoryItem>)_inventoryItemRepository.GetAllEager();
-            foreach (InventoryItem item in inventoryItems)
-                if (item.RoomID == id)
-                    result.Add(item);
-            return result;
-        }
-
     }
 }
