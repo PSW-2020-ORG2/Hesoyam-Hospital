@@ -3,7 +3,7 @@ using Backend.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Appointment.Repository.SQLRepository.Base
+namespace Appointments.Repository.SQLRepository.Base
 {
     public class MyDbContext : DbContext
     {

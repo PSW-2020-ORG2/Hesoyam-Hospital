@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Appointment.Repository.Abstract
+namespace Appointments.Repository.Abstract
 {
     public interface IRepository<T, ID>
     {

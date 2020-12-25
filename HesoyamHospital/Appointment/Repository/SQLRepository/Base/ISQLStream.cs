@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Appointment.Repository.SQLRepository.Base
+namespace Appointments.Repository.SQLRepository.Base
 {
     public interface ISQLStream<T>
     {

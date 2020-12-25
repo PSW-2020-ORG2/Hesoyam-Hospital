@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Appointment.Repository.SQLRepository.Base
+namespace Appointments.Repository.SQLRepository.Base
 {
     public class SQLStream<T> : ISQLStream<T> where T : class
     {

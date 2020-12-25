@@ -1,18 +1,16 @@
-﻿using Appointment.Repository.Abstract;
+﻿using Appointments.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Appointment.Repository.SQLRepository.Base
+namespace Appointments.Repository.SQLRepository.Base
 {
     public class SQLRepository<T, ID> : IRepository<T, ID> where T : class where ID : IComparable
     {
-        public string _entityName;
         public ISQLStream<T> _stream;
 
-        public SQLRepository(string entityName, ISQLStream<T> stream)
+        public SQLRepository(ISQLStream<T> stream)
         {
-            _entityName = entityName;
             _stream = stream;
         }
 
