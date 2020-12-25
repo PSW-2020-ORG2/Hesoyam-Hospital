@@ -3,7 +3,7 @@ using Backend.Model.UserModel;
 using Backend.Service.UsersService;
 using Backend.Util;
 
-namespace Backend.Service
+namespace Backend.DTOs
 {
     public static class AppointmentMapper
     {

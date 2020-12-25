@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Backend.Service
+namespace Backend.DTOs
 {
     public static class PriorityIntervalMapper
     {

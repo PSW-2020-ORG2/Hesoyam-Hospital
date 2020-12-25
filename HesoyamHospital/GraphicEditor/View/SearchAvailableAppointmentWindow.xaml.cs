@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Backend.Model.UserModel;
-using Backend.Service;
+using Backend.DTOs;
 using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
 

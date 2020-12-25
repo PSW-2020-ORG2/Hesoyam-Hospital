@@ -2,6 +2,7 @@
 using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
+using Backend.DTOs;
 
 namespace Backend.Service.MedicalService
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Backend.Service
+namespace Backend.DTOs
 {
     public class AppointmentDTO
     {

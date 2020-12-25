@@ -8,6 +8,7 @@ using Backend.Repository.MySQLRepository.UsersRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Backend.DTOs;
 
 namespace Backend.Service.MedicalService
 {
