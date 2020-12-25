@@ -1,10 +1,16 @@
+using Appointments.Repository;
+using Appointments.Repository.SQLRepository.Base;
+using Appointments.Service;
+using Appointments.Service.Abstract;
+using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Appointment
+namespace Appointments
 {
     public class Startup
     {
@@ -32,6 +38,10 @@ namespace Appointment
                                       .AllowAnyMethod();
                                   });
             });
+            services.AddSingleton<IAppointmentService, AppointmentService>(service => new AppointmentService(new PatientRepository(new SQLStream<Patient>()), new AppointmentRepository(new SQLStream<Appointment>()), new CancellationRepository(new SQLStream<Cancellation>())));
+            services.AddSingleton<IAppointmentSchedulingService, AppointmentSchedulingService>(service => new AppointmentSchedulingService(new DoctorRepository(new SQLStream<Doctor>()), new AppointmentRepository(new SQLStream<Appointment>())));
+            services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>())));
+            services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
             services.AddControllers();
             //services.AddControllers().AddNewtonsoftJson();
         }
@@ -43,6 +53,8 @@ namespace Appointment
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 
