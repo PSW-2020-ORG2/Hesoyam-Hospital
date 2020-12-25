@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using Shouldly;
 using System;
+using System.Threading;
 using WebApplicationTests.EndToEnd.Pages;
 using Xunit;
 
@@ -22,7 +23,7 @@ namespace WebApplicationTests.EndToEnd
             feedbackPublishListPage = new FeedbackPublishList(driver);
 
             feedbackPublishListPage.Navigate();
-            //feedbackPublishListPage.EnsurePageIsDisplayed();
+            Thread.Sleep(5000);
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackCount = feedbackPublishListPage.FeedbackCount();
 

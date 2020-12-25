@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Threading;
 
 namespace WebApplicationTests.EndToEnd.Pages
 {
@@ -83,7 +84,10 @@ namespace WebApplicationTests.EndToEnd.Pages
             => InputTextField.SendKeys(feedback);
 
         public void SubmitFeedback()
-            => SubmitButton.Click();
+        {
+            SubmitButton.Click();
+            Thread.Sleep(4000);
+        }
 
         public void Navigate() 
             => driver.Navigate().GoToUrl(URI);

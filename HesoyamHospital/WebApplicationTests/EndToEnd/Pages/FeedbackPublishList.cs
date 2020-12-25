@@ -9,9 +9,9 @@ namespace WebApplicationTests.EndToEnd.Pages
     {
         private readonly IWebDriver driver;
         public string URI = "http://localhost:4200/feedback/admin/publishlist";
-        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='feedbackTable']/ng-container/tr"));
-        private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table[@id='productsTable']/ng-container/tr[last()]/td[1]"));
-        private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table[@id='productsTable']/ng-container/tr[last()]/td[2]"));
+        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table/tbody/tr"));
+        private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[3]"));
+        private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[2]"));
 
         public FeedbackPublishList(IWebDriver driver)
         {
