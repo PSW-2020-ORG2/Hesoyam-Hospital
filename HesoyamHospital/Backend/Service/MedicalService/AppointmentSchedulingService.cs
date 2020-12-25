@@ -82,7 +82,6 @@ namespace Backend.Service.MedicalService
             if (appointments != null && appointments.Count != 0)
             {
                 return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
-                //return (IEnumerable<PriorityIntervalDTO>)appointments;
             }   
             return new List<PriorityIntervalDTO>();
         }
@@ -105,11 +104,9 @@ namespace Backend.Service.MedicalService
                 }
                 dto.DoctorId = doctor.Id;
                 appointments.AddRange(PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, doctor.TimeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartTime, dto.EndTime).ToList()));
-                //appointments.AddRange((IEnumerable<PriorityIntervalDTO>)doctor.TimeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartTime, dto.EndTime).ToList());
-            }
+              }
             return appointments;
         }
-
         public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date)
         {
             throw new NotImplementedException();
@@ -140,9 +137,6 @@ namespace Backend.Service.MedicalService
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Appointment> GetRecommendedTimes(Appointment appointment, bool priorityDoctor)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
