@@ -23,7 +23,7 @@ namespace WebApplicationTests.EndToEnd
             feedbackPublishListPage = new FeedbackPublishList(driver);
 
             feedbackPublishListPage.Navigate();
-            Thread.Sleep(5000);
+            Thread.Sleep(40000);
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackCount = feedbackPublishListPage.FeedbackCount();
 

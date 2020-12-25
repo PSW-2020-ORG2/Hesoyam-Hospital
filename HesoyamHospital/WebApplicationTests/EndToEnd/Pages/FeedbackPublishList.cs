@@ -14,7 +14,7 @@ namespace WebApplicationTests.EndToEnd.Pages
         private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table/tbody/tr")); 
         private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[3]"));
         private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[2]"));
-        private IWebElement LastRowButton => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[4]"));
+        private IWebElement LastRowButton => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[4]/button"));
         
       
         public FeedbackPublishList(IWebDriver driver)

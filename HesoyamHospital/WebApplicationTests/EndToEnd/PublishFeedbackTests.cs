@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using Shouldly;
 using System;
+using System.Threading;
 using WebApplicationTests.EndToEnd.Pages;
 using Xunit;
 
@@ -21,6 +22,7 @@ namespace WebApplicationTests.EndToEnd
             publishedFeedbacksPage = new PublishedFeedbacks(driver);
 
             publishedFeedbacksPage.Navigate();
+            Thread.Sleep(30000);
             publishedFeedbacksPage.URI.ShouldBeEquivalentTo(driver.Url);
             publishedFeedbackCount = publishedFeedbacksPage.PublishedFeedbacksCount();
 
@@ -36,11 +38,20 @@ namespace WebApplicationTests.EndToEnd
             
 
             publishedFeedbacksPage.Navigate();
+            
             publishedFeedbacksPage.EnsurePageIsDisplayed();
 
             publishedFeedbacksPage.GetLastRowPublishedFeedbacksText().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowFeedback());
             publishedFeedbacksPage.GetLastRowPublishedFeedbacksUsername().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowUsername());
             publishedFeedbackCount.ShouldBe(publishedFeedbacksPage.PublishedFeedbacksCount() - 1);
+        }
+
+        [Fact]
+        public void Unsuccessful_publish_of_last_feedback()
+        {
+            publishedFeedbacksPage.Navigate();
+            publishedFeedbacksPage.EnsurePageIsDisplayed();
+            publishedFeedbackCount.ShouldBe(publishedFeedbacksPage.PublishedFeedbacksCount() );
         }
         public void Dispose()
         {

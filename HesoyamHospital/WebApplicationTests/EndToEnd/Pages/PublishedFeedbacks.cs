@@ -11,16 +11,16 @@ namespace WebApplicationTests.EndToEnd.Pages
         private readonly IWebDriver driver;
         public string URI = "http://localhost:4200/feedback/public/allFeedback";
 
-        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//div[@id='publishedFeedbacks']/ng-container/mat-card"));
-        private IWebElement LastRowText => driver.FindElement(By.XPath("//div[@id='publishedFeedbacks']/ng-container/mat-card[last()]/p[@id='text']"));
-        private IWebElement LastRowUsername => driver.FindElement(By.XPath("//div[@id='publishedFeedbacks']/ng-container/mat-card[last()]/p[@id='name']"));
+        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//div[@id='publishedFeedbacks']/mat-card"));
+        private IWebElement LastRowText => driver.FindElement(By.XPath("//div[@id='publishedFeedbacks']/mat-card[last()]/mat-card-content/p[@id='text']"));
+        private IWebElement LastRowUsername => driver.FindElement(By.XPath("//div[@id='publishedFeedbacks']/mat-card[last()]/mat-card-footer/p[@id='name']"));
         public PublishedFeedbacks(IWebDriver driver)
         {
             this.driver = driver;
         }
         public void EnsurePageIsDisplayed()
         {
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 30));
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 50));
             wait.Until(condition =>
             {
                 try
