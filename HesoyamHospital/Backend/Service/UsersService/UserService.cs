@@ -42,33 +42,6 @@ namespace Backend.Service.UsersService
                 AppResources.getInstance().loggedInUser = null;
         }
 
-        private void LoadUserResources(User user)
-        {
-            switch (user.GetUserType())
-            {
-                case UserType.DOCTOR:
-                    {
-                        //AppResources.getInstance().LoadDoctorResources();
-                        break;
-                    }
-                case UserType.MANAGER:
-                    {
-                        //AppResources.getInstance().LoadManagerResources();
-                        break;
-                    }
-                case UserType.PATIENT:
-                    {
-                        //AppResources.getInstance().LoadPatientResources();
-                        break;
-                    }
-                case UserType.SECRETARY:
-                    {
-                        //AppResources.getInstance().LoadSecretaryResources();
-                        break;
-                    }
-            }
-        }
-
         private bool CheckUserCredentials(User user, string password)
         {
             if (user == null || user.Password != password)

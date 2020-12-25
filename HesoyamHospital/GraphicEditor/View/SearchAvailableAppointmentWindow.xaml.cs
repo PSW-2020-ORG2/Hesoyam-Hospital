@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Backend.Model.UserModel;
-using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Service;
 using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
@@ -17,7 +15,7 @@ namespace GraphicEditor
     /// </summary>
     public partial class SearchAvailableAppointmentWindow : Window
     {
-        private List<Doctor> doctors = new List<Doctor>();
+        private List<Doctor> doctors;
         private readonly DoctorService doctorService;
         private List<PriorityIntervalDTO> priorityIntervalDTOs;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
