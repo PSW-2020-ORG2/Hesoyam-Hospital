@@ -3,6 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
 
+
 namespace WebApplicationTests.EndToEnd.Pages
 {
     public class FeedbackPublishList
@@ -10,9 +11,10 @@ namespace WebApplicationTests.EndToEnd.Pages
         private readonly IWebDriver driver;
         public string URI = "http://localhost:4200/feedback/admin/publishlist";
         private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='feedbackTable']/ng-container/tr"));
-        private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table[@id='productsTable']/ng-container/tr[last()]/td[1]"));
-        private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table[@id='productsTable']/ng-container/tr[last()]/td[2]"));
-
+        private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table[@id='feedbackTable']/ng-container/tr[last()]/td[1]"));
+        private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table[@id='feedbackTable']/ng-container/tr[last()]/td[2]"));
+        private IWebElement LastRowText => driver.FindElement(By.XPath("//table[@id='feedbackTable']/ng-container/tr[last()]/td[3]"));
+        private IWebElement LastRowButton => driver.FindElement(By.XPath("//table[@id='feedbackTable']/ng-container/tr[last()]/td[4]"));
         public FeedbackPublishList(IWebDriver driver)
         {
             this.driver = driver;
@@ -47,7 +49,16 @@ namespace WebApplicationTests.EndToEnd.Pages
         public string GetLastRowUsername()
             => LastRowUsername.Text;
 
+        public string GetLastRowText()
+            => LastRowText.Text;
+
         public void Navigate()
             => driver.Navigate().GoToUrl(URI);
+
+        public void PublishFeedback()
+          => LastRowButton.Click();
+
+        
+
     }
 }
