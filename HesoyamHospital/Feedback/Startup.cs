@@ -1,10 +1,16 @@
+using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
+using Feedbacks.Repository;
+using Feedbacks.Repository.SQLRepository.Base;
+using Feedbacks.Service;
+using Feedbacks.Service.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Feedback
+namespace Feedbacks
 {
     public class Startup
     {
@@ -32,6 +38,11 @@ namespace Feedback
                                       .AllowAnyMethod();
                                   });
             });
+            services.AddSingleton<IFeedbackService, FeedbackService>(service => new FeedbackService(new FeedbackRepository(new SQLStream<Feedback>())));
+            services.AddSingleton<ISurveyService, SurveyService>(service => new SurveyService(new SurveyRepository(new SQLStream<Survey>())));
+            services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
+            services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>())));
+            services.AddSingleton<IAppointmentService, AppointmentService>(service => new AppointmentService(new AppointmentRepository(new SQLStream<Appointment>())));
             services.AddControllers();
             //services.AddControllers().AddNewtonsoftJson();
         }
@@ -43,6 +54,8 @@ namespace Feedback
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 
