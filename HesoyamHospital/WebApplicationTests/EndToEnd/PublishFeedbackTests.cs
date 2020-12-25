@@ -38,7 +38,7 @@ namespace WebApplicationTests.EndToEnd
             publishedFeedbacksPage.Navigate();
             publishedFeedbacksPage.EnsurePageIsDisplayed();
 
-            publishedFeedbacksPage.GetLastRowPublishedFeedbacksText().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowText());
+            publishedFeedbacksPage.GetLastRowPublishedFeedbacksText().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowFeedback());
             publishedFeedbacksPage.GetLastRowPublishedFeedbacksUsername().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowUsername());
             publishedFeedbackCount.ShouldBe(publishedFeedbacksPage.PublishedFeedbacksCount() - 1);
         }
