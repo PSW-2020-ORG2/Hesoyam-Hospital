@@ -15,8 +15,9 @@ namespace WebApplicationTests.EndToEnd.Pages
         private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[3]"));
         private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[2]"));
         private IWebElement LastRowButton => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[4]/button"));
-        
-      
+        private IWebElement FirstRowFeedback => driver.FindElement(By.XPath("//table/tbody/tr/td[3]"));
+        private IWebElement FirstRowButton => driver.FindElement(By.XPath("//table/tbody/tr/td[4]/button"));
+        private IWebElement FirstRowUsername => driver.FindElement(By.XPath("//table/tbody/tr/td[2]"));
         public FeedbackPublishList(IWebDriver driver)
         {
             this.driver = driver;
@@ -48,8 +49,14 @@ namespace WebApplicationTests.EndToEnd.Pages
         public string GetLastRowFeedback()
             => LastRowFeedback.Text;
 
+        public string GetFirstRowFeedback()
+            => FirstRowFeedback.Text;
+
         public string GetLastRowUsername()
             => LastRowUsername.Text;
+ 
+        public string GetFisrtRowUsername()
+            => FirstRowUsername.Text;
 
         public void Navigate()
             => driver.Navigate().GoToUrl(URI);
@@ -57,7 +64,8 @@ namespace WebApplicationTests.EndToEnd.Pages
         public void PublishFeedback()
           => LastRowButton.Click();
 
-        
+        public void PublishFirstFeedback()
+          => FirstRowButton.Click();
 
     }
 }

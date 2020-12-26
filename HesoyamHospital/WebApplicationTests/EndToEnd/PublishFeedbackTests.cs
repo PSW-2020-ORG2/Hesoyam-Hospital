@@ -14,7 +14,8 @@ namespace WebApplicationTests.EndToEnd
         private FeedbackPublishList feedbackPublishListPage;
         private PublishedFeedbacks publishedFeedbacksPage;
         private int publishedFeedbackCount;
-
+        private string firstRowText;
+        private string firstRowUsername;
         public PublishFeedbackTests()
         {
             InitializeDriver();
@@ -22,27 +23,26 @@ namespace WebApplicationTests.EndToEnd
             publishedFeedbacksPage = new PublishedFeedbacks(driver);
 
             publishedFeedbacksPage.Navigate();
-            Thread.Sleep(30000);
+            Thread.Sleep(15000);
             publishedFeedbacksPage.URI.ShouldBeEquivalentTo(driver.Url);
             publishedFeedbackCount = publishedFeedbacksPage.PublishedFeedbacksCount();
+            
 
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.EnsurePageIsDisplayed();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
+            firstRowText = feedbackPublishListPage.GetFirstRowFeedback();
+            firstRowUsername = feedbackPublishListPage.GetFisrtRowUsername();
         }
 
         [Fact]
-        public void Successful_publish_of_last_feedback()
+        public void Successful_count_of_published_feedbacks()
         {
-            feedbackPublishListPage.PublishFeedback();
-            
+            feedbackPublishListPage.PublishFirstFeedback();
+            Thread.Sleep(5000);
 
             publishedFeedbacksPage.Navigate();
-            
             publishedFeedbacksPage.EnsurePageIsDisplayed();
-
-            publishedFeedbacksPage.GetLastRowPublishedFeedbacksText().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowFeedback());
-            publishedFeedbacksPage.GetLastRowPublishedFeedbacksUsername().ShouldBeEquivalentTo(feedbackPublishListPage.GetLastRowUsername());
             publishedFeedbackCount.ShouldBe(publishedFeedbacksPage.PublishedFeedbacksCount() - 1);
         }
 
@@ -51,7 +51,7 @@ namespace WebApplicationTests.EndToEnd
         {
             publishedFeedbacksPage.Navigate();
             publishedFeedbacksPage.EnsurePageIsDisplayed();
-            publishedFeedbackCount.ShouldBe(publishedFeedbacksPage.PublishedFeedbacksCount() );
+            publishedFeedbackCount.ShouldBe(publishedFeedbacksPage.PublishedFeedbacksCount());
         }
         public void Dispose()
         {
