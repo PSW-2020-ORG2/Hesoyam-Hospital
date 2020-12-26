@@ -14,8 +14,7 @@ namespace WebApplicationTests.EndToEnd
         private FeedbackPublishList feedbackPublishListPage;
         private PublishedFeedbacks publishedFeedbacksPage;
         private int publishedFeedbackCount;
-        private string firstRowText;
-        private string firstRowUsername;
+        
         public PublishFeedbackTests()
         {
             InitializeDriver();
@@ -27,12 +26,10 @@ namespace WebApplicationTests.EndToEnd
             publishedFeedbacksPage.URI.ShouldBeEquivalentTo(driver.Url);
             publishedFeedbackCount = publishedFeedbacksPage.PublishedFeedbacksCount();
             
-
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.EnsurePageIsDisplayed();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
-            firstRowText = feedbackPublishListPage.GetFirstRowFeedback();
-            firstRowUsername = feedbackPublishListPage.GetFisrtRowUsername();
+            
         }
 
         [Fact]
