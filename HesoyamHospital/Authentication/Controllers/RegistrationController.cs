@@ -2,11 +2,11 @@
 using System.Net.Http.Headers;
 using Authentication.DTOs;
 using Authentication.Mappers;
+using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.UserModel;
 using Authentication.Repository.Abstract;
 using Authentication.Service.Abstract;
 using Authentication.Validation;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authentication.Controllers

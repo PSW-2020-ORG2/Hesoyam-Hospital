@@ -1,11 +1,11 @@
+using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.UserModel;
 using Authentication.Repository;
 using Authentication.Repository.Abstract;
 using Authentication.Repository.FileRepository;
 using Authentication.Repository.SQLRepository.Base;
 using Authentication.Service;
 using Authentication.Service.Abstract;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

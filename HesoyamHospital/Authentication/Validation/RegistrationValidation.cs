@@ -1,14 +1,14 @@
 ﻿using Authentication.DTOs;
+using Authentication.Model.UserModel;
 using Authentication.Repository;
 using Authentication.Repository.SQLRepository.Base;
 using Authentication.Service;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using Authentication.Model.MedicalRecordModel;
 
 namespace Authentication.Validation
 {

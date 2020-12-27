@@ -1,6 +1,6 @@
 ﻿using Authentication.Repository.Abstract;
 using Authentication.Repository.SQLRepository.Base;
-using Backend.Model.PatientModel;
+using Authentication.Model.MedicalRecordModel;
 
 namespace Authentication.Repository
 {

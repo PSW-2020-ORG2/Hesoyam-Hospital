@@ -1,5 +1,5 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -33,8 +33,6 @@ namespace Authentication.Repository.SQLRepository.Base
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
 
-
-
         private string GenerateConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
@@ -43,6 +41,7 @@ namespace Authentication.Repository.SQLRepository.Base
 
             return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
+
         private string GeneratePostgresConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
@@ -59,9 +58,7 @@ namespace Authentication.Repository.SQLRepository.Base
                     .HasValue<User>("User")
                     .HasValue<Patient>("Patient")
                     .HasValue<SystemAdmin>("SystemAdmin")
-                    .HasValue<Doctor>("Doctor")
-                    .HasValue<Secretary>("Secretary")
-                    .HasValue<Manager>("Manager");
+                    .HasValue<Doctor>("Doctor");
         }
     }
 }

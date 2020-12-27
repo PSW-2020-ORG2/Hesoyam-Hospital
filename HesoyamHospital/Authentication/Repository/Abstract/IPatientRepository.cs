@@ -1,4 +1,4 @@
-﻿using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 
 namespace Authentication.Repository.Abstract
 {

@@ -1,4 +1,4 @@
-﻿using Backend.Model.PatientModel;
+﻿using Authentication.Model.MedicalRecordModel;
 
 namespace Authentication.Repository.Abstract
 {

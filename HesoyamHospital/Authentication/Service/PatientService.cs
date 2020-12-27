@@ -1,7 +1,7 @@
-﻿using Authentication.Repository;
+﻿using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.UserModel;
+using Authentication.Repository;
 using Authentication.Service.Abstract;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using System.Collections.Generic;
 
 namespace Authentication.Service
