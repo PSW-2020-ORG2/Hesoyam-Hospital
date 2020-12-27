@@ -1,4 +1,4 @@
-﻿using Appointments.Model.Util;
+﻿using Authentication.Model.Util;
 
 namespace Appointments.DTOs
 {

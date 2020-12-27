@@ -1,5 +1,5 @@
-﻿using Appointments.Model.ScheduleModel;
-using Appointments.Model.UserModel;
+﻿using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 

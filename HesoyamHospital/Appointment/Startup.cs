@@ -1,5 +1,5 @@
-using Appointments.Model.ScheduleModel;
-using Appointments.Model.UserModel;
+using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using Appointments.Repository;
 using Appointments.Repository.SQLRepository.Base;
 using Appointments.Service;

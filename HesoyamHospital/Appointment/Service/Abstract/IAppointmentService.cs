@@ -1,6 +1,6 @@
 ﻿using Appointments.DTOs;
-using Appointments.Model.ScheduleModel;
-using Appointments.Model.UserModel;
+using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using System.Collections.Generic;
 
 namespace Appointments.Service.Abstract

@@ -1,5 +1,5 @@
 ﻿using Appointments.DTOs;
-using Appointments.Model.UserModel;
+using Authentication.Model.UserModel;
 using System;
 using System.Collections.Generic;
 

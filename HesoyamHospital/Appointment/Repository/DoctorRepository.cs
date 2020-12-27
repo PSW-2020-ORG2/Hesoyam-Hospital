@@ -1,4 +1,4 @@
-﻿using Appointments.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using Appointments.Repository.Abstract;
 using Appointments.Repository.SQLRepository.Base;
 using System.Collections.Generic;

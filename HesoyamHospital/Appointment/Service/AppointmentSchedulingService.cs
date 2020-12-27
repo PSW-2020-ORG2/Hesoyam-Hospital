@@ -1,7 +1,7 @@
 ﻿using Appointments.DTOs;
 using Appointments.Mappers;
-using Appointments.Model.ScheduleModel;
-using Appointments.Model.UserModel;
+using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using Appointments.Repository.Abstract;
 using Appointments.Service.Abstract;
 using System;

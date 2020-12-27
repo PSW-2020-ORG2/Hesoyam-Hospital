@@ -5,9 +5,9 @@ using Appointments.Service.Abstract;
 using Appointments.Repository;
 using Appointments.Service;
 using Appointments.Repository.SQLRepository.Base;
-using Appointments.Model.ScheduleModel;
-using Appointments.Model.UserModel;
-using Appointments.Model.Util;
+using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
+using Authentication.Model.Util;
 
 namespace Appointments.Mappers
 {

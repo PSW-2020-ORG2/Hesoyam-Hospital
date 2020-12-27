@@ -1,4 +1,4 @@
-﻿using Appointments.Model.ScheduleModel;
+﻿using Authentication.Model.ScheduleModel;
 
 namespace Appointments.Validation
 {
