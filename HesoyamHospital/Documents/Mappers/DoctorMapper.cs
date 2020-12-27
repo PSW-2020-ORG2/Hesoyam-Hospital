@@ -1,5 +1,4 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using Documents.DTOs;
 using System;
 using System.Collections.Generic;

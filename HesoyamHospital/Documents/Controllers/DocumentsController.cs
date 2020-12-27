@@ -1,6 +1,5 @@
 ﻿using System.Linq;
-using Backend.Model.PatientModel;
-using Backend.Util;
+using Authentication.Model.Util;
 using Documents.Mappers;
 using Documents.Service.Abstract;
 using Documents.Validation;

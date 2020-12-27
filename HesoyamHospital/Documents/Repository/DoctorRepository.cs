@@ -1,5 +1,4 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using Documents.Repository.Abstract;
 using Documents.Repository.SQLRepository.Base;
 using System.Collections.Generic;

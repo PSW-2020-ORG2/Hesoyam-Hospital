@@ -1,5 +1,4 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using System.Collections.Generic;
 
 namespace Documents.Service.Abstract

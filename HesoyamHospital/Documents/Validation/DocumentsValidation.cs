@@ -1,5 +1,4 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Util;
+﻿using Authentication.Model.Util;
 
 namespace Documents.Validation
 {

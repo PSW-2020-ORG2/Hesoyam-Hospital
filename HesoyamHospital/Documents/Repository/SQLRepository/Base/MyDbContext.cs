@@ -1,5 +1,5 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -61,9 +61,7 @@ namespace Documents.Repository.SQLRepository.Base
                     .HasValue<User>("User")
                     .HasValue<Patient>("Patient")
                     .HasValue<SystemAdmin>("SystemAdmin")
-                    .HasValue<Doctor>("Doctor")
-                    .HasValue<Secretary>("Secretary")
-                    .HasValue<Manager>("Manager");
+                    .HasValue<Doctor>("Doctor");
         }
     }
 }

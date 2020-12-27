@@ -1,6 +1,6 @@
 ﻿using Documents.Repository.Abstract;
 using Documents.Repository.SQLRepository.Base;
-using Backend.Model.UserModel;
+using Authentication.Model.UserModel;
 using System.Linq;
 
 namespace Documents.Repository

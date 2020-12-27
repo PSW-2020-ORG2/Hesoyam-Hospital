@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Backend.Model.DoctorModel;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.UserModel;
 using Documents.DTOs;
 using Documents.Mappers;
 using Documents.Service.Abstract;

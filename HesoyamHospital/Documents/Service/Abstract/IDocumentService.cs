@@ -1,5 +1,5 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Util;
+﻿using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.Util;
 using Documents.DTOs;
 using System.Collections.Generic;
 

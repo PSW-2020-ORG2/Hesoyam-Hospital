@@ -1,8 +1,4 @@
-﻿using Backend.Model.PatientModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Authentication.Model.MedicalRecordModel;
 
 namespace Documents.Service.Abstract
 {

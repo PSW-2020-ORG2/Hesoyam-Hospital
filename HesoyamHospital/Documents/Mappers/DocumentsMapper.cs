@@ -1,4 +1,4 @@
-﻿using Backend.Model.PatientModel;
+﻿using Authentication.Model.MedicalRecordModel;
 using Documents.DTOs;
 using System.Collections.Generic;
 

@@ -1,5 +1,5 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Util;
+﻿using Authentication.Model.MedicalRecordModel;
+using Authentication.Model.Util;
 using Documents.DTOs;
 using Documents.Mappers;
 using Documents.Repository.Abstract;
@@ -7,7 +7,6 @@ using Documents.Service.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Documents.Service
 {
