@@ -10,6 +10,11 @@ namespace Appointments.Repository.SQLRepository.Base
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Cancellation> Cancellations { get; set; }
+        public DbSet<Appointment> Appointment { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!isPostgres())

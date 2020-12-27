@@ -10,6 +10,9 @@ namespace Authentication.Repository.SQLRepository.Base
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!isPostgres())

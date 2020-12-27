@@ -10,6 +10,12 @@ namespace Feedbacks.Repository.SQLRepository.Base
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Appointment> Appointment { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!isPostgres())
