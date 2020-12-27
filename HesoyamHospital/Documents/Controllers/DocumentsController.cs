@@ -34,7 +34,7 @@ namespace Documents.Controllers
         {
             if (!_validation.IsAdvancedSearchCriteriaValid(criteria)) return BadRequest();
 
-            return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.AdvanceSearchDocs(criteria, id).ToList()));
+            return Ok(_documentService.AdvanceSearchDocs(criteria, id).ToList());
         }
 
         [HttpGet("{id}")]

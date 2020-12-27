@@ -1,5 +1,7 @@
 ﻿using Backend.Model.PatientModel;
 using Backend.Util;
+using Documents.DTOs;
+using Documents.Mappers;
 using Documents.Repository.Abstract;
 using Documents.Service.Abstract;
 using System;
@@ -20,12 +22,12 @@ namespace Documents.Service
             _reportRepository = reportRepository;
         }
 
-        public IEnumerable<Document> AdvanceSearchDocs(AdvancedDocumentSearchCriteria criteria, long patientId)
+        public IEnumerable<DocumentDTO> AdvanceSearchDocs(AdvancedDocumentSearchCriteria criteria, long patientId)
         {
-            List<Document> result = new List<Document>();
+            List<DocumentDTO> result = new List<DocumentDTO>();
 
-            if (criteria.ShouldSearchPrescriptions) result.AddRange(GetPrescriptionsThatMeetAdvancedCriteria(criteria, patientId));
-            if (criteria.ShouldSearchReports) result.AddRange(GetReportsThatMeetAdvancedCriteria(criteria, patientId));
+            if (criteria.ShouldSearchPrescriptions) result.AddRange(DocumentsMapper.DocumentToDocumentDTO(GetPrescriptionsThatMeetAdvancedCriteria(criteria, patientId)));
+            if (criteria.ShouldSearchReports) result.AddRange(DocumentsMapper.DocumentToDocumentDTO(GetReportsThatMeetAdvancedCriteria(criteria, patientId)));
 
             return result;
         }
@@ -98,7 +100,8 @@ namespace Documents.Service
 
         private List<Document> GetPrescriptionsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
         {
-            List<Document> currentResult = ((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId)).ConvertAll(r => (Document)r);
+            List<Prescription> allPrescriptions = ((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId));
+            List<Document> currentResult = allPrescriptions.ToList().ConvertAll(r => (Document)r);
             if (criteria.hasElements())
             {
                 criteria.setInitialState();
@@ -110,7 +113,7 @@ namespace Documents.Service
                         TimeIntervalFilter timeIntervalFilter = criteria.TimeIntervalFilters[0];
                         criteria.TimeIntervalFilters.RemoveAt(0);
                         criteria.TimeIntervalFilters.Add(timeIntervalFilter);
-                        newResult = GetPrescriptionsThatMeetTimeIntervalCriteria((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId), timeIntervalFilter).ConvertAll(r => (Document)r);
+                        newResult = GetPrescriptionsThatMeetTimeIntervalCriteria(allPrescriptions, timeIntervalFilter).ConvertAll(r => (Document)r);
                     }
                     else
                     {
@@ -118,7 +121,7 @@ namespace Documents.Service
                         criteria.TextFilters.RemoveAt(0);
                         criteria.TextFilters.Add(textFilter);
                         if (criteria.FilterTypes[i] == FilterType.COMMENT) continue;
-                        newResult = GetPrescriptionsThatMeetTextCriteria((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId), textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
+                        newResult = GetPrescriptionsThatMeetTextCriteria(allPrescriptions, textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
                     }
                     currentResult = PerformLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
                 }
@@ -128,7 +131,8 @@ namespace Documents.Service
 
         private List<Document> GetReportsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
         {
-            List<Document> currentResult = ((List<Report>)_reportRepository.GetAllByPatient(patientId)).ConvertAll(r => (Document)r);
+            List<Report> allReports = (List<Report>)_reportRepository.GetAllByPatient(patientId);
+            List<Document> currentResult = allReports.ToList().ConvertAll(r => (Document)r);
             if (criteria.hasElements())
             {
                 criteria.setInitialState();
@@ -140,7 +144,7 @@ namespace Documents.Service
                         TimeIntervalFilter timeIntervalFilter = criteria.TimeIntervalFilters[0];
                         criteria.TimeIntervalFilters.RemoveAt(0);
                         criteria.TimeIntervalFilters.Add(timeIntervalFilter);
-                        newResult = GetReportsThatMeetTimeIntervalCriteria((List<Report>)_reportRepository.GetAllByPatient(patientId), timeIntervalFilter).ConvertAll(r => (Document)r);
+                        newResult = GetReportsThatMeetTimeIntervalCriteria(allReports, timeIntervalFilter).ConvertAll(r => (Document)r);
                     }
                     else
                     {
@@ -148,7 +152,7 @@ namespace Documents.Service
                         criteria.TextFilters.RemoveAt(0);
                         criteria.TextFilters.Add(textFilter);
                         if (criteria.FilterTypes[i] == FilterType.MEDICINE_NAME) continue;
-                        newResult = GetReportsThatMeetTextCriteria((List<Report>)_reportRepository.GetAllByPatient(patientId), textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
+                        newResult = GetReportsThatMeetTextCriteria(allReports, textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
                     }
                     currentResult = PerformLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
                 }
