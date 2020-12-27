@@ -1,6 +1,5 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
-using Appointments.DTOs;
+﻿using Appointments.DTOs;
+using Appointments.Model.UserModel;
 using System;
 using System.Collections.Generic;
 

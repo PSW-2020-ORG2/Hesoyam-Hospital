@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Appointments.DTOs;
 using Appointments.Mappers;
+using Appointments.Model.UserModel;
 using Appointments.Service.Abstract;
-using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointments.Controllers

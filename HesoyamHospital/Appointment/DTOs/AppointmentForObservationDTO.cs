@@ -1,4 +1,4 @@
-﻿using Backend.Util;
+﻿using Appointments.Model.Util;
 
 namespace Appointments.DTOs
 {

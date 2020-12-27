@@ -1,10 +1,9 @@
 ﻿using Appointments.DTOs;
 using Appointments.Mappers;
+using Appointments.Model.ScheduleModel;
+using Appointments.Model.UserModel;
 using Appointments.Repository.Abstract;
 using Appointments.Service.Abstract;
-using Backend.Model.DoctorModel;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

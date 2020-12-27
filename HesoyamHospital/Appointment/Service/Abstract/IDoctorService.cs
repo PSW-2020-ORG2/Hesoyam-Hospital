@@ -1,5 +1,4 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
+﻿using Appointments.Model.UserModel;
 using System.Collections.Generic;
 
 namespace Appointments.Service.Abstract

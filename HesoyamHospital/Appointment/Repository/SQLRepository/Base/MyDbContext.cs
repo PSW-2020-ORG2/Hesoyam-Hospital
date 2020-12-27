@@ -1,5 +1,5 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+﻿using Appointments.Model.ScheduleModel;
+using Appointments.Model.UserModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -45,6 +45,7 @@ namespace Appointments.Repository.SQLRepository.Base
 
             return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
+
         private string GeneratePostgresConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
@@ -53,17 +54,13 @@ namespace Appointments.Repository.SQLRepository.Base
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
-
             modelBuilder.Entity<User>()
                     .ToTable("Users")
                     .HasDiscriminator<string>("ContentType")
                     .HasValue<User>("User")
                     .HasValue<Patient>("Patient")
                     .HasValue<SystemAdmin>("SystemAdmin")
-                    .HasValue<Doctor>("Doctor")
-                    .HasValue<Secretary>("Secretary")
-                    .HasValue<Manager>("Manager");
+                    .HasValue<Doctor>("Doctor");
         }
     }
 }

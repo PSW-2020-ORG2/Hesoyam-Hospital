@@ -1,6 +1,6 @@
-﻿using Appointments.Repository.Abstract;
+﻿using Appointments.Model.ScheduleModel;
+using Appointments.Repository.Abstract;
 using Appointments.Repository.SQLRepository.Base;
-using Backend.Model.PatientModel;
 
 namespace Appointments.Repository
 {

@@ -1,6 +1,6 @@
-﻿using Appointments.Repository;
+﻿using Appointments.Model.UserModel;
+using Appointments.Repository;
 using Appointments.Service.Abstract;
-using Backend.Model.UserModel;
 using System.Collections.Generic;
 
 namespace Appointments.Service

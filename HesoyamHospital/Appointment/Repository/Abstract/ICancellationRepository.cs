@@ -1,4 +1,4 @@
-﻿using Backend.Model.PatientModel;
+﻿using Appointments.Model.ScheduleModel;
 using System.Collections.Generic;
 
 namespace Appointments.Repository.Abstract

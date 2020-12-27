@@ -1,5 +1,4 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
+﻿using Appointments.Model.UserModel;
 using Appointments.Repository.Abstract;
 using Appointments.Repository.SQLRepository.Base;
 using System.Collections.Generic;

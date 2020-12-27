@@ -2,10 +2,10 @@
 using System.Linq;
 using Appointments.DTOs;
 using Appointments.Mappers;
+using Appointments.Model.ScheduleModel;
+using Appointments.Model.UserModel;
 using Appointments.Service.Abstract;
 using Appointments.Validation;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointments.Controllers

@@ -1,13 +1,13 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Appointments.DTOs;
-using Backend.Util;
 using Appointments.Service.Abstract;
 using Appointments.Repository;
 using Appointments.Service;
 using Appointments.Repository.SQLRepository.Base;
+using Appointments.Model.ScheduleModel;
+using Appointments.Model.UserModel;
+using Appointments.Model.Util;
 
 namespace Appointments.Mappers
 {

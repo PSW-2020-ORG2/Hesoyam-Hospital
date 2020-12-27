@@ -1,4 +1,4 @@
-﻿using Backend.Model.UserModel;
+﻿using Appointments.Model.UserModel;
 
 namespace Appointments.Repository.Abstract
 {
