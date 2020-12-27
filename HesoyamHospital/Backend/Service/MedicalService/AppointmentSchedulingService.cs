@@ -3,8 +3,6 @@ using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
-using Backend.Repository.MySQLRepository.MedicalRepository;
-using Backend.Repository.MySQLRepository.UsersRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
