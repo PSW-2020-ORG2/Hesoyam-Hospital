@@ -86,6 +86,7 @@ namespace Backend
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
         public TherapyService therapyService;
+        public AppointmentSchedulingService appointmentSchedulingService;
 
         // MiscService
         public ArticleService articleService;
@@ -125,11 +126,13 @@ namespace Backend
             roomService = new RoomService(roomRepository, appointmentRepository);
             medicineService = new MedicineService(medicineRepository);
 
+
             // MedicineService
             diagnosisService = new DiagnosisService(diagnosisRepository);
             diseaseService = new DiseaseService(diseaseRepository);
             medicalRecordService = new MedicalRecordService(medicalRecordRepository);
             therapyService = new TherapyService(therapyRepository, medicalRecordService);
+            appointmentSchedulingService = new AppointmentSchedulingService(doctorRepository, appointmentRepository);
 
             // MiscService
             articleService = new ArticleService(articleRepository);

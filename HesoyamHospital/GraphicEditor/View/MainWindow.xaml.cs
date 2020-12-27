@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Backend.Model.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,14 @@ namespace GraphicEditor
         {
             Global.SearchObjectName = "";
             InitializeComponent();
+
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+
+
+            if (loggedIn.GetUserType() != UserType.SECRETARY)
+            {
+                searchAvailable.Visibility = Visibility.Hidden;
+            }
 
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
