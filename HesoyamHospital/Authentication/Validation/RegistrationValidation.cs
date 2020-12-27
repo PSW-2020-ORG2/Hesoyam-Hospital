@@ -1,5 +1,8 @@
 ﻿using Authentication.DTOs;
-using Backend;
+using Authentication.Repository;
+using Authentication.Repository.SQLRepository.Base;
+using Authentication.Service;
+using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
@@ -10,7 +13,8 @@ using System.Text.RegularExpressions;
 namespace Authentication.Validation
 {
     public static class RegistrationValidation
-    {  
+    {
+        private static readonly PatientService patientService = new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()));
         public static bool IsNewPatientValid(NewPatientDTO patient)
         {
             Regex names = new Regex(@"[A-Za-z]{2,20}");
@@ -45,7 +49,7 @@ namespace Authentication.Validation
 
         public static bool IsPatientValid(NewPatientDTO dto)
         {
-            List<Patient> patients = AppResources.getInstance().patientService.GetAll().ToList();
+            List<Patient> patients = patientService.GetAll().ToList();
             if (IsNewPatientValid(dto) && IsUsernameUnique(dto.Username, patients)) return true;
             return false;
         }
