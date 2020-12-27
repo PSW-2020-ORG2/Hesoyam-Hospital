@@ -12,7 +12,7 @@ namespace WebApplicationTests.EndToEnd
     {
         private IWebDriver driver;
         private readonly BlockPatientList blockPatientList;
-        private int blockPatientCount;
+        private readonly int blockPatientCount;
 
         public BlockPatientTests()
         {
@@ -32,6 +32,13 @@ namespace WebApplicationTests.EndToEnd
             blockPatientList.BlockFirstPatient();
             Thread.Sleep(5000);
             blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount - 1);
+        }
+
+        [Fact]
+        public void Unsuccessful_blocking()
+        {
+            Thread.Sleep(1000);
+            blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount);
         }
 
 
