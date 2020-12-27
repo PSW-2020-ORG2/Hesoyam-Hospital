@@ -54,7 +54,7 @@
 
     //APPOINTMENT SCHEDULING CONTROLLER
     {
-      "DownstreamPathTemplate": "/api/appointment/getDoctorsByType/{type}",
+      "DownstreamPathTemplate": "/api/appointmentscheduling/getDoctorsByType/{type}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -62,11 +62,11 @@
           "Port": 57733
         }
       ],
-      "UpstreamPathTemplate": "/gateway/appointment/getDoctorsByType/{type}",
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/getDoctorsByType/{type}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/appointment/getDoctorsByType/{type}",
+      "DownstreamPathTemplate": "/api/appointmentscheduling/getTimesForDoctor",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -74,23 +74,11 @@
           "Port": 57733
         }
       ],
-      "UpstreamPathTemplate": "/gateway/appointment/getDoctorsByType/{type}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/appointment/getTimesForDoctor",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57733
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/appointment/getTimesForDoctor",
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/getTimesForDoctor/",
       "UpstreamHttpMethod": [ "PUT" ]
     },
     {
-      "DownstreamPathTemplate": "/api/appointment/recommendation",
+      "DownstreamPathTemplate": "/api/appointmentscheduling/recommendation",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -98,11 +86,11 @@
           "Port": 57733
         }
       ],
-      "UpstreamPathTemplate": "/gateway/appointment/recommendation",
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/recommendation",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/appointment/getTimesForSelectedDoctor/{id}",
+      "DownstreamPathTemplate": "/api/appointmentscheduling/getTimesForSelectedDoctor/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -110,11 +98,11 @@
           "Port": 57733
         }
       ],
-      "UpstreamPathTemplate": "/gateway/appointment/getTimesForSelectedDoctor/{id}",
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/getTimesForSelectedDoctor/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/appointment/saveAppointment",
+      "DownstreamPathTemplate": "/api/appointmentscheduling/saveAppointment",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -122,11 +110,11 @@
           "Port": 57733
         }
       ],
-      "UpstreamPathTemplate": "/gateway/appointment/saveAppointment",
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/saveAppointment",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/appointment/saveSelectedDoctorAppointment",
+      "DownstreamPathTemplate": "/api/appointmentscheduling/saveSelectedDoctorAppointment",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -134,7 +122,7 @@
           "Port": 57733
         }
       ],
-      "UpstreamPathTemplate": "/gateway/appointment/saveSelectedDoctorAppointment",
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/saveSelectedDoctorAppointment",
       "UpstreamHttpMethod": [ "POST" ]
     },
 

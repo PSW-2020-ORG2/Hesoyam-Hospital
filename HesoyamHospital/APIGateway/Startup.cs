@@ -9,9 +9,25 @@ namespace APIGateway
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("*")
+                                      .SetIsOriginAllowedToAllowWildcardSubdomains()
+                                      .AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
             services.AddOcelot();
+            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -22,6 +38,7 @@ namespace APIGateway
             }
 
             app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseEndpoints(endpoints =>
             {
