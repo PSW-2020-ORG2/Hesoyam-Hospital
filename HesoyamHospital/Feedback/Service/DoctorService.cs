@@ -1,11 +1,7 @@
-﻿using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using Feedbacks.Repository;
 using Feedbacks.Service.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Feedbacks.Service
 {

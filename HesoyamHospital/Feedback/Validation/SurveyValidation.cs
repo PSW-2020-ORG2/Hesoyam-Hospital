@@ -1,4 +1,4 @@
-﻿using Backend.Model.PatientModel;
+﻿using Authentication.Model.ScheduleModel;
 using Feedbacks.DTOs;
 
 namespace Feedbacks.Validation

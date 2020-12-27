@@ -1,4 +1,4 @@
-﻿using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using Feedbacks.DTOs;
 
 namespace Feedbacks.Mappers

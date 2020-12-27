@@ -1,5 +1,5 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+﻿using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using Feedbacks.Repository.Abstract;
 using Feedbacks.Service.Abstract;
 using System;

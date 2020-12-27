@@ -1,5 +1,6 @@
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+using Authentication.Model.FeedbackModel;
+using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using Feedbacks.Repository;
 using Feedbacks.Repository.SQLRepository.Base;
 using Feedbacks.Service;
@@ -44,7 +45,7 @@ namespace Feedbacks
             services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>())));
             services.AddSingleton<IAppointmentService, AppointmentService>(service => new AppointmentService(new AppointmentRepository(new SQLStream<Appointment>())));
             services.AddControllers();
-            //services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

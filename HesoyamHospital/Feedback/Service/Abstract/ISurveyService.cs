@@ -1,4 +1,5 @@
-﻿using Backend.Model.UserModel;
+﻿using Authentication.Model.FeedbackModel;
+using Authentication.Model.UserModel;
 using System.Collections.Generic;
 
 namespace Feedbacks.Service.Abstract

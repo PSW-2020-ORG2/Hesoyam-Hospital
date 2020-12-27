@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
+using Authentication.Model.FeedbackModel;
+using Authentication.Model.ScheduleModel;
+using Authentication.Model.UserModel;
 using Feedbacks.DTOs;
 using Feedbacks.Mappers;
 using Feedbacks.Service.Abstract;

@@ -1,4 +1,4 @@
-﻿using Backend.Model.UserModel;
+﻿using Authentication.Model.FeedbackModel;
 using Feedbacks.Repository.Abstract;
 using Feedbacks.Repository.SQLRepository.Base;
 

@@ -1,4 +1,4 @@
-﻿using Backend.Model.PatientModel;
+﻿using Authentication.Model.ScheduleModel;
 using Feedbacks.Repository.Abstract;
 using Feedbacks.Repository.SQLRepository.Base;
 

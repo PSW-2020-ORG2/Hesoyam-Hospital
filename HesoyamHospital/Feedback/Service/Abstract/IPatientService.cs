@@ -1,4 +1,4 @@
-﻿using Backend.Model.UserModel;
+﻿using Authentication.Model.UserModel;
 using Feedbacks.Service.Abstract;
 
 namespace Feedbacks.Service.Abstract

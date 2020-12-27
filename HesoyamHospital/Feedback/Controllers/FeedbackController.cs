@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Backend.Model.UserModel;
+using Authentication.Model.FeedbackModel;
 using Feedbacks.DTOs;
 using Feedbacks.Mappers;
 using Feedbacks.Service.Abstract;
 using Feedbacks.Validation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Feedbacks.Controllers

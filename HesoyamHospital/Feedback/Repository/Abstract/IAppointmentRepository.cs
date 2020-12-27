@@ -1,4 +1,4 @@
-﻿using Backend.Model.PatientModel;
+﻿using Authentication.Model.ScheduleModel;
 
 namespace Feedbacks.Repository.Abstract
 {
