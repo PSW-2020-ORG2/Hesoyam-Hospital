@@ -22,14 +22,14 @@ export interface Doctor {
 })
 export class AppointmentService {
 
-  private _urlgetdoctors:string = "http://localhost:52166/api/appointmentscheduling/getDoctorsByType/";
-  private _urlgettimes:string = "http://localhost:52166/api/appointmentscheduling/getTimesForDoctor/";
-  private _urlsave:string = "http://localhost:52166/api/appointmentscheduling/saveAppointment";
-  private _urlgettimesselecteddoctor:string = "http://localhost:52166/api/appointmentscheduling/getTimesForSelectedDoctor/500";
-  private _urlsaveselecteddoctor:string = "http://localhost:52166/api/appointmentscheduling/saveSelectedDoctorAppointment";
-  private _urlgetrecommendedtimes:string = "http://localhost:52166/api/appointmentscheduling/recommendation";
-  private _urlSuspicious:string = "http://localhost:52166/api/appointment/getSuspiciousPatients";
-  private _urlBlock:string = "http://localhost:52166/api/appointment/block/";
+  private _urlgetdoctors:string = "http://localhost:57874/gateway/appointmentscheduling/getDoctorsByType/";
+  private _urlgettimes:string = "http://localhost:57874/gateway/appointmentscheduling/getTimesForDoctor/";
+  private _urlsave:string = "http://localhost:57874/gateway/appointmentscheduling/saveAppointment";
+  private _urlgettimesselecteddoctor:string = "http://localhost:57874/gateway/appointmentscheduling/getTimesForSelectedDoctor/500";
+  private _urlsaveselecteddoctor:string = "http://localhost:57874/gateway/appointmentscheduling/saveSelectedDoctorAppointment";
+  private _urlgetrecommendedtimes:string = "http://localhost:57874/gateway/appointmentscheduling/recommendation";
+  private _urlSuspicious:string = "http://localhost:57874/gateway/appointment/getSuspiciousPatients";
+  private _urlBlock:string = "http://localhost:57874/gateway/appointment/block/";
 
   constructor( private _http : HttpClient) { }
 

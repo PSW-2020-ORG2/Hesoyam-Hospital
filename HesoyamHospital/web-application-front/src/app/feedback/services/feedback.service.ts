@@ -48,27 +48,27 @@ export interface DoctorDTO {
 
 export class FeedbackService {
 
-  private _urlgetDoctorsSections:string = 'http://localhost:52166/api/survey/answers-per-doctors/';
+  private _urlgetDoctorsSections:string = 'http://localhost:57874/gateway/survey/answers-per-doctors/';
 
-  private _urlmeanValuesPerSections:string = 'http://localhost:52166/api/survey/mean-value-per-section';
-  private _urlmeanFrequencyPerQuestionsDoctor:string = 'http://localhost:52166/api/survey/frequencies-per-question/Doctor';
-  private _urlmeanFrequencyPerQuestionsStaff:string = 'http://localhost:52166/api/survey/frequencies-per-question/Staff';
-  private _urlmeanFrequencyPerQuestionsHygiene:string = 'http://localhost:52166/api/survey/frequencies-per-question/Hygiene';
-  private _urlmeanFrequencyPerQuestionsEquipment:string = 'http://localhost:52166/api/survey/frequencies-per-question/Equipment';
-  private _urlGetAllDoctors:string = 'http://localhost:52166/api/survey/getAllDoctors';
-  private _urlMeanValuesPerQuestionStaff:string = 'http://localhost:52166/api/survey/mean-value-per-question/Staff';
-  private _urlMeanValuesPerQuestionHygiene:string = 'http://localhost:52166/api/survey/mean-value-per-question/Hygiene';
-  private _urlMeanValuesPerQuestionEquipment:string = 'http://localhost:52166/api/survey/mean-value-per-question/Equipment';
-  private _urlMeanValuesPerQuestionDoctor:string = 'http://localhost:52166/api/survey/mean-value-per-question/Doctor';
-  private _urlEquipmentSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Equipment';
-  private _urlHygieneSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Hygiene';
-  private _urlStaffSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Staff';
-  private _urlDoctorSections:string = 'http://localhost:52166/api/survey/get-answers-per-section/Doctor';
-  private _urlunpublished:string = 'http://localhost:52166/api/feedback/unpublished';
-  private _urlpublished:string = 'http://localhost:52166/api/feedback/published';
-  private _urlID:string = 'http://localhost:52166/api/feedback';
-  private _urlpost:string = "http://localhost:52166/api/feedback";
-  private _urlpostsurvey: string = "http://localhost:52166/api/survey/send-answers";
+  private _urlmeanValuesPerSections:string = 'http://localhost:57874/gateway/survey/mean-value-per-section';
+  private _urlmeanFrequencyPerQuestionsDoctor:string = 'http://localhost:57874/gateway/survey/frequencies-per-question/Doctor';
+  private _urlmeanFrequencyPerQuestionsStaff:string = 'http://localhost:57874/gateway/survey/frequencies-per-question/Staff';
+  private _urlmeanFrequencyPerQuestionsHygiene:string = 'http://localhost:57874/gateway/survey/frequencies-per-question/Hygiene';
+  private _urlmeanFrequencyPerQuestionsEquipment:string = 'http://localhost:57874/gateway/survey/frequencies-per-question/Equipment';
+  private _urlGetAllDoctors:string = 'http://localhost:57874/gateway/survey/getAllDoctors';
+  private _urlMeanValuesPerQuestionStaff:string = 'http://localhost:57874/gateway/survey/mean-value-per-question/Staff';
+  private _urlMeanValuesPerQuestionHygiene:string = 'http://localhost:57874/gateway/survey/mean-value-per-question/Hygiene';
+  private _urlMeanValuesPerQuestionEquipment:string = 'http://localhost:57874/gateway/survey/mean-value-per-question/Equipment';
+  private _urlMeanValuesPerQuestionDoctor:string = 'http://localhost:57874/gateway/survey/mean-value-per-question/Doctor';
+  private _urlEquipmentSections:string = 'http://localhost:57874/gateway/survey/get-answers-per-section/Equipment';
+  private _urlHygieneSections:string = 'http://localhost:57874/gateway/survey/get-answers-per-section/Hygiene';
+  private _urlStaffSections:string = 'http://localhost:57874/gateway/survey/get-answers-per-section/Staff';
+  private _urlDoctorSections:string = 'http://localhost:57874/gateway/survey/get-answers-per-section/Doctor';
+  private _urlunpublished:string = 'http://localhost:57874/gateway/feedback/unpublished';
+  private _urlpublished:string = 'http://localhost:57874/gateway/feedback/published';
+  private _urlID:string = 'http://localhost:57874/gateway/feedback';
+  private _urlpost:string = "http://localhost:57874/gateway/feedback";
+  private _urlpostsurvey: string = "http://localhost:57874/gateway/survey/send-answers";
 
   constructor(private _http : HttpClient) { }
 

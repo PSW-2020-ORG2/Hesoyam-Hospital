@@ -8,8 +8,8 @@ import { AppointmentDto } from '../DTOs/appointment-dto';
 })
 export class AppointmentService {
 
-  private _urlgetall:string = "http://localhost:52166/api/appointment/500";
-  private _urlcancel:string = "http://localhost:52166/api/appointment/cancel";
+  private _urlgetall:string = "http://localhost:57874/gateway/appointment/500";
+  private _urlcancel:string = "http://localhost:57874/gateway/appointment/cancel";
 
   constructor( private _http : HttpClient) { }
 

@@ -10,9 +10,9 @@ import { AdvancedSearchCriteria } from '../DTOs/advanced-search-criteria';
 })
 export class DocumentService {
 
-  private _urlgetall:string = "http://localhost:52166/api/document/500";
-  private _urlpost:string = "http://localhost:52166/api/document/simple-search/500";
-  private _urlpostadvanced:string = "http://localhost:52166/api/document/advanced-search/500";
+  private _urlgetall:string = "http://localhost:57874/gateway/document/500";
+  private _urlpost:string = "http://localhost:57874/gateway/document/simple-search/500";
+  private _urlpostadvanced:string = "http://localhost:57874/gateway/document/advanced-search/500";
 
   constructor( private _http : HttpClient) { }
 

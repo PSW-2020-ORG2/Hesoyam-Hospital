@@ -10,9 +10,9 @@ import { SelectedDoctorDto } from '../DTOs/selected-doctor-dto';
 })
 export class MedicalRecordService {
 
-  private _urlshowrecord:string = 'http://localhost:52166/api/medicalrecord/show/500';
-  private _urldoctors:string = 'http://localhost:52166/api/medicalrecord/allGeneralDoctors';
-  private _urlchange:string = 'http://localhost:52166/api/medicalrecord/changeSelectedDoctor';
+  private _urlshowrecord:string = 'http://localhost:57874/gateway/medicalrecord/show/500';
+  private _urldoctors:string = 'http://localhost:57874/gateway/medicalrecord/allGeneralDoctors';
+  private _urlchange:string = 'http://localhost:57874/gateway/medicalrecord/changeSelectedDoctor';
 
   constructor(private _http : HttpClient) {}
 
