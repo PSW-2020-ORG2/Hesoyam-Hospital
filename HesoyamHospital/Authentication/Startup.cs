@@ -1,4 +1,6 @@
 using Authentication.Repository;
+using Authentication.Repository.Abstract;
+using Authentication.Repository.FileRepository;
 using Authentication.Repository.SQLRepository.Base;
 using Authentication.Service;
 using Authentication.Service.Abstract;
@@ -39,6 +41,7 @@ namespace Authentication
                                   });
             });
             services.AddSingleton<ISendEmailService, SendEmailService>(service => new SendEmailService());
+            services.AddSingleton<IImageRepository, ImageRepository>(repository => new ImageRepository());
             services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
             services.AddSingleton<IMedicalRecordService, MedicalRecordService>(service => new MedicalRecordService(new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
             services.AddControllers();
