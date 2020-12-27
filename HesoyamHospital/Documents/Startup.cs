@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace Documents
 {
@@ -43,7 +45,9 @@ namespace Documents
             services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
             services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()), new DoctorRepository(new SQLStream<Doctor>())));
             services.AddControllers();
-            //services.AddControllers().AddNewtonsoftJson();
+            services.AddMvc().AddJsonOptions(options =>
+                   options.JsonSerializerOptions.MaxDepth = 10);
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,13 @@ namespace Documents
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Resources")),
+                RequestPath = "/Resources"
+            });
 
             app.UseCors(MyAllowSpecificOrigins);
 

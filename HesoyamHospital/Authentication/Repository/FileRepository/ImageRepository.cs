@@ -12,7 +12,9 @@ namespace Authentication.Repository.FileRepository
             try
             {
                 var folderName = Path.Combine("Resources", "Images");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var solutionPath = Directory.GetParent(Environment.CurrentDirectory).ToString();
+                var documentsPath = Path.Combine(solutionPath, "Documents");
+                var pathToSave = Path.Combine(documentsPath, folderName);
                 var fullPath = Path.Combine(pathToSave, fileName);
                 var stream = new FileStream(fullPath, FileMode.Create);
                 file.CopyTo(stream);
