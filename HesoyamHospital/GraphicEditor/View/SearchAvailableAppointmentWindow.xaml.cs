@@ -101,7 +101,7 @@ namespace GraphicEditor
             DateTime startTime = selectedTerm.StartTime;
             DateTime endTime = selectedTerm.EndTime;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
-            availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
+            availableRooms = (List<Room>)roomService.GetAllExaminationRooms(timeInterval);
 
             Room availableRoom = availableRooms[0];
             MapLocation mapLocation = searchService.GetLocationByRoomName(availableRoom.RoomNumber);
