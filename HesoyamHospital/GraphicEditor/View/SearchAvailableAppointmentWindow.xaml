@@ -57,7 +57,7 @@
 
         <Button x:Name="buttonSearchAppointment" Content="Search" ToolTip="Search" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="SearchAvailableAppointmentClick"/>
 
-        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="1" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}">
+        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="1" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="Advanced_Search_Click">
         </DataGrid>
     </Grid>
 </Window>

@@ -7,6 +7,8 @@ using Backend.Model.UserModel;
 using Backend.DTOs;
 using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
+using Backend.Service.HospitalManagementService;
+using Backend.Util;
 
 namespace GraphicEditor
 {
@@ -16,16 +18,21 @@ namespace GraphicEditor
     public partial class SearchAvailableAppointmentWindow : Window
     {
         private List<Doctor> doctors;
+        private List<Room> availableRooms;
         private readonly DoctorService doctorService;
         private List<PriorityIntervalDTO> priorityIntervalDTOs;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
+        private readonly RoomService roomService;
+        private SearchService searchService;
 
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
             this.doctorService = Backend.AppResources.getInstance().doctorService;
             this.appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
+            this.roomService = Backend.AppResources.getInstance().roomService;
             doctors = (List<Doctor>) doctorService.GetAll();
+            searchService = new SearchService();
 
             foreach (Doctor doctor in doctors)
             {
@@ -73,5 +80,20 @@ namespace GraphicEditor
             searchAvailable.Columns[4].Visibility = Visibility.Hidden;
             searchAvailable.Columns[3].Visibility = Visibility.Hidden;
         }
+
+        private void Advanced_Search_Click(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            PriorityIntervalDTO selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
+           
+            DateTime startTime = selectedTerm.StartTime;
+            DateTime endTime = selectedTerm.EndTime;
+            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+            availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
+
+            Room availableRoom = availableRooms[0];
+            MapLocation mapLocation = searchService.GetLocationByRoomName(availableRoom.RoomNumber);
+            searchService.DisplayResults(mapLocation);
+        }
+
     }
 }
