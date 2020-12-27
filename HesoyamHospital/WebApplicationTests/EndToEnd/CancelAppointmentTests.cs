@@ -30,6 +30,12 @@ namespace WebApplicationTests.EndToEnd
             Thread.Sleep(5000);
             appointmentsList.CheckState().ShouldBe("CANCELLED");
         }
+
+        [Fact]
+        public void Unsuccessful_canceling()
+        {
+            appointmentsList.CheckState().ShouldBe("INCOMING");
+        }
         public void Dispose()
         {
             driver.Quit();
