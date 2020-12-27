@@ -24,7 +24,7 @@ namespace GraphicEditor
         private readonly AppointmentSchedulingService appointmentSchedulingService;
         private readonly RoomService roomService;
         private SearchService searchService;
-
+        private PriorityIntervalDTO selectedTerm;
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
@@ -81,10 +81,23 @@ namespace GraphicEditor
             searchAvailable.Columns[3].Visibility = Visibility.Hidden;
         }
 
-        private void Advanced_Search_Click(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SearchAvailable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PriorityIntervalDTO selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
-           
+            selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
+            
+            if (selectedTerm != null)
+            {
+                buttonSeeAvailableRoom.Visibility = Visibility.Visible;
+                buttonScheduleAppointment.Visibility = Visibility.Visible;
+            }
+
+        }
+
+
+        private void ButtonSeeAvailableRoom_Click(object sender, RoutedEventArgs e)
+        {
+            selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
+
             DateTime startTime = selectedTerm.StartTime;
             DateTime endTime = selectedTerm.EndTime;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
@@ -94,6 +107,5 @@ namespace GraphicEditor
             MapLocation mapLocation = searchService.GetLocationByRoomName(availableRoom.RoomNumber);
             searchService.DisplayResults(mapLocation);
         }
-
     }
 }
