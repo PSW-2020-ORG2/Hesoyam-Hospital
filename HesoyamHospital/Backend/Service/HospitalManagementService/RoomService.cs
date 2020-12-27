@@ -42,7 +42,25 @@ namespace Backend.Service.HospitalManagementService
                 if(appointmentRoom != null)
                     allRooms.Remove(allRooms.First(r => r.GetId() == appointmentRoom.GetId()));
             }
+
             return allRooms;
+
+        }
+
+        public IEnumerable<Room> GetAllExaminationRooms(TimeInterval timeInterval)
+        {
+            List<Room> rooms = (List<Room>)GetAvailableRoomsByDate(timeInterval);
+            List<Room> examinationRooms = new List<Room>();
+
+            foreach(Room room in rooms)
+            {
+                if(room.RoomType == RoomType.EXAMINATION)
+                {
+                    examinationRooms.Add(room);
+                }
+            }
+
+            return examinationRooms;
         }
 
         public void DivideRooms(Room initialRoom, String newNumber)
