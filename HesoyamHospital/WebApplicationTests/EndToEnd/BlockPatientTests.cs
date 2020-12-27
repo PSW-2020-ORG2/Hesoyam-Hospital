@@ -12,25 +12,33 @@ namespace WebApplicationTests.EndToEnd
     {
         private IWebDriver driver;
         private readonly BlockPatientList blockPatientList;
-        private readonly int blockPatientCount;
+        private int blockPatientCount;
 
         public BlockPatientTests()
         {
             InitializeDriver();
             blockPatientList = new BlockPatientList(driver);
             blockPatientList.Navigate();
-            Thread.Sleep(30000);
+            blockPatientList.EnsurePageIsDisplayed();
+            Thread.Sleep(5000);
+            blockPatientCount = blockPatientList.BlockButtonCount();
             blockPatientList.URI.ShouldBeEquivalentTo(driver.Url);
         }
-        public void Dispose()
-        {
-            driver.Quit();
-            driver.Dispose();
-        }
+
 
         [Fact]
         public void Successful_blocking()
         {
+            blockPatientList.BlockFirstPatient();
+            Thread.Sleep(5000);
+            blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount - 1);
+        }
+
+
+        public void Dispose()
+        {
+            driver.Quit();
+            driver.Dispose();
         }
 
         private void InitializeDriver()
