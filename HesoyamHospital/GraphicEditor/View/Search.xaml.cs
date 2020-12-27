@@ -104,59 +104,32 @@ namespace GraphicEditor
                 MapLocation mapLocation = (MapLocation)dataGridSearch.SelectedItem;
                 if (mapLocation == null) return;
 
-                DisplayResaults(mapLocation);
+                searchService.DisplayResults(mapLocation);
             }
             else if (searchType.SelectedIndex == 2)
             {
                 InventoryItemDTO equipment = (InventoryItemDTO)dataGridSearch.SelectedItem;
-                
+
                 if (equipment == null) return;
-                
+
                 string room = equipment.Room;
 
-                MapLocation mapLocation = GetLocationByRoomName(room);
+                MapLocation mapLocation = searchService.GetLocationByRoomName(room);
 
-                DisplayResaults(mapLocation);
+                searchService.DisplayResults(mapLocation);
             }
-            else if(searchType.SelectedIndex == 3)
+            else if (searchType.SelectedIndex == 3)
             {
                 MedicineDTO medicineDTO = (MedicineDTO)dataGridSearch.SelectedItem;
-                
+
                 if (medicineDTO == null) return;
-                
+
                 string room = medicineDTO.Room;
 
-                MapLocation mapLocation = GetLocationByRoomName(room);
+                MapLocation mapLocation = searchService.GetLocationByRoomName(room);
 
-                DisplayResaults(mapLocation);
+                searchService.DisplayResults(mapLocation);
             }
-        }
-
-        private MapLocation GetLocationByRoomName(string room)
-        {
-            List<MapLocation> mapLocations = searchService.FindObjectsByName(room);
-            return mapLocations[0];
-        }
-
-        private void DisplayResaults(MapLocation mapLocation)
-        {
-            Global.SearchObjectName = mapLocation.Name;
-            string hospital = mapLocation.Hospital;
-            string path = mapLocation.FilePath;
-            string floor = mapLocation.Floor;
-            string comboBoxPath = "";
-
-            GraphicRepository graphicRepository = new GraphicRepository();
-            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-            
-            foreach (FileInformation inf in menuInformation)
-                if (inf.Name == hospital)
-                    comboBoxPath = inf.FilePath;
-            
-            HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
-            window.Hospital.Content = new HospitalFloor(path);
-            window.HospitalFloors.Text = floor;
-            window.Show();
         }
 
         private List<RoomDTO> ConvertFromRoomToDTO(List<Room> rooms)

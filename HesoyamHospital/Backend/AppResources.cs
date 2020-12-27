@@ -179,6 +179,7 @@ namespace Backend
             actionBenefitRepository = new ActionBenefitRepository(new MySQLStream<ActionBenefit>(), new LongSequencer());
             therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
             roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
+            appointmentRepository = new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer());
         }
 
         public static AppResources getInstance()
