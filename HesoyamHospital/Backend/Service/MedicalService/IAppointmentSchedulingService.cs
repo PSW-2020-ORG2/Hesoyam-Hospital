@@ -14,6 +14,9 @@ namespace Backend.Service.MedicalService
         public IEnumerable<DateTime> GetTimesForSelectedDoctor(Patient patient);
         public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityIntervalDTO dto);
         public bool MultipleAppoitments(Appointment appointment);
-    
+        public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityIntervalDTO dto);
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsDoctor(PriorityIntervalDTO dto);
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityIntervalDTO dto);
+
     }
 }
