@@ -18,7 +18,7 @@ namespace Backend.Service.MedicalService
         private readonly IDoctorRepository doctorRepository;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
 
-        public AppointmentSchedulingService(DoctorRepository doctorRepository, AppointmentRepository appointmentRepository)
+        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
         {
             this.doctorRepository = doctorRepository;
             this.appointmentRepository = appointmentRepository;
