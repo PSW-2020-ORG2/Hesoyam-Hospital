@@ -121,24 +121,24 @@ namespace Authentication.Model.MedicalRecordModel
             return 1969571243 + Id.GetHashCode();
         }
 
-        public override bool meetsCriteria(DocumentSearchCriteria criteria)
+        public override bool MeetsCriteria(DocumentSearchCriteria criteria)
         {
-            if (!base.meetsCriteria(criteria)) return false;
+            if (!base.MeetsCriteria(criteria)) return false;
             if (MedicalTherapies.Count == 0 && !criteria.MedicineName.Equals("")) return false;
             foreach (MedicalTherapy therapy in MedicalTherapies)
                 if (!therapy.containsMedicineWithName(criteria.MedicineName)) return false;
             return true;
         }
 
-        public override bool meetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
+        public override bool MeetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
         {
-            if (filterType == FilterType.MEDICINE_NAME && (textFilter.Filter == TextmatchFilter.CONTAINS || textFilter.Filter == TextmatchFilter.EQUAL) && hasMedicineName(textFilter)) return true;
-            if (filterType == FilterType.MEDICINE_NAME && textFilter.Filter == TextmatchFilter.DOES_NOT_CONTAIN && !hasMedicineName(new TextFilter(textFilter.Text, TextmatchFilter.EQUAL))) return true;
-            if ((filterType == FilterType.DOCTORS_NAME || filterType == FilterType.DIAGNOSIS_NAME) && base.meetsAdvancedTextCriteria(filterType, textFilter)) return true;
+            if (filterType == FilterType.MEDICINE_NAME && (textFilter.Filter == TextmatchFilter.CONTAINS || textFilter.Filter == TextmatchFilter.EQUAL) && HasMedicineName(textFilter)) return true;
+            if (filterType == FilterType.MEDICINE_NAME && textFilter.Filter == TextmatchFilter.DOES_NOT_CONTAIN && !HasMedicineName(new TextFilter(textFilter.Text, TextmatchFilter.EQUAL))) return true;
+            if ((filterType == FilterType.DOCTORS_NAME || filterType == FilterType.DIAGNOSIS_NAME) && base.MeetsAdvancedTextCriteria(filterType, textFilter)) return true;
             return false;
         }
 
-        private bool hasMedicineName(TextFilter filter)
+        private bool HasMedicineName(TextFilter filter)
         {
             foreach (MedicalTherapy therapy in MedicalTherapies)
                 if (therapy.meetsMedicineNameCriteria(filter)) return true;

@@ -80,7 +80,7 @@ namespace Documents.Service
             List<Document> result = new List<Document>();
 
             foreach (Prescription prescription in _prescriptionRepository.GetAllByPatient(patientId))
-                if (prescription.meetsCriteria(criteria))
+                if (prescription.MeetsCriteria(criteria))
                     result.Add(prescription);
 
             return result;
@@ -91,7 +91,7 @@ namespace Documents.Service
             List<Document> result = new List<Document>();
 
             foreach (Report report in _reportRepository.GetAllByPatient(patientId))
-                if (report.meetsCriteria(criteria))
+                if (report.MeetsCriteria(criteria))
                     result.Add(report);
 
             return result;
@@ -101,9 +101,9 @@ namespace Documents.Service
         {
             List<Prescription> allPrescriptions = ((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId));
             List<Document> currentResult = allPrescriptions.ToList().ConvertAll(r => (Document)r);
-            if (criteria.hasElements())
+            if (criteria.HasElements())
             {
-                criteria.setInitialState();
+                criteria.SetInitialState();
                 for (int i = 0; i < criteria.FilterTypes.Count; i++)
                 {
                     List<Document> newResult = new List<Document>();
@@ -132,9 +132,9 @@ namespace Documents.Service
         {
             List<Report> allReports = (List<Report>)_reportRepository.GetAllByPatient(patientId);
             List<Document> currentResult = allReports.ToList().ConvertAll(r => (Document)r);
-            if (criteria.hasElements())
+            if (criteria.HasElements())
             {
-                criteria.setInitialState();
+                criteria.SetInitialState();
                 for (int i = 0; i < criteria.FilterTypes.Count; i++)
                 {
                     List<Document> newResult = new List<Document>();
@@ -163,7 +163,7 @@ namespace Documents.Service
         {
             List<Report> result = new List<Report>();
             foreach (Report report in reports)
-                if (report.meetsTimeIntervalCriteria(timeIntervalFilter))
+                if (report.MeetsTimeIntervalCriteria(timeIntervalFilter))
                     result.Add(report);
             return result;
         }
@@ -172,7 +172,7 @@ namespace Documents.Service
         {
             List<Prescription> result = new List<Prescription>();
             foreach (Prescription prescription in prescriptions)
-                if (prescription.meetsTimeIntervalCriteria(timeIntervalFilter))
+                if (prescription.MeetsTimeIntervalCriteria(timeIntervalFilter))
                     result.Add(prescription);
             return result;
         }
@@ -181,7 +181,7 @@ namespace Documents.Service
         {
             List<Report> result = new List<Report>();
             foreach (Report report in reports)
-                if (report.meetsAdvancedTextCriteria(filterType, filter))
+                if (report.MeetsAdvancedTextCriteria(filterType, filter))
                     result.Add(report);
             return result;
         }
@@ -190,7 +190,7 @@ namespace Documents.Service
         {
             List<Prescription> result = new List<Prescription>();
             foreach (Prescription prescription in prescriptions)
-                if (prescription.meetsAdvancedTextCriteria(filterType, filter))
+                if (prescription.MeetsAdvancedTextCriteria(filterType, filter))
                     result.Add(prescription);
             return result;
         }

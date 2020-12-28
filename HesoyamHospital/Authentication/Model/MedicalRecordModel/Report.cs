@@ -31,9 +31,7 @@ namespace Authentication.Model.MedicalRecordModel
 
         public override bool Equals(object obj)
         {
-            var report = obj as Report;
-            return report != null &&
-                   Id == report.Id;
+            return obj is Report report && Id == report.Id;
         }
 
         public override int GetHashCode()
@@ -41,21 +39,21 @@ namespace Authentication.Model.MedicalRecordModel
             return 1969571243 + Id.GetHashCode();
         }
 
-        public override bool meetsCriteria(DocumentSearchCriteria criteria)
+        public override bool MeetsCriteria(DocumentSearchCriteria criteria)
         {
-            if (!base.meetsCriteria(criteria)) return false;
+            if (!base.MeetsCriteria(criteria)) return false;
             if (!Comment.ToLower().Contains(criteria.Comment.ToLower())) return false;
             return true;
         }
 
-        public override bool meetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
+        public override bool MeetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
         {
-            if (filterType == FilterType.COMMENT && meetsCommentCriteria(textFilter)) return true;
-            if ((filterType == FilterType.DOCTORS_NAME || filterType == FilterType.DIAGNOSIS_NAME) && base.meetsAdvancedTextCriteria(filterType, textFilter)) return true;
+            if (filterType == FilterType.COMMENT && MeetsCommentCriteria(textFilter)) return true;
+            if ((filterType == FilterType.DOCTORS_NAME || filterType == FilterType.DIAGNOSIS_NAME) && base.MeetsAdvancedTextCriteria(filterType, textFilter)) return true;
             return false;
         }
 
-        private bool meetsCommentCriteria(TextFilter filter)
+        private bool MeetsCommentCriteria(TextFilter filter)
         {
             if (filter.Filter == TextmatchFilter.EQUAL && Comment.ToLower().Equals(filter.Text.ToLower())) return true;
             if (filter.Filter == TextmatchFilter.CONTAINS && Comment.ToLower().Contains(filter.Text.ToLower())) return true;

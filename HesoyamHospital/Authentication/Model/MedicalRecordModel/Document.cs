@@ -15,7 +15,7 @@ namespace Authentication.Model.MedicalRecordModel
 
         public Document() { }
 
-        public virtual bool meetsCriteria(DocumentSearchCriteria criteria)
+        public virtual bool MeetsCriteria(DocumentSearchCriteria criteria)
         {
             if (!Doctor.FullName.ToLower().Contains(criteria.DoctorName.ToLower())) return false;
             if (!Diagnosis.DiagnosisName.ToLower().Contains(criteria.DiagnosisName.ToLower())) return false;
@@ -23,21 +23,21 @@ namespace Authentication.Model.MedicalRecordModel
             return true;
         }
 
-        public virtual bool meetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
+        public virtual bool MeetsAdvancedTextCriteria(FilterType filterType, TextFilter textFilter)
         {
-            if (filterType == FilterType.DOCTORS_NAME && meetsDoctorNameCriteria(textFilter)) return true;
-            if (filterType == FilterType.DIAGNOSIS_NAME && meetsDiagnosisNameCriteria(textFilter)) return true;
+            if (filterType == FilterType.DOCTORS_NAME && MeetsDoctorNameCriteria(textFilter)) return true;
+            if (filterType == FilterType.DIAGNOSIS_NAME && MeetsDiagnosisNameCriteria(textFilter)) return true;
             return false;
         }
 
-        public bool meetsTimeIntervalCriteria(TimeIntervalFilter filter)
+        public bool MeetsTimeIntervalCriteria(TimeIntervalFilter filter)
         {
             if (filter.TimeInterval.IsDateTimeBetween(DateCreated) && filter.Filter == IntervalMatchFilter.CONTAINS) return true;
             if (!filter.TimeInterval.IsDateTimeBetween(DateCreated) && filter.Filter == IntervalMatchFilter.DOES_NOT_CONTAIN) return true;
             return false;
         }
 
-        private bool meetsDoctorNameCriteria(TextFilter filter)
+        private bool MeetsDoctorNameCriteria(TextFilter filter)
         {
             if (filter.Filter == TextmatchFilter.EQUAL && Doctor.FullName.ToLower().Equals(filter.Text.ToLower())) return true;
             if (filter.Filter == TextmatchFilter.CONTAINS && Doctor.FullName.ToLower().Contains(filter.Text.ToLower())) return true;
@@ -45,7 +45,7 @@ namespace Authentication.Model.MedicalRecordModel
             return false;
         }
 
-        private bool meetsDiagnosisNameCriteria(TextFilter filter)
+        private bool MeetsDiagnosisNameCriteria(TextFilter filter)
         {
             if (filter.Filter == TextmatchFilter.EQUAL && Diagnosis.DiagnosisName.ToLower().Equals(filter.Text.ToLower())) return true;
             if (filter.Filter == TextmatchFilter.CONTAINS && Diagnosis.DiagnosisName.ToLower().Contains(filter.Text.ToLower())) return true;

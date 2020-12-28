@@ -25,15 +25,15 @@ namespace Authentication.Model.Util
             TimeIntervalFilters = timeIntervalFilters;
         }
 
-        public bool isConsistent()
+        public bool IsConsistent()
             => FilterTypes.Count == TextFilters.Count + TimeIntervalFilters.Count && (LogicalOperators.Count + 1 == TextFilters.Count + TimeIntervalFilters.Count || (LogicalOperators.Count == 0 && FilterTypes.Count == 0));
 
-        public bool hasElements()
+        public bool HasElements()
             => FilterTypes.Count > 0;
 
-        public void setInitialState()
+        public void SetInitialState()
         {
-            if (isConsistent()) LogicalOperators.Insert(0, LogicalOperator.AND);
+            if (IsConsistent()) LogicalOperators.Insert(0, LogicalOperator.AND);
         }
     }
 }

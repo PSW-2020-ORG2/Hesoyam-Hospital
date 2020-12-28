@@ -21,6 +21,6 @@ namespace Documents.Validation
             criteria.TextFilters != null &&
             criteria.TimeIntervalFilters != null &&
             criteria.FilterTypes != null &&
-            criteria.isConsistent();
+            criteria.IsConsistent();
     }
 }
