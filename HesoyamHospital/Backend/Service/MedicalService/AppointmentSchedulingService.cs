@@ -123,7 +123,10 @@ namespace Backend.Service.MedicalService
 
         public Appointment SaveAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            if (appointment.DoctorInAppointment == null || appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
+            appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
+            doctorRepository.UpdateProperty(appointment.DoctorInAppointment, "TimeTable");
+            return appointment;
         }
 
         public void Update(Appointment entity)

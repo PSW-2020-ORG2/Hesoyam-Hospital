@@ -126,7 +126,13 @@
         <Setter Property="Grid.ColumnSpan" Value="5"/>
         <Setter Property="Width" Value="550"/>
     </Style>
-    
+
+    <Style x:Key="labelMessage" TargetType="Label"  BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="360"/>
+    </Style>
+
     <Style x:Key="textBoxUserLogin" TargetType="TextBox">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="25"/>
