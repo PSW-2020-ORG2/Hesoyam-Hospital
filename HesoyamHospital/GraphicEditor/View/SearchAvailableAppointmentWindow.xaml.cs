@@ -134,7 +134,6 @@ namespace GraphicEditor
             RefreshDataGrid();
         }
 
-
         private static void ShowMessage()
         {
             MessageWindow mw = new MessageWindow();
