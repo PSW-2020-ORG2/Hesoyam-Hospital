@@ -10,7 +10,6 @@ using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Model.PatientModel;
 using Backend.Util;
 using Backend.Model.DoctorModel;
-using Backend.Model.UserModel;
 
 namespace GraphicEditorTests.Unit
 {
@@ -71,7 +70,6 @@ namespace GraphicEditorTests.Unit
 
         private Mock<IAppointmentRepository> CreateStubAppointmentRepository()
         {
-           // long id, Doctor doctor, Patient patient, Room room, AppointmentType appointmentType, TimeInterval timeInterval
             var stubAppointmentRepository = new Mock<IAppointmentRepository>();
             List<Appointment> appointments = new List<Appointment>();
            
