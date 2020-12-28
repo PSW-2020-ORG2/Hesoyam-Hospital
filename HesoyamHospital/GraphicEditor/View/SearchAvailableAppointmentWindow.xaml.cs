@@ -13,6 +13,8 @@ using System.Data;
 using GraphicEditor.DTOs;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections;
+using Backend.Model.PatientModel;
+using GraphicEditor.View;
 
 namespace GraphicEditor
 {
@@ -21,19 +23,21 @@ namespace GraphicEditor
     /// </summary>
     public partial class SearchAvailableAppointmentWindow : Window
     {
-        private List<Doctor> doctors; 
-        private List<Room> availableRooms;
+       
         private readonly DoctorService doctorService;
         private readonly PatientService patientService;
-        private List<PriorityIntervalDTO> priorityIntervalDTOs;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
         private readonly RoomService roomService;
         private SearchService searchService;
-        private PriorityIntervalDTO selectedTerm;
-        private TimeInterval timeInterval;
+        private List<Room> availableRooms;
         private Room availableRoom;
-        private PatientDTO patientForAppointment;
+        private Doctor doctorInAppointment;
+        private TimeInterval timeInterval;
         private List<PatientDTO> patientDTOs;
+        private PatientDTO patientInAppointmentDTO;
+        private List<PriorityIntervalDTO> priorityIntervalDTOs;
+        private PriorityIntervalDTO selectedTerm;
+        
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
@@ -41,12 +45,12 @@ namespace GraphicEditor
             patientService = Backend.AppResources.getInstance().patientService;
             appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             roomService = Backend.AppResources.getInstance().roomService;
-            doctors = (List<Doctor>) doctorService.GetAll();
+            List<Doctor> doctors = (List<Doctor>) doctorService.GetAll();
             searchService = new SearchService();
 
             foreach (Doctor doctor in doctors)
             {
-                ComboBoxItem item = new ComboBoxItem();
+                ComboBoxItem item = new ComboBoxItem();   
                 item.Tag = doctor;
                 item.Content = doctor.FullName;
                 searchDoctor.Items.Add(item);
@@ -61,10 +65,10 @@ namespace GraphicEditor
             DateTime endTime = toDatePicker.SelectedDate.Value;
             bool priority = priorityDoctor.IsChecked.Value;
             ComboBoxItem item = (ComboBoxItem)searchDoctor.SelectedItem;
-            Doctor doctor = (Doctor)item.Tag;
+            doctorInAppointment = (Doctor)item.Tag;
 
             priorityIntervalDTOs = new List<PriorityIntervalDTO>();
-            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, doctor.Id, priority);
+            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, doctorInAppointment.Id, priority);
             priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
 
             searchAvailable.ItemsSource = priorityIntervalDTOs;
@@ -78,16 +82,21 @@ namespace GraphicEditor
         {
             selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
             if (selectedTerm != null)
+            {
                 ShowTwoButtons();
-            
+                DateTime startTime = selectedTerm.StartTime;
+                DateTime endTime = selectedTerm.EndTime;
+                timeInterval = new TimeInterval(startTime, endTime);
+                availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
+            }
         }
 
 
         private void SearchPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            patientForAppointment = (PatientDTO)searchPatients.SelectedItem;
+            patientInAppointmentDTO = (PatientDTO)searchPatients.SelectedItem;
             
-            if (patientForAppointment != null)
+            if (patientInAppointmentDTO != null)
             {
                 HideSearchForPatient();
                 buttonScheduleAppointment.Visibility = Visibility.Visible;
@@ -96,13 +105,7 @@ namespace GraphicEditor
 
         private void ButtonSeeAvailableRoom_Click(object sender, RoutedEventArgs e)
         {
-            DateTime startTime = selectedTerm.StartTime;
-            DateTime endTime = selectedTerm.EndTime;
-            timeInterval = new TimeInterval(startTime, endTime);
-            availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
-
-            availableRoom = availableRooms[0];
-            MapLocation mapLocation = searchService.GetLocationByRoomName(availableRoom.RoomNumber);
+            MapLocation mapLocation = searchService.GetLocationByRoomName(availableRooms[0].RoomNumber);
             searchService.DisplayResults(mapLocation);
         }
 
@@ -114,6 +117,37 @@ namespace GraphicEditor
             searchPatients.ItemsSource = patientDTOs;
             searchPatients.Columns[0].Visibility = Visibility.Hidden;
             
+        }
+
+        public void FilterPatientByName_TextChanged(object sender, EventArgs e)
+        {
+            searchPatients.ItemsSource = patientDTOs.FindAll(x => x.Name.ToLowerInvariant().Contains(textBoxForInputPatient.Text.ToLower()));
+        }
+
+        private void ButtonScheduleAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            Patient patientInAppointment = patientService.GetByID(patientInAppointmentDTO.Id);
+            availableRoom = availableRooms[0];
+            Appointment appointmentForPatient = new Appointment(doctorInAppointment, patientInAppointment, availableRoom, AppointmentType.checkup, timeInterval);
+            appointmentSchedulingService.Create(appointmentForPatient);
+            ShowMessage();
+            RefreshDataGrid();
+        }
+
+
+        private static void ShowMessage()
+        {
+            MessageWindow mw = new MessageWindow();
+            mw.Title = "Scheduled examination";
+            mw.message.Content = "Successfully scheduled examination!";
+            mw.ShowDialog();
+        }
+
+        private void RefreshDataGrid()
+        {
+            searchPatients.Visibility = Visibility.Hidden;
+            searchAvailable.Visibility = Visibility.Visible;
+            HideButtons();
         }
 
         private void ShowWPFElement1()
@@ -168,16 +202,6 @@ namespace GraphicEditor
             {
                 toDatePicker.IsDropDownOpen = true;
             }
-        }
-
-        public void FilterPatientByName_TextChanged(object sender, EventArgs e)
-        {   
-            searchPatients.ItemsSource = patientDTOs.FindAll(x => x.Name.ToLowerInvariant().Contains(textBoxForInputPatient.Text.ToLower()));
-        }
-
-        private void searchDoctor_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
         }
     }
 }

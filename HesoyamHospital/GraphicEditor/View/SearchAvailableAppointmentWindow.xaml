@@ -65,9 +65,9 @@
 
         <Button x:Name="buttonSeeAvailableRoom" Content="See available room for an appointment" ToolTip="See available room for an appointment" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonSeeAvailableRoom_Click" Visibility="Hidden"/>
 
-        <Button x:Name="buttonShowPatients" Content="Show patients" ToolTip="schedule an appointment" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden" Click="ButtonShowPatients_Click"/>
+        <Button x:Name="buttonShowPatients" Content="Show patients" ToolTip="Show patients" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden" Click="ButtonShowPatients_Click"/>
 
-        <Button x:Name="buttonScheduleAppointment" Content="Schedule an appointment" ToolTip="schedule an appointment" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden"/>
+        <Button x:Name="buttonScheduleAppointment" Content="Schedule an appointment" ToolTip="Schedule an appointment" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden" Click="ButtonScheduleAppointment_Click"/>
 
         <Label x:Name="labelSearchPatient"  Content="Search a patient by name :" Grid.Row="9" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}" Visibility="Hidden"/>
 
