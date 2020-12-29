@@ -30,13 +30,10 @@ namespace GraphicEditor
         private readonly RoomService roomService;
         private SearchService searchService;
         private List<Room> availableRooms;
-        private Room availableRoom;
-        private Doctor doctorInAppointment;
         private TimeInterval timeInterval;
         private List<PatientDTO> patientDTOs;
         private PatientDTO patientInAppointmentDTO;
-        private List<PriorityIntervalDTO> priorityIntervalDTOs;
-        private PriorityIntervalDTO selectedTerm;
+        private long idDoctor;
         
         public SearchAvailableAppointmentWindow()
         {
@@ -59,31 +56,36 @@ namespace GraphicEditor
 
         private void SearchAvailableAppointmentClick(object sender, RoutedEventArgs e)
         {
-            ShowWPFElement1();
-            string doctorName = searchDoctor.SelectedItem.ToString();
+            ShowWPFElement(false);
+            LoadDataGrid();
+        }
+
+        private void LoadDataGrid()
+        {
             DateTime startTime = fromDatePicker.SelectedDate.Value;
             DateTime endTime = toDatePicker.SelectedDate.Value;
             bool priority = priorityDoctor.IsChecked.Value;
             ComboBoxItem item = (ComboBoxItem)searchDoctor.SelectedItem;
-            doctorInAppointment = (Doctor)item.Tag;
+            Doctor doctor = (Doctor)item.Tag;
+            idDoctor = doctor.Id;
 
-            priorityIntervalDTOs = new List<PriorityIntervalDTO>();
-            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctorName, doctorInAppointment.Id, priority);
-            priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
+            PriorityIntervalDTO priorityInterval = new PriorityIntervalDTO(startTime, endTime, doctor.FullName, doctor.Id, priority);
+            List<PriorityIntervalDTO> priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
 
             searchAvailable.ItemsSource = priorityIntervalDTOs;
             searchAvailable.Columns[4].Visibility = Visibility.Hidden;
             searchAvailable.Columns[3].Visibility = Visibility.Hidden;
+            searchPatients.Visibility = Visibility.Hidden;
+            searchAvailable.Visibility = Visibility.Visible;
+            HideButtons();
         }
-
-     
 
         private void SearchAvailable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
+            PriorityIntervalDTO selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
             if (selectedTerm != null)
             {
-                ShowTwoButtons();
+                ShowButtons();
                 DateTime startTime = selectedTerm.StartTime;
                 DateTime endTime = selectedTerm.EndTime;
                 timeInterval = new TimeInterval(startTime, endTime);
@@ -111,7 +113,7 @@ namespace GraphicEditor
 
         private void ButtonShowPatients_Click(object sender, RoutedEventArgs e)
         {
-            ShowWPFElement2();
+            ShowWPFElement(true);
             List<Patient> patients = (List<Patient>)patientService.GetAll();
             patientDTOs = PatientMapper.ConvertFromPatientToDTO(patients);
             searchPatients.ItemsSource = patientDTOs;
@@ -127,13 +129,37 @@ namespace GraphicEditor
         private void ButtonScheduleAppointment_Click(object sender, RoutedEventArgs e)
         {
             Patient patientInAppointment = patientService.GetByID(patientInAppointmentDTO.Id);
-            availableRoom = availableRooms[0];
+            Doctor doctorInAppointment = doctorService.GetByID(idDoctor);
+            Room availableRoom = availableRooms[0];
             Appointment appointmentForPatient = new Appointment(doctorInAppointment, patientInAppointment, availableRoom, AppointmentType.checkup, timeInterval);
-            appointmentSchedulingService.Create(appointmentForPatient);
+            appointmentSchedulingService.SaveAppointment(appointmentForPatient);
             ShowMessage();
-            RefreshDataGrid();
+            LoadDataGrid();
         }
 
+        private void ShowWPFElement(bool isActivePatientDataGrid)
+        {
+            HideButtons();
+            if (isActivePatientDataGrid)
+            {
+                VisibleSearchForPatient();
+                searchAvailable.Visibility = Visibility.Hidden;
+                searchPatients.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                HideSearchForPatient();
+                searchPatients.Visibility = Visibility.Hidden;
+                searchAvailable.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        private void VisibleSearchForPatient()
+        {
+            labelSearchPatient.Visibility = Visibility.Visible;
+            textBoxForInputPatient.Visibility = Visibility.Visible;
+        }
 
         private static void ShowMessage()
         {
@@ -143,38 +169,13 @@ namespace GraphicEditor
             mw.ShowDialog();
         }
 
-        private void RefreshDataGrid()
-        {
-            searchPatients.Visibility = Visibility.Hidden;
-            searchAvailable.Visibility = Visibility.Visible;
-            HideButtons();
-        }
-
-        private void ShowWPFElement1()
-        {
-            HideButtons();
-            HideSearchForPatient();
-            searchPatients.Visibility = Visibility.Hidden;
-            searchAvailable.Visibility = Visibility.Visible;
-        }
-
         private void HideSearchForPatient()
         {
             labelSearchPatient.Visibility = Visibility.Hidden;
             textBoxForInputPatient.Visibility = Visibility.Hidden;
         }
 
-        private void ShowWPFElement2()
-        {
-            HideButtons();
-            searchAvailable.Visibility = Visibility.Hidden;
-            searchPatients.Visibility = Visibility.Visible;
-            labelSearchPatient.Visibility = Visibility.Visible;
-            textBoxForInputPatient.Visibility = Visibility.Visible;
-            
-        }
-
-        private void ShowTwoButtons()
+        private void ShowButtons()
         {
             buttonSeeAvailableRoom.Visibility = Visibility.Visible;
             buttonShowPatients.Visibility = Visibility.Visible;

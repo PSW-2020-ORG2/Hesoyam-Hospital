@@ -20,7 +20,6 @@ namespace GraphicEditorTests.Unit
         [Fact]
         public void Schedule_appointment()
         {
-            var stubDoctorRepository = CreateStubDoctorRepository();
             AppointmentSchedulingService appointmentSchedulingService = new AppointmentSchedulingService(CreateStubDoctorRepository(), CreateStubAppointmentRepository());
             DoctorService doctorService = new DoctorService(CreateStubDoctorRepository());
             List<Shift> shifts = new List<Shift>();

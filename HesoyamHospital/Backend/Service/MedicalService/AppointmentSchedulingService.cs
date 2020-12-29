@@ -61,11 +61,8 @@ namespace Backend.Service.MedicalService
 
         public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityIntervalDTO dto)
         {
-            if (dto.Priority)
-            {
-                return GetWhenPriorityIsDoctor(dto);
-            }
-
+            if (dto.Priority) return GetWhenPriorityIsDoctor(dto);
+          
             return GetWhenPriorityIsInterval(dto);
         }
 
