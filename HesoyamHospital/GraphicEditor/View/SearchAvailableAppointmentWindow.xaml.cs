@@ -23,7 +23,7 @@ namespace GraphicEditor
     /// </summary>
     public partial class SearchAvailableAppointmentWindow : Window
     {
-       
+
         private readonly DoctorService doctorService;
         private readonly PatientService patientService;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
@@ -34,7 +34,7 @@ namespace GraphicEditor
         private List<PatientDTO> patientDTOs;
         private PatientDTO patientInAppointmentDTO;
         private long idDoctor;
-        
+
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
@@ -42,14 +42,14 @@ namespace GraphicEditor
             patientService = Backend.AppResources.getInstance().patientService;
             appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             roomService = Backend.AppResources.getInstance().roomService;
-            List<Doctor> doctors = (List<Doctor>) doctorService.GetAll();
+            List<Doctor> doctors = (List<Doctor>)doctorService.GetAll();
             searchService = new SearchService();
 
             foreach (Doctor doctor in doctors)
             {
-                ComboBoxItem item = new ComboBoxItem();   
+                ComboBoxItem item = new ComboBoxItem();
                 item.Tag = doctor;
-                item.Content = doctor.FullName;
+                item.Content = doctor.FullName + " " + "spec." + " " + doctor.Specialisation;
                 searchDoctor.Items.Add(item);
             }
         }
@@ -97,7 +97,7 @@ namespace GraphicEditor
         private void SearchPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             patientInAppointmentDTO = (PatientDTO)searchPatients.SelectedItem;
-            
+
             if (patientInAppointmentDTO != null)
             {
                 HideSearchForPatient();
@@ -118,7 +118,7 @@ namespace GraphicEditor
             patientDTOs = PatientMapper.ConvertFromPatientToDTO(patients);
             searchPatients.ItemsSource = patientDTOs;
             searchPatients.Columns[0].Visibility = Visibility.Hidden;
-            
+
         }
 
         public void FilterPatientByName_TextChanged(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace GraphicEditor
                 searchPatients.Visibility = Visibility.Hidden;
                 searchAvailable.Visibility = Visibility.Visible;
             }
-            
+
         }
 
         private void VisibleSearchForPatient()
@@ -202,6 +202,17 @@ namespace GraphicEditor
             if (e.Key == Key.F1)
             {
                 toDatePicker.IsDropDownOpen = true;
+            }
+        }
+
+        private void SearchDoctorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            ComboBoxItem doctorSelected = (ComboBoxItem)searchDoctor.SelectedItem;
+
+            if (doctorSelected != null)
+            {
+                
             }
         }
     }
