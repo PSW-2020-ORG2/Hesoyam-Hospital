@@ -1,10 +1,13 @@
-﻿using Feedbacks.Model;
+﻿using Feedbacks.DTOs;
+using Feedbacks.Model;
 using System.Collections.Generic;
 
 namespace Feedbacks.Service.Abstract
 {
     public interface ISurveyService : IService<Survey, long>
     {
+        public void FillOutSurvey(IHttpRequestSender httpRequestSender, SurveyDTO dto, long appointmentId);
+        public IEnumerable<DoctorDTO> GetDoctorsGrades(IHttpRequestSender httpRequestSender);
         public List<Section> GetAnswersPerDoctorSections();
         public List<Section> GetAnswersPerStaffSections();
         public List<Section> GetAnswersPerHygieneSections();

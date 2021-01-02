@@ -103,7 +103,7 @@ namespace Appointments.Service
             return appointment.AbleToFillOutSurvey && !appointment.Canceled && appointment.TimeInterval.IsInThePast();
         }
 
-        public long GetDoctorInAppointmentId(long appoinmtneId)
-            => _appointmentRepository.GetByID(appoinmtneId).DoctorInAppointment.Id;
+        public long GetDoctorInAppointmentId(long appointmentId)
+            => _appointmentRepository.GetByID(appointmentId).DoctorInAppointment.Id;
     }
 }

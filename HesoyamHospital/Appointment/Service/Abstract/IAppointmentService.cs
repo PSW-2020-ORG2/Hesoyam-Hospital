@@ -14,6 +14,6 @@ namespace Appointments.Service.Abstract
         public List<BlockPatientDTO> GetSuspiciousPatients();
         public Patient BlockPatient(Patient patient);
         public bool SurveyCanBeFilledOut(long appointmentId);
-        public long GetDoctorInAppointmentId(long appoinmtneId);
+        public long GetDoctorInAppointmentId(long appointmentId);
     }
 }

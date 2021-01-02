@@ -1,4 +1,6 @@
-﻿using Feedbacks.Model;
+﻿using Feedbacks.DTOs;
+using Feedbacks.Mappers;
+using Feedbacks.Model;
 using Feedbacks.Repository;
 using Feedbacks.Service.Abstract;
 using System;
@@ -14,6 +16,26 @@ namespace Feedbacks.Service
         public SurveyService(SurveyRepository surveyRepository)
         {
             _surveyRepository = surveyRepository;
+        }
+
+        public void FillOutSurvey(IHttpRequestSender httpRequestSender, SurveyDTO dto, long appointmentId)
+        {
+            long doctorId = httpRequestSender.GetDoctorId(appointmentId);
+            Create(SurveyMapper.SurveyDTOToSurvey(dto, doctorId));
+            httpRequestSender.DeactivateFillingOutSurvey(appointmentId);
+        }
+
+        public IEnumerable<DoctorDTO> GetDoctorsGrades(IHttpRequestSender httpRequestSender)
+        {
+            List<long> doctorIds = httpRequestSender.GetAllDoctorIds();
+            List<DoctorDTO> dtos = new List<DoctorDTO>();
+            foreach (long doctorId in doctorIds)
+            {
+                DoctorDTO dto = DoctorMapper.DoctorToDoctorDTO(doctorId, httpRequestSender.GetDoctorUsername(doctorId));
+                dto.AverageGrade = GetAvarageGradePerDoctors(doctorId);
+                dtos.Add(dto);
+            }
+            return dtos;
         }
 
         public Survey Create(Survey entity) 

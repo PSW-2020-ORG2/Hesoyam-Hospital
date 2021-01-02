@@ -65,8 +65,8 @@ namespace Appointments.Controllers
             => Ok(_appointmentService.SurveyCanBeFilledOut(appointmentId));
 
         [HttpGet("getDoctorInAppointmentId/{appointmentId}")]
-        public IActionResult GetDoctorInAppointmentId(long appoinmtneId)
-            => Ok(_appointmentService.GetDoctorInAppointmentId(appoinmtneId));
+        public IActionResult GetDoctorInAppointmentId(long appointmentId)
+            => Ok(_appointmentService.GetDoctorInAppointmentId(appointmentId));
 
         [HttpPut("deactivateFillingOutSurvey/{appointmentId}")]
         public IActionResult DeactivateFillingOutSurvey(long appointmentId)
