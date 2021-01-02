@@ -1,4 +1,4 @@
-﻿using Authentication.Model.Util;
+﻿using Documents.Util;
 
 namespace Documents.Validation
 {

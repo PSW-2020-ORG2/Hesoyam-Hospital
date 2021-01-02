@@ -1,4 +1,4 @@
-﻿using Authentication.Model.MedicalRecordModel;
+﻿using Documents.Model;
 using System.Collections.Generic;
 
 namespace Documents.Repository.Abstract

@@ -1,4 +1,4 @@
-﻿using Authentication.Model.MedicalRecordModel;
+﻿using Documents.Model;
 using Documents.Repository.Abstract;
 using Documents.Repository.SQLRepository.Base;
 using System.Collections.Generic;
@@ -13,6 +13,6 @@ namespace Documents.Repository
         }
 
         public IEnumerable<Prescription> GetAllByPatient(long patientId)
-            => GetAll().Where(presctiprion => presctiprion.Patient.Id == patientId).ToList();
+            => GetAll().Where(presctiprion => presctiprion.PatientId == patientId).ToList();
     }
 }

@@ -1,5 +1,4 @@
-﻿using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.UserModel;
+﻿using Documents.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -9,15 +8,12 @@ namespace Documents.Repository.SQLRepository.Base
     {
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
-        public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!isPostgres())
+            if (!IsPostgres())
             {
                 if (!optionsBuilder.IsConfigured)
                 {
@@ -30,7 +26,7 @@ namespace Documents.Repository.SQLRepository.Base
             }
         }
 
-        private bool isPostgres()
+        private bool IsPostgres()
         {
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
@@ -45,6 +41,7 @@ namespace Documents.Repository.SQLRepository.Base
 
             return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
+
         private string GeneratePostgresConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
@@ -54,14 +51,6 @@ namespace Documents.Repository.SQLRepository.Base
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
-
-            modelBuilder.Entity<User>()
-                    .ToTable("Users")
-                    .HasDiscriminator<string>("ContentType")
-                    .HasValue<User>("User")
-                    .HasValue<Patient>("Patient")
-                    .HasValue<SystemAdmin>("SystemAdmin")
-                    .HasValue<Doctor>("Doctor");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.Util;
+﻿using Documents.Model;
 using Documents.DTOs;
 using Documents.Mappers;
 using Documents.Repository.Abstract;
@@ -7,6 +6,8 @@ using Documents.Service.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Documents.Util;
+using System.Net.Http;
 
 namespace Documents.Service
 {
@@ -21,12 +22,12 @@ namespace Documents.Service
             _reportRepository = reportRepository;
         }
 
-        public IEnumerable<DocumentDTO> AdvanceSearchDocs(AdvancedDocumentSearchCriteria criteria, long patientId)
+        public IEnumerable<DocumentDTO> AdvanceSearchDocs(AdvancedDocumentSearchCriteria criteria, long patientId, IHttpRequestSender httpRequestSender)
         {
             List<DocumentDTO> result = new List<DocumentDTO>();
 
-            if (criteria.ShouldSearchPrescriptions) result.AddRange(DocumentsMapper.DocumentToDocumentDTO(GetPrescriptionsThatMeetAdvancedCriteria(criteria, patientId)));
-            if (criteria.ShouldSearchReports) result.AddRange(DocumentsMapper.DocumentToDocumentDTO(GetReportsThatMeetAdvancedCriteria(criteria, patientId)));
+            if (criteria.ShouldSearchPrescriptions) result.AddRange(DocumentsMapper.DocumentToDocumentDTO(GetPrescriptionsThatMeetAdvancedCriteria(criteria, patientId, httpRequestSender), httpRequestSender));
+            if (criteria.ShouldSearchReports) result.AddRange(DocumentsMapper.DocumentToDocumentDTO(GetReportsThatMeetAdvancedCriteria(criteria, patientId, httpRequestSender), httpRequestSender));
 
             return result;
         }
@@ -60,12 +61,12 @@ namespace Documents.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Document> SimpleSearchDocs(DocumentSearchCriteria criteria, long patientId)
+        public IEnumerable<Document> SimpleSearchDocs(DocumentSearchCriteria criteria, long patientId, IHttpRequestSender httpRequestSender)
         {
             List<Document> result = new List<Document>();
 
-            if (criteria.ShouldSearchPrescriptions) result.AddRange(GetPrescriptionsThatMeetCriteria(criteria, patientId));
-            if (criteria.ShouldSearchReports) result.AddRange(GetReportsThatMeetCriteria(criteria, patientId));
+            if (criteria.ShouldSearchPrescriptions) result.AddRange(GetPrescriptionsThatMeetCriteria(criteria, patientId, httpRequestSender));
+            if (criteria.ShouldSearchReports) result.AddRange(GetReportsThatMeetCriteria(criteria, patientId, httpRequestSender));
 
             return result;
         }
@@ -75,29 +76,28 @@ namespace Documents.Service
             throw new NotImplementedException();
         }
 
-        private List<Document> GetPrescriptionsThatMeetCriteria(DocumentSearchCriteria criteria, long patientId)
+        private List<Document> GetPrescriptionsThatMeetCriteria(DocumentSearchCriteria criteria, long patientId, IHttpRequestSender httpRequestSender)
         {
             List<Document> result = new List<Document>();
 
             foreach (Prescription prescription in _prescriptionRepository.GetAllByPatient(patientId))
-                if (prescription.MeetsCriteria(criteria))
+                if (prescription.MeetsCriteria(criteria, httpRequestSender.GetDoctorFullName(prescription.DoctorId)))
                     result.Add(prescription);
-
             return result;
         }
 
-        private List<Document> GetReportsThatMeetCriteria(DocumentSearchCriteria criteria, long patientId)
+        private List<Document> GetReportsThatMeetCriteria(DocumentSearchCriteria criteria, long patientId, IHttpRequestSender httpRequestSender)
         {
             List<Document> result = new List<Document>();
 
             foreach (Report report in _reportRepository.GetAllByPatient(patientId))
-                if (report.MeetsCriteria(criteria))
+                if (report.MeetsCriteria(criteria, httpRequestSender.GetDoctorFullName(report.DoctorId)))
                     result.Add(report);
 
             return result;
         }
 
-        private List<Document> GetPrescriptionsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
+        private List<Document> GetPrescriptionsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId, IHttpRequestSender httpRequestSender)
         {
             List<Prescription> allPrescriptions = ((List<Prescription>)_prescriptionRepository.GetAllByPatient(patientId));
             List<Document> currentResult = allPrescriptions.ToList().ConvertAll(r => (Document)r);
@@ -120,7 +120,7 @@ namespace Documents.Service
                         criteria.TextFilters.RemoveAt(0);
                         criteria.TextFilters.Add(textFilter);
                         if (criteria.FilterTypes[i] == FilterType.COMMENT) continue;
-                        newResult = GetPrescriptionsThatMeetTextCriteria(allPrescriptions, textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
+                        newResult = GetPrescriptionsThatMeetTextCriteria(allPrescriptions, textFilter, criteria.FilterTypes[i], httpRequestSender).ConvertAll(r => (Document)r);
                     }
                     currentResult = PerformLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
                 }
@@ -128,7 +128,7 @@ namespace Documents.Service
             return currentResult;
         }
 
-        private List<Document> GetReportsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId)
+        private List<Document> GetReportsThatMeetAdvancedCriteria(AdvancedDocumentSearchCriteria criteria, long patientId, IHttpRequestSender httpRequestSender)
         {
             List<Report> allReports = (List<Report>)_reportRepository.GetAllByPatient(patientId);
             List<Document> currentResult = allReports.ToList().ConvertAll(r => (Document)r);
@@ -151,7 +151,7 @@ namespace Documents.Service
                         criteria.TextFilters.RemoveAt(0);
                         criteria.TextFilters.Add(textFilter);
                         if (criteria.FilterTypes[i] == FilterType.MEDICINE_NAME) continue;
-                        newResult = GetReportsThatMeetTextCriteria(allReports, textFilter, criteria.FilterTypes[i]).ConvertAll(r => (Document)r);
+                        newResult = GetReportsThatMeetTextCriteria(allReports, textFilter, criteria.FilterTypes[i], httpRequestSender).ConvertAll(r => (Document)r);
                     }
                     currentResult = PerformLogicalOperation(currentResult, newResult, criteria.LogicalOperators[i]);
                 }
@@ -177,20 +177,20 @@ namespace Documents.Service
             return result;
         }
 
-        private List<Report> GetReportsThatMeetTextCriteria(List<Report> reports, TextFilter filter, FilterType filterType)
+        private List<Report> GetReportsThatMeetTextCriteria(List<Report> reports, TextFilter filter, FilterType filterType, IHttpRequestSender httpRequestSender)
         {
             List<Report> result = new List<Report>();
             foreach (Report report in reports)
-                if (report.MeetsAdvancedTextCriteria(filterType, filter))
+                if (report.MeetsAdvancedTextCriteria(filterType, filter, httpRequestSender.GetDoctorFullName(report.DoctorId)))
                     result.Add(report);
             return result;
         }
 
-        private List<Prescription> GetPrescriptionsThatMeetTextCriteria(List<Prescription> prescriptions, TextFilter filter, FilterType filterType)
+        private List<Prescription> GetPrescriptionsThatMeetTextCriteria(List<Prescription> prescriptions, TextFilter filter, FilterType filterType, IHttpRequestSender httpRequestSender)
         {
             List<Prescription> result = new List<Prescription>();
             foreach (Prescription prescription in prescriptions)
-                if (prescription.MeetsAdvancedTextCriteria(filterType, filter))
+                if (prescription.MeetsAdvancedTextCriteria(filterType, filter, httpRequestSender.GetDoctorFullName(prescription.DoctorId)))
                     result.Add(prescription);
             return result;
         }

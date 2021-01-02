@@ -1,5 +1,4 @@
-using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.UserModel;
+using Documents.Model;
 using Documents.Repository;
 using Documents.Repository.SQLRepository.Base;
 using Documents.Service;
@@ -41,13 +40,11 @@ namespace Documents
                                   });
             });
             services.AddSingleton<IDocumentService, DocumentService>(service => new DocumentService(new PrescriptionRepository(new SQLStream<Prescription>()), new ReportRepository(new SQLStream<Report>())));
-            services.AddSingleton<IMedicalRecordService, MedicalRecordService>(service => new MedicalRecordService(new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
-            services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
-            services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()), new DoctorRepository(new SQLStream<Doctor>())));
             services.AddControllers();
             services.AddMvc().AddJsonOptions(options =>
                    options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers().AddNewtonsoftJson();
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
