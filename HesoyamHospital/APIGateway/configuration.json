@@ -164,6 +164,44 @@
       "UpstreamPathTemplate": "/gateway/registration/activate/{token}",
       "UpstreamHttpMethod": [ "POST" ]
     },
+    {
+      "DownstreamPathTemplate": "/api/doctor/allGeneralDoctors",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57746
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/medicalrecord/allGeneralDoctors",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/patient/changeSelectedDoctor",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57746
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/medicalrecord/changeSelectedDoctor",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    //MEDICAL RECORD CONTROLLER
+    {
+      "DownstreamPathTemplate": "/api/medicalrecord/show/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57746
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/medicalrecord/show/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
 
     //DOCUMENTS
     //DOCUMENT CONTROLLER
@@ -201,44 +239,6 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/document/{id}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-
-    //MEDICAL RECORD CONTROLLER
-    {
-      "DownstreamPathTemplate": "/api/medicalrecord/allGeneralDoctors",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57748
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/medicalrecord/allGeneralDoctors",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/medicalrecord/changeSelectedDoctor",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57748
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/medicalrecord/changeSelectedDoctor",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/medicalrecord/show/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57748
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/medicalrecord/show/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
