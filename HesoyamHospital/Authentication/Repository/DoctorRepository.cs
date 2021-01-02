@@ -1,8 +1,8 @@
 ﻿using Authentication.Model.UserModel;
-using Feedbacks.Repository.Abstract;
-using Feedbacks.Repository.SQLRepository.Base;
+using Authentication.Repository.Abstract;
+using Authentication.Repository.SQLRepository.Base;
 
-namespace Feedbacks.Repository
+namespace Authentication.Repository
 {
     public class DoctorRepository : SQLRepository<Doctor, long>, IDoctorRepository
     {

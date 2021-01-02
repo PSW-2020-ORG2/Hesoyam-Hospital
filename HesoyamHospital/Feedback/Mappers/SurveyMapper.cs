@@ -1,12 +1,11 @@
-﻿using Authentication.Model.FeedbackModel;
-using Authentication.Model.UserModel;
+﻿using Feedbacks.Model;
 using Feedbacks.DTOs;
 
 namespace Feedbacks.Mappers
 {
     public static class SurveyMapper
     {
-        public static Survey SurveyDTOToSurvey(SurveyDTO dto, Doctor doctor)
+        public static Survey SurveyDTOToSurvey(SurveyDTO dto, long doctorId)
         {
             Survey survey = new Survey();
 
@@ -15,7 +14,7 @@ namespace Feedbacks.Mappers
             Section hygieneSection = new Section(dto.AnswerNine, dto.AnswerTen, dto.AnswerEleven, dto.AnswerTwelve);
             Section equipmentSection = new Section(dto.AnswerThirteen, dto.AnswerFourteen, dto.AnswerFifteen, dto.AnswerSixteen);
 
-            survey.Doctor = doctor;
+            survey.DoctorId = doctorId;
             survey.DoctorSection = doctorSection;
             survey.StaffSection = staffSection;
             survey.HygieneSection = hygieneSection;

@@ -1,5 +1,4 @@
-﻿using Authentication.Model.FeedbackModel;
-using Authentication.Model.UserModel;
+﻿using Feedbacks.Model;
 using System.Collections.Generic;
 
 namespace Feedbacks.Service.Abstract
@@ -10,8 +9,8 @@ namespace Feedbacks.Service.Abstract
         public List<Section> GetAnswersPerStaffSections();
         public List<Section> GetAnswersPerHygieneSections();
         public List<Section> GetAnswersPerEquipmentSections();
-        public double GetAvarageGradePerDoctors(Doctor doctor);
-        public List<Section> GetSurveysPerDoctors(Doctor doctor);
+        public double GetAvarageGradePerDoctors(long doctorId);
+        public List<Section> GetSurveysPerDoctors(long doctorId);
         public Dictionary<string, List<long>> FrequencyPerDoctorQuestions();
         public Dictionary<string, List<long>> FrequencyPerStaffQuestions();
         public Dictionary<string, List<long>> FrequencyPerHygieneQuestions();

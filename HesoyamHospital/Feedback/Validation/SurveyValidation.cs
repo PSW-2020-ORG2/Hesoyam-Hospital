@@ -1,14 +1,12 @@
-﻿using Authentication.Model.ScheduleModel;
-using Feedbacks.DTOs;
+﻿using Feedbacks.DTOs;
 
 namespace Feedbacks.Validation
 {
     public static class SurveyValidation
     {
-        public static bool IsNewSurveyValid(SurveyDTO dto, Appointment appointment)
+        public static bool IsNewSurveyValid(SurveyDTO dto)
         {
             if( dto == null) return false;
-            if (!appointment.TimeInterval.IsInThePast() || appointment.Canceled || !appointment.AbleToFillOutSurvey) return false;
             if (dto.AnswerOne >= 1 && dto.AnswerOne <= 5 && dto.AnswerTwo >= 1 && dto.AnswerTwo <= 5 &&
                 dto.AnswerThree >= 1 && dto.AnswerThree <= 5 && dto.AnswerFour >= 1 && dto.AnswerFour <= 5 &&
                 dto.AnswerFive >= 1 && dto.AnswerFive <= 5 && dto.AnswerSix >= 1 && dto.AnswerSix <= 5 &&

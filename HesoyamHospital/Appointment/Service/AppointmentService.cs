@@ -96,5 +96,14 @@ namespace Appointments.Service
         {
             throw new NotImplementedException();
         }
+
+        public bool SurveyCanBeFilledOut(long appointmentId)
+        {
+            Appointment appointment = _appointmentRepository.GetByID(appointmentId);
+            return appointment.AbleToFillOutSurvey && !appointment.Canceled && appointment.TimeInterval.IsInThePast();
+        }
+
+        public long GetDoctorInAppointmentId(long appoinmtneId)
+            => _appointmentRepository.GetByID(appoinmtneId).DoctorInAppointment.Id;
     }
 }

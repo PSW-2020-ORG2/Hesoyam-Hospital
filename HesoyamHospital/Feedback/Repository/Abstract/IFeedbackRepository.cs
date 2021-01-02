@@ -1,4 +1,4 @@
-﻿using Authentication.Model.FeedbackModel;
+﻿using Feedbacks.Model;
 
 namespace Feedbacks.Repository.Abstract
 {

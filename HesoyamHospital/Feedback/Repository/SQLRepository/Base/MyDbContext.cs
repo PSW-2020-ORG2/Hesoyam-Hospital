@@ -1,7 +1,4 @@
-﻿using Authentication.Model.FeedbackModel;
-using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+﻿using Feedbacks.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -11,10 +8,6 @@ namespace Feedbacks.Repository.SQLRepository.Base
     {
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
-
-        public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<Appointment> Appointment { get; set; }
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
 
@@ -51,19 +44,6 @@ namespace Feedbacks.Repository.SQLRepository.Base
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
             return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
-
-            modelBuilder.Entity<User>()
-                    .ToTable("Users")
-                    .HasDiscriminator<string>("ContentType")
-                    .HasValue<User>("User")
-                    .HasValue<Patient>("Patient")
-                    .HasValue<SystemAdmin>("SystemAdmin")
-                    .HasValue<Doctor>("Doctor");
         }
     }
 }

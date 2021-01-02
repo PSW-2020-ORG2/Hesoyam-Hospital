@@ -1,6 +1,6 @@
 ﻿using Authentication.Model.UserModel;
 
-namespace Feedbacks.Repository.Abstract
+namespace Authentication.Repository.Abstract
 {
     public interface IDoctorRepository : IRepository<Doctor, long>
     {

@@ -1,5 +1,4 @@
-﻿using Authentication.Model.FeedbackModel;
-using Authentication.Model.UserModel;
+﻿using Feedbacks.Model;
 using Feedbacks.Repository;
 using Feedbacks.Service.Abstract;
 using System;
@@ -83,7 +82,7 @@ namespace Feedbacks.Service
 
         }
 
-        public double GetAvarageGradePerDoctors(Doctor doctor)
+        public double GetAvarageGradePerDoctors(long doctorId)
         {
             List<Survey> allSurveys = _surveyRepository.GetAll().ToList();
             List<double> result = new List<double>();
@@ -91,7 +90,7 @@ namespace Feedbacks.Service
 
             foreach (Survey survey in allSurveys)
             {
-                if (survey.Doctor.Id == doctor.GetId())
+                if (survey.DoctorId == doctorId)
                 {
                     result.Add(SumOfAnswers(survey.DoctorSection));
                     ++numberOfSections;
@@ -106,7 +105,7 @@ namespace Feedbacks.Service
             return Math.Round(SumPerSections(result) / numberOfSections, 2);
         }
 
-        public List<Section> GetSurveysPerDoctors(Doctor doctor)
+        public List<Section> GetSurveysPerDoctors(long doctorId)
         {
             List<Survey> allSurveys = _surveyRepository.GetAll().ToList();
             List<Section> result = new List<Section>();
@@ -114,7 +113,7 @@ namespace Feedbacks.Service
             foreach (Survey survey in allSurveys)
             {
 
-                if (survey.Doctor.Id == doctor.GetId())
+                if (survey.DoctorId == doctorId)
                 {
                     result.Add(survey.DoctorSection);
 

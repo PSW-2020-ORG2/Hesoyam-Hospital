@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Authentication.Model.FeedbackModel;
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+using Feedbacks.Model;
 using Feedbacks.DTOs;
 using Feedbacks.Mappers;
 using Feedbacks.Service.Abstract;
-using Feedbacks.Validation;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Feedbacks.Validation;
 
 namespace Feedbacks.Controllers
 {
@@ -15,25 +15,38 @@ namespace Feedbacks.Controllers
     [ApiController]
     public class SurveyController : ControllerBase
     {
-        private readonly IAppointmentService _appointmentService;
         private readonly ISurveyService _surveyService;
-        private readonly IDoctorService _doctorService;
-        public SurveyController(IAppointmentService appointmentService, ISurveyService surveyService, IDoctorService doctorService)
+        private readonly IHttpClientFactory _clientFactory;
+        public SurveyController(ISurveyService surveyService, IHttpClientFactory clientFactory)
         {
-            _appointmentService = appointmentService;
             _surveyService = surveyService;
-            _doctorService = doctorService;
+            _clientFactory = clientFactory;
         }
 
         [HttpPost("send-answers/{appointmentId}")]
         public IActionResult SendAnswersOfSurvey([FromBody] SurveyDTO dto, long appointmentId)
         {
-            Appointment appointment = _appointmentService.GetByID(appointmentId);
-            if (!SurveyValidation.IsNewSurveyValid(dto, appointment)) return BadRequest();
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            "http://localhost:57733/api/appointment/surveyCanBeFilledOut/" + appointmentId);
+            var client = _clientFactory.CreateClient();
+            var response = client.SendAsync(request);
+            var responseStream = response.Result.Content.ReadAsStringAsync();
+            bool AbleToFillOutASurvey = JsonConvert.DeserializeObject<bool>(responseStream.Result);
 
-            Doctor doctor = _appointmentService.GetDoctorAtAppointment(appointmentId);
-            _surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto, doctor));
-            _appointmentService.DeactivateFillingOutSurvey(appointmentId);
+            if (!AbleToFillOutASurvey || SurveyValidation.IsNewSurveyValid(dto)) return BadRequest();
+
+            request = new HttpRequestMessage(HttpMethod.Get,
+            "http://localhost:57733/api/appointment/getDoctorInAppointmentId/" + appointmentId);
+            client = _clientFactory.CreateClient();
+            response = client.SendAsync(request);
+            responseStream = response.Result.Content.ReadAsStringAsync();
+            long doctorId = JsonConvert.DeserializeObject<long>(responseStream.Result);
+            _surveyService.Create(SurveyMapper.SurveyDTOToSurvey(dto, doctorId));
+
+            request = new HttpRequestMessage(HttpMethod.Put,
+            "http://localhost:57733/api/appointment/deactivateFillingOutSurvey/" + appointmentId);
+            client = _clientFactory.CreateClient();
+            client.SendAsync(request);
 
             return Ok();
         }
@@ -158,45 +171,39 @@ namespace Feedbacks.Controllers
         [HttpGet("answers-per-doctors/{id}")]
         public IActionResult AnswersPerDoctors(long id)
         {
-            Doctor doctor = _doctorService.GetByID(id);
-
-            if (doctor == null)
-            {
-                return BadRequest();
-            }
-            List<Section> sections = _surveyService.GetSurveysPerDoctors(doctor);
+            List<Section> sections = _surveyService.GetSurveysPerDoctors(id);
             return Ok(sections.Select(section => SectionMapper.SectionToSectionDTO(section)).ToArray());
         }
 
         [HttpGet("average-grade-per-doctor/{id}")]
         public IActionResult AveragreGradePerDoctor(long id)
         {
-            Doctor doctor = _doctorService.GetByID(id);
-
-            if (doctor == null)
-            {
-                return BadRequest();
-            }
-            return Ok(_surveyService.GetAvarageGradePerDoctors(doctor));
+            return Ok(_surveyService.GetAvarageGradePerDoctors(id));
         }
 
         [HttpGet("getAllDoctors")]
         public IActionResult AllDoctors()
         {
-            List<Doctor> doctors = _doctorService.GetAll().ToList();
-            if (doctors == null)
-            {
-                return BadRequest();
-            }
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            "http://localhost:57746/api/doctor/getAllDoctorIds");
+            var client = _clientFactory.CreateClient();
+            var response = client.SendAsync(request);
+            var responseStream = response.Result.Content.ReadAsStringAsync();
+            List<long> doctorIds = JsonConvert.DeserializeObject<List<long>>(responseStream.Result);
             List<DoctorDTO> dtos = new List<DoctorDTO>();
-            foreach (Doctor doctor in doctors)
+            foreach (long doctorId in doctorIds)
             {
-                DoctorDTO dto = DoctorMapper.DoctorToDoctorDTO(doctor);
-                dto.AverageGrade = _surveyService.GetAvarageGradePerDoctors(doctor);
+                request = new HttpRequestMessage(HttpMethod.Get,
+            "http://localhost:57746/api/doctor/getUsername/" + doctorId);
+                client = _clientFactory.CreateClient();
+                response = client.SendAsync(request);
+                responseStream = response.Result.Content.ReadAsStringAsync();
+                string doctorUsername = responseStream.Result;
+                DoctorDTO dto = DoctorMapper.DoctorToDoctorDTO(doctorId, doctorUsername);
+                dto.AverageGrade = _surveyService.GetAvarageGradePerDoctors(doctorId);
                 dtos.Add(dto);
             }
             return Ok(dtos.ToArray());
-
         }
     }
 }

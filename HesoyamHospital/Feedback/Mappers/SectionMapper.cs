@@ -1,4 +1,4 @@
-﻿using Authentication.Model.FeedbackModel;
+﻿using Feedbacks.Model;
 using Feedbacks.DTOs;
 
 namespace Feedbacks.Mappers

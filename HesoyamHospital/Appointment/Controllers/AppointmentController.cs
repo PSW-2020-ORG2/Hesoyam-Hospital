@@ -59,5 +59,20 @@ namespace Appointments.Controllers
             _appointmentService.BlockPatient(patient);
             return Ok();
         }
+
+        [HttpGet("surveyCanBeFilledOut/{appointmentId}")]
+        public IActionResult SurveyCanBeFilledOut(long appointmentId)
+            => Ok(_appointmentService.SurveyCanBeFilledOut(appointmentId));
+
+        [HttpGet("getDoctorInAppointmentId/{appointmentId}")]
+        public IActionResult GetDoctorInAppointmentId(long appoinmtneId)
+            => Ok(_appointmentService.GetDoctorInAppointmentId(appoinmtneId));
+
+        [HttpPut("deactivateFillingOutSurvey/{appointmentId}")]
+        public IActionResult DeactivateFillingOutSurvey(long appointmentId)
+        {
+            _appointmentService.DeactivateFillingOutSurvey(appointmentId);
+            return Ok();
+        }
     }
 }

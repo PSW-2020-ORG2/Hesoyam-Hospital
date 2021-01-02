@@ -1,5 +1,4 @@
-﻿using Authentication.Model.FeedbackModel;
-using Authentication.Model.UserModel;
+﻿using Feedbacks.Model;
 using Feedbacks.Repository;
 using Feedbacks.Service.Abstract;
 using System.Collections.Generic;
@@ -22,8 +21,8 @@ namespace Feedbacks.Service
         public void Delete(Feedback entity)
             => _feedbackRepository.Delete(entity);
 
-        public Feedback GetByUser(User user)
-            => _feedbackRepository.GetAll().FirstOrDefault(f => f.User.Equals(user));
+        public Feedback GetByUsername(string username)
+            => _feedbackRepository.GetAll().FirstOrDefault(f => f.PatientUsername.Equals(username));
 
         public IEnumerable<Feedback> GetAll()
             => _feedbackRepository.GetAll();

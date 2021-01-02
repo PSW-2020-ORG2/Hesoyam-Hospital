@@ -1,17 +1,10 @@
-﻿using Authentication.Model.FeedbackModel;
-using Authentication.Model.UserModel;
+﻿using Feedbacks.Model;
 using Feedbacks.DTOs;
-using Feedbacks.Repository;
-using Feedbacks.Repository.SQLRepository.Base;
-using Feedbacks.Service;
-using Feedbacks.Service.Abstract;
 
 namespace Feedbacks.Mappers
 {
     public class FeedbackMapper
     {
-        private static readonly IPatientService _patientService = new PatientService(new PatientRepository(new SQLStream<Patient>()));
-
         public static NewFeedbackDTO FeedbackToNewFeedbackDTO(Feedback feedback)
         {
             return new NewFeedbackDTO(feedback.Comment, feedback.Anonymous, feedback.Public);
@@ -19,7 +12,7 @@ namespace Feedbacks.Mappers
 
         public static Feedback NewFeedbackDTOToFeedback(NewFeedbackDTO dto)
         {
-            return new Feedback(_patientService.GetByID(500), dto.Comment, dto.Anonymous, dto.Public);
+            return new Feedback(dto.Anonymous ? "Anonymous" : "username", dto.Comment, dto.Anonymous, dto.Public);
         }
 
         public static Feedback FeedbackDtoToFeedback(FeedbackDTO dto)
@@ -28,7 +21,7 @@ namespace Feedbacks.Mappers
             {
                 Id = dto.Id
             };
-            feedback.User.UserName = dto.UserName;
+            feedback.PatientUsername = dto.UserName;
             feedback.Comment = dto.Comment;
             feedback.Anonymous = dto.Anonymous;
             feedback.Public = dto.Public;
@@ -42,7 +35,7 @@ namespace Feedbacks.Mappers
             FeedbackDTO dto = new FeedbackDTO
             {
                 Id = feedback.Id,
-                UserName = feedback.Anonymous ? "Anonymous" : feedback.User.UserName,
+                UserName = feedback.Anonymous ? "Anonymous" : feedback.PatientUsername,
                 Comment = feedback.Comment,
                 Anonymous = feedback.Anonymous,
                 Public = feedback.Public,

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Authentication.Model.FeedbackModel;
+using Feedbacks.Model;
 using Feedbacks.DTOs;
 using Feedbacks.Mappers;
 using Feedbacks.Service.Abstract;

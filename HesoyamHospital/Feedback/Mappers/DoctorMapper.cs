@@ -1,13 +1,12 @@
-﻿using Authentication.Model.UserModel;
-using Feedbacks.DTOs;
+﻿using Feedbacks.DTOs;
 
 namespace Feedbacks.Mappers
 {
     public class DoctorMapper
     {
-        public static DoctorDTO DoctorToDoctorDTO(Doctor doctor)
+        public static DoctorDTO DoctorToDoctorDTO(long doctorId, string doctorUsername)
         {
-            return new DoctorDTO(doctor.Id, doctor.UserName);
+            return new DoctorDTO(doctorId, doctorUsername);
         }
     }
 }
