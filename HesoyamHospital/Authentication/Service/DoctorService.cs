@@ -39,8 +39,14 @@ namespace Authentication.Service
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
+            => _doctorRepository.GetDoctorByType(doctorType);
+
         public string GetUsername(long doctorId)
             => _doctorRepository.GetByID(doctorId).UserName;
+
+        public string GetFullName(long doctorId)
+            => _doctorRepository.GetByID(doctorId).FullName;
 
         public void Update(Doctor entity)
         {

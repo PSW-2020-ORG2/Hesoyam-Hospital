@@ -14,7 +14,7 @@ namespace Authentication.Validation
 {
     public static class RegistrationValidation
     {
-        private static readonly PatientService patientService = new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()));
+        private static readonly PatientService patientService = new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()), new DoctorRepository(new SQLStream<Doctor>()));
         public static bool IsNewPatientValid(NewPatientDTO patient)
         {
             Regex names = new Regex(@"[A-Za-z]{2,20}");

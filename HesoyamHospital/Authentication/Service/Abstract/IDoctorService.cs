@@ -7,5 +7,7 @@ namespace Authentication.Service.Abstract
     {
         public IEnumerable<long> GetAllDoctorIds();
         public string GetUsername(long doctorId);
+        public string GetFullName(long doctorId);
+        public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType);
     }
 }

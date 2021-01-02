@@ -14,6 +14,9 @@ namespace Authentication.Service
             _medicalRecordRepository = medicalRecordRepository;
         }
 
+        public MedicalRecord GetPatientMedicalRecordByPatientId(long patientId)
+           => _medicalRecordRepository.GetPatientMedicalRecordByPatientId(patientId);
+
         public IEnumerable<MedicalRecord> GetAll()
             => _medicalRecordRepository.GetAll();
 

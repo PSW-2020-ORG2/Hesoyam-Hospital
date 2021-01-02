@@ -10,11 +10,13 @@ namespace Authentication.Service
     {
         readonly PatientRepository _patientRepository;
         readonly MedicalRecordRepository _medicalRecordRepository;
+        readonly DoctorRepository _doctorRepository;
 
-        public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository)
+        public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository, DoctorRepository doctorRepository)
         {
             _patientRepository = patientRepository;
             _medicalRecordRepository = medicalRecordRepository;
+            _doctorRepository = doctorRepository;
         }
 
         public IEnumerable<Patient> GetAll()
@@ -44,6 +46,16 @@ namespace Authentication.Service
             Patient patient = _patientRepository.GetByID(id);
             if (patient == null) return null;
             patient.Active = true;
+            _patientRepository.Update(patient);
+            return patient;
+        }
+
+        public Patient ChangeSelectedDoctor(long doctorId, long patientId)
+        {
+            Patient patient = _patientRepository.GetByID(patientId);
+            Doctor selectedDoctor = _doctorRepository.GetByID(doctorId);
+            if (patient == null || selectedDoctor == null) return null;
+            patient.SelectedDoctor = selectedDoctor;
             _patientRepository.Update(patient);
             return patient;
         }
