@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using Appointments.DTOs;
 using Appointments.Mappers;
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+using Appointments.Model;
+using Appointments.Service;
 using Appointments.Service.Abstract;
 using Appointments.Validation;
 using Microsoft.AspNetCore.Mvc;
@@ -15,22 +16,22 @@ namespace Appointments.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;
-        private readonly IPatientService _patientService;
         private readonly long defaultPatientId = 500;
         private readonly AppointmentValidation _appointmentValidation;
+        private readonly IHttpRequestSender _httpRequestSender;
 
-        public AppointmentController(IAppointmentService appointmentService, IPatientService patientService)
+        public AppointmentController(IAppointmentService appointmentService, IHttpClientFactory httpClientFactory)
         {
             _appointmentService = appointmentService;
-            _patientService = patientService;
             _appointmentValidation = new AppointmentValidation();
+            _httpRequestSender = new HttpRequestSender(httpClientFactory);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetAllByPatient(long id)
         {
             if (id != defaultPatientId) return BadRequest();
-            return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDto(_appointmentService.GetAllByPatient(id).ToList()));
+            return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDto(_appointmentService.GetAllByPatient(id).ToList(), _httpRequestSender));
         }
 
         [HttpPut("cancel")]
@@ -46,18 +47,9 @@ namespace Appointments.Controllers
         [HttpGet("getSuspiciousPatients")]
         public IActionResult GetSuspiciousPatients()
         {
-            List<BlockPatientDTO> suspiciousPatients = _appointmentService.GetSuspiciousPatients();
+            List<BlockPatientDTO> suspiciousPatients = _appointmentService.GetSuspiciousPatients(_httpRequestSender);
             if (suspiciousPatients == null || suspiciousPatients.Count == 0) return NotFound();
             return Ok(suspiciousPatients);
-        }
-
-        [HttpPut("block/{username}")]
-        public IActionResult BlockPatient(string username)
-        {
-            Patient patient = _patientService.GetByUsername(username);
-            if (patient == null) return BadRequest();
-            _appointmentService.BlockPatient(patient);
-            return Ok();
         }
 
         [HttpGet("surveyCanBeFilledOut/{appointmentId}")]

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using Appointments.DTOs;
 using Appointments.Mappers;
-using Authentication.Model.UserModel;
+using Appointments.Service;
 using Appointments.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,28 +15,19 @@ namespace Appointments.Controllers
     public class AppointmentSchedulingController : ControllerBase
     {
         private readonly IAppointmentSchedulingService _appointmentSchedulingService;
-        private readonly IPatientService _patientService;
+        private readonly IHttpRequestSender _httpRequestSender;
 
-        public AppointmentSchedulingController(IAppointmentSchedulingService appointmentSchedulingService, IPatientService patientService)
+        public AppointmentSchedulingController(IAppointmentSchedulingService appointmentSchedulingService, IHttpClientFactory httpClientFactory)
         {
             _appointmentSchedulingService = appointmentSchedulingService;
-            _patientService = patientService;
-        }
-
-        [HttpGet("getDoctorsByType/{type}")]
-        public IActionResult GetDoctorsByType(string type)
-        {
-            List<Doctor> doctors = _appointmentSchedulingService.GetDoctorsByType(type);
-            if (doctors == null || doctors.Count == 0) return NotFound();
-            List<DoctorDTO> dtos = DoctorMapper.DoctorListToDTOList(doctors);
-            return Ok(dtos.ToArray());
+            _httpRequestSender = new HttpRequestSender(httpClientFactory);
         }
 
         [HttpPut("getTimesForDoctor")]
         public IActionResult GetTimesForDoctor(DoctorDateDTO dto)
         {
             if (dto == null) return BadRequest();
-            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date).ToList();
+            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForDoctorAndDate(dto.Id, dto.Date, _httpRequestSender).ToList();
             if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
@@ -44,7 +36,7 @@ namespace Appointments.Controllers
         public IActionResult GetTimesForDoctor(PriorityDTO dto)
         {
             if (dto == null) return BadRequest();
-            List<PriorityIntervalDTO> availableAppointments = _appointmentSchedulingService.GetRecommendedTimes(dto).ToList();
+            List<PriorityIntervalDTO> availableAppointments = _appointmentSchedulingService.GetRecommendedTimes(dto, _httpRequestSender).ToList();
             if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
             return Ok(availableAppointments.ToArray());
         }
@@ -52,9 +44,7 @@ namespace Appointments.Controllers
         [HttpGet("getTimesForSelectedDoctor/{id}")]
         public IActionResult GetTimesForSelectedDoctor(long id)
         {
-            Patient patient = _patientService.GetByID(id);
-            if (patient == null || patient.SelectedDoctor == null) return BadRequest();
-            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForSelectedDoctor(patient).ToList();
+            List<DateTime> availableAppointments = _appointmentSchedulingService.GetTimesForSelectedDoctor(id, _httpRequestSender).ToList();
             if (availableAppointments == null || availableAppointments.Count == 0) return NotFound();
             return Ok(IntervalMapper.DateTimesToIntervalDTOs(availableAppointments).ToArray());
         }
@@ -63,8 +53,8 @@ namespace Appointments.Controllers
         public IActionResult SaveAppointment(AppointmentDTO dto)
         {
             if (dto == null || dto.DoctorId == 0) return BadRequest();
-            if (_appointmentSchedulingService.MultipleAppoitments(dto)) return BadRequest("SCHEDULING FAILED");
-            _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
+            if (_appointmentSchedulingService.MultipleAppoitments(dto, _httpRequestSender)) return BadRequest("SCHEDULING FAILED");
+            _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto, _httpRequestSender), _httpRequestSender);
             return Ok();
         }
 
@@ -72,11 +62,9 @@ namespace Appointments.Controllers
         public IActionResult SaveSelecetdDoctorAppointment(AppointmentDTO dto)
         {
             if (dto == null || dto.PatientId == 0) return BadRequest();
-            Patient patient = _patientService.GetByID(dto.PatientId);
-            if (patient.SelectedDoctor == null) return NotFound();
-            dto.DoctorId = patient.SelectedDoctor.Id;
-            if (_appointmentSchedulingService.MultipleAppoitments(dto)) return BadRequest("SCHEDULING FAILED");
-            _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto));
+            dto.DoctorId = _appointmentSchedulingService.SetSelectedDoctor(dto.PatientId, _httpRequestSender);
+            if (_appointmentSchedulingService.MultipleAppoitments(dto, _httpRequestSender)) return BadRequest("SCHEDULING FAILED");
+            _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto, _httpRequestSender), _httpRequestSender);
             return Ok();
         }
     }
