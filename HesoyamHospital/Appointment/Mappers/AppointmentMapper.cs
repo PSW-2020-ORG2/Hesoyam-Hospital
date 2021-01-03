@@ -2,57 +2,50 @@
 using System.Collections.Generic;
 using Appointments.DTOs;
 using Appointments.Service.Abstract;
-using Appointments.Repository;
-using Appointments.Service;
-using Appointments.Repository.SQLRepository.Base;
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
-using Authentication.Model.Util;
+using Appointments.Model;
+using Appointments.Util;
 
 namespace Appointments.Mappers
 {
     public static class AppointmentMapper
     {
         public const long AppointmentDurationMinutes = 30;
-        private static readonly IPatientService _patientService = new PatientService(new PatientRepository(new SQLStream<Patient>()));
-        private static readonly IDoctorService _doctorService = new DoctorService(new DoctorRepository(new SQLStream<Doctor>()));
 
-        public static Appointment AppointmentDtoToAppointment(AppointmentDTO dto)
-        {
-            Appointment appointment = new Appointment();
-            Doctor doctorInAppointment = _doctorService.GetByID(dto.DoctorId);
-            appointment.DoctorInAppointment = doctorInAppointment;
-            appointment.Canceled = false;
-            appointment.AbleToFillOutSurvey = true;
-            appointment.AppointmentType = AppointmentType.checkup;
-            appointment.Patient = _patientService.GetByID(dto.PatientId);
-            appointment.Room = GetRoom(doctorInAppointment);
-            appointment.TimeInterval = new TimeInterval
+        public static Appointment AppointmentDtoToAppointment(AppointmentDTO dto, IHttpRequestSender httpRequestSender)
+            => new Appointment
             {
-                StartTime = dto.DateAndTime,
-                EndTime = dto.DateAndTime.AddMinutes(AppointmentDurationMinutes)
+                DoctorInAppointmentId = dto.DoctorId,
+                Canceled = false,
+                AbleToFillOutSurvey = true,
+                AppointmentType = AppointmentType.checkup,
+                PatientId = dto.PatientId,
+                RoomId = httpRequestSender.GetRoomIdForDoctor(dto.DoctorId),
+                TimeInterval = new TimeInterval
+                {
+                    StartTime = dto.DateAndTime,
+                    EndTime = dto.DateAndTime.AddMinutes(AppointmentDurationMinutes)
+                }
             };
-            return appointment;
-        }
 
-        private static Room GetRoom(Doctor doctor)
-        {
-            if (doctor == null || doctor.Office == null) return null;
-            return doctor.Office;
-        }
-
-        public static List<AppointmentForObservationDTO> AppointmentToAppointmentForObservationDto(List<Appointment> appointments)
+        public static List<AppointmentForObservationDTO> AppointmentToAppointmentForObservationDto(List<Appointment> appointments, IHttpRequestSender httpRequestSender)
         {
             List<AppointmentForObservationDTO> result = new List<AppointmentForObservationDTO>();
             foreach (Appointment appointment in appointments)
-                result.Add(AppointmentToAppointmentForObservationDto(appointment));
+                result.Add(AppointmentToAppointmentForObservationDto(appointment, httpRequestSender));
             return result;
         }
 
-        public static AppointmentForObservationDTO AppointmentToAppointmentForObservationDto(Appointment appointment)
-        {
-            return new AppointmentForObservationDTO(appointment.Id, CalculateAppointmentState(appointment), appointment.TimeInterval, appointment.DoctorInAppointment.Specialisation.ToString(), appointment.DoctorInAppointment.FullName, appointment.DoctorInAppointment.Office == null ? "" : appointment.DoctorInAppointment.Office.RoomNumber, appointment.AbleToFillOutSurvey);
-        }
+        public static AppointmentForObservationDTO AppointmentToAppointmentForObservationDto(Appointment appointment, IHttpRequestSender httpRequestSender)
+            => new AppointmentForObservationDTO
+            {
+                AppointmentId = appointment.Id,
+                AppointmentState = CalculateAppointmentState(appointment),
+                TimeInterval = appointment.TimeInterval,
+                Department = httpRequestSender.GetDoctorSpecialization(appointment.DoctorInAppointmentId),
+                DoctorName = httpRequestSender.GetDoctorFullName(appointment.DoctorInAppointmentId),
+                RoomNumber = httpRequestSender.GetRoomNumberById(appointment.DoctorInAppointmentId),
+                AbleToFillOutSurvey = appointment.AbleToFillOutSurvey
+            };
 
         private static string CalculateAppointmentState(Appointment appointment)
         {
