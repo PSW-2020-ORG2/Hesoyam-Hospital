@@ -39,32 +39,8 @@
       "UpstreamPathTemplate": "/gateway/appointment/getSuspiciousPatients",
       "UpstreamHttpMethod": [ "GET" ]
     },
-    {
-      "DownstreamPathTemplate": "/api/appointment/block/{username}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57733
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/appointment/block/{username}",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
 
     //APPOINTMENT SCHEDULING CONTROLLER
-    {
-      "DownstreamPathTemplate": "/api/appointmentscheduling/getDoctorsByType/{type}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57733
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/appointmentscheduling/getDoctorsByType/{type}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
     {
       "DownstreamPathTemplate": "/api/appointmentscheduling/getTimesForDoctor",
       "DownstreamScheme": "http",
@@ -129,6 +105,18 @@
     //AUTHENTICATION
     //REGISTRATION CONTROLLER
     {
+      "DownstreamPathTemplate": "/api/doctor/getDoctorsByType/{type}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57746
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/appointmentscheduling/getDoctorsByType/{type}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/registration",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -187,6 +175,18 @@
       ],
       "UpstreamPathTemplate": "/gateway/medicalrecord/changeSelectedDoctor",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/patient/block/{username}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57746
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/appointment/block/{username}",
+      "UpstreamHttpMethod": [ "PUT" ]
     },
 
     //MEDICAL RECORD CONTROLLER

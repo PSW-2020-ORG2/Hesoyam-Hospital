@@ -26,9 +26,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApplicationMicroservices", "WebApplicationMicroservices", "{FD8DA984-3B49-4205-818A-991A88F6196C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointment", "Appointment\Appointment.csproj", "{1808F407-7B9A-4B8D-82EF-D727589F0DA1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{710517A7-641E-478B-AB3A-5CF88DE83534} = {710517A7-641E-478B-AB3A-5CF88DE83534}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feedback", "Feedback\Feedback.csproj", "{0B0EC570-AA01-498D-8715-E9C871100714}"
 EndProject

@@ -1,5 +1,4 @@
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+using Appointments.Model;
 using Appointments.Repository;
 using Appointments.Repository.SQLRepository.Base;
 using Appointments.Service;
@@ -38,12 +37,11 @@ namespace Appointments
                                       .AllowAnyMethod();
                                   });
             });
-            services.AddSingleton<IAppointmentService, AppointmentService>(service => new AppointmentService(new PatientRepository(new SQLStream<Patient>()), new AppointmentRepository(new SQLStream<Appointment>()), new CancellationRepository(new SQLStream<Cancellation>())));
-            services.AddSingleton<IAppointmentSchedulingService, AppointmentSchedulingService>(service => new AppointmentSchedulingService(new DoctorRepository(new SQLStream<Doctor>()), new AppointmentRepository(new SQLStream<Appointment>())));
-            services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>())));
-            services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
+            services.AddSingleton<IAppointmentService, AppointmentService>(service => new AppointmentService(new AppointmentRepository(new SQLStream<Appointment>()), new CancellationRepository(new SQLStream<Cancellation>())));
+            services.AddSingleton<IAppointmentSchedulingService, AppointmentSchedulingService>(service => new AppointmentSchedulingService(new AppointmentRepository(new SQLStream<Appointment>()), new TimeTableRepository(new SQLStream<TimeTable>())));
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
