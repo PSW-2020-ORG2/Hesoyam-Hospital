@@ -41,11 +41,24 @@ namespace Authentication.Service
         public void Update(Patient entity)
             => _patientRepository.Update(entity);
 
+        public long GetTimeTableForSelectedDoctor(long id)
+            => _patientRepository.GetByID(id).SelectedDoctor.TimeTable.Id;
+
+        public long GetSelectedDoctor(long id)
+            => _patientRepository.GetByID(id).SelectedDoctor.Id;
+
         public Patient Activate(long id)
         {
             Patient patient = _patientRepository.GetByID(id);
             if (patient == null) return null;
             patient.Active = true;
+            _patientRepository.Update(patient);
+            return patient;
+        }
+
+        public Patient BlockPatient(Patient patient)
+        {
+            patient.Blocked = true;
             _patientRepository.Update(patient);
             return patient;
         }
@@ -59,5 +72,14 @@ namespace Authentication.Service
             _patientRepository.Update(patient);
             return patient;
         }
+
+        public string GetUsername(long id)
+            => _patientRepository.GetByID(id).UserName;
+
+        public string GetFullName(long id)
+            => _patientRepository.GetByID(id).FullName;
+
+        public bool IsBlocked(long id)
+            => _patientRepository.GetByID(id).Blocked;
     }
 }

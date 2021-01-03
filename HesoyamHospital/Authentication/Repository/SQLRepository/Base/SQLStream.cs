@@ -19,7 +19,7 @@ namespace Authentication.Repository.SQLRepository.Base
 
         public void Update(T entity)
         {
-            dbContext.Dispose();
+            //dbContext.Dispose();
             dbContext = new MyDbContext();
             dbContext.Set<T>().Attach(entity);
             dbContext.Entry(entity).State = EntityState.Modified;
@@ -37,7 +37,7 @@ namespace Authentication.Repository.SQLRepository.Base
 
         public IEnumerable<T> ReadAll()
         {
-            dbContext.Dispose();
+            //dbContext.Dispose();
             dbContext = new MyDbContext();
             return dbContext.Set<T>().ToList();
         }

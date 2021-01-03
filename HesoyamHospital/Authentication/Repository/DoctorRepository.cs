@@ -11,7 +11,12 @@ namespace Authentication.Repository
         public DoctorRepository(ISQLStream<Doctor> stream) : base(stream)
         {
         }
+
         public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)
-            => _stream.ReadAll().Where(doctor => doctor.Specialisation == doctorType);
+            => _stream.ReadAll().Where(doctor => doctor.Specialisation == doctorType).ToList();
+
+        public List<long> GetDoctorsIdsByType(DoctorType doctorType)
+            => GetDoctorByType(doctorType).ToList().Select(doctor => doctor.Id).ToList();
+
     }
 }

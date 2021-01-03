@@ -15,7 +15,7 @@ namespace Authentication.Repository.SQLRepository.Base
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!isPostgres())
+            if (!IsPostgres())
             {
                 if (!optionsBuilder.IsConfigured)
                 {
@@ -28,7 +28,7 @@ namespace Authentication.Repository.SQLRepository.Base
             }
         }
 
-        private bool isPostgres()
+        private bool IsPostgres()
         {
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }

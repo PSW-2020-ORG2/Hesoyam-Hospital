@@ -39,5 +39,35 @@ namespace Authentication.Controllers
             List<DoctorDTO> dtos = DoctorMapper.DoctorListToDTOList(doctors);
             return Ok(dtos.ToArray());
         }
+
+        [HttpGet("getDoctorsByType/{type}")]
+        public IActionResult GetDoctorsByType(string type)
+        {
+            List<Doctor> doctors = _doctorService.GetDoctorsByType(type);
+            if (doctors == null || doctors.Count == 0) return NotFound();
+            List<DoctorDTO> dtos = DoctorMapper.DoctorListToDTOList(doctors);
+            return Ok(dtos.ToArray());
+        }
+
+        [HttpGet("getSpecialization/{id}")]
+        public IActionResult GetSpecialization(long id)
+            => Ok(_doctorService.GetSpecialization(id));
+
+        [HttpGet("getSameSpecialization/{id}")]
+        public IActionResult GetSameSpecializationDoctors(long id)
+            => Ok(_doctorService.GetSameSpecializationDoctors(id).ToArray());
+
+        [HttpGet("getTimeTableId/{id}")]
+        public IActionResult GetTimeTableId(long id)
+            => Ok(_doctorService.GetTimeTableId(id));
+
+        [HttpGet("getRoomIdForDoctor/{id}")]
+        public IActionResult GetRoomIdForDoctor(long id)
+            => Ok(_doctorService.GetOfficeIdByDoctorId(id));
+
+        [HttpGet("getRoomNumberForDoctor/{id}")]
+        public IActionResult GetRoomNumberForDoctor(long id)
+            => Ok(_doctorService.GetOfficeNumberByDoctorId(id));
+
     }
 }
