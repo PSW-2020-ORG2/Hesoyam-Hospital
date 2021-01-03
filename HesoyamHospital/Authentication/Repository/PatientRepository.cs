@@ -1,6 +1,6 @@
 ﻿using Authentication.Repository.Abstract;
 using Authentication.Repository.SQLRepository.Base;
-using Authentication.Model.UserModel;
+using Authentication.Model;
 using System.Linq;
 
 namespace Authentication.Repository

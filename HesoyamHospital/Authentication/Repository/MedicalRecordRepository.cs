@@ -1,6 +1,6 @@
 ﻿using Authentication.Repository.Abstract;
 using Authentication.Repository.SQLRepository.Base;
-using Authentication.Model.MedicalRecordModel;
+using Authentication.Model;
 using System.Linq;
 
 namespace Authentication.Repository

@@ -1,5 +1,5 @@
 ﻿using Authentication.Service.Abstract;
-using Authentication.Model.UserModel;
+using Authentication.Model;
 using Microsoft.AspNetCore.Mvc;
 using Authentication.DTOs;
 

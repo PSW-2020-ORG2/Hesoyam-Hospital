@@ -1,4 +1,4 @@
-﻿using Authentication.Model.MedicalRecordModel;
+﻿using Authentication.Model;
 
 namespace Authentication.Service.Abstract
 {

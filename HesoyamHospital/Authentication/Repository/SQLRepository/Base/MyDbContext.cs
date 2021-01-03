@@ -1,5 +1,5 @@
-﻿using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.UserModel;
+﻿using Authentication.Model;
+using Authentication.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -50,7 +50,6 @@ namespace Authentication.Repository.SQLRepository.Base
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
 
             modelBuilder.Entity<User>()
                     .ToTable("Users")

@@ -1,5 +1,5 @@
 ﻿using Authentication.DTOs;
-using Authentication.Model.UserModel;
+using Authentication.Model;
 using Authentication.Repository;
 using Authentication.Repository.SQLRepository.Base;
 using Authentication.Service;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
-using Authentication.Model.MedicalRecordModel;
+using Authentication.Model;
 
 namespace Authentication.Validation
 {

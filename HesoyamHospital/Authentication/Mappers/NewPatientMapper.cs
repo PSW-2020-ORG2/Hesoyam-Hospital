@@ -1,7 +1,7 @@
 ﻿using Authentication.DTOs;
-using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.UserModel;
-using Authentication.Model.Util;
+using Authentication.Model;
+using Authentication.Model;
+using Authentication.Util;
 using System;
 using System.Collections.Generic;
 

@@ -1,5 +1,5 @@
-﻿using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.UserModel;
+﻿using Authentication.Model;
+using Authentication.Model;
 using Authentication.DTOs;
 using System.Globalization;
 

@@ -1,4 +1,4 @@
-﻿using Authentication.Model.UserModel;
+﻿using Authentication.Model;
 using System.Collections.Generic;
 
 namespace Authentication.Service.Abstract

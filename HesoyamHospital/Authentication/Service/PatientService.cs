@@ -1,5 +1,5 @@
-﻿using Authentication.Model.MedicalRecordModel;
-using Authentication.Model.UserModel;
+﻿using Authentication.Model;
+using Authentication.Model;
 using Authentication.Repository;
 using Authentication.Service.Abstract;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace Authentication.Service
             => _patientRepository.Update(entity);
 
         public long GetTimeTableForSelectedDoctor(long id)
-            => _patientRepository.GetByID(id).SelectedDoctor.TimeTable.Id;
+            => _patientRepository.GetByID(id).SelectedDoctor.TimeTableId;
 
         public long GetSelectedDoctor(long id)
             => _patientRepository.GetByID(id).SelectedDoctor.Id;

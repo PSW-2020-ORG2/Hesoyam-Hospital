@@ -10,7 +10,7 @@ namespace Authentication.Service
     public class SendEmailService : ISendEmailService
     {
         private readonly Random _random = new Random();
-        private readonly string strBody = "<html><body style=\"font-family:verdana;\"><div style=\"text-align: center; margin: 0 auto; padding: 30px; backgorund: white;\"><h2>Activate your Account</h2>\n\n Thank you for registering. In order to activate your account please click on button bellow.\n\n<br><br><form id=\"form1\" action=\"http://localhost:52166/api/registration/activate/token\" method=\"post\"><a href = \"javascript:;\" onclick=\"document.getElementById('form1').submit();\"></a><input type = \"submit\" name=\"mess\" value=\"ACTIVATE ACCOUNT\" style=\"color: white; background-color: #3399ff; padding: 20px 32px; margin: 4px 2px; border: none; border-radius: 12px; font-size: 20px; font-family:verdana; \"></form></div><body></html>";
+        private readonly string strBody = "<html><body style=\"font-family:verdana;\"><div style=\"text-align: center; margin: 0 auto; padding: 30px; backgorund: white;\"><h2>Activate your Account</h2>\n\n Thank you for registering. In order to activate your account please click on button bellow.\n\n<br><br><form id=\"form1\" action=\"http://localhost:57746/api/registration/activate/token\" method=\"post\"><a href = \"javascript:;\" onclick=\"document.getElementById('form1').submit();\"></a><input type = \"submit\" name=\"mess\" value=\"ACTIVATE ACCOUNT\" style=\"color: white; background-color: #3399ff; padding: 20px 32px; margin: 4px 2px; border: none; border-radius: 12px; font-size: 20px; font-family:verdana; \"></form></div><body></html>";
         public SendEmailService() { }
 
         public void SendActivationEmail(long id, string patientEmailAddress)

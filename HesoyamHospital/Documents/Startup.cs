@@ -55,13 +55,6 @@ namespace Documents
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(env.ContentRootPath, "Resources")),
-                RequestPath = "/Resources"
-            });
-
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();

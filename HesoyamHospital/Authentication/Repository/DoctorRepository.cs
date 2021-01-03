@@ -1,4 +1,4 @@
-﻿using Authentication.Model.UserModel;
+﻿using Authentication.Model;
 using Authentication.Repository.Abstract;
 using Authentication.Repository.SQLRepository.Base;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using System.Linq;
 using Authentication.DTOs;
 using Authentication.Mappers;
-using Authentication.Model.UserModel;
+using Authentication.Model;
 using Authentication.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
 

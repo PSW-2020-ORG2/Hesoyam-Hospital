@@ -1,4 +1,4 @@
-﻿using Authentication.Model.UserModel;
+﻿using Authentication.Model;
 using Authentication.Repository.Abstract;
 using Authentication.Service.Abstract;
 using System;
@@ -38,7 +38,7 @@ namespace Authentication.Service
             => _doctorRepository.GetByID(id);
 
         public long GetTimeTableId(long doctorId)
-            => _doctorRepository.GetByID(doctorId).TimeTable.Id;
+            => _doctorRepository.GetByID(doctorId).TimeTableId;
 
         public List<Doctor> GetDoctorsByType(string type)
         {

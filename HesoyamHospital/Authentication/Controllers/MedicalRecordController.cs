@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Authentication.Model.MedicalRecordModel;
+using Authentication.Model;
 using Authentication.Service.Abstract;
 using Authentication.Mappers;
 

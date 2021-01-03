@@ -1,4 +1,4 @@
-﻿using Authentication.Model.UserModel;
+﻿using Authentication.Model;
 using Authentication.DTOs;
 using System;
 using System.Collections.Generic;
