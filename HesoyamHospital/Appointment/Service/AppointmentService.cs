@@ -1,23 +1,21 @@
 ﻿using Appointments.DTOs;
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+using Appointments.Model;
 using Appointments.Repository.Abstract;
 using Appointments.Service.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Appointments.Service
 {
     public class AppointmentService : IAppointmentService
     {
-        private readonly IPatientRepository _patientRepository;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly ICancellationRepository _cancellationRepository;
         private readonly int CANCELLATION_COUNT = 3;
 
-        public AppointmentService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository, ICancellationRepository cancellationRepository)
+        public AppointmentService(IAppointmentRepository appointmentRepository, ICancellationRepository cancellationRepository)
         {
-            _patientRepository = patientRepository;
             _appointmentRepository = appointmentRepository;
             _cancellationRepository = cancellationRepository;
         }
@@ -47,30 +45,25 @@ namespace Appointments.Service
             _appointmentRepository.UpdateProperty(appointment, "AbleToFillOutSurvey");
         }
 
-        public List<BlockPatientDTO> GetSuspiciousPatients()
+        public List<BlockPatientDTO> GetSuspiciousPatients(IHttpRequestSender httpRequestSender)
         {
             Dictionary<long, int> cancellationCounts = _cancellationRepository.GetCancelledCountForPatients();
             if (cancellationCounts.Count == 0) return new List<BlockPatientDTO>();
-            return PatientsWithMultipleCancellations(cancellationCounts);
+            return PatientsWithMultipleCancellations(cancellationCounts, httpRequestSender);
         }
 
-        public List<BlockPatientDTO> PatientsWithMultipleCancellations(Dictionary<long, int> cancellationCounts)
+        public List<BlockPatientDTO> PatientsWithMultipleCancellations(Dictionary<long, int> cancellationCounts, IHttpRequestSender httpRequestSender)
         {
             List<BlockPatientDTO> suspiciousPatients = new List<BlockPatientDTO>();
             foreach (var item in cancellationCounts)
             {
-                Patient patient = _patientRepository.GetByID(item.Key);
-                if (patient == null) break;
-                if (item.Value >= CANCELLATION_COUNT) suspiciousPatients.Add(new BlockPatientDTO(patient.UserName, item.Value, patient.FullName, patient.Blocked));
+                if (item.Value >= CANCELLATION_COUNT) 
+                    suspiciousPatients.Add(new BlockPatientDTO(httpRequestSender.GetPatientUsername(item.Key),
+                                                               item.Value,
+                                                               httpRequestSender.GetPatientFullName(item.Key),
+                                                               httpRequestSender.IsBlocked(item.Key)));
             }
             return suspiciousPatients;
-        }
-
-        public Patient BlockPatient(Patient patient)
-        {
-            patient.Blocked = true;
-            _patientRepository.Update(patient);
-            return patient;
         }
 
         public void Delete(Appointment entity)
@@ -84,13 +77,10 @@ namespace Appointments.Service
         }
 
         public IEnumerable<Appointment> GetAllByPatient(long patientId)
-            => _patientRepository.GetByID(patientId).Appointments;
+            => _appointmentRepository.GetAll().Where(a => a.PatientId == patientId);
 
         public Appointment GetByID(long id)
             => _appointmentRepository.GetByID(id);
-
-        public Doctor GetDoctorAtAppointment(long appointmentId)
-            => _appointmentRepository.GetByID(appointmentId).DoctorInAppointment;
 
         public void Update(Appointment entity)
         {
@@ -104,6 +94,6 @@ namespace Appointments.Service
         }
 
         public long GetDoctorInAppointmentId(long appointmentId)
-            => _appointmentRepository.GetByID(appointmentId).DoctorInAppointment.Id;
+            => _appointmentRepository.GetByID(appointmentId).DoctorInAppointmentId;
     }
 }

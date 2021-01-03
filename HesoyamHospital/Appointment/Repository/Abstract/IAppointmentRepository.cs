@@ -1,4 +1,4 @@
-﻿using Authentication.Model.ScheduleModel;
+﻿using Appointments.Model;
 
 namespace Appointments.Repository.Abstract
 {

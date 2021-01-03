@@ -1,4 +1,4 @@
-﻿using Authentication.Model.ScheduleModel;
+﻿using Appointments.Model;
 using Appointments.Repository.Abstract;
 using Appointments.Repository.SQLRepository.Base;
 using System.Collections.Generic;
@@ -21,8 +21,8 @@ namespace Appointments.Repository
             {
                 if (cancellation.InPreviousMonth())
                 {
-                    cancellationCounts.TryGetValue(cancellation.Appointment.Patient.Id, out int currentCount);
-                    cancellationCounts[cancellation.Appointment.Patient.Id] = currentCount + 1;
+                    cancellationCounts.TryGetValue(cancellation.Appointment.PatientId, out int currentCount);
+                    cancellationCounts[cancellation.Appointment.PatientId] = currentCount + 1;
                 }
             }
             return cancellationCounts;

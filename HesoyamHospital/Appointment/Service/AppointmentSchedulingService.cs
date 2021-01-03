@@ -1,7 +1,6 @@
 ﻿using Appointments.DTOs;
 using Appointments.Mappers;
-using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+using Appointments.Model;
 using Appointments.Repository.Abstract;
 using Appointments.Service.Abstract;
 using System;
@@ -12,95 +11,93 @@ namespace Appointments.Service
 {
     public class AppointmentSchedulingService : IAppointmentSchedulingService
     {
-        private readonly IDoctorRepository _doctorRepository;
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly ITimeTableRepository _timeTableRepository;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
 
-        public AppointmentSchedulingService(IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
+        public AppointmentSchedulingService(IAppointmentRepository appointmentRepository, ITimeTableRepository timeTableRepository)
         {
-            _doctorRepository = doctorRepository;
             _appointmentRepository = appointmentRepository;
+            _timeTableRepository = timeTableRepository;
         }
+
         public Appointment Create(Appointment entity)
         {
             return _appointmentRepository.Create(entity);
         }
 
-        public List<Doctor> GetDoctorsByType(string type)
-        {
-            DoctorType doctorType = DoctorMapper.TextToDoctorType(type);
-            if (doctorType == DoctorType.UNDEFINED) return new List<Doctor>();
-            List<Doctor> doctors = _doctorRepository.GetDoctorByType(doctorType).ToList();
-            return doctors;
-        }
+        public long SetSelectedDoctor(long patientId, IHttpRequestSender httpRequestSender)
+            => httpRequestSender.GetSelectedDoctorId(patientId);
 
-        public Appointment SaveAppointment(Appointment appointment)
+
+        public Appointment SaveAppointment(Appointment appointment, IHttpRequestSender httpRequestSender)
         {
-            if (appointment.DoctorInAppointment == null || appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
-            appointment.DoctorInAppointment.TimeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
-            _doctorRepository.UpdateProperty(appointment.DoctorInAppointment, "TimeTable");
+            TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForDoctorId(appointment.DoctorInAppointmentId));
+            if (timeTable == null || timeTable.GetShiftByDate(appointment.TimeInterval.StartTime) == null) return null;
+            timeTable.GetShiftByDate(appointment.TimeInterval.StartTime).Appointments.Add(appointment);
+            _timeTableRepository.Update(timeTable);
             return appointment;
         }
 
-        public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date)
+        public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date, IHttpRequestSender httpRequestSender)
         {
-            Doctor doctor = _doctorRepository.GetByID(id);
-            if (doctor == null || doctor.TimeTable == null || doctor.TimeTable.GetShiftByDate(date) == null) return new List<DateTime>();
-            return doctor.TimeTable.GetShiftByDate(date).GetAvailableTimes(APPOINTMENT_DURATION_MINUTES);
+            TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForDoctorId(id));
+            if (timeTable == null || timeTable.GetShiftByDate(date) == null) return new List<DateTime>();
+            return timeTable.GetShiftByDate(date).GetAvailableTimes(APPOINTMENT_DURATION_MINUTES);
         }
 
-        public IEnumerable<DateTime> GetTimesForSelectedDoctor(Patient patient)
+        public IEnumerable<DateTime> GetTimesForSelectedDoctor(long patientId, IHttpRequestSender httpRequestSender)
         {
-            Doctor doctor = patient.SelectedDoctor;
-            if (doctor.TimeTable == null || doctor.TimeTable.Shifts == null) return new List<DateTime>();
-            return doctor.TimeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES);
+            TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForSelectedDoctor(patientId));
+            if (timeTable == null || timeTable.Shifts == null) return new List<DateTime>();
+            return timeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES);
         }
 
-        public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityDTO dto)
+        public IEnumerable<PriorityIntervalDTO> GetRecommendedTimes(PriorityDTO dto, IHttpRequestSender httpRequestSender)
         {
-            Doctor doctor = _doctorRepository.GetByID(dto.Id);
-            if (doctor == null || doctor.TimeTable == null) return GetByPriority(dto).ToList();
-            List<DateTime> appointments = doctor.TimeTable.GetFirstAvailableTimeForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate);
-            if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
-            return GetByPriority(dto).ToList();
+            TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForDoctorId(dto.Id));
+            if (timeTable == null) return GetByPriority(dto, httpRequestSender).ToList();
+            List<DateTime> appointments = timeTable.GetFirstAvailableTimeForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate);
+            if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(dto.Id, appointments, httpRequestSender);
+            return GetByPriority(dto, httpRequestSender).ToList();
         }
 
-        public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityDTO dto)
+        public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityDTO dto, IHttpRequestSender httpRequestSender)
         {
-            if (dto.PriorityDoctor) return GetWhenPriorityIsDoctor(dto);
-            return GetWhenPriorityIsInterval(dto);
+            if (dto.PriorityDoctor) return GetWhenPriorityIsDoctor(dto, httpRequestSender);
+            return GetWhenPriorityIsInterval(dto, httpRequestSender);
         }
 
-        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsDoctor(PriorityDTO dto)
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsDoctor(PriorityDTO dto, IHttpRequestSender httpRequestSender)
         {
-            Doctor doctor = _doctorRepository.GetByID(dto.Id);
-            if (doctor == null || doctor.TimeTable == null) return new List<PriorityIntervalDTO>();
-            List<DateTime> appointments = doctor.TimeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES).ToList();
-            if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, appointments);
+            TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForDoctorId(dto.Id));
+            if (timeTable == null) return new List<PriorityIntervalDTO>();
+            List<DateTime> appointments = timeTable.GetFirstTenAppointments(APPOINTMENT_DURATION_MINUTES).ToList();
+            if (appointments != null && appointments.Count != 0) return PriorityIntervalMapper.ListToDtoListForOneDoctor(dto.Id, appointments, httpRequestSender);
             return new List<PriorityIntervalDTO>();
         }
 
-        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityDTO dto)
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityDTO dto, IHttpRequestSender httpRequestSender)
         {
             List<PriorityIntervalDTO> appointments = new List<PriorityIntervalDTO>();
-            DoctorType specialisation = _doctorRepository.GetByID(dto.Id).Specialisation;
-            List<Doctor> doctors = _doctorRepository.GetDoctorByType(specialisation).ToList();
-            if (doctors == null || doctors.Count == 0) return appointments;
-            foreach (Doctor doctor in doctors)
+            List<long> doctorsIds = httpRequestSender.GetSameSpecializationDoctorIds(dto.Id);
+            if (doctorsIds.Count == 0) return appointments;
+            foreach (long doctorId in doctorsIds)
             {
-                if (doctor == null || doctor.TimeTable == null) break;
-                dto.Id = doctor.Id;
-                appointments.AddRange(PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, doctor.TimeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate).ToList()));
+                TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForDoctorId(dto.Id));
+                if (timeTable == null) break;
+                dto.Id = doctorId;
+                appointments.AddRange(PriorityIntervalMapper.ListToDtoListForOneDoctor(doctorId, timeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartDate, dto.EndDate).ToList(), httpRequestSender));
                 if (appointments.Count >= 3) return appointments;
             }
             return appointments;
         }
 
-        public bool MultipleAppoitments(AppointmentDTO dto)
+        public bool MultipleAppoitments(AppointmentDTO dto, IHttpRequestSender httpRequestSender)
         {
-            Doctor doctor = _doctorRepository.GetByID(dto.DoctorId);
-            if (doctor == null || doctor.TimeTable == null || doctor.TimeTable.GetShiftByDate(dto.DateAndTime) == null) return false;
-            return doctor.TimeTable.GetShiftByDate(dto.DateAndTime).PatientAlreadyScheduledInThisShift(dto.PatientId);
+            TimeTable timeTable = _timeTableRepository.GetByID(httpRequestSender.GetTimeTableIdForDoctorId(dto.DoctorId));
+            if (timeTable == null || timeTable.GetShiftByDate(dto.DateAndTime) == null) return false;
+            return timeTable.GetShiftByDate(dto.DateAndTime).PatientAlreadyScheduledInThisShift(dto.PatientId);
         }
 
         public void Delete(Appointment entity)

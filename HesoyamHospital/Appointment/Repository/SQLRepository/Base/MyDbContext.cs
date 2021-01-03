@@ -1,5 +1,4 @@
-﻿using Authentication.Model.ScheduleModel;
-using Authentication.Model.UserModel;
+﻿using Appointments.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -10,14 +9,13 @@ namespace Appointments.Repository.SQLRepository.Base
         public MyDbContext() : base() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
-        public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Patient> Patients { get; set; }
         public DbSet<Cancellation> Cancellations { get; set; }
         public DbSet<Appointment> Appointment { get; set; }
+        public DbSet<TimeTable> TimeTable { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!isPostgres())
+            if (!IsPostgres())
             {
                 if (!optionsBuilder.IsConfigured)
                 {
@@ -30,12 +28,10 @@ namespace Appointments.Repository.SQLRepository.Base
             }
         }
 
-        private bool isPostgres()
+        private bool IsPostgres()
         {
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
-
-
 
         private string GenerateConnectionString()
         {
@@ -50,17 +46,6 @@ namespace Appointments.Repository.SQLRepository.Base
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
             return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                    .ToTable("Users")
-                    .HasDiscriminator<string>("ContentType")
-                    .HasValue<User>("User")
-                    .HasValue<Patient>("Patient")
-                    .HasValue<SystemAdmin>("SystemAdmin")
-                    .HasValue<Doctor>("Doctor");
         }
     }
 }
