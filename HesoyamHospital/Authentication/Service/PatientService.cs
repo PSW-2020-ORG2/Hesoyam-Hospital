@@ -1,5 +1,4 @@
 ﻿using Authentication.Model;
-using Authentication.Model;
 using Authentication.Repository;
 using Authentication.Service.Abstract;
 using System.Collections.Generic;

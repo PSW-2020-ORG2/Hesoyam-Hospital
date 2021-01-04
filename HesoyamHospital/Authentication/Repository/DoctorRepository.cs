@@ -16,7 +16,7 @@ namespace Authentication.Repository
             => _stream.ReadAll().Where(doctor => doctor.Specialisation == doctorType).ToList();
 
         public List<long> GetDoctorsIdsByType(DoctorType doctorType)
-            => GetDoctorByType(doctorType).ToList().Select(doctor => doctor.Id).ToList();
+            => GetDoctorByType(doctorType).Select(doctor => doctor.Id).ToList();
 
     }
 }

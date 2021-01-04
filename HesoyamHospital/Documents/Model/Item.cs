@@ -18,19 +18,19 @@ namespace Documents.Model
         public void SetId(long id)
             => _id = id;
 
-        public Item(long id)
+        protected Item(long id)
         {
             _id = id;
         }
 
-        public Item(string name,int inStock, int minNumber)
+        protected Item(string name,int inStock, int minNumber)
         {
             _name = name;
             _inStock = inStock;
             _minNumber = minNumber;
         }
 
-        public Item(long id, string name, int inStock, int minNumber)
+        protected Item(long id, string name, int inStock, int minNumber)
         {
             _id = id;
             _name = name;

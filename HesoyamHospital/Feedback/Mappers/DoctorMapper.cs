@@ -2,7 +2,7 @@
 
 namespace Feedbacks.Mappers
 {
-    public class DoctorMapper
+    public static class DoctorMapper
     {
         public static DoctorDTO DoctorToDoctorDTO(long doctorId, string doctorUsername)
         {

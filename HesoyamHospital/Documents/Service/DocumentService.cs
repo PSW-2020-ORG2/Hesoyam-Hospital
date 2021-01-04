@@ -106,7 +106,7 @@ namespace Documents.Service
                 criteria.SetInitialState();
                 for (int i = 0; i < criteria.FilterTypes.Count; i++)
                 {
-                    List<Document> newResult = new List<Document>();
+                    List<Document> newResult;
                     if (criteria.FilterTypes[i] == FilterType.TIME_INTERVAL)
                     {
                         TimeIntervalFilter timeIntervalFilter = criteria.TimeIntervalFilters[0];
@@ -137,7 +137,7 @@ namespace Documents.Service
                 criteria.SetInitialState();
                 for (int i = 0; i < criteria.FilterTypes.Count; i++)
                 {
-                    List<Document> newResult = new List<Document>();
+                    List<Document> newResult;
                     if (criteria.FilterTypes[i] == FilterType.TIME_INTERVAL)
                     {
                         TimeIntervalFilter timeIntervalFilter = criteria.TimeIntervalFilters[0];
@@ -205,7 +205,7 @@ namespace Documents.Service
         {
             List<Document> result = new List<Document>();
             foreach (Document d in operandOne)
-                if (operandTwo.Where(doc => doc.Id == d.Id).Count() > 0)
+                if (operandTwo.Count(doc => doc.Id == d.Id) > 0)
                     result.Add(d);
             return result;
         }
@@ -214,7 +214,7 @@ namespace Documents.Service
         {
             List<Document> result = operandTwo;
             foreach (Document d in operandOne)
-                if (result.Where(doc => doc.Id == d.Id).Count() == 0)
+                if (result.Count(doc => doc.Id == d.Id) == 0)
                     result.Add(d);
             return result;
         }

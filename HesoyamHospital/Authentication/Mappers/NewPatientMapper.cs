@@ -1,6 +1,5 @@
 ﻿using Authentication.DTOs;
 using Authentication.Model;
-using Authentication.Model;
 using Authentication.Util;
 using System;
 using System.Collections.Generic;

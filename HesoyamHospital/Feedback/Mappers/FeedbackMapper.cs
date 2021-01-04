@@ -3,7 +3,7 @@ using Feedbacks.DTOs;
 
 namespace Feedbacks.Mappers
 {
-    public class FeedbackMapper
+    public static class FeedbackMapper
     {
         public static NewFeedbackDTO FeedbackToNewFeedbackDTO(Feedback feedback)
         {
