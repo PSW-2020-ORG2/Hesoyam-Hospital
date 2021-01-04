@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using System.Threading.Tasks;
 
 namespace APIGateway
 {
@@ -30,7 +31,7 @@ namespace APIGateway
             services.AddControllers().AddNewtonsoftJson();
         }
 
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -44,7 +45,7 @@ namespace APIGateway
             {
                 endpoints.MapControllers();
             });
-            await app.UseOcelot();
+            app.UseOcelot();
         }
     }
 }
