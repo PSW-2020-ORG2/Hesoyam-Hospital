@@ -7,6 +7,8 @@ using Backend.Model.UserModel;
 using Backend.DTOs;
 using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
+using Backend.Service.HospitalManagementService;
+using Backend.Util;
 
 namespace GraphicEditor
 {
@@ -16,16 +18,21 @@ namespace GraphicEditor
     public partial class SearchAvailableAppointmentWindow : Window
     {
         private List<Doctor> doctors;
+        private List<Room> availableRooms;
         private readonly DoctorService doctorService;
         private List<PriorityIntervalDTO> priorityIntervalDTOs;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
-
+        private readonly RoomService roomService;
+        private SearchService searchService;
+        private PriorityIntervalDTO selectedTerm;
         public SearchAvailableAppointmentWindow()
         {
             InitializeComponent();
             this.doctorService = Backend.AppResources.getInstance().doctorService;
             this.appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
+            this.roomService = Backend.AppResources.getInstance().roomService;
             doctors = (List<Doctor>) doctorService.GetAll();
+            searchService = new SearchService();
 
             foreach (Doctor doctor in doctors)
             {
@@ -72,6 +79,33 @@ namespace GraphicEditor
             
             searchAvailable.Columns[4].Visibility = Visibility.Hidden;
             searchAvailable.Columns[3].Visibility = Visibility.Hidden;
+        }
+
+        private void SearchAvailable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
+            
+            if (selectedTerm != null)
+            {
+                buttonSeeAvailableRoom.Visibility = Visibility.Visible;
+                buttonScheduleAppointment.Visibility = Visibility.Visible;
+            }
+
+        }
+
+
+        private void ButtonSeeAvailableRoom_Click(object sender, RoutedEventArgs e)
+        {
+            selectedTerm = (PriorityIntervalDTO)searchAvailable.SelectedItem;
+
+            DateTime startTime = selectedTerm.StartTime;
+            DateTime endTime = selectedTerm.EndTime;
+            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+            availableRooms = (List<Room>)roomService.GetAllExaminationRooms(timeInterval);
+
+            Room availableRoom = availableRooms[0];
+            MapLocation mapLocation = searchService.GetLocationByRoomName(availableRoom.RoomNumber);
+            searchService.DisplayResults(mapLocation);
         }
     }
 }

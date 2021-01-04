@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GraphicEditor"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="SearchAvaiableTermsWindow" Height="670" Width="810"
+        Title="SearchAvaiableTermsWindow" Height="720" Width="810"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -57,7 +57,11 @@
 
         <Button x:Name="buttonSearchAppointment" Content="Search" ToolTip="Search" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="SearchAvailableAppointmentClick"/>
 
-        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="1" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}">
+        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="1" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAvailable_SelectionChanged">
         </DataGrid>
+
+        <Button x:Name="buttonSeeAvailableRoom" Content="See available room for an appointment" ToolTip="See available room for an appointment" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonSeeAvailableRoom_Click" Visibility="Hidden"/>
+
+        <Button x:Name="buttonScheduleAppointment" Content="Schedule an appointment" ToolTip="schedule an appointment" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden"/>
     </Grid>
 </Window>
