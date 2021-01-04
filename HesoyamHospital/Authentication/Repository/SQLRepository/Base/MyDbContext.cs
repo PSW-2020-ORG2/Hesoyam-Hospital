@@ -1,5 +1,5 @@
 ﻿using Authentication.Model;
-using Authentication.Model;
+using Authentication.Util;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -12,6 +12,9 @@ namespace Authentication.Repository.SQLRepository.Base
 
         public DbSet<Patient> Patients { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<Allergy> Allergies { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -10,6 +10,8 @@ namespace Documents.Repository.SQLRepository.Base
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<MedicalTherapy> Therapies { get; set; }
+        public DbSet<Diagnosis> Diagnoses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
