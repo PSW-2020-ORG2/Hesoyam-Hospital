@@ -39,15 +39,6 @@ namespace Documents.Util
         public TimeSpan Duration()
             => EndTime.Subtract(StartTime);
 
-        public bool IsFullyDefined()
-        {   
-            if (StartTime != null && EndTime != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public bool IsInOrder()
             => EndTime >= StartTime;
 

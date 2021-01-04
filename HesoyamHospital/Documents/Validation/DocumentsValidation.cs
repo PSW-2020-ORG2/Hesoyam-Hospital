@@ -11,7 +11,6 @@ namespace Documents.Validation
             criteria.Comment != null &&
             criteria.DiagnosisName != null &&
             criteria.TimeInterval != null &&
-            criteria.TimeInterval.IsFullyDefined() &&
             criteria.TimeInterval.IsInOrder() &&
             criteria.TimeInterval.IsInThePast();
 

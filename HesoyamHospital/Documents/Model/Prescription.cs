@@ -83,7 +83,7 @@ namespace Documents.Model
         public void AddMedicine(MedicalTherapy mt)
         {
             if (mt == null)
-            return;
+                return;
             if (MedicalTherapies == null)
                 MedicalTherapies = new List<MedicalTherapy>();
             if (!MedicalTherapies.Contains(mt))
@@ -93,7 +93,7 @@ namespace Documents.Model
         public void RemoveMedicine(MedicalTherapy mt)
         {
             if (mt == null)
-            return;
+                return;
             if (MedicalTherapies != null && MedicalTherapies.Contains(mt))
                 MedicalTherapies.Remove(mt);
         }
