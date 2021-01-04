@@ -9,10 +9,10 @@ namespace Authentication.Model
         public char Code { get; set; }
         public int Number { get; set; }
 
-        public static UserID defaultDoctor = new UserID("d0");
-        public static UserID defaultPatient = new UserID("p0");
-        public static UserID defaultSecretary = new UserID("s0");
-        public static UserID defaultManager = new UserID("m0");
+        public static readonly UserID defaultDoctor = new UserID("d0");
+        public static readonly UserID defaultPatient = new UserID("p0");
+        public static readonly UserID defaultSecretary = new UserID("s0");
+        public static readonly UserID defaultManager = new UserID("m0");
 
         public UserID() { }
 

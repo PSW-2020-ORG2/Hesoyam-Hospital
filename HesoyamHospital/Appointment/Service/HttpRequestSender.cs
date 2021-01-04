@@ -74,7 +74,7 @@ namespace Appointments.Service
             var responseStream = SendRequest("http://localhost:57746/api/doctor/getRoomIdForDoctor/" + doctorId, HttpMethod.Get);
             return JsonConvert.DeserializeObject<long>(responseStream.Result);
         }
-
+        
         public string GetRoomNumberById(long doctorId)
         {
             var responseStream = SendRequest("http://localhost:57746/api/doctor/getRoomNumberForDoctor/" + doctorId, HttpMethod.Get);

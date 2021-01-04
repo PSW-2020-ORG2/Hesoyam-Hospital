@@ -84,24 +84,24 @@ namespace Documents.Model
         {
             if (mt == null)
             return;
-            if (this.MedicalTherapies == null)
-            this.MedicalTherapies = new List<MedicalTherapy>();
-            if (!this.MedicalTherapies.Contains(mt))
-            this.MedicalTherapies.Add(mt);
+            if (MedicalTherapies == null)
+                MedicalTherapies = new List<MedicalTherapy>();
+            if (!MedicalTherapies.Contains(mt))
+                MedicalTherapies.Add(mt);
         }
       
         public void RemoveMedicine(MedicalTherapy mt)
         {
             if (mt == null)
             return;
-            if (this.MedicalTherapies != null && this.MedicalTherapies.Contains(mt))
-            this.MedicalTherapies.Remove(mt);
+            if (MedicalTherapies != null && MedicalTherapies.Contains(mt))
+                MedicalTherapies.Remove(mt);
         }
       
         public void RemoveAllMedicine()
         {
             if (MedicalTherapies != null)
-            MedicalTherapies.Clear();
+                MedicalTherapies.Clear();
         }
 
         public long GetId()

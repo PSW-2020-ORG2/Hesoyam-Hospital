@@ -2,7 +2,7 @@
 
 namespace Authentication.Exceptions
 {
-    class InvalidUserIdException : Exception
+    public class InvalidUserIdException : Exception
     {
         public InvalidUserIdException()
         {

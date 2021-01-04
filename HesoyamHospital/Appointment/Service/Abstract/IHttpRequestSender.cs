@@ -13,7 +13,7 @@ namespace Appointments.Service.Abstract
         public Task<string> SendRequest(string url, HttpMethod method);
         public long GetRoomIdForDoctor(long doctorId);
         public string GetDoctorSpecialization(long doctorId);
-        public string GetRoomNumberById(long roomId);
+        public string GetRoomNumberById(long doctorId);
         public string GetPatientUsername(long patientId);
         public string GetPatientFullName(long patientId);
         public bool IsBlocked(long patientId);
