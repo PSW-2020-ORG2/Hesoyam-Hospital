@@ -45,6 +45,7 @@ namespace Authentication
             services.AddSingleton<IPatientService, PatientService>(service => new PatientService(new PatientRepository(new SQLStream<Patient>()), new MedicalRecordRepository(new SQLStream<MedicalRecord>()), new DoctorRepository(new SQLStream<Doctor>())));
             services.AddSingleton<IMedicalRecordService, MedicalRecordService>(service => new MedicalRecordService(new MedicalRecordRepository(new SQLStream<MedicalRecord>())));
             services.AddSingleton<IDoctorService, DoctorService>(service => new DoctorService(new DoctorRepository(new SQLStream<Doctor>())));
+            services.AddSingleton<ILoginService, LoginService>(service => new LoginService(new PatientRepository(new SQLStream<Patient>()), new AdminRepository(new SQLStream<SystemAdmin>())));
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
         }
