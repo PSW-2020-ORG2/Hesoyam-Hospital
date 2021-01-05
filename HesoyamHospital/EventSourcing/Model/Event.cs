@@ -10,12 +10,17 @@ namespace EventSourcing.Model
         [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerat‌ed(System.ComponentM‌​odel.DataAnnotations‌​.Schema.DatabaseGeneratedOp‌​tion.None)]
         public int Id { get; set; }
         public DateTime Timestamp;
+
+        public Event() { }
         
 
         public Event(DateTime timestamp)
         {
             Timestamp = timestamp;
         }
+
+
+
 
 
     }

@@ -12,6 +12,11 @@ namespace EventSourcing.Model.Appointments
 
         public AppointmentType AppointmentType { get; set; }
 
+        public AppointmentEvent() : base()
+        {
+
+        }
+
         public AppointmentEvent(DateTime timestamp, string patientID, string doctorID, AppointmentType appointmentType) : base(timestamp)
         {
             PatientID = patientID;

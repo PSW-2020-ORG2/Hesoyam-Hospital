@@ -9,6 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+using EventSourcing.Repository;
 
 namespace EventSourcing
 {
@@ -25,6 +29,8 @@ namespace EventSourcing
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<EventDbContext>(options => options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbConnectionString")).UseLazyLoadingProxies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
