@@ -7,12 +7,12 @@ namespace Feedbacks.Mappers
     {
         public static NewFeedbackDTO FeedbackToNewFeedbackDTO(Feedback feedback)
         {
-            return new NewFeedbackDTO(feedback.Comment, feedback.Anonymous, feedback.Public);
+            return new NewFeedbackDTO(feedback.Comment, feedback.Anonymous, feedback.Public, feedback.PatientUsername);
         }
 
         public static Feedback NewFeedbackDTOToFeedback(NewFeedbackDTO dto)
         {
-            return new Feedback(dto.Anonymous ? "Anonymous" : "username", dto.Comment, dto.Anonymous, dto.Public);
+            return new Feedback(dto.Anonymous ? "Anonymous" : dto.Username, dto.Comment, dto.Anonymous, dto.Public);
         }
 
         public static Feedback FeedbackDtoToFeedback(FeedbackDTO dto)
