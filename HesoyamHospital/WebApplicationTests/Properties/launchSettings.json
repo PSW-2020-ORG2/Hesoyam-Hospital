@@ -3,7 +3,7 @@
     "WebApplicationTests": {
       "commandName": "Project",
       "environmentVariables": {
-
+        "SecretKey": "SecretKey1234567",
         "MyDbConnectionString": "port=3306;database=mydb1;user=root;password=root",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
