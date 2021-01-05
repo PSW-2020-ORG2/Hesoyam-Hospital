@@ -10,6 +10,7 @@ import { DoctorIntervalDto } from '../DTOs/doctor-interval-dto';
 import { PriorityIntervalDTO } from '../DTOs/priority-interval-dto';
 import { BlockPatientDto } from '../DTOs/block-patient-dto';
 import { BlockPatientsComponent } from '../admin/block-patients/block-patients.component';
+import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 
 
 export interface Doctor {
@@ -25,13 +26,13 @@ export class AppointmentService {
   private _urlgetdoctors:string = "http://localhost:57874/gateway/appointmentscheduling/getDoctorsByType/";
   private _urlgettimes:string = "http://localhost:57874/gateway/appointmentscheduling/getTimesForDoctor/";
   private _urlsave:string = "http://localhost:57874/gateway/appointmentscheduling/saveAppointment";
-  private _urlgettimesselecteddoctor:string = "http://localhost:57874/gateway/appointmentscheduling/getTimesForSelectedDoctor/500";
+  private _urlgettimesselecteddoctor:string = "http://localhost:57874/gateway/appointmentscheduling/getTimesForSelectedDoctor/" + this.authService.getId();
   private _urlsaveselecteddoctor:string = "http://localhost:57874/gateway/appointmentscheduling/saveSelectedDoctorAppointment";
   private _urlgetrecommendedtimes:string = "http://localhost:57874/gateway/appointmentscheduling/recommendation";
   private _urlSuspicious:string = "http://localhost:57874/gateway/appointment/getSuspiciousPatients";
   private _urlBlock:string = "http://localhost:57874/gateway/appointment/block/";
 
-  constructor( private _http : HttpClient) { }
+  constructor( private _http : HttpClient, private authService : AuthenticationService) { }
 
   getAll(type : string) : Observable<DoctorDto[]> {
     return this._http.get<DoctorDto[]>(this._urlgetdoctors + type);
