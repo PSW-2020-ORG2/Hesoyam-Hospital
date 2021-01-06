@@ -20,7 +20,7 @@ namespace Backend.Model.PatientModel
         {
             var mt = obj as MedicalTherapy;
             return mt != null &&
-                   Id == mt.Id;
+                   Medicine.Id == mt.Medicine.Id;
         }
 
         public override int GetHashCode()

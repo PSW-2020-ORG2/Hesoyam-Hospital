@@ -1,4 +1,5 @@
-﻿using Renci.SshNet;
+﻿using IntegrationAdapter.SMTPServiceSupport;
+using Renci.SshNet;
 using System;
 using System.IO;
 
@@ -16,10 +17,10 @@ namespace IntegrationAdapter.SFTPServiceSupport
                 client.Connect();
                 using (Stream stream = File.OpenRead(fileToSend))
                 {
-                    client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend), uploaded =>
-                    {
-                        Console.WriteLine($"Uploaded {Math.Round((double)uploaded / stream.Length * 100)}% of the file.");
-                    });
+                    client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend));
+                    SMTPNotificationSender.SendMessageToAllPharmacies("heshospital@gmail.com",
+                                                                      "Weekly report about medicine consumption in Hesoyam hospital",
+                                                                      "Report has been successfully sent to all pharmacies.");
                 }
                 client.Disconnect();
             }
