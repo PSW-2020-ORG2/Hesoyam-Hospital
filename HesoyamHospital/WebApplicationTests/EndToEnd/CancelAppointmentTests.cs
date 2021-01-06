@@ -2,7 +2,6 @@
 using System;
 using WebApplicationTests.EndToEnd.Pages;
 using OpenQA.Selenium.Chrome;
-using System.Threading;
 using Shouldly;
 using Xunit;
 
@@ -12,14 +11,16 @@ namespace WebApplicationTests.EndToEnd
     {
         private IWebDriver driver;
         private readonly AppointmentsList appointmentsList;
+        private readonly Login loginPage;
 
         public CancelAppointmentTests()
         {
             InitializeDriver();
             appointmentsList = new AppointmentsList(driver);
+            loginPage = new Login(driver);
+            LogIn("milijanadj", "pera", "Patient");
             appointmentsList.Navigate();
             appointmentsList.EnsurePageIsDisplayed();
-            Thread.Sleep(5000);
             appointmentsList.URI.ShouldBeEquivalentTo(driver.Url);
         }
 
@@ -27,7 +28,6 @@ namespace WebApplicationTests.EndToEnd
         public void Successful_canceling()
         {
             appointmentsList.CancelAppointment();
-            Thread.Sleep(5000);
             appointmentsList.CheckState().ShouldBe("CANCELLED");
         }
 
@@ -53,6 +53,17 @@ namespace WebApplicationTests.EndToEnd
             options.AddArguments("--no-sandbox");
             options.AddArguments("--disable-notifications");
             driver = new ChromeDriver(options);
+        }
+
+        private void LogIn(string username, string password, string role)
+        {
+            loginPage.Navigate();
+            loginPage.EnsurePageIsDisplayed();
+            loginPage.EnterUsername(username);
+            loginPage.EnterPassword(password);
+            if (role.Equals("Patient")) loginPage.SelectPatientRole();
+            else if (role.Equals("Admin")) loginPage.SelectAdminRole();
+            loginPage.LogIn();
         }
     }
 }
