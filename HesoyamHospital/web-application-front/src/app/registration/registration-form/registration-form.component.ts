@@ -99,7 +99,7 @@ export class RegistrationFormComponent implements OnInit {
       });
     if(this.selectedFile != null){
       fd.append('file', this.selectedFile, this.patientDTO.Username + '.' + this.fileExtension);
-      this._http.post("http://localhost:52166/api/registration/upload", fd).subscribe();
+      this._http.post("http://localhost:57874/gateway/registration/upload", fd).subscribe();
     }
   }
 

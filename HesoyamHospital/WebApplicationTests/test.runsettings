@@ -2,7 +2,8 @@
 <RunSettings>
   <RunConfiguration>
     <EnvironmentVariables>
-      <MyDbConnectionString>port=3306;database=mydb1;user=root;password=root</MyDbConnectionString>
+      <MyDbConnectionString>server=localhost;port=3306;database=mydb1;user=root;password=root</MyDbConnectionString>
+      <SecretKey>SecretKey1234567</SecretKey>
     </EnvironmentVariables>
   </RunConfiguration>
 </RunSettings>
