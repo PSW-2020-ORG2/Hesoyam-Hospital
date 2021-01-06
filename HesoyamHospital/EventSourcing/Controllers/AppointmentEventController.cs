@@ -22,13 +22,14 @@ namespace EventSourcing.Controllers
             this.eventDbContext = eventDbContext;
         }
 
-        [HttpPost]
+        [HttpPost ("create")]
         public IActionResult Create([FromBody] AppointmentEvent appointmentEvent)
         {
-            if(appointmentEvent == null)
+            if (appointmentEvent == null)
             {
                 return BadRequest("Appoinment event must be provided.");
             }
+
 
             eventDbContext.AppointmentEvents.Add(appointmentEvent);
             eventDbContext.SaveChanges();

@@ -10,9 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-
 using EventSourcing.Repository;
+using Newtonsoft.Json;
 
 namespace EventSourcing
 {
@@ -28,9 +27,10 @@ namespace EventSourcing
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddDbContext<EventDbContext>(options => options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbConnectionString")).UseLazyLoadingProxies());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
