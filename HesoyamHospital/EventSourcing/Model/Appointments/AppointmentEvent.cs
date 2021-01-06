@@ -15,8 +15,8 @@ namespace EventSourcing.Model.Appointments
 
         public DateTime Timestamp { get; set; } = DateTime.Now;
 
-        public string PatientID { get; set; }
-        public string DoctorID { get; set; }
+        public long PatientID { get; set; }
+        public long DoctorID { get; set; }
 
 
 
