@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Chrome;
 using Shouldly;
 using System;
-using System.Threading;
 using WebApplicationTests.EndToEnd.Pages;
 using Xunit;
 
@@ -13,14 +12,16 @@ namespace WebApplicationTests.EndToEnd
         private IWebDriver driver;
         private readonly BlockPatientList blockPatientList;
         private readonly int blockPatientCount;
+        private readonly Login loginPage;
 
         public BlockPatientTests()
         {
             InitializeDriver();
             blockPatientList = new BlockPatientList(driver);
+            loginPage = new Login(driver);
+            LogIn("perapera", "pera", "Admin");
             blockPatientList.Navigate();
             blockPatientList.EnsurePageIsDisplayed();
-            Thread.Sleep(5000);
             blockPatientCount = blockPatientList.BlockButtonCount();
             blockPatientList.URI.ShouldBeEquivalentTo(driver.Url);
         }
@@ -30,14 +31,12 @@ namespace WebApplicationTests.EndToEnd
         public void Successful_blocking()
         {
             blockPatientList.BlockFirstPatient();
-            Thread.Sleep(5000);
             blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount - 1);
         }
 
         [Fact]
         public void Unsuccessful_blocking()
         {
-            Thread.Sleep(1000);
             blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount);
         }
 
@@ -59,6 +58,17 @@ namespace WebApplicationTests.EndToEnd
             options.AddArguments("--no-sandbox");
             options.AddArguments("--disable-notifications");
             driver = new ChromeDriver(options);
+        }
+
+        private void LogIn(string username, string password, string role)
+        {
+            loginPage.Navigate();
+            loginPage.EnsurePageIsDisplayed();
+            loginPage.EnterUsername(username);
+            loginPage.EnterPassword(password);
+            if (role.Equals("Patient")) loginPage.SelectPatientRole();
+            else if (role.Equals("Admin")) loginPage.SelectAdminRole();
+            loginPage.LogIn();
         }
     }
 }
