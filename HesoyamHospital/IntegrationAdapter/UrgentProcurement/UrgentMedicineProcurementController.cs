@@ -31,7 +31,7 @@ namespace IntegrationAdapter.UrgentProcurement
             List<UrgentMedicineProcurement> entries = _urgentMedicineProcurementService.GetAll().ToList();
             return Ok(entries);
         }
-        [HttpGet("/getPharmacies")]
+        [HttpGet("getPharmacies")]
         public IActionResult GetPharmaciesByRequiredMedicine(UrgentMedicineProcurement urgentMedicine)
         {
             List<RegisteredPharmacy> availablePharmacies = _urgentMedicineProcurementService.GetPharmaciesByRequiredMedicine(urgentMedicine).ToList();
