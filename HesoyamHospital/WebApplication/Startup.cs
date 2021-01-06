@@ -21,7 +21,6 @@ using System;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.SpaServices.Extensions;
 
 namespace WebApplication
 {

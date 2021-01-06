@@ -14,5 +14,9 @@ namespace Backend.Repository.Abstract.HospitalManagementAbstractRepository
         IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room);
 
         IEnumerable<InventoryItem> GetInventoryItems();
+
+        IEnumerable<InventoryItem> GetInventoryItemsByName(string name);
+
+        IEnumerable<InventoryItem> GetInventoryItemsByRoomId(long id);
     }
 }

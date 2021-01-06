@@ -29,7 +29,6 @@ namespace GraphicEditor
 
         public List<MapLocation> ReadObjects(string path, string name)
         {
-            MapLocation location = null;
             List<MapLocation> locations = new List<MapLocation>();
             GraphicRepository graphic_repository = new GraphicRepository();
             List<GraphicalObject> graphical_objects = graphic_repository.ReadFromFile(path);
@@ -38,7 +37,7 @@ namespace GraphicEditor
             {
                 if (obj.Name.Contains(name))
                 {
-                    location = new MapLocation(obj.Hospital, obj.Floor, obj.Name, path);
+                    MapLocation location = new MapLocation(obj.Hospital, obj.Floor, obj.Name, path);
 
                     locations.Add(location);
 
@@ -48,6 +47,31 @@ namespace GraphicEditor
             return locations;
 
         }
+        public void DisplayResults(MapLocation mapLocation)
+        {
+            Global.SearchObjectName = mapLocation.Name;
+            string hospital = mapLocation.Hospital;
+            string path = mapLocation.FilePath;
+            string floor = mapLocation.Floor;
+            string comboBoxPath = "";
 
+            GraphicRepository graphicRepository = new GraphicRepository();
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+
+            foreach (FileInformation inf in menuInformation)
+                if (inf.Name == hospital)
+                    comboBoxPath = inf.FilePath;
+
+            HospitalWindow window = new HospitalWindow(hospital, comboBoxPath);
+            window.Hospital.Content = new HospitalFloor(path);
+            window.HospitalFloors.Text = floor;
+            window.Show();
+        }
+
+        public MapLocation GetLocationByRoomName(string room)
+        {
+            List<MapLocation> mapLocations = FindObjectsByName(room);
+            return mapLocations[0];
+        }
     }
 }

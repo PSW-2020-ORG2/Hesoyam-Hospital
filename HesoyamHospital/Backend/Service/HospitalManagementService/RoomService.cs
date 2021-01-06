@@ -11,18 +11,17 @@ using System.Text.RegularExpressions;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
-using Backend.Repository.MySQLRepository.HospitalManagementRepository;
-using Backend.Repository.MySQLRepository.MedicalRepository;
+using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Util;
 
 namespace Backend.Service.HospitalManagementService
 {
     public class RoomService : IService<Room, long>
     {
-        private RoomRepository _roomRepository;
-        private AppointmentRepository _appointmentRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
 
-        public RoomService(RoomRepository roomRepository, AppointmentRepository appointmentRepository)
+        public RoomService(IRoomRepository roomRepository, IAppointmentRepository appointmentRepository)
         {
             _roomRepository = roomRepository;
             _appointmentRepository = appointmentRepository;
@@ -41,7 +40,25 @@ namespace Backend.Service.HospitalManagementService
                 if(appointmentRoom != null)
                     allRooms.Remove(allRooms.First(r => r.GetId() == appointmentRoom.GetId()));
             }
+
             return allRooms;
+
+        }
+
+        public IEnumerable<Room> GetAllExaminationRooms(TimeInterval timeInterval)
+        {
+            List<Room> rooms = (List<Room>)GetAvailableRoomsByDate(timeInterval);
+            List<Room> examinationRooms = new List<Room>();
+
+            foreach(Room room in rooms)
+            {
+                if(room.RoomType == RoomType.EXAMINATION)
+                {
+                    examinationRooms.Add(room);
+                }
+            }
+
+            return examinationRooms;
         }
 
         public void DivideRooms(Room initialRoom, String newNumber)
@@ -72,6 +89,9 @@ namespace Backend.Service.HospitalManagementService
 
         public Room GetByID(long id)
             => this.GetAll().SingleOrDefault(room => room.GetId() == id);
+
+        public IEnumerable<Room> GetRoomsByOccupied(bool isOccupied)
+            => _roomRepository.GetRoomsByOccupied(isOccupied);
 
         public Room Create(Room entity)
         {

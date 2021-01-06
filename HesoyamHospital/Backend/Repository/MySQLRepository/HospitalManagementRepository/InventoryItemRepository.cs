@@ -28,6 +28,23 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
             => GetAll().ToList();
 
         public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
-            => GetAllEager().Where(item => item.Name.Contains(name));
+        {
+            List<InventoryItem> result = new List<InventoryItem>();
+            List<InventoryItem> inventoryItems = (List<InventoryItem>)GetAllEager();
+            foreach (InventoryItem item in inventoryItems)
+                if (item.Name.Contains(name))
+                    result.Add(item);
+            return result;
+        }
+
+        public IEnumerable<InventoryItem> GetInventoryItemsByRoomId(long id)
+        {
+            List<InventoryItem> result = new List<InventoryItem>();
+            List<InventoryItem> inventoryItems = (List<InventoryItem>)GetAllEager();
+            foreach (InventoryItem item in inventoryItems)
+                if (item.RoomID == id)
+                    result.Add(item);
+            return result;
+        }
     }
 }

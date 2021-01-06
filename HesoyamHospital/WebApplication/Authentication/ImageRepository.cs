@@ -21,7 +21,7 @@ namespace WebApplication.Authentication
                     file.CopyTo(stream);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
