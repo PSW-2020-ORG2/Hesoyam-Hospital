@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Chrome;
 using Shouldly;
 using System;
-using System.Threading;
 using WebApplicationTests.EndToEnd.Pages;
 using Xunit;
 
@@ -14,29 +13,29 @@ namespace WebApplicationTests.EndToEnd
         private FeedbackPublishList feedbackPublishListPage;
         private PublishedFeedbacks publishedFeedbacksPage;
         private int publishedFeedbackCount;
+        private Login loginPage;
         
         public PublishFeedbackTests()
         {
             InitializeDriver();
             feedbackPublishListPage = new FeedbackPublishList(driver);
             publishedFeedbacksPage = new PublishedFeedbacks(driver);
+            loginPage = new Login(driver);
 
+            LogIn("perapera", "pera", "Admin");
             publishedFeedbacksPage.Navigate();
-            Thread.Sleep(15000);
             publishedFeedbacksPage.URI.ShouldBeEquivalentTo(driver.Url);
             publishedFeedbackCount = publishedFeedbacksPage.PublishedFeedbacksCount();
             
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.EnsurePageIsDisplayed();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
-            
         }
 
         [Fact]
         public void Successful_count_of_published_feedbacks()
         {
             feedbackPublishListPage.PublishFirstFeedback();
-            Thread.Sleep(5000);
 
             publishedFeedbacksPage.Navigate();
             publishedFeedbacksPage.EnsurePageIsDisplayed();
@@ -67,6 +66,17 @@ namespace WebApplicationTests.EndToEnd
             options.AddArguments("--no-sandbox");
             options.AddArguments("--disable-notifications");
             driver = new ChromeDriver(options);
+        }
+
+        private void LogIn(string username, string password, string role)
+        {
+            loginPage.Navigate();
+            loginPage.EnsurePageIsDisplayed();
+            loginPage.EnterUsername(username);
+            loginPage.EnterPassword(password);
+            if (role.Equals("Patient")) loginPage.SelectPatientRole();
+            else if (role.Equals("Admin")) loginPage.SelectAdminRole();
+            loginPage.LogIn();
         }
     }
 }
