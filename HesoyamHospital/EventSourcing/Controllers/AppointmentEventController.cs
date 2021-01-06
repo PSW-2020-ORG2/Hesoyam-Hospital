@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using EventSourcing.Model.Appointments;
 using EventSourcing.Repository;
+using EventSourcing.Exceptions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,15 +26,27 @@ namespace EventSourcing.Controllers
         [HttpPost ("create")]
         public IActionResult Create([FromBody] AppointmentEvent appointmentEvent)
         {
-            if (appointmentEvent == null)
+            try
             {
-                return BadRequest("Appoinment event must be provided.");
+                Validate(appointmentEvent);
             }
-
+            catch (BadRequestException e) {
+                return BadRequest(e.Message);
+            }
 
             eventDbContext.AppointmentEvents.Add(appointmentEvent);
             eventDbContext.SaveChanges();
             return Ok();
+        }
+
+        private void Validate(AppointmentEvent appointmentEvent)
+        {
+            if (appointmentEvent.PatientID == null)
+                throw new BadRequestException("Patient ID can not be null!");
+            if (appointmentEvent.DoctorID == null)
+                throw new BadRequestException("Doctor ID can not be null!");
+            //if (appointmentEvent.Timestamp == null)
+            //    throw new BadRequestException("Timestamp can not be null!");
         }
 
 
