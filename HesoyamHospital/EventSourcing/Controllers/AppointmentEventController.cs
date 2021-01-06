@@ -50,24 +50,5 @@ namespace EventSourcing.Controllers
 
             return Ok(appointmentEvent);
         }
-
-
-        // POST api/<AppointmentEventController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<AppointmentEventController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<AppointmentEventController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

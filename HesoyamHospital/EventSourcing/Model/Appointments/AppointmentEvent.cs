@@ -13,7 +13,7 @@ namespace EventSourcing.Model.Appointments
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public int Id { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.Now;
 
         public string PatientID { get; set; }
         public string DoctorID { get; set; }
@@ -34,11 +34,6 @@ namespace EventSourcing.Model.Appointments
             AppointmentType = appointmentType;
             Timestamp = timestamp;
         }
-
-
-
-
-
 
     }
 }
