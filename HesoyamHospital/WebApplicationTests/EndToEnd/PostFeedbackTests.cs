@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Chrome;
 using Shouldly;
 using System;
-using System.Threading;
 using WebApplicationTests.EndToEnd.Pages;
 using Xunit;
 
@@ -13,7 +12,7 @@ namespace WebApplicationTests.EndToEnd
         private IWebDriver driver;
         private PostFeedback postFeedbackPage;
         private FeedbackPublishList feedbackPublishListPage;
-        private int feedbackCount;
+        private Login loginPage;
 
         public PostFeedbackTests()
         {
@@ -21,133 +20,141 @@ namespace WebApplicationTests.EndToEnd
 
             postFeedbackPage = new PostFeedback(driver);
             feedbackPublishListPage = new FeedbackPublishList(driver);
-
-            feedbackPublishListPage.Navigate();
-            Thread.Sleep(3000);
-            feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
-            feedbackCount = feedbackPublishListPage.FeedbackCount();
-
-            postFeedbackPage.Navigate();
-            postFeedbackPage.EnsurePageIsDisplayed();
-            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+            loginPage = new Login(driver);
         }
 
         [Fact]
         public void Successful_public_anonymous_feedback()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "Awesome!";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectPublicRadioButton();
             postFeedbackPage.SelectAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
+            LogIn("perapera", "pera", "Admin");
             feedbackPublishListPage.Navigate();
+            feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
-
-            feedbackPublishListPage.GetLastRowUsername().ShouldBeEquivalentTo("Anonymous");
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount() - 1);
+            feedbackPublishListPage.GetLastRowUsername().ShouldBe("Anonymous");
             feedbackPublishListPage.GetLastRowFeedback().ShouldBe(feedback);
         }
 
         [Fact]
         public void Successful_private_anonymous_feedback()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "Awesome!";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectPrivateRadioButton();
             postFeedbackPage.SelectAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
+            LogIn("perapera", "pera", "Admin");
             feedbackPublishListPage.Navigate();
+            feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
-
             feedbackPublishListPage.GetLastRowUsername().ShouldBeEquivalentTo("Anonymous");
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount() - 1);
             feedbackPublishListPage.GetLastRowFeedback().ShouldBe(feedback);
         }
 
         [Fact]
         public void Successful_public_not_anonymous_feedback()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "Awesome!";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectPublicRadioButton();
             postFeedbackPage.SelectNotAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
+            LogIn("perapera", "pera", "Admin");
             feedbackPublishListPage.Navigate();
+            feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
-
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount() - 1);
+            feedbackPublishListPage.GetLastRowUsername().ShouldBeEquivalentTo("milijanadj");
             feedbackPublishListPage.GetLastRowFeedback().ShouldBe(feedback);
         }
 
         [Fact]
         public void Successful_private_not_anonymous_feedback()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "Awesome!";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectPrivateRadioButton();
             postFeedbackPage.SelectNotAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
+            LogIn("perapera", "pera", "Admin");
             feedbackPublishListPage.Navigate();
+            feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
-
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount() - 1);
+            feedbackPublishListPage.GetLastRowUsername().ShouldBeEquivalentTo("milijanadj");
             feedbackPublishListPage.GetLastRowFeedback().ShouldBe(feedback);
         }
 
         [Fact]
         public void Unsuccessful_feedback_empty_text_input_field()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectPrivateRadioButton();
             postFeedbackPage.SelectNotAnonymousRadioButton();
 
             postFeedbackPage.SubmitButtonEnabled().ShouldBe(false);
-
-            postFeedbackPage.SubmitFeedback();
-
-            feedbackPublishListPage.Navigate();
-            feedbackPublishListPage.EnsurePageIsDisplayed();
-
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount());
         }
 
         [Fact]
         public void Unsuccessful_feedback_visibility_radio_button_group_not_selected()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "Awesome!";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectNotAnonymousRadioButton();
 
             postFeedbackPage.SubmitButtonEnabled().ShouldBe(false);
-
-            postFeedbackPage.SubmitFeedback();
-
-            feedbackPublishListPage.Navigate();
-            feedbackPublishListPage.EnsurePageIsDisplayed();
-
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount());
         }
 
         [Fact]
         public void Unsuccessful_feedback_anonymity_radio_button_group_not_selected()
         {
+            LogIn("milijanadj", "pera", "Patient");
+            postFeedbackPage.Navigate();
+            postFeedbackPage.EnsurePageIsDisplayed();
+            postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
+
             string feedback = "Awesome!";
             postFeedbackPage.InsertFeedback(feedback);
             postFeedbackPage.SelectPrivateRadioButton();
 
             postFeedbackPage.SubmitButtonEnabled().ShouldBe(false);
-
-            postFeedbackPage.SubmitFeedback();
-
-            feedbackPublishListPage.Navigate();
-            feedbackPublishListPage.EnsurePageIsDisplayed();
-
-            feedbackCount.ShouldBe(feedbackPublishListPage.FeedbackCount());
         }
 
         public void Dispose()
@@ -167,6 +174,17 @@ namespace WebApplicationTests.EndToEnd
             options.AddArguments("--no-sandbox");
             options.AddArguments("--disable-notifications");
             driver = new ChromeDriver(options);
+        }
+
+        private void LogIn(string username, string password, string role)
+        {
+            loginPage.Navigate();
+            loginPage.EnsurePageIsDisplayed();
+            loginPage.EnterUsername(username);
+            loginPage.EnterPassword(password);
+            if (role.Equals("Patient")) loginPage.SelectPatientRole();
+            else if (role.Equals("Admin")) loginPage.SelectAdminRole();
+            loginPage.LogIn();
         }
     }
 }
