@@ -79,11 +79,13 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("mean-value-per-section")]
         public IActionResult MeanValuePerSection()
         {
-            List<double> means = new List<double>();
-            means.Add(AppResources.getInstance().surveyService.MeanValuesPerDoctorSection());
-            means.Add(AppResources.getInstance().surveyService.MeanValuesPerStaffSection());
-            means.Add(AppResources.getInstance().surveyService.MeanValuesPerHygieneSection());
-            means.Add(AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection());
+            List<double> means = new List<double>
+            {
+                AppResources.getInstance().surveyService.MeanValuesPerDoctorSection(),
+                AppResources.getInstance().surveyService.MeanValuesPerStaffSection(),
+                AppResources.getInstance().surveyService.MeanValuesPerHygieneSection(),
+                AppResources.getInstance().surveyService.MeanValuesPerEquipmentSection()
+            };
 
             List<MeanDTO> result = new List<MeanDTO>();
             MeanDTO dto = new MeanDTO(means[0], means[1], means[2], means[3]);
@@ -138,19 +140,14 @@ namespace WebApplication.HospitalSurvey
         [HttpGet("frequencies-per-question/{section}")]
         public IActionResult FrequenciesPerQuestion(string section)
         {
-            switch (section)
+            return section switch
             {
-                case "Doctor":
-                    return Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions().Values);
-                case "Staff":
-                    return Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions().Values);
-                case "Hygiene":
-                    return Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions().Values);
-                case "Equipment":
-                    return Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions().Values);
-                default:
-                    return BadRequest();
-            }
+                "Doctor" => Ok(AppResources.getInstance().surveyService.FrequencyPerDoctorQuestions().Values),
+                "Staff" => Ok(AppResources.getInstance().surveyService.FrequencyPerStaffQuestions().Values),
+                "Hygiene" => Ok(AppResources.getInstance().surveyService.FrequencyPerHygieneQuestions().Values),
+                "Equipment" => Ok(AppResources.getInstance().surveyService.FrequencyPerEquipmentQuestions().Values),
+                _ => BadRequest(),
+            };
         }
         [HttpGet("answers-per-doctors/{id}")]
         public IActionResult AnswersPerDoctors(long id)

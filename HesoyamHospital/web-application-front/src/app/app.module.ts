@@ -12,6 +12,9 @@ import { MedicalRecordModule} from './medical-record/medical-record.module';
 import { RegistrationModule } from './registration/registration.module';
 import { DocumentsModule } from './documents/documents.module';
 import { RegistrationService } from './registration/services/registration.service';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './helpers/interceptor.service';
 
 
 @NgModule({
@@ -28,9 +31,14 @@ import { RegistrationService } from './registration/services/registration.servic
     MaterialModule,
     MedicalRecordModule,
     RegistrationModule,
-    DocumentsModule
+    DocumentsModule,
+    AuthenticationModule
   ],
-  providers: [FeedbackService, RegistrationService],
+  providers: [FeedbackService, RegistrationService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
