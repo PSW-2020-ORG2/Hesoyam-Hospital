@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Hospital Map" 
         WindowStartupLocation="CenterScreen" 
-        Height="550" Width="810">
+        Height="670" Width="810">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -38,7 +38,7 @@
                             <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="_Search for available terms" Click="Search_Available_Terms">
+                    <MenuItem x:Name="searchAvailable" Header="_Search for available terms" Click="Search_Available_Terms">
                         <MenuItem.Icon>
                             <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
                         </MenuItem.Icon>

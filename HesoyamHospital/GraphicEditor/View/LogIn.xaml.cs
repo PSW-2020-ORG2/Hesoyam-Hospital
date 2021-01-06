@@ -26,7 +26,7 @@ namespace GraphicEditor
             
             if(loggedIn == null)
             {
-                MessageBox.Show("Ne postoji korisnik sa unetim podacima.");
+                MessageBox.Show("Incorrect username or password!");
             }
             else
             {
