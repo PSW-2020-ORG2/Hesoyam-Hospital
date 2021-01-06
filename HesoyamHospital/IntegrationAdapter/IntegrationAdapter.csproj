@@ -22,6 +22,9 @@
 		<ProjectReference Include="..\Backend\Backend.csproj" />
 		<Protobuf Include="Protos\model.proto" GrpcServices="None" />
 		<Protobuf Include="Protos\pharmacyGrpcService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\procurementModel.proto" GrpcServices="None" />
+		<Protobuf Include="Protos\medicineQuantityAvailableService.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\medicineProcurementService.proto" GrpcServices="Client" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="PrescribedMedicineReport\prescriptions\" />

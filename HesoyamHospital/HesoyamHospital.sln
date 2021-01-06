@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapter", "Integ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicEditorTests", "GraphicEditorTests\GraphicEditorTests.csproj", "{648F4462-E44E-49DB-8B96-5460CB5833C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicEditorTests", "GraphicEditorTests\GraphicEditorTests.csproj", "{648F4462-E44E-49DB-8B96-5460CB5833C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
