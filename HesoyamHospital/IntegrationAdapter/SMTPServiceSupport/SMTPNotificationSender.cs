@@ -59,8 +59,10 @@ namespace IntegrationAdapter.SMTPServiceSupport
             {
                 smtpClient.Send(message);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                //Bice izmenjeno u sprintu koji se bavi sigurnoscu
+                Console.WriteLine(e.StackTrace);
             }
         }
 

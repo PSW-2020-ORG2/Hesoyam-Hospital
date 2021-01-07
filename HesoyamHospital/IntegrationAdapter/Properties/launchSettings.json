@@ -16,7 +16,7 @@
         "HospitalEmail": "heshospital@gmail.com",
         "MyDbConnectionString": "server=localhost;port=3306;database=mydb1;user=root;password=root",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SFTPServerIPAddress": "192.168.1.92",
+        "SFTPServerIPAddress": "192.168.1.6",
         "SFTPUsername": "tester",
         "HospitalEmailPassword": "hesoyamP123",
         "SFTPPassword": "password"
