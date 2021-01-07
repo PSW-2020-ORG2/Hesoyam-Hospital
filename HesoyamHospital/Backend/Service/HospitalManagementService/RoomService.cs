@@ -12,16 +12,14 @@ using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Repository.MySQLRepository.HospitalManagementRepository;
-using Backend.Repository.MySQLRepository.MedicalRepository;
 using Backend.Util;
 
 namespace Backend.Service.HospitalManagementService
 {
     public class RoomService : IService<Room, long>
     {
-        private IRoomRepository _roomRepository;
-        private IAppointmentRepository _appointmentRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
 
         public RoomService(IRoomRepository roomRepository, IAppointmentRepository appointmentRepository)
         {

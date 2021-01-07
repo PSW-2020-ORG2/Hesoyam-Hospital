@@ -144,13 +144,13 @@ namespace GraphicEditor
 
         private List<MedicineDTO> ConvertMedicineToDTO(List<Medicine> medicines)
         {
-            List<MedicineDTO> medicineDTOs = new List<MedicineDTO>();
+            List<MedicineDTO> medicinesDTOs = new List<MedicineDTO>();
 
             foreach (Medicine m in medicines)
-                medicineDTOs.Add(new MedicineDTO(m.Name, m.MedicineType.ToString(), 
+                medicinesDTOs.Add(new MedicineDTO(m.Name, m.MedicineType.ToString(), 
                                  roomService.GetByID(m.RoomID).RoomNumber, m.InStock));
             
-            return medicineDTOs;
+            return medicinesDTOs;
         }
     }
 }
