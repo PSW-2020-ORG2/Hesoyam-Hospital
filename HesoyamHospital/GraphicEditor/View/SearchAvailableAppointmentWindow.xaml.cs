@@ -212,7 +212,8 @@ namespace GraphicEditor
 
             if (doctorSelected != null)
             {
-                
+                EquipmentForSpecialistAppointment equipmentForSpecialist = new EquipmentForSpecialistAppointment();
+                equipmentForSpecialist.Show();
             }
         }
     }

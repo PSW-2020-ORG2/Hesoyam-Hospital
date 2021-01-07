@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor.View"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
-        Title="EquipmentForSpecialistAppointment" Height="250" Width="400">
+        WindowStartupLocation="CenterScreen"
+        Title="EquipmentForSpecialistAppointment" Height="400" Width="800">
     <Grid Background="Beige">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,6 +24,6 @@
         </Grid.ColumnDefinitions>-->
 
         <Label x:Name="equipmentLabel" Content="Choose equipment for specialist appointment" Style="{StaticResource ResourceKey=equipmentLabel}"/>
-      
+        <DataGrid x:Name="equipmentDataGrid" ColumnWidth="*" ItemsSource="{Binding inventoryItems}" Style="{StaticResource ResourceKey=dataGridEquipment}"/>
     </Grid>
 </Window>

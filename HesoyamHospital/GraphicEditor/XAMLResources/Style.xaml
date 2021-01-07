@@ -430,6 +430,23 @@
         <Setter Property="Margin" Value="10"/>
     </Style>
 
+    <Style x:Key="dataGridEquipment" TargetType="DataGrid">
+        <Setter Property="Background" Value="Beige"/>
+        <Setter Property="RowBackground" Value="Beige"/>
+        <Setter Property="BorderBrush" Value="Beige"/>
+        <Setter Property="AlternatingRowBackground" Value="BurlyWood"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="Height" Value="180"/>
+        <Setter Property="Grid.Row" Value="2"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
     <Style x:Key="dataGridSearchAvailableTerms" TargetType="DataGrid">
         <Setter Property="Background" Value="Beige"/>
         <Setter Property="RowBackground" Value="Beige"/>
