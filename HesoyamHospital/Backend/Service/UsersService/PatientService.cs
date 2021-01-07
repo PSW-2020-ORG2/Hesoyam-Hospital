@@ -21,6 +21,7 @@ namespace Backend.Service.UsersService
         readonly PatientRepository _patientRepository;
         readonly DoctorRepository _doctorRepository;
         readonly MedicalRecordRepository _medicalRecordRepository;
+        private IPatientRepository patientRepository;
         UserValidation _userValidation;
 
         public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository, DoctorRepository doctorRepository)
@@ -29,6 +30,11 @@ namespace Backend.Service.UsersService
             _medicalRecordRepository = medicalRecordRepository;
             _doctorRepository = doctorRepository;
             _userValidation = new UserValidation();
+        }
+
+        public PatientService(IPatientRepository patientRepository)
+        {
+            this.patientRepository = patientRepository;
         }
 
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
