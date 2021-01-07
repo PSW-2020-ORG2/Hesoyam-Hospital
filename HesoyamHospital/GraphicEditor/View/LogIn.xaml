@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphicEditor"
         mc:Ignorable="d"
-        Title="LogIn" Height="550" Width="810"
+        Title="LogIn" Height="670" Width="810"
         WindowStartupLocation="CenterScreen">
 
     <Grid x:Name="LogIn_grid">

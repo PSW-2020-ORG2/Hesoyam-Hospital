@@ -86,6 +86,7 @@ namespace Backend
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
         public TherapyService therapyService;
+        public AppointmentSchedulingService appointmentSchedulingService;
 
         // MiscService
         public ArticleService articleService;
@@ -125,11 +126,13 @@ namespace Backend
             roomService = new RoomService(roomRepository, appointmentRepository);
             medicineService = new MedicineService(medicineRepository);
 
+
             // MedicineService
             diagnosisService = new DiagnosisService(diagnosisRepository);
             diseaseService = new DiseaseService(diseaseRepository);
             medicalRecordService = new MedicalRecordService(medicalRecordRepository);
             therapyService = new TherapyService(therapyRepository, medicalRecordService);
+            appointmentSchedulingService = new AppointmentSchedulingService(doctorRepository, appointmentRepository);
 
             // MiscService
             articleService = new ArticleService(articleRepository);
@@ -176,6 +179,7 @@ namespace Backend
             actionBenefitRepository = new ActionBenefitRepository(new MySQLStream<ActionBenefit>(), new LongSequencer());
             therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
             roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
+            appointmentRepository = new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer());
         }
 
         public static AppResources getInstance()
