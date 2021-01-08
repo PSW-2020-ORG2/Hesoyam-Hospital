@@ -23,9 +23,13 @@
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MyDbConnectionString": "server=localhost;port=3306;database=mydb1;user=root;password=root",
+        "shouldLogEvents": "false",
+        "feedbackCreatedEventLoggerURL": "http://localhost:63725/api/feedbackevent/createfeedbackEvent",
+        "surveyAnsweredEventLoggerURL": "http://localhost:63725/api/feedbackevent/createSurveyAnsweredEvent"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:57741"
     }
   }
 }
