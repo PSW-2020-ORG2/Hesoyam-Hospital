@@ -10,7 +10,6 @@ namespace Appointments.Repository.SQLRepository.Base
         public SQLStream() { dbContext = new MyDbContext(); }
         public void Append(T entity)
         {
-            dbContext.Dispose();
             dbContext = new MyDbContext();
             var ret = dbContext.Set<T>().Attach(entity);
             ret.State = EntityState.Added;
@@ -19,7 +18,6 @@ namespace Appointments.Repository.SQLRepository.Base
 
         public void Update(T entity)
         {
-            dbContext.Dispose();
             dbContext = new MyDbContext();
             dbContext.Set<T>().Attach(entity);
             dbContext.Entry(entity).State = EntityState.Modified;
@@ -37,7 +35,7 @@ namespace Appointments.Repository.SQLRepository.Base
 
         public IEnumerable<T> ReadAll()
         {
-            dbContext.Dispose();
+            //dbContext.Dispose();
             dbContext = new MyDbContext();
             return dbContext.Set<T>().ToList();
         }

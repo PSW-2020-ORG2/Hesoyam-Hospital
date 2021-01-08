@@ -27,7 +27,6 @@ export class PublishListComponent implements OnInit {
     element.public = false;
     element.published = true;
     this.displayText = true;
-    alert("Feedback id: " + element.id);
     this._feedbackService.publishFeedback(element.id).subscribe();
   }
 
