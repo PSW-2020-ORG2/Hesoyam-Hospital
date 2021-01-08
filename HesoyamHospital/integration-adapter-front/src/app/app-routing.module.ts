@@ -6,13 +6,17 @@ import { ActionBenefitComponent } from './action-benefit/action-benefit.componen
 import { PrescribeTherapyComponent } from './prescribe-therapy/prescribe-therapy.component'
 import { SpecificationComponent } from './specification/specification.component'
 import {MedicineAvailabilityComponent} from './medicine-availability/medicine-availability.component'
+import { UrgentMedicineProcurementRequestComponent } from './urgent-medicine-procurement-request/urgent-medicine-procurement-request.component'
+import { UrgentMedicineProcurementListComponent } from './urgent-medicine-procurement-list/urgent-medicine-procurement-list.component'
 
 const routes: Routes = [
     { path: '', component: PharmacyRegistrationComponent },
     { path: 'action-benefit', component: ActionBenefitComponent } ,
     { path: 'prescribe-therapy', component: PrescribeTherapyComponent},
     { path: 'specification', component: SpecificationComponent},
-    { path: 'medicine-availability', component: MedicineAvailabilityComponent}
+    { path: 'medicine-availability', component: MedicineAvailabilityComponent},
+    { path: 'urgent-medicine-procurement-request', component:UrgentMedicineProcurementRequestComponent },
+    { path: 'urgent-medicine-procurement-list', component:UrgentMedicineProcurementListComponent }
 ];
 
 @NgModule({

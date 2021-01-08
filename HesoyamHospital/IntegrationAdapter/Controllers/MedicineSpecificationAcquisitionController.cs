@@ -26,17 +26,27 @@ namespace IntegrationAdapter.Controllers
             _environment = environment;
         }
 
-        [HttpGet]
+        [HttpGet("getALL/medicines")]
         public IActionResult GetAllMedicines()
         {
             List<Medicine> medicineList = (List<Medicine>)AppResources.getInstance().medicineService.GetAll();
-            return Ok(medicineList);
+            List<MedicineDTO> medicineDTOList = new List<MedicineDTO>();
+            foreach (Medicine medicine in medicineList)
+            {
+                medicineDTOList.Add(MedicineDTO.MedicineToMedicineDTO(medicine));
+            }
+            return Ok(medicineDTOList);
         }
-        [HttpGet]
+        [HttpGet("getALL/patients")]
         public IActionResult GetAllPatients()
         {
             List<Patient> patientList = (List<Patient>)AppResources.getInstance().patientService.GetAll();
-            return Ok(patientList);
+            List<PatientDTO> patientDTOList = new List<PatientDTO>();
+            foreach (Patient patient in patientList)
+            {
+                patientDTOList.Add(PatientDTO.PatientToPatientDTO(patient));
+            }
+            return Ok(patientDTOList);
         }
 
         [HttpGet("specification/{name}")]

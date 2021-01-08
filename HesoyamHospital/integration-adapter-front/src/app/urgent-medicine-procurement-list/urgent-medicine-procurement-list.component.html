@@ -1,0 +1,25 @@
+<h1>Requests</h1>
+<ul>
+    <li *ngFor="let r of requests">
+       <div class="message">
+           <p class="text">Medicine Name:{{r.Medicine}}<br> Quantity: {{r.Quantity}} </p>
+            </div> 
+           <div class="action-button">
+            <button mat-raised-button (click)="Request(r.Id)"> Request</button>
+           </div> 
+            <br>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-select [(value)]="pharmacyName" placeholder="Medicine" #selectedPharmacy>
+                  <mat-option *ngFor="let pharmacy of pharmacies" [value]="pharmacy.pharmacyName">
+                    {{pharmacy.pharmacyName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+        </div>
+        <div class="action-button">
+            <button mat-raised-button (click)="Order()"> Order</button>
+        </div> 
+    </li>
+</ul>
