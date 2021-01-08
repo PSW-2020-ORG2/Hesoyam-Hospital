@@ -53,5 +53,13 @@ namespace EventSourcing.Controllers
 
             return Ok(selectedDoctorEvent);
         }
+
+        [HttpPost("createRegistrationEvent")]
+        public IActionResult CreateRegistrationEvent([FromBody] RegistrationEvent registrationEvent)
+        {
+            eventDbContext.RegistrationEvents.Add(registrationEvent);
+            eventDbContext.SaveChanges();
+            return Ok();
+        }
     }
 }

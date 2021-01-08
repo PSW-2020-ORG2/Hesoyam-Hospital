@@ -28,7 +28,8 @@
         "MyDbConnectionString": "server=localhost;port=3306;database=mydb1;user=root;password=root",
         "shouldLogEvents": "false",
         "blockPatientEventLoggerURL": "http://localhost:63725/api/authenticationevent/createBlockEvent",
-        "selectedDoctorEventLoggerURL": "http://localhost:63725/api/authenticationevent/createSelectedDoctorEvent"
+        "selectedDoctorEventLoggerURL": "http://localhost:63725/api/authenticationevent/createSelectedDoctorEvent",
+        "createdRegistrationEventLoggerURL": "http://localhost:63725/api/authenticationevent/createRegistrationEvent"
       },
       "applicationUrl": "http://localhost:57746"
     }
