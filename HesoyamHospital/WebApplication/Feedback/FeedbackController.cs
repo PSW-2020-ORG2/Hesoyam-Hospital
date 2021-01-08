@@ -20,8 +20,8 @@ namespace WebApplication.FeedbackFeature
         public IActionResult Add(NewFeedbackDTO dto)
         {
             if (!FeedbackValidation.isNewFeedbackValid(dto)) return BadRequest();
-
-            return Ok(AppResources.getInstance().feedbackService.Create(FeedbackMapper.NewFeedbackDTOToFeedback(dto)));
+            AppResources.getInstance().feedbackService.Create(FeedbackMapper.NewFeedbackDTOToFeedback(dto));
+            return Ok();
         }
 
         [HttpGet("unpublished")]  //GET /api/feedback/unpublished
