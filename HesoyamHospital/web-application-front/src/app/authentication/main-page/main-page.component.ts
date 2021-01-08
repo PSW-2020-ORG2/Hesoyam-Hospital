@@ -11,7 +11,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class MainPageComponent implements OnInit {
 
   imageObject: Array<object> = [];
-  titles : string[] = [ 'Pharmacy 1', 'Pharmacy 2', 'Pharmacy 3', 'Pharmacy 4', 'Pharmacy 5'];
+  titles : string[] = [ 'BENU', 'Biofarm', 'Healthy Pharmacy', 'Pharmacy Care', 'Planet Health'];
 
   constructor(public _authService : AuthenticationService, private _http : HttpClient) { }
 
