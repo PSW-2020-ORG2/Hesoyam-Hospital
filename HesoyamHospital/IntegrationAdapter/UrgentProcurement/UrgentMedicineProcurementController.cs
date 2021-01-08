@@ -25,6 +25,16 @@ namespace IntegrationAdapter.UrgentProcurement
         {
             _urgentMedicineProcurementService = urgentMedicineProcurementService;
         }
+        [HttpPost("createRequest")]
+        public IActionResult CreateUrgentMedicineProcurementRequest(UrgentMedicineProcurement urgentMedicine)
+        {
+            if (_urgentMedicineProcurementService.Create(urgentMedicine) != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
+            
+        }
         [HttpGet]
         public IActionResult GetAllUrgentProcurementEntries()
         {
