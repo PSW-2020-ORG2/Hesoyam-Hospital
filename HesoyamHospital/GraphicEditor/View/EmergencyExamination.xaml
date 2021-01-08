@@ -37,7 +37,10 @@
 
         <Label Content="Choose a type of examination: " Grid.Row="3" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <ComboBox x:Name="chooseExaminationType" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True"/>
+        <ComboBox x:Name="chooseExaminationType" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True">
+            <ComboBoxItem x:Name="general" Content="General examination" IsSelected="True"/>
+            <ComboBoxItem x:Name="specialist" Content="Specialist examination"/>
+        </ComboBox>
 
         <Label Content="Choose equipment: "  Grid.Row="4" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
@@ -47,15 +50,15 @@
 
         <Label Content="Name: "  Grid.Row="8" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <TextBox Grid.Row="8" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
+        <TextBox x:Name="Name" Grid.Row="8" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
 
         <Label Content="Surname: "  Grid.Row="9" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <TextBox Grid.Row="9" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
+        <TextBox x:Name="Surname" Grid.Row="9" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
 
         <Label Content="JMBG: "  Grid.Row="10" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <TextBox Grid.Row="10" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
+        <TextBox x:Name="JMBG" Grid.Row="10" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
 
         <Button x:Name="buttonScheduleEmergencyAppointment" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonScheduleEmergencyAppointment_Click"/>
 
