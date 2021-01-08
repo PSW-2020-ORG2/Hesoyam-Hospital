@@ -31,7 +31,7 @@ namespace EventSourceClasses.Authentication
             }
             catch (JsonSerializationException e)
             {
-                Console.WriteLine("Serilization error occured during login attempt.");
+                Console.WriteLine("Serilization error occured during block patient event logging.");
             }
         }
     }

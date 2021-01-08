@@ -12,7 +12,7 @@ namespace EventSourceClasses.Appointments
     {
         private readonly string LOG_END_POINT = Environment.GetEnvironmentVariable("appointmentEventLoggerURL");
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public DateTime Timestamp { get; set; } = DateTime.Now;
 
