@@ -27,8 +27,7 @@ namespace EventSourceClasses.Authentication
         {
             try
             {
-                string serializedObject = SerializeObject();
-                SendRequest(LOG_END_POINT, serializedObject);
+                LogObject(LOG_END_POINT);
             }
             catch (JsonSerializationException e)
             {

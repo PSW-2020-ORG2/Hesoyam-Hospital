@@ -34,9 +34,9 @@ namespace Authentication.Controllers
         [HttpPut("block/{username}")]
         public IActionResult BlockPatient(string username)
         {
-            Patient patient = _patientService.GetByUsername(username);
-            if (patient == null) return BadRequest();
-            _patientService.BlockPatient(patient);
+            //Patient patient = _patientService.GetByUsername(username);
+            //if (patient == null) return BadRequest();
+            //_patientService.BlockPatient(patient);
             _patientEventLogger.log(new BlockPatientEvent(username));
             return Ok();
         }

@@ -47,13 +47,12 @@ namespace EventSourceClasses.Appointments
         {
             try
             {
-                string serializedObject = SerializeObject();
-                SendRequest(LOG_END_POINT, serializedObject);
-            }catch(JsonSerializationException e)
+                LogObject(LOG_END_POINT);
+            }
+            catch (JsonSerializationException e)
             {
                 Console.WriteLine("Serilization error occured during login attempt.");
             }
-            
         }
     }
 }
