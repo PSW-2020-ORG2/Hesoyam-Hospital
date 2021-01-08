@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections;
 using Backend.Model.PatientModel;
 using GraphicEditor.View;
+using Backend.Model.DoctorModel;
+using Castle.Core.Internal;
 
 namespace GraphicEditor
 {
@@ -28,8 +30,10 @@ namespace GraphicEditor
         private readonly PatientService patientService;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
         private readonly RoomService roomService;
+        private readonly InventoryService inventoryService;
         private SearchService searchService;
         private List<Room> availableRooms;
+        private Room roomForAppointment;
         private TimeInterval timeInterval;
         private List<PatientDTO> patientDTOs;
         private PatientDTO patientInAppointmentDTO;
@@ -42,6 +46,7 @@ namespace GraphicEditor
             patientService = Backend.AppResources.getInstance().patientService;
             appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             roomService = Backend.AppResources.getInstance().roomService;
+            inventoryService = Backend.AppResources.getInstance().inventoryService;
             List<Doctor> doctors = (List<Doctor>)doctorService.GetAll();
             searchService = new SearchService();
 
@@ -89,7 +94,11 @@ namespace GraphicEditor
                 DateTime startTime = selectedTerm.StartTime;
                 DateTime endTime = selectedTerm.EndTime;
                 timeInterval = new TimeInterval(startTime, endTime);
-                availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
+                availableRooms = (List<Room>)roomService.GetAllExaminationRooms(timeInterval);
+                if (Global.inventories.IsNullOrEmpty())
+                    roomForAppointment = availableRooms[0];
+                else
+                    roomForAppointment = inventoryService.FindAvailableRoomWithEquipment(availableRooms,Global.inventories);
             }
         }
 
@@ -107,8 +116,15 @@ namespace GraphicEditor
 
         private void ButtonSeeAvailableRoom_Click(object sender, RoutedEventArgs e)
         {
-            MapLocation mapLocation = searchService.GetLocationByRoomName(availableRooms[0].RoomNumber);
-            searchService.DisplayResults(mapLocation);
+            if (roomForAppointment != null)
+            {
+                MapLocation mapLocation = searchService.GetLocationByRoomName(roomForAppointment.RoomNumber);
+                searchService.DisplayResults(mapLocation);
+            }
+            else
+            {
+                MessageBox.Show("There are no rooms available for this appointment");
+            }
         }
 
         private void ButtonShowPatients_Click(object sender, RoutedEventArgs e)
@@ -130,11 +146,17 @@ namespace GraphicEditor
         {
             Patient patientInAppointment = patientService.GetByID(patientInAppointmentDTO.Id);
             Doctor doctorInAppointment = doctorService.GetByID(idDoctor);
-            Room availableRoom = availableRooms[0];
-            Appointment appointmentForPatient = new Appointment(doctorInAppointment, patientInAppointment, availableRoom, AppointmentType.checkup, timeInterval);
-            appointmentSchedulingService.SaveAppointment(appointmentForPatient);
-            ShowMessage();
-            LoadDataGrid();
+            if (roomForAppointment != null)
+            {
+                Appointment appointmentForPatient = new Appointment(doctorInAppointment, patientInAppointment, roomForAppointment, AppointmentType.checkup, timeInterval);
+                appointmentSchedulingService.SaveAppointment(appointmentForPatient);
+                ShowMessage();
+                LoadDataGrid();
+            }
+            else 
+            {
+                MessageBox.Show("There are no rooms available for this appointment");
+            }
         }
 
         private void ShowWPFElement(bool isActivePatientDataGrid)
@@ -209,8 +231,10 @@ namespace GraphicEditor
         {
 
             ComboBoxItem doctorSelected = (ComboBoxItem)searchDoctor.SelectedItem;
+            Doctor doctor = (Doctor)doctorSelected.Tag;
+            Global.inventories = new List<string>();
 
-            if (doctorSelected != null)
+            if (doctorSelected != null && doctor.Specialisation != DoctorType.GENERAL_PRACTITIONER && doctor.Specialisation != DoctorType.UNDEFINED)
             {
                 EquipmentForSpecialistAppointment equipmentForSpecialist = new EquipmentForSpecialistAppointment();
                 equipmentForSpecialist.Show();

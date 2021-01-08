@@ -20,7 +20,6 @@ namespace GraphicEditor.View
         public EquipmentForSpecialistAppointment()
         {
             InitializeComponent();
-            Global.inventories = new List<InventoryNameDTO>();
             inventoryService = Backend.AppResources.getInstance().inventoryService;
             inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItems();
             inventoryNamesDTOs = InvertoryItemMapper.ConvertFromIventoryItemNameToDTO(inventoryItems);
@@ -33,7 +32,7 @@ namespace GraphicEditor.View
             if (selectedItem != null)
             {
                 MessageBox.Show("Equipment added to the list.");
-                Global.inventories.Add(selectedItem);
+                Global.inventories.Add(selectedItem.Name);
             }
         }
     }

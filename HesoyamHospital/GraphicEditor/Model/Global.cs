@@ -7,7 +7,7 @@ namespace GraphicEditor
     public static class Global
     {
         public static string SearchObjectName { get; set; }
-        public static List<InventoryNameDTO> inventories {get; set; }
+        public static List<string> inventories {get; set; }
         
     }
 }
