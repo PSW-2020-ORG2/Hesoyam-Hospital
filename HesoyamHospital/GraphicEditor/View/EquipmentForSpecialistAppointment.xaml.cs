@@ -17,15 +17,24 @@ namespace GraphicEditor.View
         private List<InventoryItem> inventoryItems;
         private List<InventoryNameDTO> inventoryNamesDTOs;
 
-        //private List<CheckBoxDTO> checkBoxDTOs;
-
         public EquipmentForSpecialistAppointment()
         {
-            InitializeComponent();  
-            inventoryService = Backend.AppResources.getInstance().inventoryService;  
+            InitializeComponent();
+            Global.inventories = new List<InventoryNameDTO>();
+            inventoryService = Backend.AppResources.getInstance().inventoryService;
             inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItems();
             inventoryNamesDTOs = InvertoryItemMapper.ConvertFromIventoryItemNameToDTO(inventoryItems);
             equipmentDataGrid.ItemsSource = inventoryNamesDTOs;
+        }
+
+        private void InventoryItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InventoryNameDTO selectedItem = (InventoryNameDTO)equipmentDataGrid.SelectedItem;
+            if (selectedItem != null)
+            {
+                MessageBox.Show("Equipment added to the list.");
+                Global.inventories.Add(selectedItem);
+            }
         }
     }
 }

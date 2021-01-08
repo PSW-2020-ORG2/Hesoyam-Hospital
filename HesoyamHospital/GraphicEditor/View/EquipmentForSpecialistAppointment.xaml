@@ -24,6 +24,6 @@
         </Grid.ColumnDefinitions>-->
 
         <Label x:Name="equipmentLabel" Content="Choose equipment for specialist appointment" Style="{StaticResource ResourceKey=equipmentLabel}"/>
-        <DataGrid x:Name="equipmentDataGrid" ColumnWidth="*" ItemsSource="{Binding inventoryItems}" Style="{StaticResource ResourceKey=dataGridEquipment}"/>
+        <DataGrid x:Name="equipmentDataGrid" ColumnWidth="*" SelectionChanged="InventoryItems_SelectionChanged"  ItemsSource="{Binding inventoryItems}" Style="{StaticResource ResourceKey=dataGridEquipment}"/>
     </Grid>
 </Window>
