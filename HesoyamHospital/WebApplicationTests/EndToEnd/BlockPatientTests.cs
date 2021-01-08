@@ -11,7 +11,7 @@ namespace WebApplicationTests.EndToEnd
     {
         private IWebDriver driver;
         private readonly BlockPatientList blockPatientList;
-        private readonly int blockPatientCount;
+        private int blockPatientCount;
         private readonly Login loginPage;
 
         private const string adminUsername = "perapera";
@@ -25,17 +25,13 @@ namespace WebApplicationTests.EndToEnd
             loginPage = new Login(driver);
 
             LogIn(adminUsername, adminPassword, role);
-
-            blockPatientList.Navigate();
-            blockPatientList.EnsurePageIsDisplayed();
-            blockPatientList.URI.ShouldBeEquivalentTo(driver.Url);
-            blockPatientCount = blockPatientList.BlockButtonCount();
         }
 
 
         [Fact]
         public void Successful_blocking()
         {
+            CountBlockButtons();
             blockPatientList.BlockFirstPatient();
             blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount - 1);
         }
@@ -43,6 +39,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Unsuccessful_blocking()
         {
+            CountBlockButtons();
             blockPatientList.BlockButtonCount().ShouldBe(blockPatientCount);
         }
 
@@ -75,6 +72,14 @@ namespace WebApplicationTests.EndToEnd
             if (role.Equals("Patient")) loginPage.SelectPatientRole();
             else if (role.Equals("Admin")) loginPage.SelectAdminRole();
             loginPage.LogIn();
+        }
+
+        private void CountBlockButtons()
+        {
+            blockPatientList.Navigate();
+            blockPatientList.EnsurePageIsDisplayed();
+            blockPatientList.URI.ShouldBeEquivalentTo(driver.Url);
+            blockPatientCount = blockPatientList.BlockButtonCount();
         }
     }
 }
