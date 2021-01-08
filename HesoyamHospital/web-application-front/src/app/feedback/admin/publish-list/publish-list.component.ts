@@ -24,11 +24,12 @@ export class PublishListComponent implements OnInit {
 
 
   public OnClick(element) {
-    element.public = false;
-    element.published = true;
-    this.displayText = true;
-   
-    this._feedbackService.publishFeedback(element.id).subscribe();
+    this._feedbackService.publishFeedback(element.id).subscribe((data) => 
+    {
+      element.public = false;
+      element.published = true;
+      this.displayText = true;
+    });
   }
 
 }

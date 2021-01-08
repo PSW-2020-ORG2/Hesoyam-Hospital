@@ -10,7 +10,7 @@ namespace WebApplicationTests.EndToEnd.Pages
     {
         private readonly IWebDriver driver;
         public string URI = "http://localhost:4200/feedback/admin/publishlist";
-
+        private ReadOnlyCollection<IWebElement> Buttons => driver.FindElements(By.XPath("//table/tbody/tr/td[4]/button"));
         private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table/tbody/tr")); 
         private IWebElement LastRowFeedback => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[3]"));
         private IWebElement LastRowUsername => driver.FindElement(By.XPath("//table/tbody/tr[last()]/td[2]"));
@@ -65,7 +65,29 @@ namespace WebApplicationTests.EndToEnd.Pages
           => LastRowButton.Click();
 
         public void PublishFirstFeedback()
-          => FirstRowButton.Click();
+        {
+            int btnCoutnt = PublishButtonCount();
+            FirstRowButton.Click();
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            wait.Until(condition =>
+            {
+                try
+                {
+                    return btnCoutnt - 1 == PublishButtonCount();
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
+
+        public int PublishButtonCount()
+            => Buttons.Count;
 
     }
 }

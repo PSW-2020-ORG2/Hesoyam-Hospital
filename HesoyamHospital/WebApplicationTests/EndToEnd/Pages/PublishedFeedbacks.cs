@@ -20,7 +20,7 @@ namespace WebApplicationTests.EndToEnd.Pages
         }
         public void EnsurePageIsDisplayed()
         {
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 30));
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 60));
             wait.Until(condition =>
             {
                 try
