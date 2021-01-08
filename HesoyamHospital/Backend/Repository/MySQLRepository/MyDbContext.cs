@@ -34,7 +34,8 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Cancellation> Cancellations { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Tender> Tenders { get; set; }
-        
+        public DbSet<TenderOffer> TenderOffers { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!isPostgres())

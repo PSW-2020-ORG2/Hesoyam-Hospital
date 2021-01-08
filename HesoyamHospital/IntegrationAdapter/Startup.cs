@@ -48,6 +48,8 @@ namespace IntegrationAdapter
             services.AddControllers();
             services.AddSingleton<ITenderService, TenderService>(services =>
             new TenderService(new TenderRepository(new MySQLStream<Tender>(), new LongSequencer())));
+            services.AddSingleton<ITenderOfferService, TenderOfferService>(services =>
+            new TenderOfferService(new TenderOfferRepository(new MySQLStream<TenderOffer>(), new LongSequencer())));
         }
 
         public void Configure(IApplicationBuilder app)
