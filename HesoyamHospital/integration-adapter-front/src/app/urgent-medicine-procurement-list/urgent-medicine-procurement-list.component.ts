@@ -22,34 +22,32 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
   
   requests:UrgentMedicineProcurementRequest[]=[];
   pharmacies:RegisteredPharmacy[]=[];
-  selectedRequest:UrgentMedicineProcurementRequest=new UrgentMedicineProcurementRequest;
   pharmacyName:string;
   
   Request(requestId:number){
-    this.selectedRequest=this.GetSelectedRequest(requestId)
-    this.urgentMedicineProcurementService.getAllPharmacies(this.selectedRequest)
+    this.urgentMedicineProcurementService.getAllPharmacies(requestId)
     .subscribe(
       (data => {
         this.pharmacies=data
       })
     );
-
-
   }
+
   GetSelectedRequest(id:number):UrgentMedicineProcurementRequest{
+    let retVal = null
     this.requests.forEach(
       r=>{
         if(r.Id==id)
         {
-          return r;
-          }
+          retVal = r;
+        }
       }
     )
-    return null;
+    return retVal;
   }
 
-  Order(){
-    this.urgentMedicineProcurementService.OrderMedicine(this.pharmacyName,this.selectedRequest).subscribe(
+  Order(id:number){
+    this.urgentMedicineProcurementService.OrderMedicine(this.pharmacyName,this.GetSelectedRequest(id)).subscribe(
       message=>alert("Medicine ordered")
     )
   }

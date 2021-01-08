@@ -41,15 +41,17 @@ namespace IntegrationAdapter.UrgentProcurement
             List<UrgentMedicineProcurement> entries = _urgentMedicineProcurementService.GetAll().ToList();
             return Ok(entries);
         }
-        [HttpGet("getPharmacies")]
-        public IActionResult GetPharmaciesByRequiredMedicine(UrgentMedicineProcurement urgentMedicine)
+        [HttpGet("getPharmacies/{id}")]
+        public IActionResult GetPharmaciesByRequiredMedicine(long id)
         {
+            UrgentMedicineProcurement urgentMedicine = _urgentMedicineProcurementService.GetByID(id);
             List<RegisteredPharmacy> availablePharmacies = _urgentMedicineProcurementService.GetPharmaciesByRequiredMedicine(urgentMedicine).ToList();
             return Ok(availablePharmacies);
         }
         [HttpPut("{pharmacyName}")]
         public IActionResult PurchaseMedicine(string pharmacyName, UrgentMedicineProcurement urgentMedicine)
         {
+            Console.WriteLine(urgentMedicine.Medicine);
             bool successful = _urgentMedicineProcurementService.IsProcurementRequestSuccessfull(pharmacyName, urgentMedicine);
             if (successful)
             {
