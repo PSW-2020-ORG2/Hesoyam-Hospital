@@ -2,7 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Model.PharmacyModel;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.MySQL.Stream;
+using Backend.Repository.Sequencer;
 using IntegrationAdapter.SFTPServiceSupport;
+using IntegrationAdapter.Tendering.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +46,8 @@ namespace IntegrationAdapter
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
             services.AddControllers();
+            services.AddSingleton<ITenderService, TenderService>(services =>
+            new TenderService(new TenderRepository(new MySQLStream<Tender>(), new LongSequencer())));
         }
 
         public void Configure(IApplicationBuilder app)
