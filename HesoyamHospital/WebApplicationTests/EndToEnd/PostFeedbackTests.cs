@@ -14,6 +14,14 @@ namespace WebApplicationTests.EndToEnd
         private FeedbackPublishList feedbackPublishListPage;
         private Login loginPage;
 
+        private const string patientUsername = "milijanadj";
+        private const string patientPassword = "pera";
+        private const string patientRole = "Patient";
+
+        private const string adminUsername = "perapera";
+        private const string adminPassword = "pera";
+        private const string adminRole = "Admin";
+
         public PostFeedbackTests()
         {
             InitializeDriver();
@@ -26,7 +34,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Successful_public_anonymous_feedback()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
@@ -37,7 +45,7 @@ namespace WebApplicationTests.EndToEnd
             postFeedbackPage.SelectAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
-            LogIn("perapera", "pera", "Admin");
+            LogIn(adminUsername, adminPassword, adminRole);
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
@@ -48,7 +56,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Successful_private_anonymous_feedback()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
@@ -59,7 +67,7 @@ namespace WebApplicationTests.EndToEnd
             postFeedbackPage.SelectAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
-            LogIn("perapera", "pera", "Admin");
+            LogIn(adminUsername, adminPassword, adminRole);
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
@@ -70,7 +78,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Successful_public_not_anonymous_feedback()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
@@ -81,7 +89,7 @@ namespace WebApplicationTests.EndToEnd
             postFeedbackPage.SelectNotAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
-            LogIn("perapera", "pera", "Admin");
+            LogIn(adminUsername, adminPassword, adminRole);
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
@@ -92,7 +100,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Successful_private_not_anonymous_feedback()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
@@ -103,7 +111,7 @@ namespace WebApplicationTests.EndToEnd
             postFeedbackPage.SelectNotAnonymousRadioButton();
             postFeedbackPage.SubmitFeedback();
 
-            LogIn("perapera", "pera", "Admin");
+            LogIn(adminUsername, adminPassword, adminRole);
             feedbackPublishListPage.Navigate();
             feedbackPublishListPage.URI.ShouldBeEquivalentTo(driver.Url);
             feedbackPublishListPage.EnsurePageIsDisplayed();
@@ -114,7 +122,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Unsuccessful_feedback_empty_text_input_field()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
@@ -130,7 +138,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Unsuccessful_feedback_visibility_radio_button_group_not_selected()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
@@ -145,7 +153,7 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Unsuccessful_feedback_anonymity_radio_button_group_not_selected()
         {
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             postFeedbackPage.Navigate();
             postFeedbackPage.EnsurePageIsDisplayed();
             postFeedbackPage.URI.ShouldBeEquivalentTo(driver.Url);
