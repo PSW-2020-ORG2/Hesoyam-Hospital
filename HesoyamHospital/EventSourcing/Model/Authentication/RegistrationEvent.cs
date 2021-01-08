@@ -10,6 +10,9 @@ namespace EventSourcing.Model.Authentication
     public class RegistrationEvent
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
+        public long Id { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.Now;
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string MiddleName { get; set; }
@@ -23,13 +26,13 @@ namespace EventSourcing.Model.Authentication
         public string MobilePhone { get; set; }
         public string HomePhone { get; set; }
         public string BloodType { get; set; }
+        [NotMapped]
         public List<string> Allergies { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
 
-        public long Id { get; set; }
-        public DateTime Timestamp { get; set; } = DateTime.Now;
+        
 
         public RegistrationEvent() { }
 

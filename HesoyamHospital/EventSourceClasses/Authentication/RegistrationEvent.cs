@@ -11,6 +11,8 @@ namespace EventSourceClasses.Authentication
     {
         private readonly string LOG_END_POINT = Environment.GetEnvironmentVariable("createdRegistrationEventLoggerURL");
 
+        public long Id { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.Now;
         public string Name { get; set; }
         public string Surname { get; set; }
         public string MiddleName { get; set; }
@@ -29,8 +31,7 @@ namespace EventSourceClasses.Authentication
         public string City { get; set; }
         public string Address { get; set; }
 
-        public long Id { get; set; }
-        public DateTime Timestamp { get; set; } = DateTime.Now;
+
 
         public RegistrationEvent() { }
 
