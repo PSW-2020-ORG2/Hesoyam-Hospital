@@ -12,13 +12,19 @@ namespace WebApplicationTests.EndToEnd
         private IWebDriver driver;
         private readonly AppointmentsList appointmentsList;
         private readonly Login loginPage;
+        private int cancelButtonCount;
+        private int cancelledStatusCount;
+
+        private const string patientUsername = "milijanadj";
+        private const string patientPassword = "pera";
+        private const string patientRole = "Patient";
 
         public CancelAppointmentTests()
         {
             InitializeDriver();
             appointmentsList = new AppointmentsList(driver);
             loginPage = new Login(driver);
-            LogIn("milijanadj", "pera", "Patient");
+            LogIn(patientUsername, patientPassword, patientRole);
             appointmentsList.Navigate();
             appointmentsList.EnsurePageIsDisplayed();
             appointmentsList.URI.ShouldBeEquivalentTo(driver.Url);
@@ -27,15 +33,25 @@ namespace WebApplicationTests.EndToEnd
         [Fact]
         public void Successful_canceling()
         {
+            cancelButtonCount = appointmentsList.CancelButtonCount();
+            cancelledStatusCount = appointmentsList.GetAppointmentsWithCancelledStatusCount();
+
             appointmentsList.CancelAppointment();
-            appointmentsList.CheckState().ShouldBe("CANCELLED");
+
+            cancelButtonCount.ShouldBe(appointmentsList.CancelButtonCount() + 1);
+            cancelledStatusCount.ShouldBe(appointmentsList.GetAppointmentsWithCancelledStatusCount() - 1);
         }
 
         [Fact]
         public void Unsuccessful_canceling()
         {
-            appointmentsList.CheckState().ShouldBe("INCOMING");
+            cancelButtonCount = appointmentsList.CancelButtonCount();
+            cancelledStatusCount = appointmentsList.GetAppointmentsWithCancelledStatusCount();
+
+            cancelButtonCount.ShouldBe(appointmentsList.CancelButtonCount());
+            cancelledStatusCount.ShouldBe(appointmentsList.GetAppointmentsWithCancelledStatusCount());
         }
+
         public void Dispose()
         {
             driver.Quit();

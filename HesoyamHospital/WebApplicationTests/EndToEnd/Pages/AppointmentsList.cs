@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace WebApplicationTests.EndToEnd.Pages
 {
@@ -13,7 +14,8 @@ namespace WebApplicationTests.EndToEnd.Pages
         private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='appointmentsTable']/tbody/tr"));
         private ReadOnlyCollection<IWebElement> Buttons => driver.FindElements(By.Id("cancelButton"));
         private IWebElement FirstRowState => driver.FindElement(By.XPath("//table/tbody/tr/td[1]"));
-        private IWebElement FirstRowButton => driver.FindElement(By.XPath("//table/tbody/tr/td[8]"));
+        private IWebElement FirstRowButton => driver.FindElement(By.XPath("//table/tbody/tr/td[8]/button"));
+        private ReadOnlyCollection<IWebElement> RowStates => driver.FindElements(By.XPath("//table/tbody/tr/td[1]"));
 
         public AppointmentsList(IWebDriver driver)
         {
@@ -44,10 +46,34 @@ namespace WebApplicationTests.EndToEnd.Pages
             => driver.Navigate().GoToUrl(URI);
 
         public void CancelAppointment()
-          => FirstRowButton.Click();
+        {
+            int btnCount = CancelButtonCount();
+            FirstRowButton.Click();
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            wait.Until(condition =>
+            {
+                try
+                {
+                    return btnCount - 1 == CancelButtonCount();
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
 
         public string CheckState()
           => FirstRowState.Text;
 
+        public int CancelButtonCount()
+            => Buttons.Count;
+
+        public int GetAppointmentsWithCancelledStatusCount()
+            => RowStates.Count(state => state.Text.Equals("CANCELLED"));
     }
 }
