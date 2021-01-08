@@ -9,6 +9,7 @@ using Appointments.Service;
 using Appointments.Service.Abstract;
 using Appointments.Validation;
 using Microsoft.AspNetCore.Mvc;
+using EventSourceClasses;
 using EventSourceClasses.Appointments;
 
 namespace Appointments.Controllers
@@ -21,14 +22,14 @@ namespace Appointments.Controllers
         private readonly long defaultPatientId = 500;
         private readonly AppointmentValidation _appointmentValidation;
         private readonly IHttpRequestSender _httpRequestSender;
-        private readonly AppointmentEventLogger _appointmentEventLogger;
+        private readonly EventLogger _appointmentEventLogger;
 
         public AppointmentController(IAppointmentService appointmentService, IHttpClientFactory httpClientFactory)
         {
             _appointmentService = appointmentService;
             _appointmentValidation = new AppointmentValidation();
             _httpRequestSender = new HttpRequestSender(httpClientFactory);
-            _appointmentEventLogger = new AppointmentEventLogger();
+            _appointmentEventLogger = new EventLogger();
         }
 
         [HttpGet("{id}")]

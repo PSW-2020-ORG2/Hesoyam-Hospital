@@ -7,6 +7,7 @@ using Appointments.Mappers;
 using Appointments.Service;
 using Appointments.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using EventSourceClasses;
 using EventSourceClasses.Appointments;
 
 namespace Appointments.Controllers
@@ -17,13 +18,13 @@ namespace Appointments.Controllers
     {
         private readonly IAppointmentSchedulingService _appointmentSchedulingService;
         private readonly IHttpRequestSender _httpRequestSender;
-        private readonly AppointmentEventLogger _appointmentEventLogger;
+        private readonly EventLogger _appointmentEventLogger;
 
         public AppointmentSchedulingController(IAppointmentSchedulingService appointmentSchedulingService, IHttpClientFactory httpClientFactory)
         {
             _appointmentSchedulingService = appointmentSchedulingService;
             _httpRequestSender = new HttpRequestSender(httpClientFactory);
-            _appointmentEventLogger = new AppointmentEventLogger();
+            _appointmentEventLogger = new EventLogger();
         }
 
         [HttpPut("getTimesForDoctor")]
