@@ -14,16 +14,22 @@ namespace WebApplicationTests.EndToEnd
         private readonly int blockPatientCount;
         private readonly Login loginPage;
 
+        private const string adminUsername = "perapera";
+        private const string adminPassword = "pera";
+        private const string role = "Admin";
+
         public BlockPatientTests()
         {
             InitializeDriver();
             blockPatientList = new BlockPatientList(driver);
             loginPage = new Login(driver);
-            LogIn("perapera", "pera", "Admin");
+
+            LogIn(adminUsername, adminPassword, role);
+
             blockPatientList.Navigate();
             blockPatientList.EnsurePageIsDisplayed();
-            blockPatientCount = blockPatientList.BlockButtonCount();
             blockPatientList.URI.ShouldBeEquivalentTo(driver.Url);
+            blockPatientCount = blockPatientList.BlockButtonCount();
         }
 
 
