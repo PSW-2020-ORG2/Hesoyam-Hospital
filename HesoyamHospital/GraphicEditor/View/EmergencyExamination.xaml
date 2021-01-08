@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="EmergencyExamination" Height="500" Width="810"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="Beige">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

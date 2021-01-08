@@ -43,6 +43,7 @@
                             <Image Source="/XAMLResources/icons/search-icon.png" Width="25" Height="25"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem x:Name="searchEmergency" Header="_Search an emergency examination" Click="Search_Emergency_Terms"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
