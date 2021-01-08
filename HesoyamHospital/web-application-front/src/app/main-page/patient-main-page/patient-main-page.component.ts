@@ -7,6 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientMainPageComponent implements OnInit {
 
+  imageObject: Array<object> = [{
+    image: 'C:/Users/NAVETS/Desktop/main-page/01.jpg',
+    thumbImage: 'C:/Users/NAVETS/Desktop/main-page/01.jpg',
+    alt: 'alt of image',
+    title: 'Image 1'
+    }, 
+    {
+      image: 'C:/Users/NAVETS/Desktop/main-page/02.jpg',
+      thumbImage: 'C:/Users/NAVETS/Desktop/main-page/02.jpg',
+      alt: 'alt of image',
+      title: 'Image 2'
+    }
+  ];
+  
   constructor() { }
 
   ngOnInit(): void {
