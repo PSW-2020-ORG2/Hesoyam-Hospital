@@ -1,18 +1,8 @@
 ﻿using Backend.Model.ManagerModel;
-using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
-using Backend.Service.UsersService;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GraphicEditor.View
 {
@@ -36,11 +26,6 @@ namespace GraphicEditor.View
                 item.Content = inventoryItem.Name;
                 chooseEquipment.Items.Add(item);
             }
-        }
-
-        private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }
