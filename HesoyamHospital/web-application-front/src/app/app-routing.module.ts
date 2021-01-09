@@ -15,6 +15,7 @@ import { SelectedDoctorComponent } from './feedback/patient/selected-doctor/sele
 import { BlockPatientsComponent } from './feedback/admin/block-patients/block-patients.component';
 import { LoginFormComponent } from './authentication/login-form/login-form.component';
 import { RouteGuardService } from './helpers/route-guard.service';
+import { MainPageComponent } from './authentication/main-page/main-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -27,13 +28,10 @@ const routes: Routes = [
   {path: 'standard-appointment', component: StandardAppointmentComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'choose-scheduling', component: ChooseSchedulingTypeComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'selected-doctor', component: SelectedDoctorComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
-  {path: 'block-patients', component: BlockPatientsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},  
-  {
-    path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
-  },
-  {
-    path: 'registration', loadChildren: () => import('./registration/registration.module').then(mod => mod.RegistrationModule)
-  },
+  {path: 'main-page', component: MainPageComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'block-patients', component: BlockPatientsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
+  {path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)},
+  {path: 'registration', loadChildren: () => import('./registration/registration.module').then(mod => mod.RegistrationModule)},
   {path: 'documents/simple-search', component: SimpleSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'documents/advanced-search', component: AdvancedSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'login', component: LoginFormComponent},
