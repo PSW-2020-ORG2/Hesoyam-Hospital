@@ -1,4 +1,6 @@
-﻿using Backend.Model.ManagerModel;
+﻿using Backend.Model.DoctorModel;
+using Backend.Model.ManagerModel;
+using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
 using Backend.Service.UsersService;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +48,7 @@ namespace GraphicEditor.View
 
             //User user = new User(name, jmbg, name, surname, null, jmbg, Sex.OTHER, new DateTime(2021,01,01), null, null, null, null, null);   
 
+
             foreach (Patient patient1 in patients)
             {
                 if (jmbg == patient1.Jmbg && surname == patient1.Surname && name == patient1.Name)
@@ -53,9 +56,18 @@ namespace GraphicEditor.View
                     patient = patient1;
                 }
             }
-            if (patient == null) 
+            if (patient == null)
             {
                 MessageBox.Show("Patient does not exist!");
+            }
+        }
+
+        private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (chooseExaminationType.SelectedItem != "General practitioner")
+            {
+                EquipmentForSpecialistAppointment equipmentForSpecialistAppointment = new EquipmentForSpecialistAppointment();
+                equipmentForSpecialistAppointment.Show();
             }
         }
     }
