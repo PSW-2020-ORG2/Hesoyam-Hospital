@@ -38,14 +38,7 @@
         <Label Content="Choose a type of examination: " Grid.Row="3" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
         <ComboBox x:Name="chooseExaminationType" SelectionChanged="ChooseExaminationType_SelectionChanged" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True">
-            <ComboBoxItem x:Name="general" Content="General practitioner" IsSelected="True"/>
-            <ComboBoxItem x:Name="specialist1" Content="Surgeon"/>
-            <ComboBoxItem x:Name="specialist2" Content="Cardiologist"/>
-            <ComboBoxItem x:Name="specialist3" Content="Dermatologist"/>
-            <ComboBoxItem x:Name="specialist4" Content="Infectologist"/>
-            <ComboBoxItem x:Name="specialist5" Content="Ophtamologist"/>
-            <ComboBoxItem x:Name="specialist6" Content="Endocriniologist"/>
-            <ComboBoxItem x:Name="specialist7" Content="Gastroenterologist"/>
+       
         </ComboBox>
 
 
@@ -63,7 +56,7 @@
 
         <TextBox x:Name="JMBG" Grid.Row="10" Style="{StaticResource ResourceKey=textBoxEmergencyExamination}"/>
 
-        <Button x:Name="buttonScheduleEmergencyAppointment" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}"/>
+        <Button x:Name="buttonScheduleEmergencyAppointment" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonScheduleEmergencyAppointment_Click"/>
 
     </Grid>
 </Window>

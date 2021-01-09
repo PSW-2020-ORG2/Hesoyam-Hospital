@@ -59,6 +59,25 @@ namespace Backend.Service.MedicalService
             return GetByPriority(dto).ToList();
         }
 
+        public PriorityIntervalDTO GetAvailableTermsForEmergencyExamination(PriorityIntervalDTO dto, DoctorType specialisation)
+        {
+            return IsTermInNext30Minutes(GetWhenPriorityIsInterval(dto, specialisation).ToList());
+        }
+
+        private PriorityIntervalDTO IsTermInNext30Minutes(List<PriorityIntervalDTO> intervals)
+        {
+            DateTime thisMoment = DateTime.Now;
+            foreach (PriorityIntervalDTO interval in intervals)
+            {
+                double minutes = (interval.StartTime - thisMoment).TotalMinutes;
+                if (minutes <= 30)
+                {
+                    return interval;
+                }
+            }
+            return null;
+        }
+
         public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityIntervalDTO dto)
         {
             if (dto.Priority) return GetWhenPriorityIsDoctor(dto);
@@ -101,6 +120,27 @@ namespace Backend.Service.MedicalService
                 dto.DoctorId = doctor.Id;
                 appointments.AddRange(PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, doctor.TimeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartTime, dto.EndTime).ToList()));
               }
+            return appointments;
+        }
+
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityIntervalDTO dto, DoctorType doctorType)
+        {
+            List<PriorityIntervalDTO> appointments = new List<PriorityIntervalDTO>();
+            DoctorType specialisation = doctorType;
+            List<Doctor> doctors = doctorRepository.GetDoctorByType(specialisation).ToList();
+            if (doctors == null || doctors.Count == 0)
+            {
+                return appointments;
+            }
+            foreach (Doctor doctor in doctors)
+            {
+                if (doctor == null || doctor.TimeTable == null)
+                {
+                    break;
+                }
+                dto.DoctorId = doctor.Id;
+                appointments.AddRange(PriorityIntervalMapper.ListToDtoListForOneDoctor(doctor, doctor.TimeTable.GetAvailableTimesForInterval(APPOINTMENT_DURATION_MINUTES, dto.StartTime, dto.EndTime).ToList()));
+            }
             return appointments;
         }
         public IEnumerable<DateTime> GetTimesForDoctorAndDate(long id, DateTime date)
