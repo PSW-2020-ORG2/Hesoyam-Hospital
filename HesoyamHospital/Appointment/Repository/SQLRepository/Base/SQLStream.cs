@@ -35,7 +35,6 @@ namespace Appointments.Repository.SQLRepository.Base
 
         public IEnumerable<T> ReadAll()
         {
-            //dbContext.Dispose();
             dbContext = new MyDbContext();
             return dbContext.Set<T>().ToList();
         }

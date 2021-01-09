@@ -23,7 +23,7 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
 
         public IEnumerable<string> GetAllApprovedActionBenefitsText()
         {
-            List<ActionBenefit> actionBenefits = GetAll().Where(action => action.Approved == true).ToList();
+            List<ActionBenefit> actionBenefits = GetAll().Where(action => action.Approved).ToList();
             List<string> actionBenefitsText = new List<string>();
             foreach (ActionBenefit actionBenefit in actionBenefits)
             {
