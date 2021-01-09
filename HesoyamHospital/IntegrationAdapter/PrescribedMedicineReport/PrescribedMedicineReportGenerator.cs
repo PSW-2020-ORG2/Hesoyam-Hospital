@@ -3,8 +3,8 @@ using Backend.Service.MedicalService;
 using Backend.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace IntegrationAdapter.MedicineReport
@@ -37,7 +37,7 @@ namespace IntegrationAdapter.MedicineReport
             {
                 sw.WriteLine("\nMost prescribed medicine types:");
                 WriteMedicineTypes(topFive, sw);
-                if(other.Count() > 0)
+                if (other.Count() > 0)
                 {
                     sw.WriteLine("\nOther prescribed medicine types:");
                     WriteMedicineTypes(other, sw);
@@ -55,7 +55,7 @@ namespace IntegrationAdapter.MedicineReport
                 sw.WriteLine("\nTotal number of different medicines prescribed: " + medicineSortedByCount.Count() + ".");
                 sw.WriteLine("\nMost prescribed medicines:");
                 WriteMedicine(topTen, sw);
-                if(other.Count() > 0)
+                if (other.Count() > 0)
                 {
                     sw.WriteLine("\nOther prescribed medicines:");
                     WriteMedicine(other, sw);
@@ -65,7 +65,7 @@ namespace IntegrationAdapter.MedicineReport
 
         private void WriteMedicine(List<Tuple<string, int>> other, StreamWriter sw)
         {
-            foreach(Tuple<string, int> pair in other)
+            foreach (Tuple<string, int> pair in other)
             {
                 sw.WriteLine(pair.Item1 + " : " + pair.Item2);
             }
@@ -114,10 +114,12 @@ namespace IntegrationAdapter.MedicineReport
         private Dictionary<string, int> CountMedicine(List<Therapy> therapies)
         {
             Dictionary<string, int> medicineCount = new Dictionary<string, int>();
-            foreach(Therapy t in therapies)
+            foreach (Therapy t in therapies)
             {
-                foreach(MedicalTherapy mt in t.Prescription.MedicalTherapies)
+                foreach (MedicalTherapy mt in t.Prescription.MedicalTherapies)
                 {
+                    if (mt.Medicine == null) continue;
+
                     if (medicineCount.ContainsKey(mt.Medicine.Name))
                         medicineCount[mt.Medicine.Name] += 1;
                     else
@@ -134,6 +136,8 @@ namespace IntegrationAdapter.MedicineReport
             {
                 foreach (MedicalTherapy mt in t.Prescription.MedicalTherapies)
                 {
+                    if (mt.Medicine == null) continue;
+
                     if (typeCount.ContainsKey(mt.Medicine.MedicineType))
                         typeCount[mt.Medicine.MedicineType] += 1;
                     else

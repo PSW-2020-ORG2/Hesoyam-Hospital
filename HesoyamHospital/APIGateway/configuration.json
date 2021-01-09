@@ -1,9 +1,5 @@
 {
   "Routes": [
-
-    //APPOINTMENT
-    //APPOINTMENT CONTROLLER
-
     {
       "DownstreamPathTemplate": "/api/appointment/getSuspiciousPatients",
       "DownstreamScheme": "http",
@@ -61,8 +57,6 @@
         "Role": "Patient"
       }
     },
-
-    //APPOINTMENT SCHEDULING CONTROLLER
     {
       "DownstreamPathTemplate": "/api/appointmentscheduling/getTimesForDoctor",
       "DownstreamScheme": "http",
@@ -158,9 +152,6 @@
         "Role": "Patient"
       }
     },
-
-    //AUTHENTICATION
-    //LOGIN CONTROLLER
     {
       "DownstreamPathTemplate": "/api/login/login",
       "DownstreamScheme": "http",
@@ -173,7 +164,6 @@
       "UpstreamPathTemplate": "/gateway/login",
       "UpstreamHttpMethod": [ "POST" ]
     },
-    //REGISTRATION CONTROLLER
     {
       "DownstreamPathTemplate": "/api/doctor/getDoctorsByType/{type}",
       "DownstreamScheme": "http",
@@ -286,8 +276,6 @@
         "Role": "Admin"
       }
     },
-
-    //MEDICAL RECORD CONTROLLER
     {
       "DownstreamPathTemplate": "/api/medicalrecord/show/{id}",
       "DownstreamScheme": "http",
@@ -307,9 +295,6 @@
         "Role": "Patient"
       }
     },
-
-    //DOCUMENTS
-    //DOCUMENT CONTROLLER
     {
       "DownstreamPathTemplate": "/api/document/simple-search/{id}",
       "DownstreamScheme": "http",
@@ -367,9 +352,6 @@
         "Role": "Patient"
       }
     },
-
-    //FEEDBACK
-    //FEEDBACK CONTROLLER
     {
       "DownstreamPathTemplate": "/api/feedback",
       "DownstreamScheme": "http",
@@ -439,8 +421,6 @@
         "Role": "Admin"
       }
     },
-
-    //SURVEY CONTROLLER
     {
       "DownstreamPathTemplate": "/api/survey/send-answers/{appointmentId}",
       "DownstreamScheme": "http",

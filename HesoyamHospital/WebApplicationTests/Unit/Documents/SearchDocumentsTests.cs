@@ -95,10 +95,12 @@ namespace WebApplicationTests.Unit.Documents
             var stubRepository = new Mock<IPrescriptionRepository>();
             var prescriptions = new List<Prescription>();
 
-            Prescription p1 = new Prescription(0);
-            p1.DateCreated = DateTime.Now.AddDays(-10);
-            p1.Diagnosis = new Diagnosis(0, "naziv", "ab12");
-            p1.Doctor = new Doctor(0);
+            Prescription p1 = new Prescription(0)
+            {
+                DateCreated = DateTime.Now.AddDays(-10),
+                Diagnosis = new Diagnosis(0, "naziv", "ab12"),
+                Doctor = new Doctor(0)
+            };
             p1.Doctor.Name = "Pera";
             p1.Doctor.Surname = "Peric";
             Medicine m = new Medicine("brufen", MedicineType.TABLET, 10, 5);
@@ -107,10 +109,12 @@ namespace WebApplicationTests.Unit.Documents
             TherapyDose td = new TherapyDose(st);
             p1.MedicalTherapies.Add(new MedicalTherapy(m, td));
 
-            Prescription p2 = new Prescription(1);
-            p2.DateCreated = DateTime.Now.AddDays(-5);
-            p2.Diagnosis = new Diagnosis(0, "naziv1", "ab13");
-            p2.Doctor = new Doctor(0);
+            Prescription p2 = new Prescription(1)
+            {
+                DateCreated = DateTime.Now.AddDays(-5),
+                Diagnosis = new Diagnosis(0, "naziv1", "ab13"),
+                Doctor = new Doctor(0)
+            };
             p2.Doctor.Name = "Pera";
             p2.Doctor.Surname = "Peric";
             p2.MedicalTherapies.Add(new MedicalTherapy(m, td));
@@ -128,18 +132,22 @@ namespace WebApplicationTests.Unit.Documents
             var stubRepository = new Mock<IReportRepository>();
             var reports = new List<Report>();
 
-            Report r1 = new Report(0);
-            r1.DateCreated = DateTime.Now.AddDays(-15);
-            r1.Diagnosis = new Diagnosis(0, "naziv", "ab12");
-            r1.Doctor = new Doctor(0);
+            Report r1 = new Report(0)
+            {
+                DateCreated = DateTime.Now.AddDays(-15),
+                Diagnosis = new Diagnosis(0, "naziv", "ab12"),
+                Doctor = new Doctor(0)
+            };
             r1.Doctor.Name = "Pera";
             r1.Doctor.Surname = "Peric";
             r1.Comment = "nalaz";
 
-            Report r2 = new Report(1);
-            r2.DateCreated = DateTime.Now.AddDays(-7);
-            r2.Diagnosis = new Diagnosis(0, "naziv1", "ab13");
-            r2.Doctor = new Doctor(0);
+            Report r2 = new Report(1)
+            {
+                DateCreated = DateTime.Now.AddDays(-7),
+                Diagnosis = new Diagnosis(0, "naziv1", "ab13"),
+                Doctor = new Doctor(0)
+            };
             r2.Doctor.Name = "Pera";
             r2.Doctor.Surname = "Peric";
             r2.Comment = "nalaz";

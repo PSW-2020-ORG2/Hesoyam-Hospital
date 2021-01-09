@@ -22,7 +22,7 @@
     <ng-container matColumnDef="block">
       <th mat-header-cell *matHeaderCellDef> Block </th>
       <td mat-cell *matCellDef="let element"> 
-        <button mat-stroked-button color="accent" (click)="OnClick(element)" *ngIf="!element.blocked">BLOCK</button>
+        <button mat-stroked-button color="accent" id="blockButton" (click)="OnClick(element)" *ngIf="!element.blocked">BLOCK</button>
       </td>
     </ng-container>
 
