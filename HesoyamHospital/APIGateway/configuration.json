@@ -4,6 +4,25 @@
         //APPOINTMENT
         //APPOINTMENT CONTROLLER
         {
+            "DownstreamPathTemplate": "/api/appointment/getSuspiciousPatients",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 57733
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/appointment/getSuspiciousPatients",
+            "UpstreamHttpMethod": [ "GET" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "TestKey",
+                "AllowedScopes": []
+            },
+            "RouteClaimsRequirement": {
+                "Role": "Admin"
+            }
+        },
+        {
             "DownstreamPathTemplate": "/api/appointment/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -39,25 +58,6 @@
             },
             "RouteClaimsRequirement": {
                 "Role": "Patient"
-            }
-        },
-        {
-            "DownstreamPathTemplate": "/api/appointment/getSuspiciousPatients",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 57733
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/appointment/getSuspiciousPatients",
-            "UpstreamHttpMethod": [ "GET" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "TestKey",
-                "AllowedScopes": []
-            },
-            "RouteClaimsRequirement": {
-                "Role": "Admin"
             }
         },
 
@@ -612,7 +612,7 @@
             }
         }
     ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:57874"
-  }
+"GlobalConfiguration": {
+"BaseUrl": "http://localhost:57874"
+}
 }

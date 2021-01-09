@@ -11,17 +11,11 @@ namespace Backend.Service.UsersService
     {
         private readonly DoctorRepository _doctorRepository;
         private readonly UserValidation _userValidation;
-        private IDoctorRepository doctorRepository;
 
         public DoctorService(DoctorRepository doctorRepository)
         {
             _doctorRepository = doctorRepository;
             _userValidation = new UserValidation();
-        }
-
-        public DoctorService(IDoctorRepository doctorRepository)
-        {
-            this.doctorRepository = doctorRepository;
         }
 
         public IEnumerable<Doctor> GetDoctorByType(DoctorType doctorType)

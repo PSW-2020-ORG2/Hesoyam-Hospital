@@ -1,6 +1,6 @@
 <div class="content" fxLayout="row wrap">
-  <div fxFlex="30%" *ngFor ="let f of feedback">
-<mat-card >
+  <div id="publishedFeedbacks" fxFlex="30%" *ngFor ="let f of feedback">
+<mat-card>
   <mat-card-content>
     <p id = "text">
       {{f.comment}}

@@ -1,8 +1,6 @@
 ﻿using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using WebApplication.Authentication;
 using Xunit;
 using Shouldly;

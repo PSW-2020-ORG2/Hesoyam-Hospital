@@ -27,8 +27,7 @@ const routes: Routes = [
   {path: 'standard-appointment', component: StandardAppointmentComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'choose-scheduling', component: ChooseSchedulingTypeComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'selected-doctor', component: SelectedDoctorComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
-  {path: 'block-patients', component: BlockPatientsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
-  
+  {path: 'block-patients', component: BlockPatientsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},  
   {
     path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
   },
