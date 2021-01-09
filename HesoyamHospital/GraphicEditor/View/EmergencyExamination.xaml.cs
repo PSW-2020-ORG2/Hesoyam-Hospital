@@ -2,6 +2,7 @@
 using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
 using Backend.Service.UsersService;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -49,7 +50,8 @@ namespace GraphicEditor.View
             string surname = Surname.Text;
             string jmbg = JMBG.Text;
             Patient patient = null;
-
+            ComboBoxItem item = (ComboBoxItem)chooseExaminationType.SelectedItem;
+            string specialisation = (string)item.Content;
 
             //User user = new User(name, jmbg, name, surname, null, jmbg, Sex.OTHER, new DateTime(2021,01,01), null, null, null, null, null);   
 
@@ -59,12 +61,10 @@ namespace GraphicEditor.View
                 {
                     patient = patient1;
                 }
+            }
             if (patient == null) 
             {
                 MessageBox.Show("Patient does not exist!");
-            }
-
-
             }
         }
     }
