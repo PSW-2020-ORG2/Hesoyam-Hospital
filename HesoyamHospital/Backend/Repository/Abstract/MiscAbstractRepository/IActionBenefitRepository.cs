@@ -10,5 +10,6 @@ namespace Backend.Repository.Abstract.MiscAbstractRepository
     {
         IEnumerable<ActionBenefit> GetAllApprovedActionBenefits();
         IEnumerable<ActionBenefit> GetAllUnapprovedActionBenefits();
+        IEnumerable<string> GetAllApprovedActionBenefitsText();
     }
 }

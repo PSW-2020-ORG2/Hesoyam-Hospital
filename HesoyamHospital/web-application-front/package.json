@@ -25,8 +25,9 @@
     "@auth0/angular-jwt": "^5.0.2",
     "angular2-jwt": "^0.2.3",
     "jwt-decode": "^3.1.2",
+    "ng-image-slider": "^2.6.4",
     "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
+    "tslib": "^2.1.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

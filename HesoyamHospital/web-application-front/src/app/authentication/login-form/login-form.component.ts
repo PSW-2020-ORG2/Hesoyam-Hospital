@@ -27,7 +27,9 @@ export class LoginFormComponent implements OnInit {
       localStorage.setItem('id', tokenPayload['nameid']);
       localStorage.setItem('username', tokenPayload['sub']);
       localStorage.setItem('role', tokenPayload['Role']);
-      this.router.navigate(['feedback/public/allFeedback']);
+      if(this.role == 0){
+        this.router.navigate(['main-page']);
+      } else this.router.navigate(['feedback/public/allFeedback']);
   },
   error => {
     this.openSnackBar(error.error, "Okay");
