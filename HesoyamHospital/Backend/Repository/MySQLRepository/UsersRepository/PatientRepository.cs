@@ -40,7 +40,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             }
         }
 
-        private bool IsUsernameUnique(string userName)
+        public bool IsUsernameUnique(string userName)
             => _userRepository.GetByUsername(userName) == null;
 
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)

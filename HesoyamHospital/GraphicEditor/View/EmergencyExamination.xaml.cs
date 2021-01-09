@@ -74,9 +74,16 @@ namespace GraphicEditor.View
             }
             if(patient == null)
             {
-                    Patient patient2 = new Patient(name, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
-                    patientService.Create(patient2);
-                    patient = patient2;
+                String username = name;
+                
+                while (!patientService.IsUsernameUnique(username))
+                {
+                    username = username + "1";   
+                }
+                
+                Patient patient2 = new Patient(username, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
+                patientService.Create(patient2);
+                patient = patient2;
          
             }
             if (interval != null)
