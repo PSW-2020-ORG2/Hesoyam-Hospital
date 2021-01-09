@@ -42,29 +42,6 @@ namespace GraphicEditor.View
 
         private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
         { 
-            List<User> users = (List<User>)userService.GetAll();
-
-            string name = Name.Text;
-            string surname = Surname.Text;
-            string jmbg = JMBG.Text;
-
-            /*User user = new User(name, jmbg, name, surname, null, jmbg, Sex.OTHER, new DateTime(2021,01,01), null, null, null, null, null);   
-            
-            foreach(User user1 in users)
-            {
-                if(jmbg != user1.Jmbg)
-                {
-                    userService.Create(user);
-                }
-                else
-                {
-                    user = user1;
-                }
-            }
-            */
-           
-            //User loggedIn = Backend.AppResources.getInstance().loggedInUser;
-
 
         }
     }
