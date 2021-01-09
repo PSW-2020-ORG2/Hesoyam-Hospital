@@ -23,6 +23,7 @@ namespace GraphicEditor.View
     {
         private readonly InventoryService inventoryService;
         private UserService userService = Backend.AppResources.getInstance().userService;
+        private PatientService patientService = Backend.AppResources.getInstance().patientService;
 
         public EmergencyExamination()
         {
@@ -30,7 +31,7 @@ namespace GraphicEditor.View
             inventoryService = Backend.AppResources.getInstance().inventoryService;
             userService = Backend.AppResources.getInstance().userService;
             List<InventoryItem> inventories = (List<InventoryItem>)inventoryService.GetInventoryItems();
-           
+
             foreach (InventoryItem inventoryItem in inventories)
             {
                 ComboBoxItem item = new ComboBoxItem();
@@ -41,31 +42,30 @@ namespace GraphicEditor.View
         }
 
         private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
-        { 
-            List<User> users = (List<User>)userService.GetAll();
+        {
+            List<Patient> patients = (List<Patient>)patientService.GetAll();
 
             string name = Name.Text;
             string surname = Surname.Text;
             string jmbg = JMBG.Text;
+            Patient patient = null;
 
-            /*User user = new User(name, jmbg, name, surname, null, jmbg, Sex.OTHER, new DateTime(2021,01,01), null, null, null, null, null);   
-            
-            foreach(User user1 in users)
+
+            //User user = new User(name, jmbg, name, surname, null, jmbg, Sex.OTHER, new DateTime(2021,01,01), null, null, null, null, null);   
+
+            foreach (Patient patient1 in patients)
             {
-                if(jmbg != user1.Jmbg)
+                if (jmbg == patient1.Jmbg && surname == patient1.Surname && name == patient1.Name)
                 {
-                    userService.Create(user);
+                    patient = patient1;
                 }
-                else
-                {
-                    user = user1;
-                }
+            if (patient == null) 
+            {
+                MessageBox.Show("Patient does not exist!");
             }
-            */
-           
-            //User loggedIn = Backend.AppResources.getInstance().loggedInUser;
 
 
+            }
         }
     }
 }
