@@ -44,6 +44,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="searchEmergency" Header="_Search an emergency examination" Click="Search_Emergency_Terms"/>
+                    <MenuItem x:Name="searchEquipment" Header="_Search a term for equipment relocation" Click="Search_Equipment_Relocation"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

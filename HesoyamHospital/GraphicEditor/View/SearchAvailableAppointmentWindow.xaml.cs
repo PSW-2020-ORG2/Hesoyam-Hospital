@@ -204,5 +204,9 @@ namespace GraphicEditor
                 toDatePicker.IsDropDownOpen = true;
             }
         }
+        private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

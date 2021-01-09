@@ -21,5 +21,17 @@ namespace GraphicEditor.View
         {
             InitializeComponent();
         }
+        private void ToDate_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+            {
+                toDatePicker.IsDropDownOpen = true;
+            }
+        }
+
+        private void buttonEquipmentRelocation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

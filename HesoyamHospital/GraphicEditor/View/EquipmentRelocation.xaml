@@ -47,7 +47,7 @@
 
         <DatePicker x:Name="toDatePicker" Grid.Row="8" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
-        <Button x:Name="buttonScheduleEmergencyAppointment" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonScheduleEmergencyAppointment_Click"/>
+        <Button x:Name="buttonEquipmentRelocation" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonEquipmentRelocation_Click"/>
 
     </Grid>
 </Window>
