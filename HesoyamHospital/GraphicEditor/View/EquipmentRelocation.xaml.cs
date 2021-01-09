@@ -58,7 +58,7 @@ namespace GraphicEditor.View
 
         private void buttonEquipmentRelocation_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

@@ -22,13 +22,11 @@ namespace GraphicEditor.View
     public partial class EmergencyExamination : Window
     {
         private readonly InventoryService inventoryService;
-        private UserService userService = Backend.AppResources.getInstance().userService;
 
         public EmergencyExamination()
         {
             InitializeComponent();
             inventoryService = Backend.AppResources.getInstance().inventoryService;
-            userService = Backend.AppResources.getInstance().userService;
             List<InventoryItem> inventories = (List<InventoryItem>)inventoryService.GetInventoryItems();
            
             foreach (InventoryItem inventoryItem in inventories)
@@ -41,8 +39,8 @@ namespace GraphicEditor.View
         }
 
         private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
-        { 
-
+        {
+            throw new NotImplementedException();
         }
     }
 }
