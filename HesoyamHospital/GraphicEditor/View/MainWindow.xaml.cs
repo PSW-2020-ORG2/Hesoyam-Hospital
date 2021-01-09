@@ -81,5 +81,10 @@ namespace GraphicEditor
             EmergencyExamination emergencyExamination = new EmergencyExamination();
             emergencyExamination.Show();
         }
+        public void Search_Equipment_Relocation(object sender, RoutedEventArgs e)
+        {
+            EquipmentRelocation equipmentRelocation = new EquipmentRelocation();
+            equipmentRelocation.Show();
+        }
     }
 }

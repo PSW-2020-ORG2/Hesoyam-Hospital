@@ -35,7 +35,7 @@
 
         <Label Content="Choose a doctor : " Grid.Row="3" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
 
-        <ComboBox x:Name="searchDoctor" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True"/>
+        <ComboBox x:Name="searchDoctor" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="SearchDoctorComboBox_SelectionChanged"/>
 
         <Label Content="From date :"  Grid.Row="4" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
 
