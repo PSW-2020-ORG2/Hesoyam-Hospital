@@ -64,7 +64,7 @@ namespace GraphicEditor.View
 
             PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Today, DateTime.Today,null,false);
             PriorityIntervalDTO interval = appointmentSchedulingService.GetAvailableTermsForEmergencyExamination(dto,type);
-            
+
             foreach (Patient patient1 in patients)
             {
                 if (jmbg == patient1.Jmbg && surname == patient1.Surname && name == patient1.Name)
@@ -72,9 +72,12 @@ namespace GraphicEditor.View
                     patient = patient1;
                 }
             }
-            if (patient == null)
+            if(patient == null)
             {
-                MessageBox.Show("Patient does not exist!");
+                    Patient patient2 = new Patient(name, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
+                    patientService.Create(patient2);
+                    patient = patient2;
+         
             }
             if (interval != null)
             {
