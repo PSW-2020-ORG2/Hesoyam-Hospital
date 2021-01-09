@@ -240,5 +240,10 @@ namespace GraphicEditor
                 equipmentForSpecialist.Show();
             }
         }
+        
+        private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
