@@ -40,6 +40,36 @@ namespace Backend.Service.HospitalManagementService
         public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
             => _inventoryItemRepository.GetAllEager().Where(ii => ii.Room.GetId() == room.GetId());
 
+        public Room FindAvailableRoomWithEquipment(List<Room> rooms, List<string> requiredInventoryItems) {
+            foreach (Room room in rooms) 
+            {
+                List<InventoryItem> inventoryItemsInRoom = (List<InventoryItem>)GetInventoryItemsByRoomId(room.Id);
+                List<string> invertoryItemsInRoomName = ConvertInventoryItemToName(inventoryItemsInRoom);
+                if (CompareInventoryItems(requiredInventoryItems, invertoryItemsInRoomName))
+                    return room;
+            }
+            return null;
+        }
+        private bool CompareInventoryItems(List<string> requiredInventoryItems, List<string> inventoryItems) 
+        {
+            foreach (string name in requiredInventoryItems) 
+            {
+                if (!inventoryItems.Contains(name))
+                    return false;
+            }
+            return true;
+        }
+
+        private List<string> ConvertInventoryItemToName(List<InventoryItem> inventoryItems)
+        {
+            List<string> result = new List<string>();
+            foreach (InventoryItem i in inventoryItems)
+            {
+                result.Add(i.Name);
+            }
+            return result;
+        }
+
         public IEnumerable<InventoryItem> GetInventoryItemsByName(string name)
             => _inventoryItemRepository.GetInventoryItemsByName(name);
 
