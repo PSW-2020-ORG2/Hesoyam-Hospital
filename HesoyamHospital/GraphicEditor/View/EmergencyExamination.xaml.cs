@@ -119,9 +119,9 @@ namespace GraphicEditor.View
         private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)chooseExaminationType.SelectedItem;
-            string specialisation = (string)item.Content;
+            DoctorType specialisation = (DoctorType)item.Content;
             Global.inventories = new List<string>();
-            if (specialisation != "General practitioner")
+            if (specialisation != DoctorType.GENERAL_PRACTITIONER)
             {
                 EquipmentForSpecialistAppointment equipmentForSpecialistAppointment = new EquipmentForSpecialistAppointment();
                 equipmentForSpecialistAppointment.Show();
