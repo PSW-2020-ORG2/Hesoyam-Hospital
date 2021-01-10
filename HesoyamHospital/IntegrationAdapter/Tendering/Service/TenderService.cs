@@ -1,6 +1,7 @@
 ﻿using Backend.Exceptions;
 using Backend.Model.PharmacyModel;
 using Backend.Repository.Abstract.HospitalManagementAbstractRepository;
+using IntegrationAdapter.SMTPServiceSupport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,50 @@ namespace IntegrationAdapter.Tendering.Service
     public class TenderService : ITenderService
     {
         private readonly ITenderRepository _tenderRepository;
-        public TenderService(ITenderRepository tenderRepository)
+        private readonly ITenderOfferRepository _tenderOfferRepository;
+        public TenderService(ITenderRepository tenderRepository, ITenderOfferRepository tenderOfferRepository)
         {
             _tenderRepository = tenderRepository;
+            _tenderOfferRepository = tenderOfferRepository;
         }
+
+        public void ConcludeTender(long tenderId, long winnerOfferId, List<string> allEmails)
+        {
+            Tender tender = GetByID(tenderId);
+            if (tender.IsActive())
+            {
+                throw new TenderStillActiveException("Tender cannot be concluded since it is still active!");
+            }
+            tender.Conclude(winnerOfferId);
+            Update(tender);
+            string winnerEmail = _tenderOfferRepository.GetByID(winnerOfferId).Email;
+            Console.WriteLine(winnerEmail);
+            NotifyParticipants(winnerEmail, allEmails);
+        }
+
+        private void NotifyParticipants(string winnerEmail, List<string> allEmails)
+        {
+            string from = Environment.GetEnvironmentVariable("HospitalEmail");
+            string password = Environment.GetEnvironmentVariable("HospitalEmailPassword");
+            string subject;
+            string body;
+
+            foreach (string email in allEmails)
+            {
+                if (email.Equals(winnerEmail))
+                {
+                    subject = "Tender offer accepted";
+                    body = "Congratulations, your tender offer has been accepted! You will be contacted for further details.";
+                } else
+                {
+                    subject = "Tender offer refused";
+                    body = "We are sorry to inform you that your tender offer has been rejected.";
+                }
+
+                SMTPNotificationSender.SendMessage(from, password, email, subject, body);
+            }
+        }
+
         public Tender Create(Tender entity)
         {
             Validate(entity);
@@ -34,6 +75,11 @@ namespace IntegrationAdapter.Tendering.Service
         public IEnumerable<Tender> GetAllActiveTenders()
         {
             return _tenderRepository.GetAllActiveTenders();
+        }
+
+        public IEnumerable<Tender> GetAllUnconcludedTenders()
+        {
+            return _tenderRepository.GetAllUnconcludedTenders();
         }
 
         public Tender GetByID(long id)

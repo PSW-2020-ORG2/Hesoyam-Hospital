@@ -6,5 +6,6 @@ namespace Backend.Repository.Abstract.HospitalManagementAbstractRepository
     public interface ITenderRepository : IRepository<Tender, long>
     {
         public IEnumerable<Tender> GetAllActiveTenders();
+        public IEnumerable<Tender> GetAllUnconcludedTenders();
     }
 }

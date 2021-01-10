@@ -32,6 +32,11 @@ namespace IntegrationAdapter.Tendering.Service
             return _tenderOfferRepository.GetAll();
         }
 
+        public IEnumerable<string> GetAllOfferEmails(long id)
+        {
+            return _tenderOfferRepository.GetAllOfferEmails(id);
+        }
+
         public TenderOffer GetByID(long id)
         {
             return _tenderOfferRepository.GetByID(id);

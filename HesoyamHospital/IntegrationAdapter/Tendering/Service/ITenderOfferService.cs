@@ -7,5 +7,6 @@ namespace IntegrationAdapter.Tendering.Service
     public interface ITenderOfferService : IService<TenderOffer, long>
     {
         public IEnumerable<TenderOffer> GetTenderOffersForTender(long tender);
+        public IEnumerable<string> GetAllOfferEmails(long id);
     }
 }

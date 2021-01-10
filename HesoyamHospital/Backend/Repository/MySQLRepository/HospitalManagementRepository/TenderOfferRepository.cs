@@ -18,7 +18,10 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         {
         }
 
+        public IEnumerable<string> GetAllOfferEmails(long id)
+            => GetAll().Where(tenderOffer => tenderOffer.TenderId == id).Select(offer => offer.Email);
+
         public IEnumerable<TenderOffer> GetTenderOffersForTender(long id)
-            => GetAll().ToList().Where(tenderOffer => id == tenderOffer.TenderId);
+            => GetAll().Where(tenderOffer => id == tenderOffer.TenderId);
     }
 }

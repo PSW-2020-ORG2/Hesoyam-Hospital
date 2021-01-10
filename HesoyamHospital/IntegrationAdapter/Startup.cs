@@ -46,10 +46,12 @@ namespace IntegrationAdapter
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
             services.AddControllers();
+
+            var tenderOfferRepository = new TenderOfferRepository(new MySQLStream<TenderOffer>(), new LongSequencer());
             services.AddSingleton<ITenderService, TenderService>(services =>
-            new TenderService(new TenderRepository(new MySQLStream<Tender>(), new LongSequencer())));
+            new TenderService(new TenderRepository(new MySQLStream<Tender>(), new LongSequencer()), tenderOfferRepository));
             services.AddSingleton<ITenderOfferService, TenderOfferService>(services =>
-            new TenderOfferService(new TenderOfferRepository(new MySQLStream<TenderOffer>(), new LongSequencer())));
+            new TenderOfferService(tenderOfferRepository));
         }
 
         public void Configure(IApplicationBuilder app)

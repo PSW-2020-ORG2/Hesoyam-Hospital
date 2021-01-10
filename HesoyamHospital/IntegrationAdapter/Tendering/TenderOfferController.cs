@@ -38,5 +38,10 @@ namespace IntegrationAdapter.Tendering
         {
             return Ok(_tenderOfferService.GetTenderOffersForTender(id));
         }
+        [HttpGet("getAllOfferEmails/{id}")]
+        public IActionResult GetAllOfferEmails(long id)
+        {
+            return Ok(_tenderOfferService.GetAllOfferEmails(id));
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace IntegrationAdapter.Tendering.Service
     public interface ITenderService : IService<Tender, long>
     {
         public IEnumerable<Tender> GetAllActiveTenders();
+        public IEnumerable<Tender> GetAllUnconcludedTenders();
+        public void ConcludeTender(long tenderId, long offerId, List<string> allEmails);
     }
 }

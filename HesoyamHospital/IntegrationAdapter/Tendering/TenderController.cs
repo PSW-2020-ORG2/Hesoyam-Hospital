@@ -41,10 +41,44 @@ namespace IntegrationAdapter.Tendering
                 return BadRequest(e.Message);
             }
         }
+        [HttpPut("concludeTender/{tenderId}/{winnerOfferId}")]
+        public IActionResult ConcludeTender(long tenderId, long winnerOfferId, [FromBody] List<string> allEmails)
+        {
+            try
+            {
+                _tenderService.ConcludeTender(tenderId, winnerOfferId, allEmails);
+                return Ok();
+            } catch (NullDateException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest();
+            }
+            catch (InvalidDateException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
+            }
+            catch (TenderListingsEmptyException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
+            }
+            catch (TenderStillActiveException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
+            }
+        }
         [HttpGet]
         public IActionResult GetAllActiveTenders()
         {
             List<Tender> tenders = _tenderService.GetAllActiveTenders().ToList();
+            return Ok(tenders);
+        }
+        [HttpGet]
+        public IActionResult GetAllUnconcludedTenders()
+        {
+            List<Tender> tenders = _tenderService.GetAllUnconcludedTenders().ToList();
             return Ok(tenders);
         }
     }
