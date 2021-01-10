@@ -13,6 +13,7 @@ using Backend;
 using Microsoft.Extensions.Hosting;
 using Backend.Model.PatientModel;
 using IntegrationAdapter.UrgentProcurement.Service;
+using Backend.Exceptions;
 
 namespace IntegrationAdapter.UrgentProcurement
 {
@@ -28,12 +29,22 @@ namespace IntegrationAdapter.UrgentProcurement
         [HttpPost("createRequest")]
         public IActionResult CreateUrgentMedicineProcurementRequest(UrgentMedicineProcurement urgentMedicine)
         {
-            if (_urgentMedicineProcurementService.Create(urgentMedicine) != null)
+            try
             {
+                _urgentMedicineProcurementService.Create(urgentMedicine);
                 return Ok();
             }
-            return BadRequest();
-            
+            catch(MedicineNullException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest();
+            }
+        }
+        [HttpGet("getMedicineByID/{id}")]
+        public IActionResult GetRequestedMedicineByID(long id)
+        {
+            UrgentMedicineProcurement entry = _urgentMedicineProcurementService.GetByID(id);
+            return Ok(entry);
         }
         [HttpGet]
         public IActionResult GetAllUnconcludedEntries()
@@ -51,7 +62,6 @@ namespace IntegrationAdapter.UrgentProcurement
         [HttpPut("{pharmacyName}")]
         public IActionResult PurchaseMedicine(string pharmacyName, UrgentMedicineProcurement urgentMedicine)
         {
-            Console.WriteLine(urgentMedicine.Medicine);
             bool successful = _urgentMedicineProcurementService.IsProcurementRequestSuccessfull(pharmacyName, urgentMedicine);
             if (successful)
             {

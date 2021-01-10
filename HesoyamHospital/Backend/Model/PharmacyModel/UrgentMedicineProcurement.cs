@@ -15,6 +15,12 @@ namespace Backend.Model.PharmacyModel
         {
             Concluded = false;
         }
+        public UrgentMedicineProcurement(string medicine,uint quantity)
+        {
+            Medicine = medicine;
+            Quantity = quantity;
+            Concluded = false;
+        }
 
         public void Conclude()
         {

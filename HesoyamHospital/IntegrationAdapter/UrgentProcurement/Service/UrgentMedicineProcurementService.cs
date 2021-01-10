@@ -153,6 +153,10 @@ namespace IntegrationAdapter.UrgentProcurement.Service
             {
                 throw new MedicineNullException("Medicine is not set!");
             }
+            if (entity.Medicine == "")
+            {
+                throw new MedicineNullException("Medicine cannot be empty!");
+            }
             if (entity.Quantity <= 0)
             {
                 throw new InvalidQuantityException("Quantity cannot be less than or equal to zero!");
