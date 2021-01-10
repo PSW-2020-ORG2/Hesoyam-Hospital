@@ -75,11 +75,13 @@ namespace GraphicEditor.View
             }
             if(patient == null)
             {
-                String username = name + " " + surname;
-                
+                String username = name + surname;
+
+                username = username.ToLower();
+
                 while (!patientService.IsUsernameUnique(username))
                 {
-                    username = username + "1";   
+                    username = username + "1";  
                 }
                 
                 Patient p = new Patient(username, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
