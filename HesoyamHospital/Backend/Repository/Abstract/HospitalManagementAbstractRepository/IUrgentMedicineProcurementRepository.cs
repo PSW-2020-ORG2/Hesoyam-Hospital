@@ -8,5 +8,6 @@ namespace Backend.Repository.Abstract.HospitalManagementAbstractRepository
 {
     public interface IUrgentMedicineProcurementRepository : IRepository<UrgentMedicineProcurement, long>
     {
+        public IEnumerable<UrgentMedicineProcurement> GetAllUnconcluded();
     }
 }

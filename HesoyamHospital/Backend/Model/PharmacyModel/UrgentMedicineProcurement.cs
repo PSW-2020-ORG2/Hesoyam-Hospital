@@ -10,9 +10,15 @@ namespace Backend.Model.PharmacyModel
         public long Id { get; set; }
         public string Medicine { get; set; }
         public uint Quantity { get; set; }
-
+        public bool Concluded { get; set; }
         public UrgentMedicineProcurement()
         {
+            Concluded = false;
+        }
+
+        public void Conclude()
+        {
+            Concluded = true;
         }
 
         public long GetId()

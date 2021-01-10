@@ -117,6 +117,9 @@ namespace IntegrationAdapter.UrgentProcurement.Service
             Medicine medicine = _medicineRepository.GetMedicineByName(urgentMedicine.Medicine);
             medicine.InStock += (int)urgentMedicine.Quantity;
             _medicineRepository.Update(medicine);
+            UrgentMedicineProcurement procurement = _urgentMedicineProcurementRepository.GetByID(urgentMedicine.Id);
+            procurement.Conclude();
+            _urgentMedicineProcurementRepository.Update(procurement);
         }
 
         private bool SendMedicineProcurementRequestGrpc(RegisteredPharmacy pharmacy, UrgentMedicineProcurement urgentMedicine)
@@ -154,6 +157,11 @@ namespace IntegrationAdapter.UrgentProcurement.Service
             {
                 throw new InvalidQuantityException("Quantity cannot be less than or equal to zero!");
             }
+        }
+
+        public IEnumerable<UrgentMedicineProcurement> GetAllUnconcluded()
+        {
+            return _urgentMedicineProcurementRepository.GetAllUnconcluded();
         }
     }
 }

@@ -36,9 +36,9 @@ namespace IntegrationAdapter.UrgentProcurement
             
         }
         [HttpGet]
-        public IActionResult GetAllUrgentProcurementEntries()
+        public IActionResult GetAllUnconcludedEntries()
         {
-            List<UrgentMedicineProcurement> entries = _urgentMedicineProcurementService.GetAll().ToList();
+            List<UrgentMedicineProcurement> entries = _urgentMedicineProcurementService.GetAllUnconcluded().ToList();
             return Ok(entries);
         }
         [HttpGet("getPharmacies/{id}")]

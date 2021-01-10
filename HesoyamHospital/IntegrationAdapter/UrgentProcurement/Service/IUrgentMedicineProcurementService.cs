@@ -11,5 +11,6 @@ namespace IntegrationAdapter.UrgentProcurement.Service
     {
         public IEnumerable<RegisteredPharmacy> GetPharmaciesByRequiredMedicine(UrgentMedicineProcurement urgentMedicine);
         public bool IsProcurementRequestSuccessfull(string pharmacyName, UrgentMedicineProcurement urgentMedicine);
+        public IEnumerable<UrgentMedicineProcurement> GetAllUnconcluded();
     }
 }
