@@ -65,25 +65,26 @@ namespace GraphicEditor.View
             PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Today, DateTime.Today,null,false);
             PriorityIntervalDTO interval = appointmentSchedulingService.GetAvailableTermsForEmergencyExamination(dto,type);
 
-            foreach (Patient patient1 in patients)
+            foreach (Patient p in patients)
             {
-                if (jmbg == patient1.Jmbg && surname == patient1.Surname && name == patient1.Name)
+                if (jmbg == p.Jmbg && surname == p.Surname && name == p.Name)
                 {
-                    patient = patient1;
+                    patient = p;
+                    break;
                 }
             }
             if(patient == null)
             {
-                String username = name;
+                String username = name + " " + surname;
                 
                 while (!patientService.IsUsernameUnique(username))
                 {
                     username = username + "1";   
                 }
                 
-                Patient patient2 = new Patient(username, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
-                patientService.Create(patient2);
-                patient = patient2;
+                Patient p = new Patient(username, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
+                patientService.Create(p);
+                patient = p;
          
             }
             if (interval != null)
@@ -119,9 +120,9 @@ namespace GraphicEditor.View
         private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)chooseExaminationType.SelectedItem;
-            DoctorType specialisation = (DoctorType)item.Content;
+            DoctorType specialization = (DoctorType)item.Tag;
             Global.inventories = new List<string>();
-            if (specialisation != DoctorType.GENERAL_PRACTITIONER)
+            if (specialization != DoctorType.GENERAL_PRACTITIONER)
             {
                 EquipmentForSpecialistAppointment equipmentForSpecialistAppointment = new EquipmentForSpecialistAppointment();
                 equipmentForSpecialistAppointment.Show();
