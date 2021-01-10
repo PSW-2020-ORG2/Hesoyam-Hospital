@@ -7,10 +7,14 @@ using Authentication.Service;
 using Authentication.Service.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO;
 
 namespace Authentication
@@ -48,6 +52,22 @@ namespace Authentication
             services.AddSingleton<ILoginService, LoginService>(service => new LoginService(new PatientRepository(new SQLStream<Patient>()), new AdminRepository(new SQLStream<SystemAdmin>())));
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
+
+            if (isPostgres())
+            {
+                services.AddDbContext<MyDbContext>(options =>
+                    options.UseNpgsql(GetConnectionString()));
+            }
+        }
+        private string GetConnectionString()
+        {
+            string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            Console.WriteLine("Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString"));
+            return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
+        }
+        private bool isPostgres()
+        {
+            return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,6 +94,18 @@ namespace Authentication
             {
                 endpoints.MapControllers();
             });
+
+            if (isPostgres())
+            {
+                using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
+
+                    RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
+                    if (isPostgres())
+                        databaseCreator.CreateTables();
+                }
+            }
         }
     }
 }
