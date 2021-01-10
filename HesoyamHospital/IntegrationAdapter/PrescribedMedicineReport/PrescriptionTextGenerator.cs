@@ -37,7 +37,8 @@ namespace IntegrationAdapter.PrescribedMedicineReport
         private void InitializeHeader(StringBuilder text)
         {
             text.AppendLine("Hesoyam Hospital\n");
-            text.AppendLine("Prescription for patient: " + _therapy.Prescription.Patient.Name + " " + _therapy.Prescription.Patient.Surname + " " + _therapy.Prescription.Patient.Jmbg);
+            text.AppendLine("Prescription for patient: " + _therapy.Prescription.Patient.Name + " " + _therapy.Prescription.Patient.Surname + ",");
+            text.AppendLine("JMBG: "+ _therapy.Prescription.Patient.Jmbg);
             text.AppendLine("Prescribed at: " + _therapy.Prescription.DateCreated);
             text.AppendLine("Prescription validity period: " + _therapy.TimeInterval.ToString());
         }
