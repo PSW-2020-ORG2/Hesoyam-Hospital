@@ -23,13 +23,15 @@ namespace WebApplication.Authentication
 
         private SmtpClient CreateNewClient(MailAddress senderEmail, string senderPassword)
         {
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = new NetworkCredential(senderEmail.Address, senderPassword);
-            smtpClient.EnableSsl = true;
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpClient.Host = "smtp.gmail.com";
-            smtpClient.Port = 587;
+            SmtpClient smtpClient = new SmtpClient
+            {
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Host = "smtp.gmail.com",
+                Port = 587
+            };
             return smtpClient;
         }
 

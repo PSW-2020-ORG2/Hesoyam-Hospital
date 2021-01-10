@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GraphicEditor.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -25,37 +26,43 @@ namespace GraphicEditor
                 foreach (string line in lines)
                 {
                     GraphicalObject graphical_object = ConvertLineToGraphicalObject(line, hospital, floor);
-                    if(graphical_object != null)
+                    if (graphical_object != null)
                         list.Add(graphical_object);
                 }
             }
-            else
-            {
-                return list;
-            }
+            
             return list;
         }
 
         private GraphicalObject ConvertLineToGraphicalObject(string line, string hospital, string floor)
         {
+            
             string[] fields = line.Split(',');
-            if (fields.Length != 7) {
 
-                return null;
+            GraphicalObject graphicalObject = null;
+
+            try
+            {
+                long id = Convert.ToInt64(fields[0]);
+                string type = fields[1].Trim();
+                string name = fields[2].Trim();
+                long width = Convert.ToInt64(fields[3]);
+                long height = Convert.ToInt64(fields[4]);
+                long top = Convert.ToInt64(fields[5]);
+                long left = Convert.ToInt64(fields[6]);
+                string shape = fields[7].Trim();
+                graphicalObject = new GraphicalObject(id, type, name, width, height, top, left, shape, hospital, floor);
             }
-            string type = fields[0].Trim();
-            string name = fields[1].Trim();
-            long width = Convert.ToInt64(fields[2]);
-            long height = Convert.ToInt64(fields[3]);
-            long top = Convert.ToInt64(fields[4]);
-            long left = Convert.ToInt64(fields[5]);
-            string shape = fields[6].Trim();
+            catch (Exception)
+            {
+                Console.WriteLine("Not enough fields passed to create graphic editor object!");
+            }
 
-            return new GraphicalObject(type, name, width, height, top, left, shape, hospital, floor);
-
+            return graphicalObject;
         }
 
-        public List<FileInformation> readFileInformation(string fileName) {
+        public List<FileInformation> readFileInformation(string fileName)
+        {
             string path = Path.GetFullPath(fileName);
             List<FileInformation> information = new List<FileInformation>();
 
@@ -76,14 +83,21 @@ namespace GraphicEditor
         private FileInformation ConvertLineToFileInformation(string line)
         {
             string[] fields = line.Split(',');
-            if (fields.Length != 2)
-            {
-                return null;
-            }
-            string name = fields[0].Trim();
-            string path = fields[1].Trim();
+            FileInformation fileInformation = null;
 
-            return new FileInformation(name, path);
+            try
+            {
+                string name = fields[0].Trim();
+                string path = fields[1].Trim();
+
+                fileInformation =  new FileInformation(name, path);
+            }
+            catch (Exception)
+            {
+                throw new InvalidFieldCountException("Not enough fields passed to create graphic editor object!");
+            }
+
+            return fileInformation;
         }
     }
 }

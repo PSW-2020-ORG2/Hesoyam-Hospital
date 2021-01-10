@@ -14,7 +14,7 @@ export class ActionBenefitComponent implements OnInit {
   constructor(private service:ActionBenefitService) { }
 
   ngOnInit(): void {
-    this.service.getAllAcrionBenefit().subscribe(data => {
+    this.service.getAllActionBenefit().subscribe(data => {
       this.actions = data
       console.log(this.actions);
     })
@@ -25,10 +25,11 @@ export class ActionBenefitComponent implements OnInit {
     .subscribe( 
       (data) =>{
         console.log(data);
+        this.ngOnInit();
 
       }, 
       err => {
-        this.ngOnInit();
+        
         console.log(err);
       } 
      );

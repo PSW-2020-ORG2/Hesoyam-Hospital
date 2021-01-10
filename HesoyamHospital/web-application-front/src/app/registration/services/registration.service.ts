@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RegistrationService {
 
-  private _urlpost : string = "http://localhost:52166/api/registration";
+  private _urlpost : string = "http://localhost:57874/gateway/registration";
 
   constructor(private _http: HttpClient) { }
 

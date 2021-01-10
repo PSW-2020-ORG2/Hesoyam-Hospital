@@ -13,10 +13,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
+import {NgImageSliderModule} from 'ng-image-slider';
 
 
 const MaterialComponents = [MatFormFieldModule, MatInputModule, MatRadioModule, MatButtonModule, MatCardModule, MatSnackBarModule,
-MatIconModule, MatToolbarModule, MatTableModule, FlexLayoutModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatStepperModule]
+MatIconModule, MatToolbarModule, MatTableModule, FlexLayoutModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatStepperModule,
+NgImageSliderModule]
 
 @NgModule({
   declarations: [],

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option csharp_namespace = "IntegrationAdapter.Protos";
+import "Protos/model.proto";
+package medicine_availability;
+
+service PharmacyGrpcService {
+	rpc IsMedicineAvailable (MedicineNameProto) returns (MedicineAvailabilityProto);
+}

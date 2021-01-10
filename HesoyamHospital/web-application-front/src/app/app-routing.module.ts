@@ -13,28 +13,28 @@ import { StandardAppointmentComponent } from './feedback/patient/standard-appoin
 import { ChooseSchedulingTypeComponent } from './feedback/patient/choose-scheduling-type/choose-scheduling-type.component';
 import { SelectedDoctorComponent } from './feedback/patient/selected-doctor/selected-doctor.component';
 import { BlockPatientsComponent } from './feedback/admin/block-patients/block-patients.component';
+import { LoginFormComponent } from './authentication/login-form/login-form.component';
+import { RouteGuardService } from './helpers/route-guard.service';
+import { MainPageComponent } from './authentication/main-page/main-page.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/feedback/patient/post', pathMatch: 'full'},
-  {path: 'feedback/patient/post', component: PostFeedbackComponent},
-  {path: 'survey/survey-form/:id', component:SurveysAndSectionsComponent},
-  {path: 'survey/survey-results', component:SurveysResultsComponent},
-  {path: 'survey/survey-doctors', component:SurveysDoctorsComponent},
-  {path:'medical-record', component: ShowMedicalRecordComponent},
-  {path:'appointment-recommendation', component: AppointmentRecommendationComponent},
-  {path: 'standard-appointment', component: StandardAppointmentComponent},
-  {path: 'choose-scheduling', component: ChooseSchedulingTypeComponent},
-  {path: 'selected-doctor', component: SelectedDoctorComponent},
-  {path: 'block-patients', component: BlockPatientsComponent},
-  
-  {
-    path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)
-  },
-  {
-    path: 'registration', loadChildren: () => import('./registration/registration.module').then(mod => mod.RegistrationModule)
-  },
-  {path: 'documents/simple-search', component: SimpleSearchComponent},
-  {path: 'documents/advanced-search', component: AdvancedSearchComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'feedback/patient/post', component: PostFeedbackComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'} },
+  {path: 'survey/survey-form/:id', component:SurveysAndSectionsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'survey/survey-results', component:SurveysResultsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
+  {path: 'survey/survey-doctors', component:SurveysDoctorsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
+  {path:'medical-record', component: ShowMedicalRecordComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path:'appointment-recommendation', component: AppointmentRecommendationComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'standard-appointment', component: StandardAppointmentComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'choose-scheduling', component: ChooseSchedulingTypeComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'selected-doctor', component: SelectedDoctorComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'main-page', component: MainPageComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'block-patients', component: BlockPatientsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
+  {path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)},
+  {path: 'registration', loadChildren: () => import('./registration/registration.module').then(mod => mod.RegistrationModule)},
+  {path: 'documents/simple-search', component: SimpleSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'documents/advanced-search', component: AdvancedSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
+  {path: 'login', component: LoginFormComponent},
   {path:'**', component: PageNotFoundComponent}
   
 ];

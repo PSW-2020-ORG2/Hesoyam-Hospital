@@ -40,6 +40,8 @@ namespace Backend.Model.PatientModel
             Id = id;
             Type = DocumentType.PRESCRIPTION;
         }
+
+        public Prescription() { }
         public Prescription(long id, PrescriptionStatus status, Doctor doctor, List<MedicalTherapy> medicalTherapies)
         {
             Id = id;
@@ -70,6 +72,16 @@ namespace Backend.Model.PatientModel
             Doctor = doctor;
             MedicalTherapies = medicalTherapies;
             Diagnosis = diagnosis;
+            Patient = patient;
+            Type = DocumentType.PRESCRIPTION;
+        }
+
+        public Prescription(DateTime dateCreated, Patient patient, Doctor doctor, List<MedicalTherapy> medicalTherapies)
+        {
+            DateCreated = dateCreated;
+            Status = PrescriptionStatus.ACTIVE;
+            Doctor = doctor;
+            MedicalTherapies = medicalTherapies;
             Patient = patient;
             Type = DocumentType.PRESCRIPTION;
         }

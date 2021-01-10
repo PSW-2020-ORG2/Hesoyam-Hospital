@@ -12,6 +12,7 @@ using Backend.Service.MiscService;
 using Backend.Service.UsersService;
 using Backend.Util;
 using Backend.Model.PharmacyModel;
+using Backend.Model.ManagerModel;
 
 namespace Backend
 {
@@ -85,6 +86,7 @@ namespace Backend
         public DiseaseService diseaseService;
         public MedicalRecordService medicalRecordService;
         public TherapyService therapyService;
+        public AppointmentSchedulingService appointmentSchedulingService;
 
         // MiscService
         public ArticleService articleService;
@@ -124,11 +126,13 @@ namespace Backend
             roomService = new RoomService(roomRepository, appointmentRepository);
             medicineService = new MedicineService(medicineRepository);
 
+
             // MedicineService
             diagnosisService = new DiagnosisService(diagnosisRepository);
             diseaseService = new DiseaseService(diseaseRepository);
             medicalRecordService = new MedicalRecordService(medicalRecordRepository);
             therapyService = new TherapyService(therapyRepository, medicalRecordService);
+            appointmentSchedulingService = new AppointmentSchedulingService(doctorRepository, appointmentRepository);
 
             // MiscService
             articleService = new ArticleService(articleRepository);
@@ -159,9 +163,12 @@ namespace Backend
             hospitalRepository = new HospitalRepository(new MySQLStream<Hospital>(), new LongSequencer());
             doctorRepository = new DoctorRepository(new MySQLStream<Doctor>(), new LongSequencer(), userRepository);
             patientRepository = new PatientRepository(new MySQLStream<Patient>(), new LongSequencer(), userRepository);
+            managerRepository = new ManagerRepository(new MySQLStream<Manager>(), new LongSequencer(), userRepository);
+            secretaryRepository = new SecretaryRepository(new MySQLStream<Secretary>(), new LongSequencer(), userRepository);
             locationRepository = new LocationRepository(new MySQLStream<Location>(), new LongSequencer());
             feedbackRepository = new FeedbackRepository(new MySQLStream<Feedback>(), new LongSequencer());
             medicineRepository = new MedicineRepository(new MySQLStream<Medicine>(), new LongSequencer());
+            inventoryItemRepository = new InventoryItemRepository(new MySQLStream<InventoryItem>(), new LongSequencer());
             prescriptionRepository = new PrescriptionRepository(new MySQLStream<Prescription>(), new LongSequencer());
             reportRepository = new ReportRepository(new MySQLStream<Report>(), new LongSequencer());
             allergyRepository = new AllergyRepository(new MySQLStream<Allergy>(), new LongSequencer());
@@ -171,6 +178,8 @@ namespace Backend
             registeredPharmacyRepository = new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer());
             actionBenefitRepository = new ActionBenefitRepository(new MySQLStream<ActionBenefit>(), new LongSequencer());
             therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
+            roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
+            appointmentRepository = new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer());
         }
 
         public static AppResources getInstance()

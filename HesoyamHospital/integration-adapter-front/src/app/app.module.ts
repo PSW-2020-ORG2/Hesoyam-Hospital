@@ -13,19 +13,29 @@ import { ActionBenefitComponent } from './action-benefit/action-benefit.componen
 import { ReactiveFormsModule ,FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import {  } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatChipsModule } from '@angular/material/chips'
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { PrescribeTherapyComponent } from './prescribe-therapy/prescribe-therapy.component';
+import { SpecificationComponent } from './specification/specification.component';
+import { MedicineAvailabilityComponent } from './medicine-availability/medicine-availability.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PharmacyRegistrationComponent,
-    ActionBenefitComponent
+    ActionBenefitComponent,
+    PrescribeTherapyComponent,
+    SpecificationComponent,
+    MedicineAvailabilityComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +49,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatCheckboxModule,
     MatChipsModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

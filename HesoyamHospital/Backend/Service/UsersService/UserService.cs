@@ -35,46 +35,18 @@ namespace Backend.Service.UsersService
         public void Login(string username, string password)
         {
             User user = _userRepository.GetByUsername(username);
-
-            CheckUserCredentials(user, password);
-            //AppResources.getInstance().loggedInUser = user;
-            LoadUserResources(user);
+            bool check = CheckUserCredentials(user, password);
+            if (check)
+                AppResources.getInstance().loggedInUser = user;
+            else
+                AppResources.getInstance().loggedInUser = null;
         }
 
-        private void LoadUserResources(User user)
+        private bool CheckUserCredentials(User user, string password)
         {
-            switch (user.GetUserType())
-            {
-                case UserType.DOCTOR:
-                    {
-                        //AppResources.getInstance().LoadDoctorResources();
-                        break;
-                    }
-                case UserType.MANAGER:
-                    {
-                        //AppResources.getInstance().LoadManagerResources();
-                        break;
-                    }
-                case UserType.PATIENT:
-                    {
-                        //AppResources.getInstance().LoadPatientResources();
-                        break;
-                    }
-                case UserType.SECRETARY:
-                    {
-                        //AppResources.getInstance().LoadSecretaryResources();
-                        break;
-                    }
-            }
-        }
-
-        private void CheckUserCredentials(User user, string password)
-        {
-            if (user == null)
-                throw new InvalidLoginException("User not found");
-
-            if (user.Password != password)
-                throw new InvalidLoginException("Username/password is not correct");
+            if (user == null || user.Password != password)
+                return false;
+            return true;
         }
 
         public void Update(User entity)

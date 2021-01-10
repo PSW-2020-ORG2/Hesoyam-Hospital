@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 import { NewFeedbackDto } from '../../DTOs/new-feedback-dto';
 import { FeedbackService } from '../../services/feedback.service'
 
@@ -11,11 +12,12 @@ import { FeedbackService } from '../../services/feedback.service'
 })
 export class PostFeedbackComponent {
 
-  public feedbackDTO = new NewFeedbackDto('', true, true);
+  public feedbackDTO = new NewFeedbackDto('', true, true, this.auth.getUsername());
   public _anonymous;
   public _public;
+  public feedbackSaved : boolean = false;
 
-  constructor(private _feedbackService : FeedbackService, private _snackBar: MatSnackBar) {
+  constructor(private _feedbackService : FeedbackService, private _snackBar: MatSnackBar, private auth : AuthenticationService) {
     this._anonymous = 0;
     this._public = 0;
   }
@@ -24,6 +26,7 @@ export class PostFeedbackComponent {
     this.prepareFeedback();
     this._feedbackService.post(this.feedbackDTO).subscribe(
       (val) => {
+        this.feedbackSaved = true;
         this.provideFeedback();
         this.reset();
       });

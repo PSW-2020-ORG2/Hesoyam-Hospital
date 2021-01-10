@@ -1,0 +1,77 @@
+﻿<Window x:Class="GraphicEditor.SearchAvailableAppointmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphicEditor"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="SearchAvaiableTermsWindow" Height="720" Width="810"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="caption" Content="Search for available appointments" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="60" Width="600" Style="{StaticResource ResourceKey=labelCaptionHospital}"/>
+
+        <Label Content="Choose a doctor : " Grid.Row="3" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
+
+        <ComboBox x:Name="searchDoctor" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="SearchDoctorComboBox_SelectionChanged"/>
+
+        <Label Content="From date :"  Grid.Row="4" Grid.Column="1" Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
+
+        <DatePicker x:Name="fromDatePicker" Grid.Row="4" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="FromtDate_KeyUp" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
+
+        <Label Content="To date :" Grid.Row="5" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
+
+        <DatePicker x:Name="toDatePicker" Grid.Row="5" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
+
+        <Label Content="Choose  priority :" Grid.Row="6" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}"/>
+
+        <GroupBox x:Name="DoctorDate"  Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=groupBoxStyle}">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="priorityDoctor"  GroupName="Priority" Content="Doctor" Grid.Column="3" HorizontalAlignment="Left" IsChecked="True"/>
+                <RadioButton x:Name="priorityDate"  GroupName="Priority" Content="Date" Grid.Column="3" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </GroupBox>
+
+        <Button x:Name="buttonSearchAppointment" Content="Search" ToolTip="Search" Grid.Row="7" Grid.Column="3" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="SearchAvailableAppointmentClick"/>
+
+        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="0" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAvailable_SelectionChanged">
+        </DataGrid>
+
+
+        <DataGrid x:Name="searchPatients" Grid.Row="8" Grid.Column="0" ItemsSource="{Binding patientDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchPatients_SelectionChanged" Visibility="Hidden">
+        </DataGrid>
+
+        <Button x:Name="buttonSeeAvailableRoom" Content="See available room for an appointment" ToolTip="See available room for an appointment" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonSeeAvailableRoom_Click" Visibility="Hidden"/>
+
+        <Button x:Name="buttonShowPatients" Content="Show patients" ToolTip="Show patients" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden" Click="ButtonShowPatients_Click"/>
+
+        <Button x:Name="buttonScheduleAppointment" Content="Schedule an appointment" ToolTip="Schedule an appointment" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Visibility="Hidden" Click="ButtonScheduleAppointment_Click"/>
+
+        <Label x:Name="labelSearchPatient"  Content="Search a patient by name :" Grid.Row="9" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleAppointmentStyle}" Visibility="Hidden"/>
+
+        <TextBox x:Name="textBoxForInputPatient" Grid.Row="9" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxAppointmentStyle}" Visibility="Hidden" TextChanged="FilterPatientByName_TextChanged"/>
+        
+    </Grid>
+</Window>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Backend.Model.UserModel;
+using GraphicEditor.View;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,12 +18,18 @@ namespace GraphicEditor
         {
             Global.SearchObjectName = "";
             InitializeComponent();
-            
-            Global.AdditionalInformation = new InformationObject("14:00h-16:00h", "08:00h-17:00h", "Marija Prokic");
+
+            User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+
+
+            if (loggedIn.GetUserType() != UserType.SECRETARY)
+            {
+                searchAvailable.Visibility = Visibility.Hidden;
+            }
 
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
-            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
 
        
             foreach (FileInformation inf in menuInformation) 
@@ -39,7 +47,7 @@ namespace GraphicEditor
                 ChooseAHospital.Items.Add(item);
             }
 
-            List<GraphicalObject> list = graphicRepository.ReadFromFile("hospitalmap.txt");
+            List<GraphicalObject> list = graphicRepository.ReadFromFile("Map_Files\\hospitalmap.txt");
 
             foreach (GraphicalObject graphicalObject in list)
             {
@@ -62,10 +70,21 @@ namespace GraphicEditor
             search.Show();
         }
 
-        public void Display_Information_Window(object sender, RoutedEventArgs e)
+        public void Search_Available_Terms(object sender, RoutedEventArgs e)
         {
-            Information information = new Information();
-            information.Show();
+            SearchAvailableAppointmentWindow searchAvailableAppointment = new SearchAvailableAppointmentWindow();
+            searchAvailableAppointment.Show();
+        }
+
+        public void Search_Emergency_Terms(object sender, RoutedEventArgs e)
+        {
+            EmergencyExamination emergencyExamination = new EmergencyExamination();
+            emergencyExamination.Show();
+        }
+        public void Search_Equipment_Relocation(object sender, RoutedEventArgs e)
+        {
+            EquipmentRelocation equipmentRelocation = new EquipmentRelocation();
+            equipmentRelocation.Show();
         }
     }
 }

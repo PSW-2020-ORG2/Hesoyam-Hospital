@@ -28,13 +28,14 @@
 
         <Label Content="Search for information : " Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
 
-        <ComboBox x:Name="searchType" Grid.Row="1" Grid.Column="3" Style="{StaticResource ResourceKey=comboSearch}">
+        <ComboBox x:Name="searchType" Grid.Row="1" Grid.Column="3" Style="{StaticResource ResourceKey=comboSearch}" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBoxItem  IsSelected="True">Search for objects on the map</ComboBoxItem>
             <ComboBoxItem>Search for available room</ComboBoxItem>
-            <ComboBoxItem x:Name="searchEquipmentAndMedicine">Search for equipment and medicines</ComboBoxItem>
+            <ComboBoxItem x:Name="searchEquipment">Search for equipment</ComboBoxItem>
+            <ComboBoxItem x:Name="searchMedicine">Search for medicines</ComboBoxItem>
         </ComboBox>
 
-        <Label Content="Enter the text here :" Grid.Row="2" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
+        <Label x:Name="labelText" Content="Enter the text here :" Grid.Row="2" Grid.Column="1" Style="{StaticResource ResourceKey=labelSearch}"/>
 
         <TextBox x:Name="objectName" Grid.Row="2" Grid.Column="3" Style="{StaticResource ResourceKey=textBoxSearch}"/>
 

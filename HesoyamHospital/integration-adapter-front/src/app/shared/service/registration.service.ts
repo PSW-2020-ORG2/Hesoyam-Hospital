@@ -9,11 +9,14 @@ import { RegisteredPharmacy } from '../model/registered-pharmacy.model';
 export class RegistrationService {
 
 
-  readonly _APIUrl="http://localhost:54574/api"
+  readonly _APIUrl="http://localhost:54574/api/registerpharmacy"
 
   constructor(private _http : HttpClient) { }
 
   getPharmacy(val:any){
-    return this._http.post(`${this._APIUrl}/registerpharmacy`,val);
+    return this._http.post(this._APIUrl,val);
+  }
+  getAllPharmacy(): Observable<any> {
+    return this._http.get(this._APIUrl + '/all' )
   }
 }

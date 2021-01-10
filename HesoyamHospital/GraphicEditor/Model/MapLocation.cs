@@ -1,5 +1,4 @@
-﻿
-namespace GraphicEditor
+﻿namespace GraphicEditor
 {
     public class MapLocation
     {
@@ -11,10 +10,6 @@ namespace GraphicEditor
         public string Floor { get; set; }
 
         public string FilePath { get; set; }
-
-        public MapLocation()
-        {
-        }
 
         public MapLocation(string hospital, string floor, string name, string filePath)
         {

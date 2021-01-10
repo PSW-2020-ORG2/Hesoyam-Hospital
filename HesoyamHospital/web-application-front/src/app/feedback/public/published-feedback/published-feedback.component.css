@@ -1,17 +1,28 @@
 #text{
-    font-size: 20px;
+    margin-top: 15px;
+    color: rgb(102, 102, 102);
 }
+
 #name{
     font-size: 16px;
-    text-align: right;
     padding: 10px;
+    text-align: center;
+    
+    color: rgb(231, 80, 118);
 }
-mat-card { 
-    margin: 15px;
-    background-color: rgb(202, 137, 140);
-    color: white;
-}
+
 .content{
     display: flex;
-  justify-content: center;
+    justify-content: center;
+    width: 900px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.mat1{
+    width: 180px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    padding-top: 25px;
 }

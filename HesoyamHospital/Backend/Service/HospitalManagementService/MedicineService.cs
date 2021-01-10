@@ -33,6 +33,9 @@ namespace Backend.Service.HospitalManagementService
         public Medicine GetMedicineByName(string name)
             => _medicineRepository.GetMedicineByName(name);
 
+        public IEnumerable<Medicine> GetMedicinesByPartName(string partOfTheName)
+            => _medicineRepository.GetMedicinesByPartName(partOfTheName);
+
         public IEnumerable<Medicine> GetFilteredMedicine(Util.MedicineFilter medicineFilter)
             => _medicineRepository.GetFilteredMedicine(medicineFilter);
 
@@ -44,6 +47,9 @@ namespace Backend.Service.HospitalManagementService
 
         public Medicine GetByID(long id)
             => _medicineRepository.GetByID(id);
+
+        public IEnumerable<Medicine> GetMedicinesByRoomId(long roomId)
+            => _medicineRepository.GetMedicinesByRoomId(roomId);
 
         public Medicine Create(Medicine entity)
         {
@@ -84,6 +90,5 @@ namespace Backend.Service.HospitalManagementService
             if (inStock < 0)
                 throw new MedicineServiceException("InStock is less than zero!");
         }
-
     }
 }

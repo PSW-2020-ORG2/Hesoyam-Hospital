@@ -47,5 +47,8 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
 
         public IEnumerable<Room> GetRoomsByType(RoomType type)
             => GetAll().Where(room => room.RoomType == type);
+
+        public IEnumerable<Room> GetRoomsByOccupied(bool isOccupied)
+            => GetAll().Where(room => room.Occupied == isOccupied);
     }
 }

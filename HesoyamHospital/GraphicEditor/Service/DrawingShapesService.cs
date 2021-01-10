@@ -1,17 +1,30 @@
-﻿using System.Collections.Generic;
+
+using Backend.Model.UserModel;
+using Backend.Service.HospitalManagementService;
+using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
+using GraphicEditor.DTOs;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System;
 
 namespace GraphicEditor
 {
     class DrawingShapesService
     {
-
+        private readonly GraphicRepository graphicRepository;
+        private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
+        private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
+        private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
+        private readonly User loggedIn = Backend.AppResources.getInstance().loggedInUser;
+       
         public DrawingShapesService()
         {
+            graphicRepository = new GraphicRepository();
         }
 
         public (SolidColorBrush, SolidColorBrush) PickColor(string type)
@@ -52,7 +65,7 @@ namespace GraphicEditor
         }
 
         public Shape DrawShapes(GraphicalObject graphicalObject)
-        { 
+        {
             string shape = graphicalObject.Shape;
             SolidColorBrush brush;
             SolidColorBrush stroke;
@@ -64,24 +77,25 @@ namespace GraphicEditor
                     Rectangle rectangle = new Rectangle();
                     rectangle.Width = graphicalObject.Width;
                     rectangle.Height = graphicalObject.Height;
-                    
+
                     rectangle.Name = graphicalObject.Name;
                     rectangle.Fill = brush;
                     rectangle.ToolTip = rectangle.Name;
 
                     if (rectangle.Name == Global.SearchObjectName)
-                    { 
+                    {
                         rectangle.StrokeThickness = 7;
                         rectangle.Stroke = Brushes.Red;
                     }
-                    else {
-                       
+                    else
+                    { 
                         rectangle.Stroke = stroke;
                     }
 
                     rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
                     rectangle.MouseRightButtonDown += MouseRightButtonDown;
+                    rectangle.MouseLeftButtonDown += (sender2, e2) => DoubleClick(sender2, e2, rectangle.Name);
                     rectangle.VerticalAlignment = VerticalAlignment.Top;
                     Canvas.SetLeft(rectangle, graphicalObject.Left);
                     Canvas.SetTop(rectangle, graphicalObject.Top);
@@ -103,39 +117,75 @@ namespace GraphicEditor
 
             }
         }
+
+        public void DoubleClick(object sender, MouseButtonEventArgs e, string roomName)
+        {
+            if (loggedIn.GetUserType() != UserType.PATIENT)
+            {
+                Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
+                List<InventoryItemDTO> inventories = new List<InventoryItemDTO>();
+
+                if (e.ClickCount == 2 && (rectangle.Name.Contains("room") || rectangle.Name.Contains("Storage")))
+                {
+
+                    long idRoom = FindIdForRoomName(roomName);
+
+                    List<Medicine> medicine = (List<Medicine>)medicineService.GetMedicinesByRoomId(idRoom);
+                    List<InventoryItemDTO> medicineDTO = InvertoryItemMapper.ConvertFromMedicineToDTO(medicine, roomName);
+                    inventories.AddRange(medicineDTO);
+
+                    List<InventoryItem> inventoryItems = (List<InventoryItem>)inventoryService.GetInventoryItemsByRoomId(idRoom);
+                    List<InventoryItemDTO> inventoryItemDTO = InvertoryItemMapper.ConvertFromIventoryItemToDTO(inventoryItems);
+                    inventories.AddRange(inventoryItemDTO);
+
+                    DisplayInventories(inventories);
+
+                }
+            }
+        }
+
         public void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
             MainWindow mainWindow = new MainWindow();
-
-            GraphicRepository graphicRepository = new GraphicRepository();
-            List<FileInformation> menuInformation = graphicRepository.readFileInformation("buildings.txt");
+            List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
 
             foreach (FileInformation inf in menuInformation)
-            {
-                if(inf.Name == rectangle.Name)
-                    mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
-            }
-              
+                if (inf.Name == rectangle.Name) mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
         }
         public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
 
             if (rectangle.Name.Contains("room"))
-            { 
+            {
                 Information information = new Information();
-                information.name.Text = rectangle.Name;
-                information.visiting.Text = Global.AdditionalInformation.VisitingHours;
-                information.working.Text = Global.AdditionalInformation.WorkingHours;
-                information.doctor.Text = Global.AdditionalInformation.Doctor;
-                information.name.IsEnabled = false;
-                information.visiting.IsEnabled = false;
-                information.doctor.IsEnabled = false;
-                information.working.IsEnabled = false;
-                information.Show();
+                RoomService roomService = Backend.AppResources.getInstance().roomService;
+                Room room = roomService.GetRoomByName(rectangle.Name);
 
+                information.name.Text = room.RoomNumber;
+                information.occupied.IsChecked = room.Occupied;
+                information.roomType.Text = room.RoomType.ToString();
+
+                information.name.IsEnabled = false;
+                information.occupied.IsEnabled = false;
+                information.roomType.IsEnabled = false;
+
+                information.Show();
             }
+        }
+
+        private long FindIdForRoomName(string roomName)
+        {
+            Room room = roomService.GetRoomByName(roomName);
+            return room.Id;
+        }
+
+        private static void DisplayInventories(List<InventoryItemDTO> result)
+        {
+            OverviewEquipmentAndMedicine window = new OverviewEquipmentAndMedicine();
+            window.dataGridOverview.ItemsSource = result;
+            window.ShowDialog();
         }
 
     }

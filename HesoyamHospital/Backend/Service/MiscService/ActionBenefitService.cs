@@ -49,6 +49,11 @@ namespace Backend.Service.MiscService
             return _actionBenefitRepository.GetAllApprovedActionBenefits();
         }
 
+        public IEnumerable<string> GetAllApprovedActionBenefitsText()
+        {
+            return _actionBenefitRepository.GetAllApprovedActionBenefitsText();
+        }
+
         public IEnumerable<ActionBenefit> GetAllUnapprovedActionBenefits()
         {
             return _actionBenefitRepository.GetAllUnapprovedActionBenefits();
