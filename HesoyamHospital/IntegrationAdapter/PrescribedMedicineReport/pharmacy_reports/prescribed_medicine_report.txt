@@ -1,5 +1,5 @@
 Hesoyam Hospital
-Prescribed medicine report for period: 01/01/2021 02:13:01 - 08/01/2021 02:13:01
+Prescribed medicine report for period: 03/01/2021 15:19:46 - 10/01/2021 15:19:46
 
 Total number of different medicines prescribed: 0.
 

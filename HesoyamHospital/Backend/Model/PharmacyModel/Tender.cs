@@ -16,6 +16,11 @@ namespace Backend.Model.PharmacyModel
         public Tender()
         {
         }
+        public Tender(List<TenderListing>listing,DateTime endDate)
+        {
+            TenderListings = listing;
+            EndDate = endDate;
+        }
         public long GetId()
         {
             return Id;
