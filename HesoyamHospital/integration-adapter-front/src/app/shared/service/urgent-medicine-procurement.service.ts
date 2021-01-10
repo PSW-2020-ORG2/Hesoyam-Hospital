@@ -14,8 +14,8 @@ export class UrgentMedicineProcurementService {
 
   constructor(private _http : HttpClient) { }
 
-  getAllPharmacies(id:number):Observable<any>{
-    return this._http.get(this._APIUrl+'/getPharmacies/'+id);
+  getAllPharmacies(id:number):Promise<any>{
+    return this._http.get(this._APIUrl+'/getPharmacies/'+id).toPromise();
   }
 
   getAllRequests(): Observable<any> {

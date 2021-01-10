@@ -31,7 +31,6 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     alert(result),
      this.ngOnInit()
     });
   }
@@ -40,9 +39,9 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
   selectedRequest:UrgentMedicineProcurementRequest=new UrgentMedicineProcurementRequest;
   pharmacies:RegisteredPharmacy[]=[];
  
-  Request(requestId:number){
-    this.urgentMedicineProcurementService.getAllPharmacies(requestId)
-    .subscribe(
+  async Request(requestId:number){
+    await this.urgentMedicineProcurementService.getAllPharmacies(requestId)
+    .then(
       (data => {
         this.pharmacies=data
       })
