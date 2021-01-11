@@ -22,6 +22,7 @@ using Backend.Repository.MySQLRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using IntegrationAdapter.Tendering.Service;
 
 namespace IntegrationAdapter
 {

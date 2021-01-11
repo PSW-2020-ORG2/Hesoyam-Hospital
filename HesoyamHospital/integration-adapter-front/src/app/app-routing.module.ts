@@ -17,7 +17,7 @@ const routes: Routes = [
     { path: 'specification', component: SpecificationComponent},
     { path: 'medicine-availability', component: MedicineAvailabilityComponent},
     { path: 'urgent-medicine-procurement-request', component:UrgentMedicineProcurementRequestComponent },
-    { path: 'urgent-medicine-procurement-list', component:UrgentMedicineProcurementListComponent }
+    { path: 'urgent-medicine-procurement-list', component:UrgentMedicineProcurementListComponent },
     { path: 'medicine-availability', component: MedicineAvailabilityComponent},
     { path: 'tender-display' , component: TenderDisplayComponent}
 ];
