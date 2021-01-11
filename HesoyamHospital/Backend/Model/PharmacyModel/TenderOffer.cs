@@ -12,6 +12,7 @@ namespace Backend.Model.PharmacyModel
         [JsonIgnore]
         public long Id { get; set; }
         public long TenderId { get; set; }
+        public string PharmacyName { get; set; }
         public string Email { get; set; }
         public virtual List<TenderOfferListing> TenderOfferListings { get; set; }
         public TenderOffer()

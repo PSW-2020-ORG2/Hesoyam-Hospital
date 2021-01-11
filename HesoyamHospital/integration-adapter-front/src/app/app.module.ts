@@ -25,7 +25,9 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { PrescribeTherapyComponent } from './prescribe-therapy/prescribe-therapy.component';
 import { SpecificationComponent } from './specification/specification.component';
 import { MedicineAvailabilityComponent } from './medicine-availability/medicine-availability.component';
-
+import { TenderDisplayComponent } from './tender-display/tender-display.component';
+import { TenderOfferDialogComponent } from './dialog/tender-offer-dialog/tender-offer-dialog.component'
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { MedicineAvailabilityComponent } from './medicine-availability/medicine-
     ActionBenefitComponent,
     PrescribeTherapyComponent,
     SpecificationComponent,
-    MedicineAvailabilityComponent
+    MedicineAvailabilityComponent,
+    TenderDisplayComponent,
+    TenderOfferDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +55,11 @@ import { MedicineAvailabilityComponent } from './medicine-availability/medicine-
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     HttpClientModule
+  ],
+  entryComponents:[
+    TenderOfferDialogComponent
   ],
   providers: [ ],
   bootstrap: [AppComponent]

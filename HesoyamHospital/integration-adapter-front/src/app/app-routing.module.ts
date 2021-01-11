@@ -6,13 +6,15 @@ import { ActionBenefitComponent } from './action-benefit/action-benefit.componen
 import { PrescribeTherapyComponent } from './prescribe-therapy/prescribe-therapy.component'
 import { SpecificationComponent } from './specification/specification.component'
 import {MedicineAvailabilityComponent} from './medicine-availability/medicine-availability.component'
+import { TenderDisplayComponent } from './tender-display/tender-display.component';
 
 const routes: Routes = [
     { path: '', component: PharmacyRegistrationComponent },
     { path: 'action-benefit', component: ActionBenefitComponent } ,
     { path: 'prescribe-therapy', component: PrescribeTherapyComponent},
     { path: 'specification', component: SpecificationComponent},
-    { path: 'medicine-availability', component: MedicineAvailabilityComponent}
+    { path: 'medicine-availability', component: MedicineAvailabilityComponent},
+    { path: 'tender-display' , component: TenderDisplayComponent}
 ];
 
 @NgModule({
