@@ -27,7 +27,21 @@ namespace GraphicEditorTests.Unit
             DateTime start = DateTime.Now.AddMinutes(30);
             term.StartTime.ShouldBeLessThan(start);
         }
+        [Fact]
+        public void Is_term_in_next_30_minutes()
+        {
+            AppointmentSchedulingService appointmentSchedulingService = new AppointmentSchedulingService(CreateStubDoctorRepository(), CreateStubAppointmentRepository().Object);
+            List<PriorityIntervalDTO> intervals = new List<PriorityIntervalDTO>();
+            Room room1 = new Room(1);
+            Doctor doctor1 = new Doctor(101, null, "ivan", "ivan123", new DateTime(2017, 05, 13), "Ivan", "Ivanovic", "", "3010967800155", Sex.MALE, new DateTime(1967, 10, 30), null, null, "", "", "ivan.ivanovic67@gmail.com", "", new TimeTable(), null, room1, DoctorType.GENERAL_PRACTITIONER);
+            PriorityIntervalDTO dto1 = new PriorityIntervalDTO(DateTime.Now, DateTime.Now.AddMinutes(30), doctor1.Name,false);
+            PriorityIntervalDTO dto2 = new PriorityIntervalDTO(DateTime.Now.AddMinutes(60), DateTime.Now.AddMinutes(90), doctor1.Name,false);
+            intervals.Add(dto1);
+            intervals.Add(dto2);
+            PriorityIntervalDTO term = appointmentSchedulingService.IsTermInNext30Minutes(intervals);
+            term.ShouldBe(dto1);
 
+        }
 
         private Mock<IAppointmentRepository> CreateStubAppointmentRepository()
         {
