@@ -2,6 +2,8 @@
 using Authentication.Model;
 using Microsoft.AspNetCore.Mvc;
 using Authentication.DTOs;
+using EventSourceClasses;
+using EventSourceClasses.Authentication;
 
 namespace Authentication.Controllers
 {
@@ -10,12 +12,14 @@ namespace Authentication.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;
+        private readonly EventLogger _patientEventLogger;
 
         public PatientController(IPatientService patientService)
         {
             _patientService = patientService;
+            _patientEventLogger = new EventLogger();
         }
-
+        
         [HttpPost("changeSelectedDoctor")]
         public IActionResult ChangeSelectedDoctor(SelectedDoctorDTO newDoctor)
         {
@@ -23,6 +27,7 @@ namespace Authentication.Controllers
             if (patient == null) return NotFound();
             patient = _patientService.ChangeSelectedDoctor(newDoctor.DoctorId, patient.Id);
             if (patient == null) return BadRequest();
+            _patientEventLogger.log(new SelectedDoctorEvent(newDoctor.DoctorId, newDoctor.Username));
             return Ok();
         }
 
@@ -32,6 +37,7 @@ namespace Authentication.Controllers
             Patient patient = _patientService.GetByUsername(username);
             if (patient == null) return BadRequest();
             _patientService.BlockPatient(patient);
+            _patientEventLogger.log(new BlockPatientEvent(username));
             return Ok();
         }
 

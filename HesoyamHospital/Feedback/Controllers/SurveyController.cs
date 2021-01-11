@@ -9,6 +9,9 @@ using Feedbacks.Validation;
 using System.Net.Http;
 using Feedbacks.Service;
 
+using EventSourceClasses;
+using EventSourceClasses.Feedback;
+
 namespace Feedbacks.Controllers
 {
     [Route("api/[controller]")]
@@ -17,11 +20,13 @@ namespace Feedbacks.Controllers
     {
         private readonly ISurveyService _surveyService;
         private readonly IHttpRequestSender _requestSender;
+        private readonly EventLogger _surveyLogger;
 
         public SurveyController(ISurveyService surveyService, IHttpClientFactory clientFactory)
         {
             _surveyService = surveyService;
             _requestSender = new HttpRequestSender(clientFactory);
+            _surveyLogger = new EventLogger();
         }
 
         [HttpPost("send-answers/{appointmentId}")]
@@ -29,6 +34,23 @@ namespace Feedbacks.Controllers
         {
             if (!_requestSender.GetAbleToFillOutSurvey(appointmentId) || !SurveyValidation.IsNewSurveyValid(dto)) return BadRequest();
             _surveyService.FillOutSurvey(_requestSender, dto, appointmentId);
+            _surveyLogger.log(new SurveyAnsweredEvent(appointmentId,
+                dto.AnswerOne,
+                dto.AnswerTwo,
+                dto.AnswerThree,
+                dto.AnswerFour,
+                dto.AnswerFive,
+                dto.AnswerSix,
+                dto.AnswerSeven,
+                dto.AnswerEight,
+                dto.AnswerNine,
+                dto.AnswerTen,
+                dto.AnswerEleven,
+                dto.AnswerTwelve,
+                dto.AnswerThirteen,
+                dto.AnswerFourteen,
+                dto.AnswerFifteen,
+                dto.AnswerSixteen));
             return Ok();
         }
 
