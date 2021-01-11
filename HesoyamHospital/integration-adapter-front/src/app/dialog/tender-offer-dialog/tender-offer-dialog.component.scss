@@ -1,0 +1,28 @@
+ul{
+    list-style-type: none;
+    padding-left: 0px;
+}
+li{
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.offerButtons{
+    float: right;
+}
+dialog{
+    width: 90%;
+}
+div .tendertable{
+    width: 70%;
+    th, td {
+        text-align: left;
+        padding: 10px,5px;
+      }
+}
+#listingtable{
+    width: 90%;
+    th, td {
+        text-align: left;
+        padding: 10px,5px;
+      }
+}

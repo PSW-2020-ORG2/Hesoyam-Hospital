@@ -27,10 +27,11 @@ import { MatChipsModule } from '@angular/material/chips'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { TenderDisplayComponent } from './tender-display/tender-display.component';
+import { TenderOfferDialogComponent } from './dialog/tender-offer-dialog/tender-offer-dialog.component'
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { UrgentRequestDialogComponent } from './dialog/urgent-request-dialog/urgent-request-dialog.component';
-
 
 
 
@@ -44,7 +45,9 @@ import { UrgentRequestDialogComponent } from './dialog/urgent-request-dialog/urg
     MedicineAvailabilityComponent,
     UrgentMedicineProcurementRequestComponent,
     UrgentMedicineProcurementListComponent,
-    UrgentRequestDialogComponent
+    UrgentRequestDialogComponent,
+    TenderDisplayComponent,
+    TenderOfferDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { UrgentRequestDialogComponent } from './dialog/urgent-request-dialog/urg
     HttpClientModule
   ],
   entryComponents:[
-    UrgentRequestDialogComponent
+    UrgentRequestDialogComponent,
+    TenderOfferDialogComponent
   ],
   providers: [ ],
   bootstrap: [AppComponent]
