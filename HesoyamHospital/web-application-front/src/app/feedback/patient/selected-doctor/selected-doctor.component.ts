@@ -4,6 +4,7 @@ import { AppointmentDTO } from '../standard-appointment/DTOs/AppointmentDTO';
 import { IntervalDTO } from '../standard-appointment/DTOs/IntervalDTO';
 import { MatStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 
 @Component({
   selector: 'app-selected-doctor',
@@ -16,7 +17,7 @@ export class SelectedDoctorComponent implements OnInit {
   scheduledTime : string = "";
   scheduledDate : string = "";
   public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(2020, 12, 6), 501);
-  constructor(private _appoService: AppointmentService, private _snackBar: MatSnackBar) { }
+  constructor(private _appoService: AppointmentService, private _snackBar: MatSnackBar, private authService : AuthenticationService) { }
 
   ngOnInit(): void {
     this.pickDoctor();
@@ -38,6 +39,7 @@ export class SelectedDoctorComponent implements OnInit {
   
   selectTime(time : IntervalDTO){
     this.appointment.DateAndTime = time.startTime;
+    this.appointment.PatientId = this.authService.getId();
     this.scheduledTime = time.startTimeText;
     this.scheduledDate = time.dateText;
   }

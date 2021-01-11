@@ -55,6 +55,7 @@ namespace Backend.Model.PatientModel
             AppointmentType = appointmentType;
             TimeInterval = timeInterval;
             Canceled = false;
+            AbleToFillOutSurvey = true;
         }
 
         public Appointment(Doctor doctor, bool canceled, bool ableToFillOutSurvey, AppointmentType appointmentType, Room room, TimeInterval timeInterval)
@@ -66,7 +67,6 @@ namespace Backend.Model.PatientModel
             Room = room;
             TimeInterval = timeInterval;
         }
-
 
         public Appointment()
         {

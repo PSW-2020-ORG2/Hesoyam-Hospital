@@ -19,7 +19,6 @@ namespace Appointments.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;
-        private readonly long defaultPatientId = 500;
         private readonly AppointmentValidation _appointmentValidation;
         private readonly IHttpRequestSender _httpRequestSender;
         private readonly EventLogger _appointmentEventLogger;
@@ -35,7 +34,6 @@ namespace Appointments.Controllers
         [HttpGet("{id}")]
         public IActionResult GetAllByPatient(long id)
         {
-            if (id != defaultPatientId) return BadRequest();
             return Ok(AppointmentMapper.AppointmentToAppointmentForObservationDto(_appointmentService.GetAllByPatient(id).ToList(), _httpRequestSender));
         }
 
@@ -44,9 +42,9 @@ namespace Appointments.Controllers
         {
             Appointment appointment = _appointmentService.GetByID(id);
             if (appointment == null) return NotFound();
+            
             if (!_appointmentValidation.IsPossibleToCancelAppointment(appointment, defaultPatientId)) return BadRequest();
             _appointmentService.Cancel(defaultPatientId, id);
-
             _appointmentEventLogger.log(new AppointmentEvent(DateTime.Now,appointment.PatientId ,appointment.DoctorInAppointmentId, AppointmentEventType.CANCELLED));
             return Ok();
         }
