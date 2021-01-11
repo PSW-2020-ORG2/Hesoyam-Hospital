@@ -43,10 +43,6 @@ namespace ActionsAndBenefits.Repository.SQLRepository.Base
 
             // if (Environment.GetEnvironmentVariable("MyDbConnectionString") == null)
             //     return "server=localhost;port=3306;database=mydb1;user=root;password=root";
-            using (StreamWriter sw = File.CreateText(@"C:\Users\Asus\Desktop\env.txt"))
-            {
-                sw.WriteLine(Environment.GetEnvironmentVariable("MyDbConnectionString"));
-            }
             //return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
             return "server=localhost;port=3306;database=mydb1;user=root;password=root";
         }
