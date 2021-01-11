@@ -78,6 +78,7 @@ namespace IntegrationAdapter.Controllers
             try
             {
                 MedicineAvailabilityProto proto = client.IsMedicineAvailable(new MedicineNameProto { MedicineName = medicineName });
+                Console.WriteLine(proto.ToString());
                 MedicineAvailabilityDTO dto = JsonConvert.DeserializeObject<MedicineAvailabilityDTO>(proto.ToString());
                 return dto;
             }

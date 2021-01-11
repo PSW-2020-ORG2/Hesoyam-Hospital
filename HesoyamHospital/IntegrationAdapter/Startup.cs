@@ -2,7 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Model.PatientModel;
+using Backend.Model.PharmacyModel;
+using Backend.Repository.MySQLRepository.HospitalManagementRepository;
+using Backend.Repository.MySQLRepository.MiscRepository;
+using Backend.Repository.MySQLRepository.MySQL.Stream;
+using Backend.Repository.Sequencer;
 using IntegrationAdapter.SFTPServiceSupport;
+using IntegrationAdapter.UrgentProcurement.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +52,12 @@ namespace IntegrationAdapter
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
             services.AddControllers();
+
+            services.AddSingleton<IUrgentMedicineProcurementService, UrgentMedicineProcurementService>(service =>
+            new UrgentMedicineProcurementService(new UrgentMedicineProcurementRepository(new MySQLStream<UrgentMedicineProcurement>(), new LongSequencer()),
+            new RegisteredPharmacyRepository(new MySQLStream<RegisteredPharmacy>(), new LongSequencer()),
+            new MedicineRepository(new MySQLStream<Medicine>(), new LongSequencer()), _env));
+
             if (isPostgres())
             {
                 services.AddDbContext<MyDbContext>(options =>
