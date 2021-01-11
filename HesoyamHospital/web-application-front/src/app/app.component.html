@@ -1,12 +1,49 @@
-<p>
-  <mat-toolbar color="primary"> 
+<mat-toolbar color="primary"> 
+  <button matToolTip="Main Page" mat-icon-button routerLink="../main-page">
     <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-    <span font-color="white" style="margin-left: 30px;">HESOYAM HOSPITAL</span>
-    <button mat-icon-button class="example-icon">
-      <mat-icon *ngIf="this._authService.isAuthenticated()" (click)="this._authService.logOut()">open_in_new</mat-icon>
+  </button>
+  <span font-color="white" style="margin-left: 5px;">HESOYAM HOSPITAL</span>
+  <span style="width: 20px;"></span>
+
+  <span style="flex: 1 1 auto;">
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Patient'" routerLink="../medical-record">
+      Medical Record
     </button>
-  </mat-toolbar>
-</p>
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Patient'" routerLink="../choose-scheduling">
+      Scheduling
+    </button>
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Patient'" routerLink="../documents/simple-search">
+      Documents
+    </button>
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Patient'" routerLink="../feedback/patient/post">
+      Post Feedback
+    </button>
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Admin'" routerLink="../feedback/admin/publishlist">
+      Publish Feedback
+    </button>
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Admin'" routerLink="../block-patients">
+      Suspicious Patients
+    </button>
+    <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Admin'" routerLink="../survey/survey-results">
+      Survey Results
+    </button>
+    <button mat-button routerLink="../feedback/public/allFeedback">
+      All Feedback
+    </button>
+  </span>
+
+  <span style="flex: 1 1 auto;">
+    <button matToolTip="Log Out" mat-icon-button class="example-icon" style="float: right;" *ngIf="this._authService.isAuthenticated()">
+      <mat-icon matToolTip="Log Out" (click)="this._authService.logOut()">open_in_new</mat-icon>
+    </button>
+    <button style="float: right;" mat-button routerLink="../login" *ngIf="!this._authService.isAuthenticated()">
+      Log In
+    </button>
+    <button style="float: right;" mat-button routerLink="../registration/registrationform" *ngIf="!this._authService.isAuthenticated()">
+      Register
+    </button>
+  </span>
+</mat-toolbar>
 
 
 <router-outlet></router-outlet>

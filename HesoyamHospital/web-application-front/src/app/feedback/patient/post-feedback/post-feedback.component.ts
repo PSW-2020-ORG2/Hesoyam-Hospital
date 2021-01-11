@@ -15,6 +15,7 @@ export class PostFeedbackComponent {
   public feedbackDTO = new NewFeedbackDto('', true, true, this.auth.getUsername());
   public _anonymous;
   public _public;
+  public feedbackSaved : boolean = false;
 
   constructor(private _feedbackService : FeedbackService, private _snackBar: MatSnackBar, private auth : AuthenticationService) {
     this._anonymous = 0;
@@ -25,6 +26,7 @@ export class PostFeedbackComponent {
     this.prepareFeedback();
     this._feedbackService.post(this.feedbackDTO).subscribe(
       (val) => {
+        this.feedbackSaved = true;
         this.provideFeedback();
         this.reset();
       });

@@ -13,6 +13,5 @@ namespace GraphicEditor.DTOs
             Room = room;
             Quantity = quantity;
         }
-
     }
 }

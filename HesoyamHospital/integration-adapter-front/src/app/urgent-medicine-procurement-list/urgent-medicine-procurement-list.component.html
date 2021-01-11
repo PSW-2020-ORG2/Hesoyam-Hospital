@@ -1,0 +1,15 @@
+<h1>Requests</h1>
+<ul>
+    <li *ngFor="let r of requests">
+      <div class="formBox">
+        <div class="message">
+          <p class="text">Medicine Name:{{r.Medicine}}<br> Quantity: {{r.Quantity}} </p>
+           </div> 
+          <div class="action-button">
+           <button mat-raised-button (click)="Request(r.Id)"> Request</button>
+          </div> 
+           <br>
+
+      </div>
+    </li>
+</ul>

@@ -1,5 +1,5 @@
 <form [formGroup]="availabilityForm">
-    <div class="registration">
+    <div class="formBox">
         <mat-form-field  >
             <mat-select [(value)]="medID" placeholder="Medicine"  #selectedMedicine>
                 <mat-option *ngFor="let m of medicines" [value]="m.Id">

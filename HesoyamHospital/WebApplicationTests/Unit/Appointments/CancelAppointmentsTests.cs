@@ -27,9 +27,11 @@ namespace WebApplicationTests.Unit.Appointments
         {
             var stubRepository = new Mock<IPatientRepository>();
 
-            Patient patient = new Patient(0);
-            patient.Appointments = new List<Appointment>();
-            patient.Appointments.Add(appointment);
+            Patient patient = new Patient(0)
+            {
+                Appointments = new List<Appointment>()
+            };
+            patient.Appointments.Add(Appointment);
 
             stubRepository.Setup(r => r.GetByID(0)).Returns(patient);
 
@@ -40,7 +42,7 @@ namespace WebApplicationTests.Unit.Appointments
         {
             var stubRepository = new Mock<IAppointmentRepository>();
 
-            stubRepository.Setup(r => r.GetByID(0)).Returns(appointment);
+            stubRepository.Setup(r => r.GetByID(0)).Returns(Appointment);
 
             return stubRepository.Object;
         }
@@ -56,7 +58,7 @@ namespace WebApplicationTests.Unit.Appointments
             new object[] { 0, 0, true },
         };
 
-        public static Appointment appointment =>
+        public static Appointment Appointment =>
         new Appointment()
         {
             Canceled = false

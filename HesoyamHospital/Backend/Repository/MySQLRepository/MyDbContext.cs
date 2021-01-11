@@ -35,6 +35,7 @@ namespace Backend.Repository.MySQLRepository
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<TenderOffer> TenderOffers { get; set; }
+        public DbSet<UrgentMedicineProcurement> UrgentMedicineProcurements { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

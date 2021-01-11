@@ -1,0 +1,49 @@
+version: "3.8"
+
+volumes:
+  mysql_data: {}
+  mysql-data:
+  web-sql:
+  sql:
+
+networks:
+  hesoyamnet:
+    name: hesoyamnet
+    driver: bridge
+
+services:
+  WebApplication:
+    build: 
+      context: .
+      dockerfile: WebApplication/Dockerfile
+    image: gregvader/webapplication:latest
+    depends_on:
+      - postgres
+    restart: on-failure
+    environment:
+      DATABASE_HOST: postgres
+      USES_POSTGRES: "TRUE"
+      MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+    volumes:
+      - web-sql:/app/sql
+    expose: 
+      - "80"
+    networks: 
+      - hesoyamnet
+    ports:
+      - "4200:80"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    networks:
+      - hesoyamnet
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: mydb1
+    volumes:
+      - mysql-data:/var/lib/mysql
+      #- ./app:/docker-entrypoint-initdb.d/
+

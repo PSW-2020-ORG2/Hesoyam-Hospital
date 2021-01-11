@@ -21,6 +21,14 @@ namespace IntegrationAdapter.Controllers
             return Ok(actionsBenefits);
         }
 
+        [HttpGet("approvedText")]
+        public IActionResult GetApprovedActionsBenefitsText()
+        {
+            List<string> actionsBenefits = AppResources.getInstance().actionBenefitService.GetAllApprovedActionBenefitsText().ToList();
+
+            return Ok(actionsBenefits.ToArray());
+        }
+
         [HttpGet("unapproved")]
         public IActionResult GetUnapprovedActionsBenefits()
         {

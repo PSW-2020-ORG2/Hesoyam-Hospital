@@ -21,7 +21,10 @@ namespace APIGateway
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((host, config) =>
             {
-                config.AddJsonFile("configuration.json");
+                if(Environment.GetEnvironmentVariable("STAGE") == "DEV")
+                    config.AddJsonFile("configuration.json");
+                else
+                    config.AddJsonFile("configuration_deploy.json");
             })
             .UseStartup<Startup>();
     }
