@@ -57,10 +57,7 @@ namespace GraphicEditor.View
             string jmbg = JMBG.Text;
             Patient patient = null;
             ComboBoxItem item = (ComboBoxItem)chooseExaminationType.SelectedItem;
-            string specialisation = (string)item.Content;
-            DoctorType type = (DoctorType)item.Tag;
-
-            //User user = new User(name, jmbg, name, surname, null, jmbg, Sex.OTHER, new DateTime(2021,01,01), null, null, null, null, null);   
+            DoctorType type = (DoctorType)item.Tag;   
 
             PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Today, DateTime.Today,null,false);
             PriorityIntervalDTO interval = appointmentSchedulingService.GetAvailableTermsForEmergencyExamination(dto,type);
