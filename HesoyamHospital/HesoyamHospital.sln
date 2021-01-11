@@ -21,6 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapter", "Integ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapterTests", "IntegrationAdapterTests\IntegrationAdapterTests.csproj", "{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationSeleniumTests", "WebApplicationSeleniumTests\WebApplicationSeleniumTests.csproj", "{B0E4313B-82CD-49DF-968B-C015C1F175D8}"
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicEditorTests", "GraphicEditorTests\GraphicEditorTests.csproj", "{648F4462-E44E-49DB-8B96-5460CB5833C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcing", "EventSourcing\EventSourcing.csproj", "{9F70D193-5709-4F5A-850C-B1F35E07AF7E}"
@@ -69,6 +70,10 @@ Global
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C63CD59-CD8D-4EE3-88F1-2291903E0EE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E4313B-82CD-49DF-968B-C015C1F175D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E4313B-82CD-49DF-968B-C015C1F175D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E4313B-82CD-49DF-968B-C015C1F175D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E4313B-82CD-49DF-968B-C015C1F175D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{648F4462-E44E-49DB-8B96-5460CB5833C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{648F4462-E44E-49DB-8B96-5460CB5833C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{648F4462-E44E-49DB-8B96-5460CB5833C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
