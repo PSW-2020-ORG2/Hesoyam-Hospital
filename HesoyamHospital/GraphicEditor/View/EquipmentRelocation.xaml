@@ -46,7 +46,7 @@
 
         <Label Content="Choose time for relocation: "  Grid.Row="6" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <ComboBox x:Name="chooseTime" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True"/>
+        <ComboBox x:Name="chooseTime" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="chooseTime_SelectionChanged"/>
 
         <!--
         <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="0" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}">
