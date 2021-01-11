@@ -13,18 +13,20 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "api/appointmentevent",
+      "applicationUrl": "http://localhost:63725",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MyDbConnectionString": "server=localhost;port=3306;database=eventstorage;user=root;password=root"
       }
     },
     "EventSourcing": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/appointmentevent",
-      "applicationUrl": "http://localhost:5000",
+      "applicationUrl": "http://localhost:63725",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "MyDbConnectionString": "server=localhost;port=3306;database=mydb1;user=root;password=root"
+        "MyDbConnectionString": "server=localhost;port=3306;database=eventstorage;user=root;password=root"
       }
     }
   }

@@ -28,7 +28,7 @@
         "USES_POSTGRES": "FALSE",
         "MyDbConnectionString": "port=3306;database=mydb1;user=root;password=root",
         "shouldLogEvents": "false",
-        "appointmentEventLoggerURL": "http://localhost:5000/api/appointmentevent/create"
+        "appointmentEventLoggerURL": "http://localhost:63725/api/appointmentevent/create"
       },
       "applicationUrl": "http://localhost:57733"
     }

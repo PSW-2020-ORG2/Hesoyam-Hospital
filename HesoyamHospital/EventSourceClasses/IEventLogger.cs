@@ -4,8 +4,8 @@ using System.Text;
 
 namespace EventSourceClasses
 {
-    interface IEventLogger<T>
+    interface IEventLogger
     {
-        void log(T item);
+        void log(Event item);
     }
 }

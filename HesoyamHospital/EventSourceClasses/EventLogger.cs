@@ -4,10 +4,15 @@ using System.Text;
 
 namespace EventSourceClasses
 {
-    public abstract class EventLogger<T> : IEventLogger<T>
+    public  class EventLogger : IEventLogger
     {
         private readonly string SHOULD_LOG_ENV_VAR_NAME = "shouldLogEvents";
-        public abstract void log(T item);
+
+        public void log(Event item)
+        {
+            if (ShouldLog()) item.Log();
+      
+        }
 
         protected bool ShouldLog()
         {
