@@ -8,6 +8,7 @@ import { SpecificationComponent } from './specification/specification.component'
 import {MedicineAvailabilityComponent} from './medicine-availability/medicine-availability.component'
 import { UrgentMedicineProcurementRequestComponent } from './urgent-medicine-procurement-request/urgent-medicine-procurement-request.component'
 import { UrgentMedicineProcurementListComponent } from './urgent-medicine-procurement-list/urgent-medicine-procurement-list.component'
+import { TenderDisplayComponent } from './tender-display/tender-display.component';
 
 const routes: Routes = [
     { path: '', component: PharmacyRegistrationComponent },
@@ -16,7 +17,9 @@ const routes: Routes = [
     { path: 'specification', component: SpecificationComponent},
     { path: 'medicine-availability', component: MedicineAvailabilityComponent},
     { path: 'urgent-medicine-procurement-request', component:UrgentMedicineProcurementRequestComponent },
-    { path: 'urgent-medicine-procurement-list', component:UrgentMedicineProcurementListComponent }
+    { path: 'urgent-medicine-procurement-list', component:UrgentMedicineProcurementListComponent },
+    { path: 'medicine-availability', component: MedicineAvailabilityComponent},
+    { path: 'tender-display' , component: TenderDisplayComponent}
 ];
 
 @NgModule({

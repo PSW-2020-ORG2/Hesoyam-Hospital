@@ -22,6 +22,7 @@ using Backend.Repository.MySQLRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using IntegrationAdapter.Tendering.Service;
 
 namespace IntegrationAdapter
 {
@@ -52,6 +53,12 @@ namespace IntegrationAdapter
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
             services.AddControllers();
+
+            var tenderOfferRepository = new TenderOfferRepository(new MySQLStream<TenderOffer>(), new LongSequencer());
+            services.AddSingleton<ITenderService, TenderService>(services =>
+            new TenderService(new TenderRepository(new MySQLStream<Tender>(), new LongSequencer()), tenderOfferRepository));
+            services.AddSingleton<ITenderOfferService, TenderOfferService>(services =>
+            new TenderOfferService(tenderOfferRepository));
 
             services.AddSingleton<IUrgentMedicineProcurementService, UrgentMedicineProcurementService>(service =>
             new UrgentMedicineProcurementService(new UrgentMedicineProcurementRepository(new MySQLStream<UrgentMedicineProcurement>(), new LongSequencer()),
