@@ -17,5 +17,6 @@ namespace PharmacyRegistration.Service.Abstract
 
         void Delete(T entity);
 
+        void Validate(T entity);
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using PharmacyRegistration.Model;
 using PharmacyRegistration.Repository;
 using PharmacyRegistration.Repository.SQLRepository.Base;
@@ -48,6 +49,12 @@ namespace PharmacyRegistration
             });
 
             services.AddControllers();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
+                .Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
+                = new DefaultContractResolver());
             services.AddSingleton<IRegisteredPharmacyService, RegisteredPharmacyService>(service =>
             new RegisteredPharmacyService(new RegisteredPharmacyRepository(new SQLStream<RegisteredPharmacy>())));
 
