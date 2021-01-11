@@ -29,7 +29,7 @@ export class TenderOfferDialogComponent implements OnInit {
       name :['',[Validators.required]],
       email:['',[Validators.required,Validators.email]],
       quantity:[0,[Validators.pattern("^[0-9]*$")]],
-      price:[0, [Validators.pattern("^[0-9]*$")]]
+      price:[0]
     })
 
   }

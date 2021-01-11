@@ -44,12 +44,12 @@
                     </td>
                     <td>
                         <mat-form-field>  
-                            <input required matInput formControlName="quantity"> 
+                            <input  matInput formControlName="quantity"> 
                             </mat-form-field>     
                     </td>
                     <td>
                         <mat-form-field>  
-                            <input required matInput formControlName="price"> 
+                            <input  matInput formControlName="price"> 
                             </mat-form-field>                
                     </td>
                     <td>
@@ -71,5 +71,5 @@
 
 <div mat-dialog-actions class="offerButtons">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-raised-button (click)="FillOffer()" cdkFocusInitial> Offer</button>
+  <button mat-raised-button [disabled]="offerForm.invalid" (click)="FillOffer()" cdkFocusInitial> Offer</button>
 </div>
