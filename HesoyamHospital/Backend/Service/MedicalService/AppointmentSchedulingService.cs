@@ -64,7 +64,7 @@ namespace Backend.Service.MedicalService
             return IsTermInNext30Minutes(GetWhenPriorityIsInterval(dto, specialisation).ToList());
         }
 
-        private PriorityIntervalDTO IsTermInNext30Minutes(List<PriorityIntervalDTO> intervals)
+        public PriorityIntervalDTO IsTermInNext30Minutes(List<PriorityIntervalDTO> intervals)
         {
             DateTime thisMoment = DateTime.Now;
             foreach (PriorityIntervalDTO interval in intervals)
