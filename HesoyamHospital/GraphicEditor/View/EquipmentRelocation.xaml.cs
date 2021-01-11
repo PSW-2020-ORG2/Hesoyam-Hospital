@@ -11,8 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
+using Backend.Service.MedicalService;
 using Backend.Util;
 
 namespace GraphicEditor.View
@@ -31,13 +33,16 @@ namespace GraphicEditor.View
         private List<Room> availableRooms;
         private DateTime date;
         private SearchService searchService;
+        private TimeInterval timeInterval;
+        private readonly AppointmentSchedulingService appointmentSchedulingService;
 
         public EquipmentRelocation()
         {
             InitializeComponent();
             inventoryService = Backend.AppResources.getInstance().inventoryService;
             List<InventoryItem> inventories = (List<InventoryItem>)inventoryService.GetInventoryItems();
-            roomService = Backend.AppResources.getInstance().roomService;
+            roomService = Backend.AppResources.getInstance().roomService; 
+            appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             List<Room> rooms = (List<Room>)roomService.GetAll();
             searchService = new SearchService();
 
@@ -91,7 +96,7 @@ namespace GraphicEditor.View
 
             DateTime startTime = date;
             DateTime endTime = date.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+            timeInterval = new TimeInterval(startTime, endTime);
 
             availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
             bool isCurrentRoomAvailable = false;
@@ -134,6 +139,10 @@ namespace GraphicEditor.View
             }
             else
             {
+                Appointment appointmentForPatient = new Appointment(null, null, null, AppointmentType.renovation, timeInterval);
+                appointmentSchedulingService.SaveAppointment(appointmentForPatient);
+                inventoryItem.RoomID = destinationRoom.Id;
+                inventoryService.UpdateInventoryItem(inventoryItem);
                 MessageWindow mw = new MessageWindow();
                 mw.Title = "Equipment relocation";
                 mw.message.Content = "Successfully equipment relocation!";

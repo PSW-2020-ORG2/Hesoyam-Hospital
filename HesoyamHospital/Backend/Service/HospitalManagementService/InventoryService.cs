@@ -21,11 +21,22 @@ namespace Backend.Service.HospitalManagementService
         private InventoryItemRepository _inventoryItemRepository;
         private MedicineRepository _medicineRepository;
 
+        private IInventoryRepository inventoryRepository;
+        private IInventoryItemRepository inventoryItemRepository;
+        private IMedicineRepository medicineRepository;
+
         public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {
             _inventoryRepository = inventoryRepository;
             _inventoryItemRepository = inventoryItemRepository;
             _medicineRepository = medicineRepository;
+        }
+
+        public InventoryService(IInventoryRepository inventoryRepository, IInventoryItemRepository inventoryItemRepository, IMedicineRepository medicineRepository)
+        {
+            inventoryRepository = inventoryRepository;
+            inventoryItemRepository = inventoryItemRepository;
+            medicineRepository = medicineRepository;
         }
 
         public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
@@ -88,6 +99,9 @@ namespace Backend.Service.HospitalManagementService
             return retEn;
         }
 
+        public InventoryItem GetInventoryItemById(long id)
+            => inventoryItemRepository.GetInventoryItemById(id);
+
         public IEnumerable<InventoryItem> GetInventoryItems()
             => _inventoryItemRepository.GetAllEager();
 
@@ -103,6 +117,9 @@ namespace Backend.Service.HospitalManagementService
 
         public void Update(Inventory entity)
             => _inventoryRepository.Update(entity);
+
+        public void UpdateInventoryItem(InventoryItem entity)
+           => _inventoryItemRepository.Update(entity);
 
         public void Delete(Inventory entity)
             => _inventoryRepository.Delete(entity);
