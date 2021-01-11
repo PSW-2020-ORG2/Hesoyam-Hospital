@@ -25,7 +25,13 @@ namespace GraphicEditor
             if (loggedIn.GetUserType() != UserType.SECRETARY)
             {
                 searchAvailable.Visibility = Visibility.Hidden;
+                searchEmergency.Visibility = Visibility.Hidden;
             }
+            else
+            {
+                searchEquipment.Visibility = Visibility.Hidden;
+            }
+           
 
             DrawingShapesService drawingShapes = new DrawingShapesService();
             GraphicRepository graphicRepository = new GraphicRepository();
