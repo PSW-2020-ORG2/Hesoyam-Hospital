@@ -69,13 +69,13 @@ namespace IntegrationAdapter.Tendering
                 return BadRequest(e.Message);
             }
         }
-        [HttpGet]
+        [HttpGet("active")]
         public IActionResult GetAllActiveTenders()
         {
             List<Tender> tenders = _tenderService.GetAllActiveTenders().ToList();
             return Ok(tenders);
         }
-        [HttpGet]
+        [HttpGet("concluded")]
         public IActionResult GetAllUnconcludedTenders()
         {
             List<Tender> tenders = _tenderService.GetAllUnconcludedTenders().ToList();

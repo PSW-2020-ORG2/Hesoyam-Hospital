@@ -10,7 +10,12 @@ namespace Backend.Model.PharmacyModel
         public string Medicine { get; set; }
         public uint Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-
+        public TenderOfferListing(string medicine,uint quantity,decimal unitPrice)
+        {
+            Medicine = medicine;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+        }
         public long GetId()
         {
             return Id;

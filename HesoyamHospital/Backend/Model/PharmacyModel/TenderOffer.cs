@@ -17,6 +17,12 @@ namespace Backend.Model.PharmacyModel
         public TenderOffer()
         {
         }
+        public TenderOffer(long tenderId,string email,List<TenderOfferListing>list)
+        {
+            TenderId = tenderId;
+            Email = email;
+            TenderOfferListings = list;
+        }
         public long GetId()
         {
             return Id;
