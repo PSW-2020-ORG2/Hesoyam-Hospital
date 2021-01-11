@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,10 @@ namespace GraphicEditor.View
     {
         private readonly InventoryService inventoryService;
         private readonly RoomService roomService;
+        public readonly long APPOINTMENT_DURATION_MINUTES = 30;
+        private Room currentRoom;
+        private Room destinationRoom;
+        private InventoryItem inventoryItem;
 
         public EquipmentRelocation()
         {
@@ -30,7 +35,7 @@ namespace GraphicEditor.View
             List<InventoryItem> inventories = (List<InventoryItem>)inventoryService.GetInventoryItems();
             roomService = Backend.AppResources.getInstance().roomService;
             List<Room> rooms = (List<Room>)roomService.GetAll();
-
+            
             foreach (InventoryItem inventoryItem in inventories)
             {
                 ComboBoxItem item = new ComboBoxItem();
@@ -47,18 +52,42 @@ namespace GraphicEditor.View
                 chooseDestinationRoom.Items.Add(item);
             }
 
+            String t = "8:00";
+
+            for (int i = 0; i <= 8; i++)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                DateTime date = (DateTime)toDatePicker.SelectedDate;
+                var result = Convert.ToDateTime(t);
+                DateTime emptyAppointment = new DateTime(date.Year, date.Month, date.Day, result.Hour, result.Minute, 0);
+                DateTime dateTime = emptyAppointment;
+                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                string time = dateTime.ToString("hh:mm:ss tt", CultureInfo.CurrentCulture);
+                item.Tag = dateTime;
+                chooseTime.Items.Add(time);
+                t = time;
+            }
         }
+       
+        private void ButtonEquipmentRelocation_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem item = (ComboBoxItem)chooseEquipment.SelectedItem;
+            ComboBoxItem destRoom = (ComboBoxItem)chooseDestinationRoom.SelectedItem;
+            inventoryItem = (InventoryItem)item.Tag;
+            currentRoom = roomService.GetByID(inventoryItem.RoomID);
+            destinationRoom = (Room)destRoom.Tag;
+            // MessageWindow mw = new MessageWindow();
+            // mw.Title = destinationRoom.RoomNumber;
+            // mw.message.Content = currentRoom.RoomNumber;
+            // mw.ShowDialog();
+        }
+
         private void ToDate_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F1)
             {
                 toDatePicker.IsDropDownOpen = true;
             }
-        }
-
-        private void buttonEquipmentRelocation_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
