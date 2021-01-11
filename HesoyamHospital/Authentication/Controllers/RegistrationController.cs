@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using Authentication.DTOs;
 using Authentication.Mappers;
@@ -7,6 +8,8 @@ using Authentication.Repository.Abstract;
 using Authentication.Service.Abstract;
 using Authentication.Validation;
 using Microsoft.AspNetCore.Mvc;
+using EventSourceClasses;
+using EventSourceClasses.Authentication;
 
 namespace Authentication.Controllers
 {
@@ -18,6 +21,7 @@ namespace Authentication.Controllers
         private readonly IPatientService _patientService;
         private readonly IMedicalRecordService _medicalRecordService;
         private readonly IImageRepository _imageRepository;
+        private readonly EventLogger _registrationLogger;
 
         public RegistrationController(ISendEmailService sendEmalService, IImageRepository imageRepository, IPatientService patientService, IMedicalRecordService medicalRecordService)
         {
@@ -25,6 +29,7 @@ namespace Authentication.Controllers
             _imageRepository = imageRepository;
             _patientService = patientService;
             _medicalRecordService = medicalRecordService;
+            _registrationLogger = new EventLogger();
         }
 
         [HttpPost]   //POST /api/registration
@@ -36,6 +41,24 @@ namespace Authentication.Controllers
             {
                 _sendEmailService.SendActivationEmail(medicalRecord.Patient.Id, medicalRecord.Patient.Email1);
             }
+            _registrationLogger.log(new RegistrationEvent(
+                dto.Name,
+                dto.Surname,
+                dto.MiddleName,
+                dto.Gender,
+                dto.Email,
+                dto.Username,
+                dto.Password,
+                dto.DateOfBirth,
+                dto.HealthCardNumber,
+                dto.Jmbg,
+                dto.MobilePhone,
+                dto.HomePhone,
+                dto.BloodType,
+                dto.Allergies,
+                dto.Country,
+                dto.City,
+                dto.Address));
             return Ok();
         }
 
