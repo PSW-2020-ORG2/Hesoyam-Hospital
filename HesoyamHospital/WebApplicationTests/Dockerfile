@@ -9,11 +9,11 @@ COPY ./WebApplication/bin/Release/netcoreapp3.1/ .
 COPY ./WebApplication/bin/Release/netcoreapp3.1/ /app/publish/
 COPY ./WebApplication .
 COPY ./WebApplication/WebApplication.csproj .
-# COPY ./Appointment ./Appointment
-# COPY ./Authentication ./Authentication
-# COPY ./Feedback ./Feedback
-# COPY ./Documents ./Documents
-# COPY ./APIGateway ./APIGateway
+COPY ./Appointment ./Appointment
+COPY ./Authentication ./Authentication
+COPY ./Feedback ./Feedback
+COPY ./Documents ./Documents
+COPY ./APIGateway ./APIGateway
 
 
 COPY ./WebApplicationTests /app/WebApplicationTests
