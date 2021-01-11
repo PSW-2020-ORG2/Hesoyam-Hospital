@@ -1,11 +1,7 @@
 ﻿using Backend.Model.DoctorModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.Abstract.UsersAbstractRepository;
-using Backend.Repository.MySQLRepository.MedicalRepository;
-using Backend.Repository.MySQLRepository.MySQL.Stream;
-using Backend.Repository.Sequencer;
 using Backend.Util;
 using Moq;
 using Shouldly;
@@ -51,11 +47,13 @@ namespace WebApplicationTests.Unit.Appointments
             Patient patient5 = new Patient(4);
 
             Appointment a1 = new Appointment(0);
-            Doctor d1 = new Doctor(0);
-            d1.Name = "Pera";
-            d1.Surname = "Peric";
-            d1.Specialisation = DoctorType.CARDIOLOGIST;
-            d1.Office = new Room("C101", false, 1, RoomType.EXAMINATION);
+            Doctor d1 = new Doctor(0)
+            {
+                Name = "Pera",
+                Surname = "Peric",
+                Specialisation = DoctorType.CARDIOLOGIST,
+                Office = new Room("C101", false, 1, RoomType.EXAMINATION)
+            };
             a1.DoctorInAppointment = d1;
             a1.TimeInterval = new TimeInterval(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(-1).AddMinutes(30));
             a1.Canceled = false;
@@ -65,11 +63,13 @@ namespace WebApplicationTests.Unit.Appointments
             patient2.Appointments.Add(a1);
 
             Appointment a2 = new Appointment(1);
-            Doctor d2 = new Doctor(1);
-            d2.Name = "Marko";
-            d2.Surname = "Markovic";
-            d2.Specialisation = DoctorType.DERMATOLOGIST;
-            d2.Office = new Room("D250", false, 2, RoomType.EXAMINATION);
+            Doctor d2 = new Doctor(1)
+            {
+                Name = "Marko",
+                Surname = "Markovic",
+                Specialisation = DoctorType.DERMATOLOGIST,
+                Office = new Room("D250", false, 2, RoomType.EXAMINATION)
+            };
             a2.DoctorInAppointment = d2;
             a2.TimeInterval = new TimeInterval(DateTime.Now.AddMinutes(-10), DateTime.Now.AddMinutes(20));
             a2.Canceled = false;
@@ -78,11 +78,13 @@ namespace WebApplicationTests.Unit.Appointments
             patient3.Appointments.Add(a2);
 
             Appointment a3 = new Appointment(2);
-            Doctor d3 = new Doctor(2);
-            d3.Name = "Ivan";
-            d3.Surname = "Petrovic";
-            d3.Specialisation = DoctorType.ENDOCRINIOLOGIST;
-            d3.Office = new Room("E200", false, 2, RoomType.EXAMINATION);
+            Doctor d3 = new Doctor(2)
+            {
+                Name = "Ivan",
+                Surname = "Petrovic",
+                Specialisation = DoctorType.ENDOCRINIOLOGIST,
+                Office = new Room("E200", false, 2, RoomType.EXAMINATION)
+            };
             a3.DoctorInAppointment = d3;
             a3.TimeInterval = new TimeInterval(DateTime.Now.AddMinutes(60), DateTime.Now.AddMinutes(90));
             a3.Canceled = false;

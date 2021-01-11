@@ -73,7 +73,7 @@ namespace Backend.Model.UserModel
             return false;
         }
 
-        public bool IsGreaterOrEqual(DateTime startTime)
+        private bool IsGreaterOrEqual(DateTime startTime)
         {
             if (Date.Year > startTime.Year) return true;
             if (Date.Year == startTime.Year && Date.Month > startTime.Month) return true;
@@ -81,7 +81,7 @@ namespace Backend.Model.UserModel
             return false;
         }
 
-        public bool IsLessOrEqual(DateTime endTime)
+        private bool IsLessOrEqual(DateTime endTime)
         {
             if (Date.Year < endTime.Year) return true;
             if (Date.Year == endTime.Year && Date.Month < endTime.Month) return true;
@@ -89,7 +89,7 @@ namespace Backend.Model.UserModel
             return false;
         }
 
-        public bool IsAppointmentActive(DateTime startTime)
+        private bool IsAppointmentActive(DateTime startTime)
         {
             if (!IsCurrentDay()) return true;
             if (startTime.Hour > DateTime.Now.Hour) return true;

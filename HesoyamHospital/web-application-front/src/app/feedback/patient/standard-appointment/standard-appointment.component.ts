@@ -9,6 +9,7 @@ import { DoctorDateDTO } from './DTOs/DoctorDateDTO';
 import { IntervalDTO } from './DTOs/IntervalDTO';
 import { MatStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 
 @Component({
   selector: 'app-standard-appointment',
@@ -32,7 +33,7 @@ export class StandardAppointmentComponent implements OnInit {
   departmentValidator = new FormControl('', Validators.required);
   
 
-  constructor(private _formBuilder: FormBuilder, private _appoService: AppointmentService, private _snackBar: MatSnackBar) {
+  constructor(private _formBuilder: FormBuilder, private _appoService: AppointmentService, private _snackBar: MatSnackBar, private authService : AuthenticationService) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 11, 31);
@@ -66,6 +67,7 @@ export class StandardAppointmentComponent implements OnInit {
   selectDoctor(doctor){
     this.doctorDate.Id = doctor.id;
     this.appointment.DoctorId = doctor.id;
+    this.appointment.PatientId = this.authService.getId();
     console.log(this.doctorDate.Date);
   }
 

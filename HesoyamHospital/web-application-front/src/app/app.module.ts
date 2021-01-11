@@ -15,6 +15,7 @@ import { RegistrationService } from './registration/services/registration.servic
 import { AuthenticationModule } from './authentication/authentication.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './helpers/interceptor.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -32,7 +33,11 @@ import { Interceptor } from './helpers/interceptor.service';
     MedicalRecordModule,
     RegistrationModule,
     DocumentsModule,
-    AuthenticationModule
+    AuthenticationModule,
+    MatTooltipModule
+  ],
+  exports:[
+    MatTooltipModule
   ],
   providers: [FeedbackService, RegistrationService, {
     provide: HTTP_INTERCEPTORS,

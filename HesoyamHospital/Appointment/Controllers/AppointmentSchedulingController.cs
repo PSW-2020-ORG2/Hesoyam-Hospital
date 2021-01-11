@@ -7,6 +7,8 @@ using Appointments.Mappers;
 using Appointments.Service;
 using Appointments.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using EventSourceClasses;
+using EventSourceClasses.Appointments;
 
 namespace Appointments.Controllers
 {
@@ -16,11 +18,13 @@ namespace Appointments.Controllers
     {
         private readonly IAppointmentSchedulingService _appointmentSchedulingService;
         private readonly IHttpRequestSender _httpRequestSender;
+        private readonly EventLogger _appointmentEventLogger;
 
         public AppointmentSchedulingController(IAppointmentSchedulingService appointmentSchedulingService, IHttpClientFactory httpClientFactory)
         {
             _appointmentSchedulingService = appointmentSchedulingService;
             _httpRequestSender = new HttpRequestSender(httpClientFactory);
+            _appointmentEventLogger = new EventLogger();
         }
 
         [HttpPut("getTimesForDoctor")]
@@ -50,21 +54,23 @@ namespace Appointments.Controllers
         }
 
         [HttpPost("saveAppointment")]
-        public IActionResult SaveAppointment(AppointmentDTO dto)
+        public IActionResult SaveAppointment([FromBody] AppointmentDTO dto)
         {
             if (dto == null || dto.DoctorId == 0) return BadRequest();
             if (_appointmentSchedulingService.MultipleAppoitments(dto, _httpRequestSender)) return BadRequest("SCHEDULING FAILED");
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto, _httpRequestSender), _httpRequestSender);
+            _appointmentEventLogger.log(new AppointmentEvent(DateTime.Now, dto.PatientId, dto.DoctorId, AppointmentEventType.CREATED));
             return Ok();
         }
 
         [HttpPost("saveSelectedDoctorAppointment")]
-        public IActionResult SaveSelecetdDoctorAppointment(AppointmentDTO dto)
+        public IActionResult SaveSelectedDoctorAppointment([FromBody] AppointmentDTO dto)
         {
             if (dto == null || dto.PatientId == 0) return BadRequest();
             dto.DoctorId = _appointmentSchedulingService.SetSelectedDoctor(dto.PatientId, _httpRequestSender);
             if (_appointmentSchedulingService.MultipleAppoitments(dto, _httpRequestSender)) return BadRequest("SCHEDULING FAILED");
             _appointmentSchedulingService.SaveAppointment(AppointmentMapper.AppointmentDtoToAppointment(dto, _httpRequestSender), _httpRequestSender);
+            _appointmentEventLogger.log(new AppointmentEvent(DateTime.Now, dto.PatientId, dto.DoctorId, AppointmentEventType.CREATED));
             return Ok();
         }
     }

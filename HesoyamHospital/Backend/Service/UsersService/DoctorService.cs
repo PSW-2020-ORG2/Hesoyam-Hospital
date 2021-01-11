@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Backend.Model.DoctorModel;
 using Backend.Model.UserModel;
+using Backend.Repository.Abstract.UsersAbstractRepository;
 using Backend.Repository.MySQLRepository.UsersRepository;
 using Backend.Util;
 
