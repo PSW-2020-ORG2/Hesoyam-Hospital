@@ -34,10 +34,6 @@ export class TenderOfferDialogComponent implements OnInit {
 
   }
 
-  Offer(){
-    this.tenderOfferService.PostOffer(this.tenderOffer)
-    this.dialogRef.close();
-  }
 
   FillOffer(){
     this.tenderOffer.Email=this.offerForm.get('email').value;
@@ -47,7 +43,7 @@ export class TenderOfferDialogComponent implements OnInit {
     this.tenderOfferService.PostOffer(this.tenderOffer).subscribe(
       data=>console.log("proslo")
     );
-
+    this.dialogRef.close();
   }
   onNoClick(): void {
     this.dialogRef.close();
