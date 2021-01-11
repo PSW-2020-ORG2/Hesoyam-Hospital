@@ -43,8 +43,8 @@ namespace Appointments.Controllers
             Appointment appointment = _appointmentService.GetByID(id);
             if (appointment == null) return NotFound();
             
-            if (!_appointmentValidation.IsPossibleToCancelAppointment(appointment, defaultPatientId)) return BadRequest();
-            _appointmentService.Cancel(defaultPatientId, id);
+            if (!_appointmentValidation.IsPossibleToCancelAppointment(appointment, appointment.PatientId)) return BadRequest();
+            _appointmentService.Cancel(appointment.PatientId, id);
             _appointmentEventLogger.log(new AppointmentEvent(DateTime.Now,appointment.PatientId ,appointment.DoctorInAppointmentId, AppointmentEventType.CANCELLED));
             return Ok();
         }
