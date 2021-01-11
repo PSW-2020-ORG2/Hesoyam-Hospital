@@ -59,7 +59,7 @@ namespace GraphicEditor.View
 
             String t = "8:00";
 
-            for (int i = 0; i <= 16; i++)
+            for (int i = 0; i <= 20; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 DateTime date = (DateTime)toDatePicker.SelectedDate.Value;
