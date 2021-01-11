@@ -17,6 +17,17 @@ namespace GraphicEditor.DTOs
             return result;
         }
 
+        public static List<InventoryNameDTO> ConvertFromIventoryItemNameToDTO(List<InventoryItem> inventoryItems)
+        {
+            List<InventoryNameDTO> result = new List<InventoryNameDTO>();
+            foreach (InventoryItem i in inventoryItems)
+            {
+                InventoryNameDTO item = new InventoryNameDTO(i.Name);
+                result.Add(item);
+            }
+            return result;
+        }
+
         public static List<InventoryItemDTO> ConvertFromMedicineToDTO(List<Medicine> medicine, string roomName)
         {
 

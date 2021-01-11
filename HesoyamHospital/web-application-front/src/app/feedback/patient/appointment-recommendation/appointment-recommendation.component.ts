@@ -12,6 +12,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { error } from 'protractor';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 
 @Component({
   selector: 'app-appointment-recommendation',
@@ -31,7 +32,7 @@ export class AppointmentRecommendationComponent implements OnInit {
   public priorityIntervalDto : PriorityIntervalDTO[] = [];
   public appointment : AppointmentDTO = new AppointmentDTO(500, new Date(2020, 12, 6), 0);
 
-  constructor(private _formBuilder: FormBuilder, private _appoService: AppointmentService, private _snackBar: MatSnackBar) {
+  constructor(private _formBuilder: FormBuilder, private _appoService: AppointmentService, private _snackBar: MatSnackBar, private authService : AuthenticationService) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 2, 0, 0);
@@ -87,6 +88,7 @@ export class AppointmentRecommendationComponent implements OnInit {
   pickTime(time : PriorityIntervalDTO){
     this.appointment.DateAndTime = time.startTime;
     this.appointment.DoctorId = time.doctorId;
+    this.appointment.PatientId = this.authService.getId();
     this.scheduledTime = "Appointment is scheduled for: " + time.startTimeText + ", "+ time.dateText +", Dr "+ time.fullName;
   }
 

@@ -1,0 +1,61 @@
+<html>
+<body style="background-color: rgb(246, 248, 250);">
+
+    <div style="display: flex; justify-content: center; background-color: rgb(58, 117, 211);">
+        <mat-card class="mat-elevation-z8" style="width: 1200px; height: 30%; margin-top: 30px; margin-bottom: 30px;">
+            <ng-image-slider [images]="imageObject" [imageSize]="{width: '400px', height: '250px'}" #nav></ng-image-slider>
+        </mat-card>
+    </div>
+
+    <div class="content" fxLayout="row wrap">
+        <div fxFlex="30%">
+                <mat-card class="mat1" routerLink="../medical-record">
+                    <mat-card-content style="text-align: center;">
+                        <img src="assets/user.png">
+                        <p id = "text">Medical Record</p>
+                    </mat-card-content>
+                </mat-card>
+        </div>
+        <div fxFlex="30%">
+            <mat-card class="mat1" routerLink="../choose-scheduling">
+                <mat-card-content style="text-align: center;">
+                    <img src="assets/schedule1.png">
+                    <p id = "text">Scheduling</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="mat1" routerLink="../documents/simple-search">
+                <mat-card-content style="text-align: center;">
+                    <img src="assets/documents.png">
+                    <p id = "text">Documents</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFlex="30%">
+            <mat-card class="mat1" routerLink="../feedback/patient/post">
+                <mat-card-content style="text-align: center;">
+                    <img src="assets/feedback1.png">
+                    <p id = "text">Post Feedback</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFlex="30%">
+            <mat-card class="mat1" routerLink="../feedback/public/allFeedback">
+                <mat-card-content style="text-align: center;">
+                    <img src="assets/all1.png">
+                    <p id = "text">All Feedback</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="mat1" (click)="this._authService.logOut()">
+                <mat-card-content style="text-align: center;">
+                    <img src="assets/logout4.png">
+                    <p id = "text">Log Out</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</body>
+</html>

@@ -8,6 +8,7 @@ using Shouldly;
 using WebApplication.Scheduling;
 using System;
 using Newtonsoft.Json;
+using Moq;
 
 namespace WebApplicationTests.Integration.Scheduling
 {
@@ -65,6 +66,38 @@ namespace WebApplicationTests.Integration.Scheduling
 
         //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
         //}
+
+        //[Theory]
+        //[MemberData(nameof(AppointmentData))]
+        //public void Saving_appointment_to_database(AppointmentDTO dto, Times times)
+        //{
+        //    var appointmentService = new Mock<IAppointmentSchedulingService>();
+        //    var controller = new AppointmentSchedulingController(appointmentService.Object);
+
+        //    controller.SaveAppointment(dto);
+
+        //    appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
+        //}
+
+        //[Theory]
+        //[MemberData(nameof(AppointmentData))]
+        //public void Saving_selected_doctor_appointment_to_database(AppointmentDTO dto, Times times)
+        //{
+        //    var appointmentService = new Mock<IAppointmentSchedulingService>();
+        //    var controller = new AppointmentSchedulingController(appointmentService.Object);
+
+        //    controller.SaveSelecetdDoctorAppointment(dto);
+
+        //    appointmentService.Verify(n => n.SaveAppointment(It.IsAny<Appointment>()), times);
+        //}
+
+        public static IEnumerable<object[]> AppointmentData =>
+           new List<object[]>
+           {
+                new object[] { new AppointmentDTO(500, new DateTime(2020, 12, 3, 8, 0, 0), 501), Times.Once()},
+                new object[] { new AppointmentDTO(), Times.Never()},
+                new object[] { null, Times.Never() },
+           };
 
 
         public static IEnumerable<object[]> DoctorTypeData =>

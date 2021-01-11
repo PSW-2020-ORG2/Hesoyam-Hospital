@@ -1,4 +1,5 @@
 ﻿using Backend.Model.UserModel;
+using GraphicEditor.View;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -73,6 +74,17 @@ namespace GraphicEditor
         {
             SearchAvailableAppointmentWindow searchAvailableAppointment = new SearchAvailableAppointmentWindow();
             searchAvailableAppointment.Show();
+        }
+
+        public void Search_Emergency_Terms(object sender, RoutedEventArgs e)
+        {
+            EmergencyExamination emergencyExamination = new EmergencyExamination();
+            emergencyExamination.Show();
+        }
+        public void Search_Equipment_Relocation(object sender, RoutedEventArgs e)
+        {
+            EquipmentRelocation equipmentRelocation = new EquipmentRelocation();
+            equipmentRelocation.Show();
         }
     }
 }

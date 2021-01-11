@@ -9,26 +9,26 @@
                 <div class="center">
                   <mat-form-field style="width:100%;">
                       <mat-label>Username</mat-label>
-                      <textarea #name = "ngModel" name="c" matInput required cdkTextareaAutosize [(ngModel)] = "username" style="height: 40%;"></textarea>
+                      <textarea id="usernameInput" #name = "ngModel" name="c" matInput required cdkTextareaAutosize [(ngModel)] = "username" style="height: 40%;"></textarea>
                   </mat-form-field>
                 </div>
                 <div class="center">
                     <mat-form-field style="width:100%;">
                         <mat-label>Password</mat-label>
-                        <textarea #name2 = "ngModel" name="c" matInput required cdkTextareaAutosize [(ngModel)] = "password" style="height: 40%;"></textarea>
+                        <input id="passwordInput" #name2 = "ngModel" name="c" type="password" matInput required cdkTextareaAutosize [(ngModel)] = "password" style="height: 40%;"/>
                     </mat-form-field>
                 </div>
 
                 <div style="display: flex; justify-content: center;">
                     <label>I am </label>
                     <mat-radio-group #vis = "ngModel" name="v" [(ngModel)] = "role">
-                        <mat-radio-button value="0">Patient</mat-radio-button>
-                        <mat-radio-button value="1">System administrator</mat-radio-button>
+                        <mat-radio-button id="patientRole" value="0">Patient</mat-radio-button>
+                        <mat-radio-button id="adminRole" value="1">System administrator</mat-radio-button>
                     </mat-radio-group>
                 </div>
 
                 <div style="text-align: center; margin-top: 50px;">
-                  <button [disabled] ="name.invalid || name2.invalid || vis.pristine" mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Log in</button>
+                  <button id="loginButton" [disabled] ="name.invalid || name2.invalid || vis.pristine" mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Log in</button>
                 </div>
       
             </form>

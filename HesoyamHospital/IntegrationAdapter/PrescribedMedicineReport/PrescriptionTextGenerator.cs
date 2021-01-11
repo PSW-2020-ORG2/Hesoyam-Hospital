@@ -1,9 +1,5 @@
 ﻿using Backend.Model.PatientModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IntegrationAdapter.PrescribedMedicineReport
 {
@@ -29,7 +25,7 @@ namespace IntegrationAdapter.PrescribedMedicineReport
         private void WriteMedicines(StringBuilder text)
         {
             text.AppendLine("Prescribed medicines: ");
-            foreach(MedicalTherapy mt in _therapy.Prescription.MedicalTherapies)
+            foreach (MedicalTherapy mt in _therapy.Prescription.MedicalTherapies)
             {
                 text.AppendLine(mt.Medicine.Name);
             }

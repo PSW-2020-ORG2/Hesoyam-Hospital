@@ -25,6 +25,7 @@
 		<Protobuf Include="Protos\pharmacyGrpcService.proto" GrpcServices="Client" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="PrescribedMedicineReport\pharmacy_reports\" />
 	  <Folder Include="PrescribedMedicineReport\prescriptions\" />
 	</ItemGroup>
 
