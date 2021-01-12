@@ -9,6 +9,7 @@ using MedicineProcurement.Repository.Abstract;
 using MedicineProcurement.DTOs;
 using MedicineProcurement.Model;
 using MedicineProcurement.Exceptions;
+using MedicineProcurement.Protos;
 
 namespace MedicineProcurement.Service
 {
