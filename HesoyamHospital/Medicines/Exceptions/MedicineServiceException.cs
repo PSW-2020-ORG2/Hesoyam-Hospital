@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Medicines.Exceptions
 {
-    class MedicineServiceException : Exception
+    public class MedicineServiceException : Exception
     {
         public MedicineServiceException()
         {

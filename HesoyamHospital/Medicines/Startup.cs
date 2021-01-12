@@ -43,7 +43,7 @@ namespace Medicines
                                       .AllowAnyMethod();
                                   });
             });
-
+            
             services.AddControllers();
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
@@ -51,6 +51,10 @@ namespace Medicines
                 .Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
+            services.AddHttpClient();
+            TherapyService therapyService = new TherapyService(new TherapyRepository(new SQLStream<Therapy>()), _env);
+            services.AddSingleton<IHostedService>(provider => new ReportTimerService(therapyService, _env));
+            services.AddSingleton<ITherapyService, TherapyService>(service => therapyService);
             services.AddSingleton<IMedicineService, MedicineService>(service =>
             new MedicineService(new MedicineRepository(new SQLStream<Medicine>()), _env));
 

@@ -10,6 +10,7 @@ namespace Medicines.Repository.SQLRepository.Base
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<Therapy> Therapies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,6 +48,11 @@ namespace Medicines.Repository.SQLRepository.Base
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
             return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<DiseaseMedicine>().HasKey(dm => new { dm.DiseaseId, dm.MedicineId });
         }
     }
 }

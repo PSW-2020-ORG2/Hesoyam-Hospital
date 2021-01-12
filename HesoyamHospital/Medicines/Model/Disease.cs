@@ -1,4 +1,3 @@
-using Medicines.Model;
 using System.Collections.Generic;
 
 namespace Medicines.Model

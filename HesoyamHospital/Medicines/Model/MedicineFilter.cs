@@ -1,10 +1,3 @@
-// File:    MedicineFilter.cs
-// Author:  nikola
-// Created: 22. maj 2020 16:01:15
-// Purpose: Definition of Class MedicineFilter
-
-using System;
-
 namespace Medicines.Model
 {
     public class MedicineFilter
