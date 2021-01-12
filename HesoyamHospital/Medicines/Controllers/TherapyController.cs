@@ -64,11 +64,5 @@ namespace Medicines.Controllers
                 return StatusCode(500);
             }
         }
-
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            return Ok(_httpRequestSender.GetPatientFullName(2));
-        }
     }
 }
