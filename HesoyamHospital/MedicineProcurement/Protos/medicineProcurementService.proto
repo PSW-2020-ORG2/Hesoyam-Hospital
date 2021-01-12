@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option csharp_namespace = "MedicineProcurement.Protos";
+import "Protos/procurementModel.proto";
+package medicine_procurement;
+
+service MedicineProcurementService {
+	rpc PurchaseMedicine (MedicineProcurementProto) returns (MedicinePurchasedSuccessfullyProto);
+}
