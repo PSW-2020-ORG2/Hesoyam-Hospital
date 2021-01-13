@@ -21,9 +21,9 @@ namespace Backend.Service.HospitalManagementService
         private InventoryItemRepository _inventoryItemRepository;
         private MedicineRepository _medicineRepository;
 
-        private IInventoryRepository iinventoryRepository;
-        private IInventoryItemRepository iinventoryItemRepository;
-        private IMedicineRepository imedicineRepository;
+        private readonly IInventoryRepository iinventoryRepository;
+        private readonly IInventoryItemRepository iinventoryItemRepository;
+        private readonly IMedicineRepository imedicineRepository;
 
         public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {

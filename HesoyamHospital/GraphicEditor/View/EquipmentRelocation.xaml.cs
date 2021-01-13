@@ -81,8 +81,10 @@ namespace GraphicEditor.View
         private void chooseTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)chooseTime.SelectedItem;
+
+            DateTime d = toDatePicker.SelectedDate.Value; 
             DateTime d2 = (DateTime)item.Tag;
-            DateTime d = (DateTime)toDatePicker.SelectedDate.Value;
+            
             date = new DateTime(d.Year, d.Month, d.Day, d2.Hour, d2.Minute, 0);
         }
 
