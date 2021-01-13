@@ -1,0 +1,17 @@
+<form [formGroup]="medicineRequestForm">
+    <div class="formBox">
+        <mat-form-field  >
+            <mat-select [(value)]="medName" placeholder="Medicine" formControlName="selectedMedicine" #selectedMedicine >
+                <mat-option *ngFor="let m of medicines" [value]="m.Name">
+                {{m.Name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field >
+            <input matInput placeholder="Quantity" formControlName="quantity">
+        
+        </mat-form-field>
+       <br>
+        <button mat-raised-button [disabled]="medicineRequestForm.invalid"  (click)="MakeRequest()">Request Medicine</button>
+        </div>
+</form>

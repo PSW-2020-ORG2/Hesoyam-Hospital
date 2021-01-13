@@ -10,7 +10,7 @@ body {
 }
 
 .header{
-    width: 80%;
+    width: 90%;
     margin: 1em auto; 
 }
 .container {
@@ -19,7 +19,7 @@ body {
     text-align: center;
 }
 
-.registration{
+.formBox{
     width: 40%;
     margin: 1em auto; 
     padding:10px;
@@ -27,6 +27,10 @@ body {
     box-shadow:0 0 15px 4px rgba(0,0,0,0.08);
 }
 
+.action-button{
+    vertical-align: middle;
+    height: auto;
+}
 mat-form-field{
     
     input {
@@ -44,7 +48,7 @@ header {
     a {
         color: white;
         text-decoration: none;
-        font-size: 20px;
+        font-size: 17px;
     }
     a.logo {
         font-weight: bold;
@@ -70,4 +74,67 @@ header {
 }
 button{
     margin: 5px;
+}
+
+.display-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+
+    li {
+        background: rgb(238, 238, 238);
+        padding: 1em;
+        margin: 10px ,0;
+        height:auto; 
+        margin-bottom: 1em;
+        display: flex;
+        width: 100%;
+
+
+        p {
+            margin: 0;
+            left:0; 
+            position:absolute; 
+        }
+
+        p.text {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        ul li{
+            margin: 0;
+            .medicine{
+                font-weight: bold;
+                font-size: 1rem;
+                padding: 0;
+            
+            }
+        }
+        p.date {
+            text-transform: uppercase;
+            font-size: .9rem;
+            flex-grow: 1;
+            margin-right: 10px;
+                 
+            bottom:0;                          
+            
+        }
+        .message{
+            flex:80%;
+            margin: 0em,1px;
+            position:relative; 
+        }
+
+        button{
+            width: 150px;
+            margin: 0.5em;
+            font-size: 15px;
+            padding:auto, 10px;
+        }
+
+    }
 }

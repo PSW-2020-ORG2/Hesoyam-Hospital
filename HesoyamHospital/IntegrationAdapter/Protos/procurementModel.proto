@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "IntegrationAdapter.Protos";
+
+message MedicineProcurementProto {
+	string medicineName = 1;
+	uint32 quantity = 2;
+}
+
+message MedicineQuantityAvailableProto {
+	bool available = 1;
+}
+
+message MedicinePurchasedSuccessfullyProto {
+	bool success = 1;
+}

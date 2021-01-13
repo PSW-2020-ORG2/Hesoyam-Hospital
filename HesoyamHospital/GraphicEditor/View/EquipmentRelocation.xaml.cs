@@ -152,6 +152,7 @@ namespace GraphicEditor.View
 
         private void ToDate_KeyUp(object sender, KeyEventArgs e)
         {
+
             if (e.Key == Key.F1)
             {
                 toDatePicker.IsDropDownOpen = true;

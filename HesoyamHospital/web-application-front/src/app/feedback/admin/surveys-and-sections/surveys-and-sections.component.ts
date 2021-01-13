@@ -44,7 +44,6 @@ export class SurveysAndSectionsComponent implements OnInit {
     this._feedbackService.postSurvey(this.SurveyDTO, this._appointmentId).subscribe(
       (val) => {
         this.provideFeedback();
-        
       });
     
     

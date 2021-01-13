@@ -2,13 +2,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace APIGateway
 {
@@ -64,6 +67,29 @@ namespace APIGateway
             });
             app.UseOcelot();
             app.UseAuthentication();
+
+            app.UseRouting();
+
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //    Path.Combine(env.ContentRootPath, "Resources")),
+            //    RequestPath = "/Resources"
+            //});
+
+            if (Environment.GetEnvironmentVariable("STAGE") != "DEV")
+            {
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Public")),
+                    RequestPath = ""
+                });
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "Public";
+                });
+            }
         }
     }
 }

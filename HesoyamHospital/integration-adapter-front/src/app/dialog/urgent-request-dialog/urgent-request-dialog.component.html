@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Medicine request</h2>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-select [(value)]="pharmacyName" placeholder="Pharmacy" #selectedPharmacy>
+          <mat-option *ngFor="let pharmacy of data.pharmacies" [value]="pharmacy.PharmacyName">
+            {{pharmacy.PharmacyName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="Order()" [disabled]="selectedPharmacy.empty" cdkFocusInitial> Order</button>
+</div>
