@@ -21,22 +21,12 @@ namespace Backend.Service.HospitalManagementService
         private InventoryItemRepository _inventoryItemRepository;
         private MedicineRepository _medicineRepository;
 
-        private readonly IInventoryRepository iinventoryRepository;
-        private readonly IInventoryItemRepository iinventoryItemRepository;
-        private readonly IMedicineRepository imedicineRepository;
 
         public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {
             _inventoryRepository = inventoryRepository;
             _inventoryItemRepository = inventoryItemRepository;
             _medicineRepository = medicineRepository;
-        }
-
-        public InventoryService(IInventoryRepository inventoryRepository, IInventoryItemRepository inventoryItemRepository, IMedicineRepository medicineRepository)
-        {
-            iinventoryRepository = inventoryRepository;
-            iinventoryItemRepository = inventoryItemRepository;
-            imedicineRepository = medicineRepository;
         }
 
         public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
@@ -51,8 +41,9 @@ namespace Backend.Service.HospitalManagementService
         public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
             => _inventoryItemRepository.GetAllEager().Where(ii => ii.Room.GetId() == room.GetId());
 
-        public Room FindAvailableRoomWithEquipment(List<Room> rooms, List<string> requiredInventoryItems) {
-            foreach (Room room in rooms) 
+        public Room FindAvailableRoomWithEquipment(List<Room> rooms, List<string> requiredInventoryItems)
+        {
+            foreach (Room room in rooms)
             {
                 List<InventoryItem> inventoryItemsInRoom = (List<InventoryItem>)GetInventoryItemsByRoomId(room.Id);
                 List<string> invertoryItemsInRoomName = ConvertInventoryItemToName(inventoryItemsInRoom);
@@ -61,9 +52,9 @@ namespace Backend.Service.HospitalManagementService
             }
             return null;
         }
-        private bool CompareInventoryItems(List<string> requiredInventoryItems, List<string> inventoryItems) 
+        private bool CompareInventoryItems(List<string> requiredInventoryItems, List<string> inventoryItems)
         {
-            foreach (string name in requiredInventoryItems) 
+            foreach (string name in requiredInventoryItems)
             {
                 if (!inventoryItems.Contains(name))
                     return false;
