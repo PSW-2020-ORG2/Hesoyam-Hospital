@@ -21,9 +21,9 @@ namespace Backend.Service.HospitalManagementService
         private InventoryItemRepository _inventoryItemRepository;
         private MedicineRepository _medicineRepository;
 
-        private IInventoryRepository inventoryRepository;
-        private IInventoryItemRepository inventoryItemRepository;
-        private IMedicineRepository medicineRepository;
+        private IInventoryRepository invRepository;
+        private IInventoryItemRepository invItemRepository;
+        private IMedicineRepository medRepository;
 
         public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {
@@ -34,9 +34,9 @@ namespace Backend.Service.HospitalManagementService
 
         public InventoryService(IInventoryRepository inventoryRepository, IInventoryItemRepository inventoryItemRepository, IMedicineRepository medicineRepository)
         {
-            inventoryRepository = inventoryRepository;
-            inventoryItemRepository = inventoryItemRepository;
-            medicineRepository = medicineRepository;
+            invRepository = inventoryRepository;
+            invItemRepository = inventoryItemRepository;
+            medRepository = medicineRepository;
         }
 
         public Inventory AddInventoryItem(Inventory inventory, InventoryItem item)
@@ -100,7 +100,7 @@ namespace Backend.Service.HospitalManagementService
         }
 
         public InventoryItem GetInventoryItemById(long id)
-            => inventoryItemRepository.GetInventoryItemById(id);
+            => _inventoryItemRepository.GetInventoryItemById(id);
 
         public IEnumerable<InventoryItem> GetInventoryItems()
             => _inventoryItemRepository.GetAllEager();

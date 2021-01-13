@@ -46,11 +46,11 @@ namespace GraphicEditor.View
             List<Room> rooms = (List<Room>)roomService.GetAll();
             searchService = new SearchService();
 
-            foreach (InventoryItem inventoryItem in inventories)
+            foreach (InventoryItem i in inventories)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                item.Tag = inventoryItem;
-                item.Content = inventoryItem.Name + " - " + "Room location:" + " " + inventoryItem.RoomID;
+                item.Tag = i;
+                item.Content = i.Name + " - " + "Room location:" + " " + i.RoomID;
                 chooseEquipment.Items.Add(item);
             }
 
@@ -67,9 +67,9 @@ namespace GraphicEditor.View
             for (int i = 0; i <= 16; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                DateTime date = (DateTime)toDatePicker.SelectedDate.Value;
+                DateTime d = toDatePicker.SelectedDate.Value;
                 DateTime result = Convert.ToDateTime(t);
-                DateTime dateTime = new DateTime(date.Year, date.Month, date.Day, result.Hour, result.Minute, 0);
+                DateTime dateTime = new DateTime(d.Year, d.Month, d.Day, result.Hour, result.Minute, 0);
                 if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
                 item.Tag = dateTime;
                 item.Content = dateTime.ToShortTimeString();
