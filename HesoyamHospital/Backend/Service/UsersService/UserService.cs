@@ -32,9 +32,12 @@ namespace Backend.Service.UsersService
         public User GetByID(long id)
             => _userRepository.GetByID(id);
 
+        public User GetByUsername(string userName)
+            => _userRepository.GetByUsername(userName);
+
         public void Login(string username, string password)
         {
-            User user = _userRepository.GetByUsername(username);
+            User user = GetByUsername(username);
             bool check = CheckUserCredentials(user, password);
             if (check)
                 AppResources.getInstance().loggedInUser = user;
@@ -42,7 +45,7 @@ namespace Backend.Service.UsersService
                 AppResources.getInstance().loggedInUser = null;
         }
 
-        private bool CheckUserCredentials(User user, string password)
+        public bool CheckUserCredentials(User user, string password)
         {
             if (user == null || user.Password != password)
                 return false;
