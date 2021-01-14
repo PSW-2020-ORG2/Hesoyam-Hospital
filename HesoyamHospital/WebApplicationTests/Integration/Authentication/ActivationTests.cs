@@ -27,7 +27,7 @@ namespace WebApplicationTests.Integration.Authentication
 
             HttpResponseMessage response = await client.PostAsync(path, null);
 
-            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound };
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound, HttpStatusCode.BadRequest };
             response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
         }
     }

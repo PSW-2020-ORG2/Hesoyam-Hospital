@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using WebApplication.Authentication;
 using Xunit;
 using Shouldly;
+using Authentication.DTOs;
+using Authentication.Validation;
 
 namespace WebApplicationTests.Unit.Authentication
 {
