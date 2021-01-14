@@ -22,6 +22,9 @@
   <ItemGroup>
     <ProjectReference Include="..\APIGateway\APIGateway.csproj" />
     <ProjectReference Include="..\Authentication\Authentication.csproj" />
+    <ProjectReference Include="..\Appointment\Appointment.csproj" />
+    <ProjectReference Include="..\Documents\Documents.csproj" />
+    <ProjectReference Include="..\Feedback\Feedback.csproj" />
     <ProjectReference Include="..\WebApplication\WebApplication.csproj" />
   </ItemGroup>
 

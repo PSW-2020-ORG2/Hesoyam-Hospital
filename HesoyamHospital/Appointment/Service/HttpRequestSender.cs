@@ -1,5 +1,6 @@
 ﻿using Appointments.Service.Abstract;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -53,8 +54,14 @@ namespace Appointments.Service
 
         public long GetTimeTableIdForDoctorId(long doctorId)
         {
-            var responseStream = SendRequest("http://localhost:57746/api/doctor/getTimeTableId/" + doctorId, HttpMethod.Get);
-            return JsonConvert.DeserializeObject<long>(responseStream.Result);
+            try
+            {
+                var responseStream = SendRequest("http://localhost:57746/api/doctor/getTimeTableId/" + doctorId, HttpMethod.Get);
+                return JsonConvert.DeserializeObject<long>(responseStream.Result);
+            } catch (Exception)
+            {
+                return -1;
+            }
         }
 
         public List<long> GetSameSpecializationDoctorIds(long doctorId)
@@ -65,8 +72,14 @@ namespace Appointments.Service
 
         public long GetTimeTableIdForSelectedDoctor(long patientId)
         {
-            var responseStream = SendRequest("http://localhost:57746/api/patient/getTimeTableForSelectedDoctor/" + patientId, HttpMethod.Get);
-            return JsonConvert.DeserializeObject<long>(responseStream.Result);
+            try
+            {
+                var responseStream = SendRequest("http://localhost:57746/api/patient/getTimeTableForSelectedDoctor/" + patientId, HttpMethod.Get);
+                return JsonConvert.DeserializeObject<long>(responseStream.Result);
+            } catch (Exception)
+            {
+                return -1;
+            }
         }
 
         public long GetRoomIdForDoctor(long doctorId)
