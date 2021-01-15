@@ -48,7 +48,7 @@ namespace GraphicEditor.View
             }
         }
 
-        private void buttonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
+        private void ButtonScheduleEmergencyAppointment_Click(object sender, RoutedEventArgs e)
         {
             List<Patient> patients = (List<Patient>)patientService.GetAll();
 
@@ -60,7 +60,7 @@ namespace GraphicEditor.View
             DoctorType type = (DoctorType)item.Tag;   
 
             PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Today, DateTime.Today,null,false);
-            PriorityIntervalDTO interval = appointmentSchedulingService.GetAvailableTermsForEmergencyExamination(dto,type);
+            PriorityIntervalDTO interval = appointmentSchedulingService.GetAvailableTermsForEmergencyExamination(dto, type);
 
             foreach (Patient p in patients)
             {
@@ -70,16 +70,13 @@ namespace GraphicEditor.View
                     break;
                 }
             }
-            if(patient == null)
+            if (patient == null)
             {
                 String username = name + surname;
-
                 username = username.ToLower();
 
                 while (!patientService.IsUsernameUnique(username))
-                {
-                    username = username + "1";  
-                }
+                    username += jmbg.Substring(0,4);
                 
                 Patient p = new Patient(username, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
                 patientService.Create(p);
@@ -88,11 +85,11 @@ namespace GraphicEditor.View
             }
             if (interval != null)
             {
-                Room roomForAppointment = null;
                 DateTime startTime = interval.StartTime;
                 DateTime endTime = interval.EndTime;
                 TimeInterval timeInterval = new TimeInterval(startTime, endTime);
                 List<Room> availableRooms = (List<Room>)roomService.GetAllExaminationRooms(timeInterval);
+                Room roomForAppointment;
                 if (Global.inventories.IsNullOrEmpty())
                     roomForAppointment = availableRooms[0];
                 else

@@ -38,7 +38,7 @@ namespace GraphicEditorTests.Unit
             PriorityIntervalDTO dto2 = new PriorityIntervalDTO(DateTime.Now.AddMinutes(60), DateTime.Now.AddMinutes(90), doctor1.Name,false);
             intervals.Add(dto1);
             intervals.Add(dto2);
-            PriorityIntervalDTO term = appointmentSchedulingService.IsTermInNext30Minutes(intervals);
+            PriorityIntervalDTO term = appointmentSchedulingService.FindTermInNext30Minutes(intervals);
             term.ShouldBe(dto1);
 
         }
