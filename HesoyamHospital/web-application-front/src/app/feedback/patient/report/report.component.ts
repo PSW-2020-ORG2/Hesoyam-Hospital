@@ -20,4 +20,38 @@ export class ReportComponent implements OnInit {
     this._docService.getReport(this._appointmentId).subscribe((val) => this._report = val);
   }
 
+  showSpecialisation(): string {
+    switch(this._report.doctorSpecialisation) { 
+      case "GENERAL_PRACTITIONER": { 
+         return "General practitioner"; 
+      } 
+      case "SURGEON": { 
+        return "Surgeon"; 
+      }
+      case "GENERAL_PRACTITIONER": { 
+        return "General practitioner"; 
+      } 
+      case "CARDIOLOGIST": { 
+          return "Cardiologist"; 
+      } 
+      case "DERMATOLOGIST": { 
+          return "Dermatologist"; 
+      } 
+      case "INFECTOLOGIST": { 
+          return "Infectologist"; 
+      }
+      case "OPHTAMOLOGIST": { 
+        return "Ophtamologist"; 
+      } 
+      case "ENDOCRINIOLOGIST": { 
+          return "Endocriniologist"; 
+      } 
+      case "GASTROENEROLOGIST": { 
+          return "Gastroenerologist"; 
+      }  
+      default: { 
+         return "";
+      } 
+    } 
+  }
 }
