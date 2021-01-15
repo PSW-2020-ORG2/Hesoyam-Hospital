@@ -12,7 +12,7 @@ namespace Documents.Mappers
         {
             PrescriptionDTO res = new PrescriptionDTO
             {
-                DateTimeCreated = prescription.DateCreated,
+                DateTimeCreated = prescription.DateCreated.ToString("dd.MM.yyyy"),
                 DoctorFullName = httpRequestSender.GetDoctorFullName(prescription.DoctorId),
                 DoctorSpecialisation = httpRequestSender.GetDoctorSpecialisation(prescription.DoctorId),
                 Diagnosis = prescription.Diagnosis != null ? prescription.Diagnosis.DiagnosisName : "UNDEFINED",

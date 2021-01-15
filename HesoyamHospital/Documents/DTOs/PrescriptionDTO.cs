@@ -7,7 +7,7 @@ namespace Documents.DTOs
 {
     public class PrescriptionDTO
     {
-        public DateTime DateTimeCreated { get; set; }
+        public string DateTimeCreated { get; set; }
         public string DoctorFullName { get; set; }
         public string DoctorSpecialisation { get; set; }
         public string Diagnosis { get; set; }
@@ -19,7 +19,7 @@ namespace Documents.DTOs
         }
         public PrescriptionDTO(DateTime dateTimeCreated, string doctorFullName, string doctorSpecialisation, string diagnosis, List<TherapyDTO> therapies)
         {
-            DateTimeCreated = dateTimeCreated;
+            DateTimeCreated = dateTimeCreated.ToString("dd.MM.yyyy");
             DoctorFullName = doctorFullName;
             DoctorSpecialisation = doctorSpecialisation;
             Diagnosis = diagnosis;

@@ -4,7 +4,7 @@ namespace Documents.DTOs
 {
     public class ReportDTO
     {
-        public DateTime DateTimeCreated { get; set; }
+        public string DateTimeCreated { get; set; }
         public string DoctorFullName { get; set; }
         public string DoctorSpecialisation { get; set; }
         public string Diagnosis { get; set; }
@@ -12,7 +12,7 @@ namespace Documents.DTOs
 
         public ReportDTO(DateTime dateTimeCreated, string doctorFullName, string doctorSpecialisation, string diagnosis, string comment)
         {
-            DateTimeCreated = dateTimeCreated;
+            DateTimeCreated = dateTimeCreated.ToString("dd.MM.yyyy");
             DoctorFullName = doctorFullName;
             DoctorSpecialisation = doctorSpecialisation;
             Diagnosis = diagnosis;
