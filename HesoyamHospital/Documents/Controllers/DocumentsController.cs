@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http;
 using Documents.Mappers;
+using Documents.Model;
 using Documents.Service;
 using Documents.Service.Abstract;
 using Documents.Util;
@@ -39,11 +40,35 @@ namespace Documents.Controllers
 
             return Ok(_documentService.AdvanceSearchDocs(criteria, id, _httpRequestSender).ToList());
         }
+        
+        [HttpGet("report/{id}")]
+        public IActionResult GetReportByAppointmentId(long id)
+        {
+            Report report = _documentService.GetReportByAppointment(id);
+            if (report == null) return BadRequest();
+            else return Ok(ReportMapper.ReportToReportDTO(report, _httpRequestSender));
+        }
+
+        [HttpGet("prescription/{id}")]
+        public IActionResult GetPrescriptionByAppointmentId(long id)
+        {
+            Prescription prescription = _documentService.GetPrescriptionByAppointment(id);
+            if (prescription == null) return BadRequest();
+            else return Ok(PrescriptionMapper.PrescriptionToPrescriptionDTO(prescription, _httpRequestSender));
+        }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
             return Ok(DocumentsMapper.DocumentToDocumentDTO(_documentService.GetAllByPatient(id).ToList(), _httpRequestSender));
         }
+
+        [HttpGet("hasReport/{id}")]
+        public IActionResult AppointmentHasReport(long id)
+            => Ok(_documentService.AppointmentHasReport(id));
+
+        [HttpGet("hasPrescription/{id}")]
+        public IActionResult AppointmentHasPrescription(long id)
+            => Ok(_documentService.AppointmentHasPrescription(id));
     }
 }

@@ -11,6 +11,7 @@ namespace Documents.Model
         public long DoctorId { get; set; }
         public virtual Diagnosis Diagnosis { get; set; }
         public DocumentType Type { get; set; }
+        public long AppointmentId { get; set; }
 
         public Document() { }
 

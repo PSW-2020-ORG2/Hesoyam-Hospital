@@ -16,6 +16,8 @@ import { BlockPatientsComponent } from './feedback/admin/block-patients/block-pa
 import { LoginFormComponent } from './authentication/login-form/login-form.component';
 import { RouteGuardService } from './helpers/route-guard.service';
 import { MainPageComponent } from './authentication/main-page/main-page.component';
+import { ReportComponent } from './feedback/patient/report/report.component';
+import { PrescriptionComponent } from './feedback/patient/prescription/prescription.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -35,6 +37,8 @@ const routes: Routes = [
   {path: 'documents/simple-search', component: SimpleSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'documents/advanced-search', component: AdvancedSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'login', component: LoginFormComponent},
+  {path: 'report/:id', component: ReportComponent, data: { expectedRole: 'Patient'}},
+  {path: 'prescription/:id', component: PrescriptionComponent, data: { expectedRole: 'Patient'}},
   {path:'**', component: PageNotFoundComponent}
   
 ];

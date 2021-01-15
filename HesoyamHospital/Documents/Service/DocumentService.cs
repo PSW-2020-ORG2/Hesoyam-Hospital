@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Documents.Util;
-using System.Net.Http;
 
 namespace Documents.Service
 {
@@ -218,5 +217,17 @@ namespace Documents.Service
                     result.Add(d);
             return result;
         }
+
+        public bool AppointmentHasReport(long appointmentId)
+            => _reportRepository.GetAll().Count(r => r.AppointmentId == appointmentId) > 0;
+
+        public bool AppointmentHasPrescription(long appointmentId)
+            => _prescriptionRepository.GetAll().Count(p => p.AppointmentId == appointmentId) > 0;
+
+        public Report GetReportByAppointment(long appointmentId)
+            => _reportRepository.GetAll().FirstOrDefault(r => r.AppointmentId == appointmentId);
+
+        public Prescription GetPrescriptionByAppointment(long appointmentId)
+            => _prescriptionRepository.GetAll().FirstOrDefault(p => p.AppointmentId == appointmentId);
     }
 }

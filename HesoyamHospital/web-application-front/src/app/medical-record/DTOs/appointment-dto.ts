@@ -8,6 +8,8 @@ export class AppointmentDto {
         public department : string,
         public doctorName : string,
         public roomNumber : string,
-        public ableToFillOutSurvey : boolean
+        public ableToFillOutSurvey : boolean,
+        public hasReport : boolean,
+        public hasPrescription : boolean
     ) {}
 }

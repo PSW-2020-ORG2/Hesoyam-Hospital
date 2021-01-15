@@ -18,5 +18,7 @@ namespace Appointments.Service.Abstract
         public string GetPatientFullName(long patientId);
         public bool IsBlocked(long patientId);
         public long GetSelectedDoctorId(long patientId);
+        public bool HasPrescription(long appointmentId);
+        public bool HasReport(long appointmentId);
     }
 }

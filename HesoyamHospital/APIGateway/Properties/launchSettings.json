@@ -13,6 +13,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "SecretKey": "SecretKey1234567",
+        "STAGE": "DEV",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -20,8 +21,8 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "STAGE": "DEV"
+        "STAGE": "DEV",
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5000"
     }
