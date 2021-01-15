@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UrgentRequestDialogComponent } from '../dialog/urgent-request-dialog/urgent-request-dialog.component';
 import { RegisteredPharmacy } from '../shared/model/registered-pharmacy.model';
 import { UrgentMedicineProcurementRequest } from '../shared/model/urgent-medicine-procurement-request.model'
+import { SharedService } from '../shared/service/shared.service';
 import { UrgentMedicineProcurementService } from '../shared/service/urgent-medicine-procurement.service'
 
 
@@ -13,7 +14,7 @@ import { UrgentMedicineProcurementService } from '../shared/service/urgent-medic
 })
 export class UrgentMedicineProcurementListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,private urgentMedicineProcurementService:UrgentMedicineProcurementService) { }
+  constructor(public dialog: MatDialog,private sharedService:SharedService,private urgentMedicineProcurementService:UrgentMedicineProcurementService) { }
 
   ngOnInit(): void {
     this.urgentMedicineProcurementService.getAllRequests().subscribe(
@@ -40,7 +41,7 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
   pharmacies:RegisteredPharmacy[]=[];
  
   async Request(requestId:number){
-    await this.urgentMedicineProcurementService.getAllPharmacies(requestId)
+    await this.urgentMedicineProcurementService.getAllPharmacies(requestId,this.GetAllPharmacies())
     .then(
       (data => {
         this.pharmacies=data
@@ -49,6 +50,14 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
     this.selectedRequest=this.GetSelectedRequest(requestId);
     this.openDialog();
   }
+  GetAllPharmacies():RegisteredPharmacy[]{
+    var p;
+    this.sharedService.getAllPharmacy().subscribe(
+      data=>p=data
+    )
+    return p;
+  }
+  
 
   GetSelectedRequest(id:number):UrgentMedicineProcurementRequest{
     let retVal = null

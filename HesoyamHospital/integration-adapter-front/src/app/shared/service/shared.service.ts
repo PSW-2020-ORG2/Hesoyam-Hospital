@@ -8,20 +8,19 @@ import { Observable } from 'rxjs';
 export class SharedService {
 
   
-  readonly _APIUrl="http://localhost:54574/api"
+  readonly _APIUrl="http://localhost:54297/gateway"
 
   constructor(private _http : HttpClient) { }
 
   getAllPatients(): Observable<any> {
-    return this._http.get(this._APIUrl + '/medicineSpecificationAcquisition/getALL/patients' )
+    return this._http.get(this._APIUrl + '/medicineSpecificationAcquisition/getALL/patients' );
   }
 
-  
   getAllMedicines(): Observable<any> {
-    return this._http.get(this._APIUrl + '/medicineSpecificationAcquisition/getALL/medicines' )
+    return this._http.get(this._APIUrl + '/medicine/all' );
   }
 
   getAllPharmacy(): Observable<any> {
-    return this._http.get(this._APIUrl + 'registerpharmacy/all' )
+    return this._http.get(this._APIUrl + '/registerpharmacy/all' );
   }
 }

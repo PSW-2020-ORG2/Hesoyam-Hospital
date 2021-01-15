@@ -41,7 +41,7 @@ namespace Medicines.Controllers
             try
             {
                 _therapyService.Create(therapy);
-                return Ok();
+                return Ok(therapy.Id);
             } catch (TherapyServiceException e)
             {
                 Console.WriteLine(e.Message);

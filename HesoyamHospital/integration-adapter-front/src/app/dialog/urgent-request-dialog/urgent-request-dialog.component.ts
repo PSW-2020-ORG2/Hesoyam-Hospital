@@ -25,10 +25,22 @@ export class UrgentRequestDialogComponent implements OnInit {
     
   }
   
+GetPharmacy():any{
+  this.data.pharmacies.forEach(p=>
+   {
+     if(p.PharmacyName==this.pharmacyName)
+      {
+        console.log(p.PharmacyName);
+        return p
+      }
+   })
+
+}
+  
   Order(){
     console.log(this.pharmacyName);
     console.log(this.data.selectedRequest);
-    this.urgentMedicineProcurementService.OrderMedicine(this.pharmacyName,this.data.selectedRequest).subscribe(
+    this.urgentMedicineProcurementService.OrderMedicine(this.GetPharmacy(),this.data.selectedRequest.Id).subscribe(
       m=>{
       this.dialogRef.close()
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Medicines.DTOs;
 using Medicines.Model;
+using Medicines.Service;
 using Medicines.Service.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace Medicines.Controllers
             return Ok(medicineDTOs);
         }
 
-        [HttpGet("getAvailability/{medicineName}")]
+        [HttpPost("getAvailability/{medicineName}")]
         public IActionResult GetMedicineAvailability([FromBody] RegisteredPharmacyDTO registeredPharmacy, string medicineName)
         {
             try
@@ -44,6 +45,13 @@ namespace Medicines.Controllers
                 return StatusCode(500);
             }
             
+        }
+
+        [HttpGet("specification/{name}")]
+        public IActionResult GetSpecification(string name)
+        {
+            string text = SFTPService.ConnectAndReceiveSpecifications(name + ".txt");
+            return Ok(text);
         }
     }
 }

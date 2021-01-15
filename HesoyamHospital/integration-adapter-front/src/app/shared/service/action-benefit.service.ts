@@ -8,7 +8,7 @@ import { ActionBenefit } from '../model/action-benefit.model';
   providedIn: 'root'
 })
 export class ActionBenefitService {
-  readonly _APIUrl="http://localhost:54574/api/actionsbenefits"
+  readonly _APIUrl="http://localhost:54297/gateway"
 
   constructor(private _http : HttpClient) { }
   

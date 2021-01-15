@@ -18,17 +18,9 @@ namespace IntegrationApiGateway
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
+            services.AddCors(c =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("*")
-                                      .SetIsOriginAllowedToAllowWildcardSubdomains()
-                                      .AllowAnyOrigin()
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod();
-                                  });
+                c.AddPolicy("AllowOrgin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
             services.AddOcelot();
             services.AddControllersWithViews()
@@ -48,7 +40,7 @@ namespace IntegrationApiGateway
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

@@ -3,6 +3,7 @@ import { FormBuilder,FormGroup , Validators} from '@angular/forms'
 import { Medicine } from '../shared/model/medicine.model';
 import { Therapy } from '../shared/model/therapy.model';
 import {TherapyService} from 'src/app/shared/service/therapy.service'
+import { RegisteredPharmacy } from '../shared/model/registered-pharmacy.model';
 
 @Component({
   selector: 'app-prescribe-therapy',
@@ -31,6 +32,8 @@ export class PrescribeTherapyComponent implements OnInit {
   patients:number[]=[]; 
   therapy:Therapy=new Therapy;
   patientId:number;
+  therapySent:boolean;
+  pharmacy:RegisteredPharmacy=new RegisteredPharmacy;
 
   constructor(private fb: FormBuilder,private therapyService:TherapyService) {
     this.minDate=new Date();
@@ -42,6 +45,10 @@ export class PrescribeTherapyComponent implements OnInit {
       End:['',[Validators.required]]
     });
     this.patients.push(1);
+    this.therapySent=false;
+    this.pharmacy.ApiKey="apikey";
+    this.pharmacy.Endpoint="http://localhost:8080";
+    this.pharmacy.PharmacyName="apoteka1";
   }
 
   SendTherapy(){
@@ -52,10 +59,20 @@ export class PrescribeTherapyComponent implements OnInit {
     this.therapy.DoctorID=2;
     this.therapy.Comment="";
     console.log(this.therapy);
-    this.therapyService.PutTherapy(this.therapy).subscribe(
-      red=>alert("Therapy sent")
+    this.therapyService.AddTherapy(this.therapy).subscribe(
+      id=>{
+          this.therapy.Id=id,
+          this.therapySent=true, 
+          console.log("proso")
+        }
     )
-
+    if(this.therapySent)
+    {
+        this.therapyService.SendPrescription(this.pharmacy,this.therapy.Id).subscribe(
+        data=>alert("Therapy sent")
+        )
+      }
+    this.therapySent=false;
   }
 
 

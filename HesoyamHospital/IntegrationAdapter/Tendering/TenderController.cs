@@ -75,7 +75,7 @@ namespace IntegrationAdapter.Tendering
             List<Tender> tenders = _tenderService.GetAllActiveTenders().ToList();
             return Ok(tenders);
         }
-        [HttpGet("concluded")]
+        [HttpGet("unconcluded")]
         public IActionResult GetAllUnconcludedTenders()
         {
             List<Tender> tenders = _tenderService.GetAllUnconcludedTenders().ToList();

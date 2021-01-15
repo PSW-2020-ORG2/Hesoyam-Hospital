@@ -38,6 +38,7 @@ export class TenderOfferDialogComponent implements OnInit {
   FillOffer(){
     this.tenderOffer.Email=this.offerForm.get('email').value;
     this.tenderOffer.PharmacyName=this.offerForm.get('name').value;
+    this.tenderOffer.TenderId=this.data.tender.Id;
     this.tenderOffer.TenderOfferListings=this.tenderOfferListing;
     console.log(this.tenderOffer);
     this.tenderOfferService.PostOffer(this.tenderOffer).subscribe(

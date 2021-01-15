@@ -1,5 +1,5 @@
 <form [formGroup]="availabilityForm">
-    <div class="formBox">
+    <div class="registration">
         <mat-form-field  >
             <mat-select [(value)]="medID" placeholder="Medicine"  #selectedMedicine>
                 <mat-option *ngFor="let m of medicines" [value]="m.Id">
@@ -8,8 +8,8 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field  >
-            <mat-select [(value)]="pyrmacyName" placeholder="Pharmacy"  #selectedPharmacy>
-                <mat-option *ngFor="let p of pharmacies" [value]="p.Id">
+            <mat-select [(value)]="pharmacyName" placeholder="Pharmacy"  #selectedPharmacy>
+                <mat-option *ngFor="let p of pharmacies" [value]="p.PharmacyName">
                 {{p.PharmacyName}}
                 </mat-option>
             </mat-select>

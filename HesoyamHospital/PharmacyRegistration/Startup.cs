@@ -35,17 +35,9 @@ namespace PharmacyRegistration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
+            services.AddCors(c =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("*")
-                                      .SetIsOriginAllowedToAllowWildcardSubdomains()
-                                      .AllowAnyOrigin()
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod();
-                                  });
+                c.AddPolicy("AllowOrgin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
             services.AddControllers();
@@ -83,7 +75,7 @@ namespace PharmacyRegistration
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseRouting();
 
