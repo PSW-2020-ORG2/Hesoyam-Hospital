@@ -18,9 +18,10 @@ import { RouteGuardService } from './helpers/route-guard.service';
 import { MainPageComponent } from './authentication/main-page/main-page.component';
 import { ReportComponent } from './feedback/patient/report/report.component';
 import { PrescriptionComponent } from './feedback/patient/prescription/prescription.component';
+import { LandingPageComponent } from './feedback/public/landing-page/landing-page.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/hesoyamhospital', pathMatch: 'full'},
   {path: 'feedback/patient/post', component: PostFeedbackComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'} },
   {path: 'survey/survey-form/:id', component:SurveysAndSectionsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'survey/survey-results', component:SurveysResultsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'login', component: LoginFormComponent},
   {path: 'report/:id', component: ReportComponent, data: { expectedRole: 'Patient'}},
   {path: 'prescription/:id', component: PrescriptionComponent, data: { expectedRole: 'Patient'}},
+  {path: 'hesoyamhospital', component: LandingPageComponent},
   {path:'**', component: PageNotFoundComponent}
   
 ];

@@ -1,5 +1,5 @@
-<div style="height:100%; display: flex; justify-content: center;">
-    <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 60%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px;">
+<div style="height:100%; display: flex; justify-content: center; background-image: url(assets/hospital\.jpg); background-position: center; background-repeat: no-repeat; background-size: cover;">
+    <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 40%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px; opacity: 80%;">
             <form (submit)="login()" #feedform="ngForm" style="width: 80%;" novalidate>
 
                 <h2 style="text-align: center;">
@@ -28,7 +28,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 50px;">
-                  <button id="loginButton" [disabled] ="name.invalid || name2.invalid || vis.pristine" mat-raised-button color="primary" type="submit" style="padding: 12px 32px">Log in</button>
+                  <button id="loginButton" [disabled] ="name.invalid || name2.invalid || vis.pristine" mat-raised-button color="primary" type="submit" style="padding: 12px 32px; opacity: 120%;">Log in</button>
                 </div>
       
             </form>
