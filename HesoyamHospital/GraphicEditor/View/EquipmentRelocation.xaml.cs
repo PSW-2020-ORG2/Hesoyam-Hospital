@@ -141,7 +141,7 @@ namespace GraphicEditor.View
             }
             else
             {
-                Appointment appointmentForPatient = new Appointment(null, null, null, AppointmentType.renovation, timeInterval);
+                Appointment appointmentForPatient = new Appointment(null, null, null, AppointmentType.relocation, timeInterval);
                 appointmentSchedulingService.SaveAppointment(appointmentForPatient);
                 inventoryItem.RoomID = destinationRoom.Id;
                 inventoryService.UpdateInventoryItem(inventoryItem);
@@ -150,6 +150,12 @@ namespace GraphicEditor.View
                 mw.message.Content = "Successfully equipment relocation!";
                 mw.ShowDialog();
             }
+
+            if (isCurrentRoomAvailable == false || isDestinationRoomAvailable == false)
+            {
+                // 
+            }
+
         }
 
         private void ToDate_KeyUp(object sender, KeyEventArgs e)
