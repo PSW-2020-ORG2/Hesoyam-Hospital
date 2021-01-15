@@ -44,14 +44,14 @@ namespace IntegrationAdapter.UrgentProcurement
             List<UrgentMedicineProcurement> entries = _urgentMedicineProcurementService.GetAllUnconcluded().ToList();
             return Ok(entries);
         }
-        [HttpPost("getPharmacies/{id}")]
-        public IActionResult GetPharmaciesByRequiredMedicine([FromBody] List<RegisteredPharmacyDTO> pharmacies, long id)
+        [HttpPost("getPharmacies/{urgentMedicineId}")]
+        public IActionResult GetPharmaciesByRequiredMedicine([FromBody] List<RegisteredPharmacyDTO> pharmacies, long urgentMedicineId)
         {
-            UrgentMedicineProcurement urgentMedicine = _urgentMedicineProcurementService.GetByID(id);
+            UrgentMedicineProcurement urgentMedicine = _urgentMedicineProcurementService.GetByID(urgentMedicineId);
             List<RegisteredPharmacyDTO> availablePharmacies = _urgentMedicineProcurementService.GetPharmaciesByRequiredMedicine(pharmacies, urgentMedicine).ToList();
             return Ok(availablePharmacies);
         }
-        [HttpPut("{id}")]
+        [HttpPut("{urgentMedicineId}")]
         public IActionResult PurchaseMedicine([FromBody] RegisteredPharmacyDTO pharmacy, long urgentMedicineId)
         {
             bool successful = _urgentMedicineProcurementService.IsProcurementRequestSuccessfull(pharmacy, urgentMedicineId);

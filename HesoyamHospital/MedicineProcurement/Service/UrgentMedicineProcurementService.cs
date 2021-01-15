@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Hosting;
 using Grpc.Core;
 using RestSharp;
@@ -51,7 +50,7 @@ namespace MedicineProcurement.Service
             {
                 if (_environment.IsDevelopment() && !string.IsNullOrEmpty(pharmacy.GrpcPort))
                 {
-                    //if(IsRequiredMedicineAvailableGrpc(pharmacy, urgentMedicine)) { retVal.Add(pharmacy); }
+                    if(IsRequiredMedicineAvailableGrpc(pharmacy, urgentMedicine)) { retVal.Add(pharmacy); }
                 } else
                 {
                     if(IsRequiredMedicineAvailableHttp(pharmacy, urgentMedicine)) { retVal.Add(pharmacy); }
@@ -60,14 +59,14 @@ namespace MedicineProcurement.Service
             return retVal;
         }
 
-      /*  private bool IsRequiredMedicineAvailableGrpc(RegisteredPharmacyDTO pharmacy, UrgentMedicineProcurement urgentMedicine)
+        private bool IsRequiredMedicineAvailableGrpc(RegisteredPharmacyDTO pharmacy, UrgentMedicineProcurement urgentMedicine)
         {
             Channel channel = new Channel(pharmacy.Endpoint + ":" + pharmacy.GrpcPort, ChannelCredentials.Insecure);
             MedicineQuantityAvailableService.MedicineQuantityAvailableServiceClient client = new MedicineQuantityAvailableService.MedicineQuantityAvailableServiceClient(channel);
             MedicineProcurementProto request = new MedicineProcurementProto { MedicineName = urgentMedicine.Medicine, Quantity = urgentMedicine.Quantity };
             MedicineQuantityAvailableProto proto = client.IsQuantityAvailable(request);
             return proto.Available;
-        }*/
+        }
 
         private bool IsRequiredMedicineAvailableHttp(RegisteredPharmacyDTO pharmacy, UrgentMedicineProcurement urgentMedicine)
         {

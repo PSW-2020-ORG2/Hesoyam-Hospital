@@ -35,7 +35,7 @@
 		<Protobuf Include="Protos\medicineAvailabilityService.proto" GrpcServices="Client" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="PrescribedMedicineReport\" />
+	  <Folder Include="PrescribedMedicineReport\prescriptions\" />
 	</ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ namespace PharmacyRegistration.Controllers
             _registeredPharmacyService = registeredPharmacyService;
         }
         [HttpPost]
-        public IActionResult Get(RegisteredPharmacy pharmacy)
+        public IActionResult Register(RegisteredPharmacy pharmacy)
         {
             try
             {

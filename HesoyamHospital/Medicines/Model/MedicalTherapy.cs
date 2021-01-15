@@ -18,7 +18,8 @@ namespace Medicines.Model
 
         public override bool Equals(object obj)
         {
-            return obj is MedicalTherapy mt && Id == mt.Id;
+            var mt = obj as MedicalTherapy;
+            return mt != null && Medicine.Id == mt.Medicine.Id;
         }
 
         public override int GetHashCode()
