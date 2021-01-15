@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -72,13 +73,15 @@ namespace GraphicEditor.View
             }
             if (patient == null)
             {
-                String username = name + surname;
-                username = username.ToLower();
-
-                while (!patientService.IsUsernameUnique(username))
-                    username += jmbg.Substring(0,4);
+                StringBuilder bld = new StringBuilder();
+                string username = (name + surname).ToLower();
+                bld.Append(username);
                 
-                Patient p = new Patient(username, jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
+                while (!patientService.IsUsernameUnique(username))
+                    bld.Append(jmbg.Substring(0, 4));
+               
+
+                Patient p = new Patient(bld.ToString(), jmbg, DateTime.Today, name, surname, null, jmbg, Sex.OTHER, DateTime.Today, null, null, null, null, null, null, null, null);
                 patientService.Create(p);
                 patient = p;
          
