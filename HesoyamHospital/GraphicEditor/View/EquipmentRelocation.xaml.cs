@@ -11,8 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Backend.Model.ManagerModel;
+using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Service.HospitalManagementService;
+using Backend.Service.MedicalService;
 using Backend.Util;
 
 namespace GraphicEditor.View
@@ -31,21 +33,24 @@ namespace GraphicEditor.View
         private List<Room> availableRooms;
         private DateTime date;
         private SearchService searchService;
+        private TimeInterval timeInterval;
+        private readonly AppointmentSchedulingService appointmentSchedulingService;
 
         public EquipmentRelocation()
         {
             InitializeComponent();
             inventoryService = Backend.AppResources.getInstance().inventoryService;
             List<InventoryItem> inventories = (List<InventoryItem>)inventoryService.GetInventoryItems();
-            roomService = Backend.AppResources.getInstance().roomService;
+            roomService = Backend.AppResources.getInstance().roomService; 
+            appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             List<Room> rooms = (List<Room>)roomService.GetAll();
             searchService = new SearchService();
 
-            foreach (InventoryItem inventoryItem in inventories)
+            foreach (InventoryItem i in inventories)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                item.Tag = inventoryItem;
-                item.Content = inventoryItem.Name + " - " + "Room location:" + " " + inventoryItem.RoomID;
+                item.Tag = i;
+                item.Content = i.Name + " - " + "Room location:" + " " + i.RoomID;
                 chooseEquipment.Items.Add(item);
             }
 
@@ -62,9 +67,9 @@ namespace GraphicEditor.View
             for (int i = 0; i <= 20; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                DateTime date = (DateTime)toDatePicker.SelectedDate.Value;
+                DateTime d = toDatePicker.SelectedDate.Value;
                 DateTime result = Convert.ToDateTime(t);
-                DateTime dateTime = new DateTime(date.Year, date.Month, date.Day, result.Hour, result.Minute, 0);
+                DateTime dateTime = new DateTime(d.Year, d.Month, d.Day, result.Hour, result.Minute, 0);
                 if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
                 item.Tag = dateTime;
                 item.Content = dateTime.ToShortTimeString();
@@ -76,8 +81,10 @@ namespace GraphicEditor.View
         private void chooseTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)chooseTime.SelectedItem;
+
+            DateTime d = toDatePicker.SelectedDate.Value; 
             DateTime d2 = (DateTime)item.Tag;
-            DateTime d = (DateTime)toDatePicker.SelectedDate.Value;
+            
             date = new DateTime(d.Year, d.Month, d.Day, d2.Hour, d2.Minute, 0);
         }
 
@@ -91,7 +98,7 @@ namespace GraphicEditor.View
 
             DateTime startTime = date;
             DateTime endTime = date.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+            timeInterval = new TimeInterval(startTime, endTime);
 
             availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
             bool isCurrentRoomAvailable = false;
@@ -134,6 +141,10 @@ namespace GraphicEditor.View
             }
             else
             {
+                Appointment appointmentForPatient = new Appointment(null, null, null, AppointmentType.renovation, timeInterval);
+                appointmentSchedulingService.SaveAppointment(appointmentForPatient);
+                inventoryItem.RoomID = destinationRoom.Id;
+                inventoryService.UpdateInventoryItem(inventoryItem);
                 MessageWindow mw = new MessageWindow();
                 mw.Title = "Equipment relocation";
                 mw.message.Content = "Successfully equipment relocation!";

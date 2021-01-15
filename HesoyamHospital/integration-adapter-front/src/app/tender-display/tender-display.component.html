@@ -1,0 +1,18 @@
+<h1>Active tenders</h1>
+<ul class="display-list">
+    <li *ngFor="let t of activeTenders">
+       <div class="message">
+            <ul class="display-list">
+                <li *ngFor="let tl of t.TenderListings">
+                    <p class="medicine" >{{tl.Medicine}} : {{tl.Quantity}}</p>
+                </li>
+            </ul>    
+            <br>
+            <br>
+            <p class="date">{{t.EndDate| date}}</p>
+        </div> 
+           <div class="action-button">
+            <button mat-raised-button (click)="Offer(t.Id)"> Offer </button>
+           </div> 
+    </li>
+</ul>

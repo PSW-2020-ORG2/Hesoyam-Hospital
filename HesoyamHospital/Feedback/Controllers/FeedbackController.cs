@@ -6,6 +6,8 @@ using Feedbacks.Mappers;
 using Feedbacks.Service.Abstract;
 using Feedbacks.Validation;
 using Microsoft.AspNetCore.Mvc;
+using EventSourceClasses;
+using EventSourceClasses.Feedback;
 
 namespace Feedbacks.Controllers
 {
@@ -14,10 +16,12 @@ namespace Feedbacks.Controllers
     public class FeedbackController : ControllerBase
     {
         private readonly IFeedbackService _feedbackService;
+        private readonly EventLogger _feedbackLogger;
 
         public FeedbackController(IFeedbackService feedbackService)
         {
             _feedbackService = feedbackService;
+            _feedbackLogger = new EventLogger();
         }
 
         [HttpPost]
@@ -25,6 +29,7 @@ namespace Feedbacks.Controllers
         {
             if (!FeedbackValidation.IsNewFeedbackValid(dto)) return BadRequest();
             _feedbackService.Create(FeedbackMapper.NewFeedbackDTOToFeedback(dto));
+            _feedbackLogger.log(new FeedbackCreatedEvent(dto.Comment, dto.Anonymous, dto.Public, dto.Username));
             return Ok();
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using Appointments.DTOs;
@@ -8,6 +9,8 @@ using Appointments.Service;
 using Appointments.Service.Abstract;
 using Appointments.Validation;
 using Microsoft.AspNetCore.Mvc;
+using EventSourceClasses;
+using EventSourceClasses.Appointments;
 
 namespace Appointments.Controllers
 {
@@ -18,12 +21,14 @@ namespace Appointments.Controllers
         private readonly IAppointmentService _appointmentService;
         private readonly AppointmentValidation _appointmentValidation;
         private readonly IHttpRequestSender _httpRequestSender;
+        private readonly EventLogger _appointmentEventLogger;
 
         public AppointmentController(IAppointmentService appointmentService, IHttpClientFactory httpClientFactory)
         {
             _appointmentService = appointmentService;
             _appointmentValidation = new AppointmentValidation();
             _httpRequestSender = new HttpRequestSender(httpClientFactory);
+            _appointmentEventLogger = new EventLogger();
         }
 
         [HttpGet("{id}")]
@@ -37,8 +42,10 @@ namespace Appointments.Controllers
         {
             Appointment appointment = _appointmentService.GetByID(id);
             if (appointment == null) return NotFound();
+            
             if (!_appointmentValidation.IsPossibleToCancelAppointment(appointment, appointment.PatientId)) return BadRequest();
             _appointmentService.Cancel(appointment.PatientId, id);
+            _appointmentEventLogger.log(new AppointmentEvent(DateTime.Now,appointment.PatientId ,appointment.DoctorInAppointmentId, AppointmentEventType.CANCELLED));
             return Ok();
         }
 

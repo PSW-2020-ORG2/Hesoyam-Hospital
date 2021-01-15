@@ -21,6 +21,7 @@ namespace Backend.Service.HospitalManagementService
         private InventoryItemRepository _inventoryItemRepository;
         private MedicineRepository _medicineRepository;
 
+
         public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, MedicineRepository medicineRepository)
         {
             _inventoryRepository = inventoryRepository;
@@ -40,8 +41,9 @@ namespace Backend.Service.HospitalManagementService
         public IEnumerable<InventoryItem> GetInventoryItemsForRoom(Room room)
             => _inventoryItemRepository.GetAllEager().Where(ii => ii.Room.GetId() == room.GetId());
 
-        public Room FindAvailableRoomWithEquipment(List<Room> rooms, List<string> requiredInventoryItems) {
-            foreach (Room room in rooms) 
+        public Room FindAvailableRoomWithEquipment(List<Room> rooms, List<string> requiredInventoryItems)
+        {
+            foreach (Room room in rooms)
             {
                 List<InventoryItem> inventoryItemsInRoom = (List<InventoryItem>)GetInventoryItemsByRoomId(room.Id);
                 List<string> invertoryItemsInRoomName = ConvertInventoryItemToName(inventoryItemsInRoom);
@@ -50,9 +52,9 @@ namespace Backend.Service.HospitalManagementService
             }
             return null;
         }
-        private bool CompareInventoryItems(List<string> requiredInventoryItems, List<string> inventoryItems) 
+        private bool CompareInventoryItems(List<string> requiredInventoryItems, List<string> inventoryItems)
         {
-            foreach (string name in requiredInventoryItems) 
+            foreach (string name in requiredInventoryItems)
             {
                 if (!inventoryItems.Contains(name))
                     return false;
@@ -88,6 +90,9 @@ namespace Backend.Service.HospitalManagementService
             return retEn;
         }
 
+        public InventoryItem GetInventoryItemById(long id)
+            => _inventoryItemRepository.GetInventoryItemById(id);
+
         public IEnumerable<InventoryItem> GetInventoryItems()
             => _inventoryItemRepository.GetAllEager();
 
@@ -103,6 +108,9 @@ namespace Backend.Service.HospitalManagementService
 
         public void Update(Inventory entity)
             => _inventoryRepository.Update(entity);
+
+        public void UpdateInventoryItem(InventoryItem entity)
+           => _inventoryItemRepository.Update(entity);
 
         public void Delete(Inventory entity)
             => _inventoryRepository.Delete(entity);

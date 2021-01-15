@@ -5,10 +5,14 @@ using Documents.Service;
 using Documents.Service.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO;
 
 namespace Documents
@@ -45,6 +49,22 @@ namespace Documents
                    options.JsonSerializerOptions.MaxDepth = 10);
             services.AddControllers().AddNewtonsoftJson();
             services.AddHttpClient();
+
+            if (isPostgres())
+            {
+                services.AddDbContext<MyDbContext>(options =>
+                    options.UseNpgsql(GetConnectionString()));
+            }
+        }
+        private string GetConnectionString()
+        {
+            string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            Console.WriteLine("Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString"));
+            return "Server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
+        }
+        private bool isPostgres()
+        {
+            return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +85,18 @@ namespace Documents
             {
                 endpoints.MapControllers();
             });
+
+            if (isPostgres())
+            {
+                using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
+
+                    RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
+                    if (isPostgres())
+                        databaseCreator.CreateTables();
+                }
+            }
         }
     }
 }

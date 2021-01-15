@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "MyDbConnectionString": "server=localhost;port=3306;database=mydb1;user=root;password=root",
+        "MyDbConnectionString": "port=3306;database=mydb1;user=root;password=root",
+        "USES_POSTGRES": "FALSE",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -23,9 +24,13 @@
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "USES_POSTGRES": "FALSE",
+        "MyDbConnectionString": "port=3306;database=mydb1;user=root;password=root",
+        "shouldLogEvents": "false",
+        "appointmentEventLoggerURL": "http://localhost:63725/api/appointmentevent/create"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:57733"
     }
   }
 }

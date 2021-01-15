@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup , Validators} from '@angular/forms'
 import { Medicine } from '../shared/model/medicine.model';
 import { MedicineAvailabilityService } from 'src/app/shared/service/medicine-availability.service';
-import {RegistrationService} from 'src/app/shared/service/registration.service'
+import {SharedService } from 'src/app/shared/service/shared.service'
 import { RegisteredPharmacy } from '../shared/model/registered-pharmacy.model';
 import { MedicineAvailability } from '../shared/model/medicine-availability.model';
 
@@ -13,7 +13,7 @@ import { MedicineAvailability } from '../shared/model/medicine-availability.mode
 })
 export class MedicineAvailabilityComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,private pharmacyRegistrationService:RegistrationService,private medicineAvailabilityService:MedicineAvailabilityService) { }
+  constructor(private fb: FormBuilder,private sharedService:SharedService,private medicineAvailabilityService:MedicineAvailabilityService) { }
 
   availabilityForm:FormGroup;
   medicines: Medicine[]=[{
@@ -26,6 +26,7 @@ export class MedicineAvailabilityComponent implements OnInit {
     Id:3,
     Name:"Brufen"
     }];
+    
   medID:number;
   
   pharmacies:RegisteredPharmacy[]=[];
@@ -40,7 +41,7 @@ export class MedicineAvailabilityComponent implements OnInit {
   }
 
   FillPharmacy(){
-    this.pharmacyRegistrationService.getAllPharmacy().subscribe(data => {
+    this.sharedService.getAllPharmacy().subscribe(data => {
       this.pharmacies = data
     })
   }
@@ -56,8 +57,5 @@ export class MedicineAvailabilityComponent implements OnInit {
     })
     this.availableAdresses = ""
   }
-
-
-
 
 }

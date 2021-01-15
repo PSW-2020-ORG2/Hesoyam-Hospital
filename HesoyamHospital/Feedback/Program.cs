@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System.Threading;
 
 namespace Feedbacks
 {
@@ -7,6 +8,7 @@ namespace Feedbacks
     {
         public static void Main(string[] args)
         {
+            Thread.Sleep(5 * 1000);
             CreateHostBuilder(args).Build().Run();
         }
 

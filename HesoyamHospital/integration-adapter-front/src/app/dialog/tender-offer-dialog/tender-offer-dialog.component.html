@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>Tender offer</h2>
+<div class="dialog" mat-dialog-content>
+<table class="tendertable">
+    <thead>
+        <th>Medicine</th>
+        <th>Quantity</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tl of data.tender.TenderListings">
+        <td> {{tl.Medicine}}</td>
+        <td>{{tl.Quantity}}</td>  
+    </tr>
+</tbody>
+</table>
+<hr>
+    <div>
+        <form [formGroup]="offerForm">
+        <mat-form-field>
+                <mat-label>Name:</mat-label>
+                <input required matInput formControlName="name">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input type="email" required matInput formControlName="email">
+        </mat-form-field>
+        <hr>
+        <table id="listingtable">
+            <thead>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td >
+                        <mat-form-field  >
+                            <mat-select [(value)]="medicineName" placeholder="Medicine"  #selectedMedicine>
+                                <mat-option *ngFor="let tl of data.tender.TenderListings" [value]="tl.Medicine">
+                                    {{tl.Medicine}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>  
+                            <input  matInput formControlName="quantity"> 
+                            </mat-form-field>     
+                    </td>
+                    <td>
+                        <mat-form-field>  
+                            <input  matInput formControlName="price"> 
+                            </mat-form-field>                
+                    </td>
+                    <td>
+                        <button mat-raised-button (click)="Add()"> Add</button>
+                    </td>
+                </tr>
+              <tr *ngFor="let tl of tenderOfferListing">
+                  <td><mat-label>{{tl.Medicine}}</mat-label></td>
+                  <td><mat-label>{{tl.Quantity}}</mat-label></td>
+                  <td><mat-label>{{tl.UnitPrice}}</mat-label></td>
+                    <td>
+                    </td>
+            </tr>
+        </tbody>
+        </table>
+        </form>
+    </div>
+</div>
+
+<div mat-dialog-actions class="offerButtons">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button [disabled]="offerForm.invalid" (click)="FillOffer()" cdkFocusInitial> Offer</button>
+</div>
