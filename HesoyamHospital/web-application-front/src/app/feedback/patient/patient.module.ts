@@ -14,11 +14,13 @@ import { AppointmentRecommendationComponent } from './appointment-recommendation
 import { StandardAppointmentComponent } from './standard-appointment/standard-appointment.component';
 import { ChooseSchedulingTypeComponent } from './choose-scheduling-type/choose-scheduling-type.component';
 import { SelectedDoctorComponent } from './selected-doctor/selected-doctor.component';
+import { ReportComponent } from './report/report.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
 
 
 
 @NgModule({
-  declarations: [PostFeedbackComponent, SimpleSearchComponent, AdvancedSearchComponent, AppointmentRecommendationComponent, StandardAppointmentComponent, ChooseSchedulingTypeComponent, SelectedDoctorComponent],
+  declarations: [PostFeedbackComponent, SimpleSearchComponent, AdvancedSearchComponent, AppointmentRecommendationComponent, StandardAppointmentComponent, ChooseSchedulingTypeComponent, SelectedDoctorComponent, ReportComponent, PrescriptionComponent],
   imports: [
     CommonModule,
     PatientRoutingModule,

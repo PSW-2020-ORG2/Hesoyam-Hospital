@@ -23,7 +23,7 @@ export class RouteGuardService implements CanActivate
         this.router.navigate(['feedback/public/allFeedback']);
       }
       else {
-        this.router.navigate(['login']);
+        this.router.navigate(['hesoyamhospital']);
       }
       return false;
     }
