@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
-using EventSourcing.Model;
 using EventSourcing.Model.Appointments;
 using EventSourcing.Model.Authentication;
 using EventSourcing.Model.Feedback;
+using EventSourcing.Model.Scheduling;
 
 namespace EventSourcing.Repository
 {
@@ -18,8 +14,10 @@ namespace EventSourcing.Repository
         public DbSet<SelectedDoctorEvent> SelectedDoctorEvents { get; set; }
         public DbSet<RegistrationEvent> RegistrationEvents { get; set; }
         public DbSet<FeedbackCreatedEvent> FeedbackCreatedEvents { get; set; }
-
         public DbSet<SurveyAnsweredEvent> SurveyAnsweredEvents { get; set; }
+        public DbSet<SchedulingStartedEvent> SchedulingStartedEvents { get; set; }
+        public DbSet<SchedulingEndedEvent> SchedulingEndedEvents { get; set; }
+        public DbSet<SchedulingStepChangedEvent> SchedulingStepChangedEvents { get; set; }
 
         public EventDbContext(DbContextOptions<EventDbContext> options) : base(options)
         {
@@ -34,6 +32,9 @@ namespace EventSourcing.Repository
             modelBuilder.Entity<RegistrationEvent>().ToTable("RegistrationEvents");
             modelBuilder.Entity<FeedbackCreatedEvent>().ToTable("FeedbackCreatedEvent");
             modelBuilder.Entity<SurveyAnsweredEvent>().ToTable("SurveyAnsweredEvent");
+            modelBuilder.Entity<SchedulingStartedEvent>().ToTable("SchedulingStartedEvent");
+            modelBuilder.Entity<SchedulingEndedEvent>().ToTable("SchedulingEndedEvent");
+            modelBuilder.Entity<SchedulingStepChangedEvent>().ToTable("SchedulingStepChangedEvent");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
