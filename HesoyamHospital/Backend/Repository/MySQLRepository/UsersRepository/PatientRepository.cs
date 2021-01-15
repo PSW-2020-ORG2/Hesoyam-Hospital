@@ -32,7 +32,6 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             {
                 patient.DateCreated = DateTime.Now;
                 patient = base.Create(patient);
-                _userRepository.AddUser(patient);
                 return patient;
             }
             else
@@ -41,7 +40,7 @@ namespace Backend.Repository.MySQLRepository.UsersRepository
             }
         }
 
-        private bool IsUsernameUnique(string userName)
+        public bool IsUsernameUnique(string userName)
             => _userRepository.GetByUsername(userName) == null;
 
         public IEnumerable<Patient> GetPatientByDoctor(Doctor doctor)
