@@ -46,5 +46,14 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
                     result.Add(item);
             return result;
         }
+
+        public InventoryItem GetInventoryItemById(long id)
+        {
+            List<InventoryItem> inventoryItems = (List<InventoryItem>)GetAllEager();
+            foreach (InventoryItem item in inventoryItems)
+                if (item.Id == id)
+                    return item;
+            return null;
+        }
     }
 }

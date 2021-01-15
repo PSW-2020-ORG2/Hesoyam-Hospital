@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GraphicEditor.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="EquipmentRelocation"  Height="400" Width="810"
+        Title="EquipmentRelocation"  Height="600" Width="810"
         WindowStartupLocation="CenterScreen">
     <Grid Background="Beige">
         <Grid.RowDefinitions>
@@ -15,9 +15,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
- 
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -43,11 +40,20 @@
 
         <ComboBox x:Name="chooseDestinationRoom" Grid.Row="4" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True"/>
 
-        <Label Content="Choose date for relocation: "  Grid.Row="8" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
+        <Label Content="Choose date for relocation: "  Grid.Row="5" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <DatePicker x:Name="toDatePicker" Grid.Row="8" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
+        <DatePicker x:Name="toDatePicker" Grid.Row="5" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
-        <Button x:Name="buttonEquipmentRelocation" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonEquipmentRelocation_Click"/>
+        <Label Content="Choose time for relocation: "  Grid.Row="6" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
+
+        <ComboBox x:Name="chooseTime" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="chooseTime_SelectionChanged"/>
+
+        <!--
+        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="0" ItemsSource="{Binding priorityIntervalDTOs}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}">
+        </DataGrid>
+        -->
+        
+        <Button x:Name="buttonEquipmentRelocation" Content="Schedule" ToolTip="Schedule" Grid.Row="11" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonEquipmentRelocation_Click"/>
 
     </Grid>
 </Window>
