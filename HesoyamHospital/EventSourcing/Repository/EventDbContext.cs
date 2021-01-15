@@ -23,6 +23,10 @@ namespace EventSourcing.Repository
         {
 
         }
+        public EventDbContext() : base()
+        {
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

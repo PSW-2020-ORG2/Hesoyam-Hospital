@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventSourcing.Repository;
 using Newtonsoft.Json;
+using EventSourcing.Service;
 
 namespace EventSourcing
 {
@@ -43,7 +44,7 @@ namespace EventSourcing
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddDbContext<EventDbContext>(options => options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbConnectionString")).UseLazyLoadingProxies());
-
+            services.AddSingleton<ISchedulingAnalysis, SchedulingAnalysis>(s => new SchedulingAnalysis(new EventDbContext()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

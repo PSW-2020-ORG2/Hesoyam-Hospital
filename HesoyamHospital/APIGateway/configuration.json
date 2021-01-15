@@ -574,23 +574,118 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/survey/getAllDoctors",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 57741
+        "DownstreamPathTemplate": "/api/survey/getAllDoctors",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 57741
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/survey/getAllDoctors",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+            "AuthenticationProviderKey": "TestKey",
+            "AllowedScopes": []
+        },
+        "RouteClaimsRequirement": {
+            "Role": "Admin"
         }
-      ],
-      "UpstreamPathTemplate": "/gateway/survey/getAllDoctors",
-      "UpstreamHttpMethod": [ "GET" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      }
+    },
+    {
+        "DownstreamPathTemplate": "/api/schedulingevent/percentage-of-successful",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 63725
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/schedulingevent/percentage-of-successful",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+            "AuthenticationProviderKey": "TestKey",
+            "AllowedScopes": []
+        },
+        "RouteClaimsRequirement": {
+            "Role": "Admin"
+        }
+    },
+    {
+        "DownstreamPathTemplate": "/api/schedulingevent/percentage-of-going-back-by-step",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 63725
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/schedulingevent/percentage-of-going-back-by-step",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+            "AuthenticationProviderKey": "TestKey",
+            "AllowedScopes": []
+        },
+        "RouteClaimsRequirement": {
+            "Role": "Admin"
+        }
+    },
+    {
+        "DownstreamPathTemplate": "/api/schedulingevent/mean-value-of-back-steps-per-scheduling",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 63725
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/schedulingevent/mean-value-of-back-steps-per-scheduling",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+            "AuthenticationProviderKey": "TestKey",
+            "AllowedScopes": []
+        },
+        "RouteClaimsRequirement": {
+            "Role": "Admin"
+        }
+    },
+    {
+        "DownstreamPathTemplate": "/api/schedulingevent/mean-value-of-steps-per-scheduling",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 63725
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/schedulingevent/mean-value-of-steps-per-scheduling",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+            "AuthenticationProviderKey": "TestKey",
+            "AllowedScopes": []
+        },
+        "RouteClaimsRequirement": {
+            "Role": "Admin"
+        }
+    },
+    {
+        "DownstreamPathTemplate": "/api/schedulingevent/percantage-of-quitting-by-step",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 63725
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/schedulingevent/percantage-of-quitting-by-step",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+            "AuthenticationProviderKey": "TestKey",
+            "AllowedScopes": []
+        },
+        "RouteClaimsRequirement": {
+            "Role": "Admin"
+        }
     }
   ],
   "GlobalConfiguration": {

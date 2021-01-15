@@ -1,6 +1,8 @@
 ﻿using EventSourcing.Model.Scheduling;
 using EventSourcing.Repository;
+using EventSourcing.Service;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace EventSourcing.Controllers
 {
@@ -9,10 +11,12 @@ namespace EventSourcing.Controllers
     public class SchedulingEventController : ControllerBase
     {
         private readonly EventDbContext eventDbContext;
+        private readonly ISchedulingAnalysis schedulingAnalysis;
 
-        public SchedulingEventController(EventDbContext eventDbContext)
+        public SchedulingEventController(EventDbContext eventDbContext, ISchedulingAnalysis schedulingAnalysis)
         {
             this.eventDbContext = eventDbContext;
+            this.schedulingAnalysis = schedulingAnalysis;
         }
 
         [HttpPost("create/start")]
@@ -38,5 +42,34 @@ namespace EventSourcing.Controllers
             eventDbContext.SaveChanges();
             return Ok();
         }
+
+        [HttpGet("percentage-of-successful")]
+        public IActionResult GetPercentageOfSuccessfullyScheduledAppointments()
+        {
+            try
+            {
+                return Ok(schedulingAnalysis.GetPercentageOfSuccessfullyScheduledAppointments());
+            } 
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("percentage-of-going-back-by-step")]
+        public IActionResult GetPercentageOfReturningBackByStep()
+            => Ok(schedulingAnalysis.GetPercentageOfReturningBackByStep());
+
+        [HttpGet("mean-value-of-steps-per-scheduling")]
+        public IActionResult GetMeanValueOfStepsPerScheduling()
+            => Ok(schedulingAnalysis.GetMeanValueOfStepsPerScheduling());
+
+        [HttpGet("mean-value-of-back-steps-per-scheduling")]
+        public IActionResult GetMeanValueOfBackStepsPerScheduling()
+            => Ok(schedulingAnalysis.GetMeanValueOfBackStepsPerScheduling());
+
+        [HttpGet("percantage-of-quitting-by-step")]
+        public IActionResult GetPercentageOfQuittingSchedulingByStep()
+            => Ok(GetPercentageOfQuittingSchedulingByStep());
     }
 }
