@@ -1,0 +1,53 @@
+<div style="background-color: white;">
+    <div style="padding-top: 50px;">
+        <ngx-charts-pie-chart style="display: inline-flex; margin-right: 20px; margin: 0 auto;"
+        [results]="saleData"
+        [legend]="true"
+        [legendTitle]="'Successful vs Unsuccessful scheduling'" 
+        [view]="[700,300]"
+        [labels]="true" >
+        </ngx-charts-pie-chart>
+        <span style="display: flex; width: 50%; display: inline-block; margin-left: 50px; float: right; margin-top: 50px;">
+            <div style="display: inline;">
+                <p style="display: inline; font-weight: bold; font-size: 15px;">Srednja vrednost koraka po zakazivanju: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">5</label></p>
+            </div>
+            <div style="display: block; margin-top: 20px;">
+                <p style="display: inline; font-weight: bold; font-size: 15px;">Srednja vrednost trajanja zakazivanja: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">45min</label></p>
+            </div>
+        </span>
+    </div>
+    <div style="height: 60px;"></div>
+    <div style="padding-top: 0px;">
+        <ngx-charts-bar-vertical style="display: inline-flex; margin-right: 20px;"
+            [view]="[700,300]"
+            [results]="saleData"
+            [xAxisLabel]="'Products'"
+            [legendTitle]="'Vracanje na odredjeni korak'"
+            [yAxisLabel]="'Sale'"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+        </ngx-charts-bar-vertical>
+        <ngx-charts-bar-horizontal style="display: inline-flex; margin-left: 20px; background-color: white;"
+            [view]="[700,300]"
+            [results]="saleData"
+            [xAxisLabel]="'Products'"
+            [legendTitle]="'odustajanje po koraku'"
+            [yAxisLabel]="'Sale'"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+        </ngx-charts-bar-horizontal>
+    </div>
+    <div style="height: 50px; background-color: white;"></div>
+    <ngx-charts-pie-grid style="background-color: white; margin-top: 100px;"
+        [view]="[1500,300]"
+        [results]="saleData" >
+    </ngx-charts-pie-grid>
+</div>

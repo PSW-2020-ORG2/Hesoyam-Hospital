@@ -1,6 +1,6 @@
 <html>
-  <body style="background-color: rgb(246, 248, 250);">
-    <div style="height: max-content;">
+  <body style="background-color: rgb(255, 255, 255);">
+    <div style="height: 100%;">
       <mat-toolbar color="primary"> 
         <button matToolTip="Main Page" mat-icon-button routerLink="../main-page">
           <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
@@ -29,6 +29,9 @@
           </button>
           <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Admin'" routerLink="../survey/survey-results">
             Survey Results
+          </button>
+          <button mat-button *ngIf="this._authService.isAuthenticated() && this._authService.getRole() == 'Admin'" routerLink="../scheduling-statistics">
+            Scheduling Statistics
           </button>
           <button mat-button routerLink="../feedback/public/allFeedback">
             All Feedback

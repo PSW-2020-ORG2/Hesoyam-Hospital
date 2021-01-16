@@ -16,6 +16,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './helpers/interceptor.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxChartsModule }from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RegistrationModule,
     DocumentsModule,
     AuthenticationModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxChartsModule
   ],
   exports:[
     MatTooltipModule
