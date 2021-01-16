@@ -44,7 +44,9 @@ namespace Appointments.Mappers
                 Department = httpRequestSender.GetDoctorSpecialization(appointment.DoctorInAppointmentId),
                 DoctorName = httpRequestSender.GetDoctorFullName(appointment.DoctorInAppointmentId),
                 RoomNumber = httpRequestSender.GetRoomNumberById(appointment.DoctorInAppointmentId),
-                AbleToFillOutSurvey = appointment.AbleToFillOutSurvey
+                AbleToFillOutSurvey = appointment.AbleToFillOutSurvey,
+                HasReport = httpRequestSender.HasReport(appointment.Id),
+                HasPrescription = httpRequestSender.HasPrescription(appointment.Id)
             };
 
         private static string CalculateAppointmentState(Appointment appointment)

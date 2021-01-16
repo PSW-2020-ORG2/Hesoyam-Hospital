@@ -22,6 +22,10 @@ namespace Backend.Model.UserModel
             EndTime = endTime;
         }
 
+        public ShiftType()
+        {
+        }
+
         public long GetId() => Id;
 
         public void SetId(long id) => Id = id;

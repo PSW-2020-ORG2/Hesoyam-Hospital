@@ -19,6 +19,12 @@ namespace Documents.Service
             return responseStream.Result;
         }
 
+        public string GetDoctorSpecialisation(long doctorId)
+        {
+            var responseStream = SendRequest("http://localhost:57746/api/doctor/getSpecialization/" + doctorId, HttpMethod.Get);
+            return responseStream.Result;
+        }
+
         public Task<string> SendRequest(string url, HttpMethod method)
         {
             var client = _clientFactory.CreateClient();

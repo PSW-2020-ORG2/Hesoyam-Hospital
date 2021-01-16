@@ -84,6 +84,11 @@ namespace Backend.Service.UsersService
             _patientRepository.Update(entity);
         }
 
+        public bool IsUsernameUnique(string username)
+
+             => _patientRepository.IsUsernameUnique(username);
+        
+
         public UserValidation UserValidation { get => _userValidation; set => _userValidation = value; }
     }
 }

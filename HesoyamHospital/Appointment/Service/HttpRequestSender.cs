@@ -86,5 +86,17 @@ namespace Appointments.Service
             var responseStream = SendRequest("http://localhost:57746/api/patient/getSelectedDoctorId/" + patientId, HttpMethod.Get);
             return JsonConvert.DeserializeObject<long>(responseStream.Result);
         }
+
+        public bool HasPrescription(long appointmentId)
+        {
+            var responseStream = SendRequest("http://localhost:57748/api/document/hasPrescription/" + appointmentId, HttpMethod.Get);
+            return JsonConvert.DeserializeObject<bool>(responseStream.Result);
+        }
+
+        public bool HasReport(long appointmentId)
+        {
+            var responseStream = SendRequest("http://localhost:57748/api/document/hasReport/" + appointmentId, HttpMethod.Get);
+            return JsonConvert.DeserializeObject<bool>(responseStream.Result);
+        }
     }
 }

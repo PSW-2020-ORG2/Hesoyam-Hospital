@@ -1,0 +1,31 @@
+<div style="height:100%; display: flex; justify-content: center;">
+    <mat-card class="mat-elevation-z8" style="margin-top: 10%; width: 30%; height: 60%; display: flex; justify-content: center; align-items: center; height: max-content; padding-top: 20px;">
+        <form style="width: 100%; padding: 20px;">
+            <h2 style="text-align: center;">
+                Report details
+            </h2>
+            <div style="height: 15px;"></div>
+            <div class="left">
+                <label class="constLbl">Doctor name: </label>
+                <label style="color: gray;" name="fullName">{{_report.doctorFullName}}</label>                       
+            </div>
+            <div class="left">
+                <label class="constLbl">Specialisation: </label>
+                <label style="color: gray;" name="specialisation">{{showSpecialisation()}}</label>                       
+            </div>
+            <div class="left">
+                <label class="constLbl">Date: </label>
+                <label style="color: gray;" name="dateCreated">{{_report.dateTimeCreated}}</label>                       
+            </div>
+            <div class="left">
+                <label class="constLbl">Diagnosis: </label>
+                <label style="color: gray;" name="diagnosis">{{_report.diagnosis}}</label>                       
+            </div>
+            <div class="left">
+                <label class="constLbl">Comment: </label>
+                <label style="color: gray;" name="comment">{{_report.comment}}</label>                       
+            </div>
+            <div style="height: 20px;"></div>
+        </form>
+    </mat-card>
+</div>

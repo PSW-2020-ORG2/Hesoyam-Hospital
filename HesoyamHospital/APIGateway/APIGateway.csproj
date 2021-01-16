@@ -11,4 +11,8 @@
     <PackageReference Include="Ocelot" Version="16.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Public\" />
+  </ItemGroup>
+
 </Project>

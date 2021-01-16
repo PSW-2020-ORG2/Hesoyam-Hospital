@@ -3,6 +3,7 @@ using Backend.Model.UserModel;
 using System;
 using System.Collections.Generic;
 using Backend.DTOs;
+using Backend.Model.DoctorModel;
 
 namespace Backend.Service.MedicalService
 {
@@ -16,7 +17,8 @@ namespace Backend.Service.MedicalService
         public bool MultipleAppoitments(Appointment appointment);
         public IEnumerable<PriorityIntervalDTO> GetByPriority(PriorityIntervalDTO dto);
         public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsDoctor(PriorityIntervalDTO dto);
-        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityIntervalDTO dto);
+        public IEnumerable<PriorityIntervalDTO> GetWhenPriorityIsInterval(PriorityIntervalDTO dto, DoctorType doctorType);
+        public PriorityIntervalDTO GetAvailableTermsForEmergencyExamination(PriorityIntervalDTO dto, DoctorType specialisation);
 
     }
 }
