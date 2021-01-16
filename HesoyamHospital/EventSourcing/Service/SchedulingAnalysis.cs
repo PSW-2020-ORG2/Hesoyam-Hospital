@@ -92,8 +92,16 @@ namespace EventSourcing.Service
             Dictionary<int, double> res = new Dictionary<int, double>();
             IEnumerable<IEnumerable<SchedulingStepChangedEvent>> schedulingSequences = GetAllUnsuccessfulSchedulingSequences();
             foreach (IEnumerable<SchedulingStepChangedEvent> schedulingSequence in schedulingSequences)
-                if (res.ContainsKey(schedulingSequence.Last().CurrentStep)) res[schedulingSequence.Last().CurrentStep] += 1;
-                else res[schedulingSequence.Last().CurrentStep] = 1;
+                if (schedulingSequence.Any())
+                {
+                    if (res.ContainsKey(schedulingSequence.Last().CurrentStep)) res[schedulingSequence.Last().CurrentStep] += 1;
+                    else res[schedulingSequence.Last().CurrentStep] = 1;
+                }
+                else
+                {
+                    if (res.ContainsKey(0)) res[0] += 1;
+                    else res[0] = 1;
+                }
             foreach (int key in res.Keys.ToList())
                 res[key] = res[key] / schedulingSequences.Count() * 100;
             return res;
