@@ -14,6 +14,52 @@ namespace EventSourcing.Service
             _dbContext = dbContext;
         }
 
+        public Dictionary<int, double> GetMeanValueOfTimeSpentByStep()
+        {
+            Dictionary<int, double> meanValues = GetSumOfTimesSpentByStep();
+            foreach (int key in meanValues.Keys.ToList())
+                if (key == 0) meanValues[key] = meanValues[key] / _dbContext.SchedulingStartedEvents.Count();
+                else meanValues[key] = meanValues[key] / _dbContext.SchedulingStepChangedEvents.Count(u => u.CurrentStep == key);
+            return meanValues;
+        }
+
+        public double GetAverageTimeForScheduling()
+        {
+            IEnumerable<SchedulingStartedEvent> startEvents = _dbContext.SchedulingStartedEvents.ToList();
+            double durationSum = 0;
+            foreach (SchedulingStartedEvent startEvent in startEvents)
+                durationSum += (GetEndOfSchedulingEvent(startEvent).Timestamp - startEvent.Timestamp).Seconds; 
+            return durationSum / startEvents.Count();
+        }
+
+        public double GetAverageTimeForSuccessfulScheduling()
+        {
+            IEnumerable<SchedulingStartedEvent> startEvents = _dbContext.SchedulingStartedEvents.ToList();
+            double durationSum = 0;
+            double successfulCount = 0;
+            foreach (SchedulingStartedEvent startEvent in startEvents)
+                if(GetEndOfSchedulingEvent(startEvent).Outcome == SchedulingOutcome.SUCCESSFUL)
+                {
+                    successfulCount++;
+                    durationSum += (GetEndOfSchedulingEvent(startEvent).Timestamp - startEvent.Timestamp).Seconds;
+                }
+            return durationSum / successfulCount;
+        }
+
+        public double GetAverageTimeForUnsuccessfulScheduling()
+        {
+            IEnumerable<SchedulingStartedEvent> startEvents = _dbContext.SchedulingStartedEvents.ToList();
+            double durationSum = 0;
+            double unsuccessfulCount = 0;
+            foreach (SchedulingStartedEvent startEvent in startEvents)
+                if (GetEndOfSchedulingEvent(startEvent).Outcome == SchedulingOutcome.UNSUCCESSFUL)
+                {
+                    unsuccessfulCount++;
+                    durationSum += (GetEndOfSchedulingEvent(startEvent).Timestamp - startEvent.Timestamp).Seconds;
+                }
+            return durationSum / unsuccessfulCount;
+        }
+
         public double GetPercentageOfSuccessfullyScheduledAppointments()
         {
             if (_dbContext.SchedulingEndedEvents.Count() == 0) throw new Exception("No data to be processed!");
@@ -48,7 +94,7 @@ namespace EventSourcing.Service
             foreach (IEnumerable<SchedulingStepChangedEvent> schedulingSequence in schedulingSequences)
                 if (res.ContainsKey(schedulingSequence.Last().CurrentStep)) res[schedulingSequence.Last().CurrentStep] += 1;
                 else res[schedulingSequence.Last().CurrentStep] = 1;
-            foreach (int key in res.Keys)
+            foreach (int key in res.Keys.ToList())
                 res[key] = res[key] / schedulingSequences.Count() * 100;
             return res;
         }
@@ -88,5 +134,37 @@ namespace EventSourcing.Service
 
         private IEnumerable<SchedulingStepChangedEvent> GetAllStepsBackwards()
             => _dbContext.SchedulingStepChangedEvents.Where(e => e.StepType == Step.BACKWARD).ToList();
+
+
+        private Dictionary<int, double> GetSumOfTimesSpentByStep()
+        {
+            IEnumerable<SchedulingStartedEvent> startEvents = _dbContext.SchedulingStartedEvents.ToList();
+            Dictionary<int, double> meanValues = new Dictionary<int, double>();
+            foreach (SchedulingStartedEvent startEvent in startEvents)
+                if (GetASchedulingSequence(startEvent).Any())
+                {
+                    meanValues = GetSumOfTimesSpentForEventByStep(meanValues, startEvent);
+                } else{
+                    meanValues.TryGetValue(0, out double endEventCount);
+                    meanValues[0] = endEventCount + (GetEndOfSchedulingEvent(startEvent).Timestamp - startEvent.Timestamp).Seconds;
+                }
+            return meanValues;
+        }
+
+        private Dictionary<int, double> GetSumOfTimesSpentForEventByStep(Dictionary<int, double> meanValues, SchedulingStartedEvent startEvent)
+        {
+            SchedulingEndedEvent endEvent = GetEndOfSchedulingEvent(startEvent);
+            List<SchedulingStepChangedEvent> changedSteps = GetASchedulingSequence(startEvent).ToList();
+            meanValues.TryGetValue(0, out double startEventCount);
+            meanValues[0] = startEventCount + (changedSteps[0].Timestamp - startEvent.Timestamp).Seconds;
+            for (int i = 0; i < changedSteps.Count() - 1; i++)
+            {
+                meanValues.TryGetValue(changedSteps[i].CurrentStep, out double currentCount);
+                meanValues[changedSteps[i].CurrentStep] = currentCount + (changedSteps[i + 1].Timestamp - changedSteps[i].Timestamp).Seconds;
+            }
+            meanValues.TryGetValue(changedSteps.Last().CurrentStep, out double endEventCount);
+            meanValues[changedSteps.Last().CurrentStep] = endEventCount + (endEvent.Timestamp - changedSteps.Last().Timestamp).Seconds;
+            return meanValues;
+        }
     }
 }

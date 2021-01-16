@@ -719,23 +719,99 @@
         }
     },
     {
-        "DownstreamPathTemplate": "/api/schedulingevent/percantage-of-quitting-by-step",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-            {
-                "Host": "localhost",
-                "Port": 63725
-            }
-        ],
-        "UpstreamPathTemplate": "/gateway/schedulingevent/percantage-of-quitting-by-step",
-        "UpstreamHttpMethod": [ "GET" ],
-        "AuthenticationOptions": {
-            "AuthenticationProviderKey": "TestKey",
-            "AllowedScopes": []
-        },
-        "RouteClaimsRequirement": {
-            "Role": "Admin"
+      "DownstreamPathTemplate": "/api/schedulingevent/percantage-of-quitting-by-step",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63725
         }
+      ],
+      "UpstreamPathTemplate": "/gateway/schedulingevent/percantage-of-quitting-by-step",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/schedulingevent/average-time-for-scheduling",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63725
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/schedulingevent/average-time-for-scheduling",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/schedulingevent/average-time-for-unsuccessful-scheduling",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63725
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/schedulingevent/average-time-for-unsuccessful-scheduling",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/schedulingevent/average-time-for-successful-scheduling",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63725
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/schedulingevent/average-time-for-successful-scheduling",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/schedulingevent/average-time-for-each-step",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63725
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/schedulingevent/average-time-for-each-step",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
     }
   ],
 "GlobalConfiguration": {

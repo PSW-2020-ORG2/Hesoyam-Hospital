@@ -70,6 +70,22 @@ namespace EventSourcing.Controllers
 
         [HttpGet("percantage-of-quitting-by-step")]
         public IActionResult GetPercentageOfQuittingSchedulingByStep()
-            => Ok(GetPercentageOfQuittingSchedulingByStep());
+            => Ok(schedulingAnalysis.GetPercentageOfQuittingSchedulingByStep());
+
+        [HttpGet("average-time-for-scheduling")]
+        public IActionResult GetAverageTimeForScheduling()
+            => Ok(schedulingAnalysis.GetAverageTimeForScheduling());
+
+        [HttpGet("average-time-for-successful-scheduling")]
+        public IActionResult GetAverageTimeForSuccessfulScheduling()
+            => Ok(schedulingAnalysis.GetAverageTimeForSuccessfulScheduling());
+
+        [HttpGet("average-time-for-unsuccessful-scheduling")]
+        public IActionResult GetAverageTimeForUnsuccessfulScheduling()
+            => Ok(schedulingAnalysis.GetAverageTimeForUnsuccessfulScheduling());
+
+        [HttpGet("average-time-for-each-step")]
+        public IActionResult GetMeanValueOfTimeSpentByStep()
+            => Ok(schedulingAnalysis.GetMeanValueOfTimeSpentByStep());
     }
 }

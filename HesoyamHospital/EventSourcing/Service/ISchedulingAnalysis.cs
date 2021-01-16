@@ -11,6 +11,10 @@ namespace EventSourcing.Service
         public Dictionary<int, double> GetPercentageOfReturningBackByStep();
         public double GetMeanValueOfBackStepsPerScheduling();
         public double GetMeanValueOfStepsPerScheduling();
+        public Dictionary<int, double> GetMeanValueOfTimeSpentByStep();
+        public double GetAverageTimeForScheduling();
+        public double GetAverageTimeForSuccessfulScheduling();
+        public double GetAverageTimeForUnsuccessfulScheduling();
         public Dictionary<int, double> GetPercentageOfQuittingSchedulingByStep();
     }
 }
