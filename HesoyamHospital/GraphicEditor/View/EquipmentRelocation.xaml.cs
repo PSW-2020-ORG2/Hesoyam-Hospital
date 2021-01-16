@@ -27,14 +27,15 @@ namespace GraphicEditor.View
         private readonly InventoryService inventoryService;
         private readonly RoomService roomService;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
+        public readonly int NUM_TERMS = 6; 
         private Room currentRoom;
         private Room destinationRoom;
         private InventoryItem inventoryItem;
         private List<Room> availableRooms;
         private DateTime date;
         private SearchService searchService;
-        private TimeInterval timeInterval;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
+        private List<TimeInterval> alternativeTimeIntervals;
 
         public EquipmentRelocation()
         {
@@ -98,7 +99,7 @@ namespace GraphicEditor.View
 
             DateTime startTime = date;
             DateTime endTime = date.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-            timeInterval = new TimeInterval(startTime, endTime);
+            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
             availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
             bool isCurrentRoomAvailable = false;
@@ -141,21 +142,47 @@ namespace GraphicEditor.View
             }
             else
             {
-                Appointment appointmentForPatient = new Appointment(null, null, null, AppointmentType.relocation, timeInterval);
-                appointmentSchedulingService.SaveAppointment(appointmentForPatient);
-                inventoryItem.RoomID = destinationRoom.Id;
-                inventoryService.UpdateInventoryItem(inventoryItem);
-                MessageWindow mw = new MessageWindow();
-                mw.Title = "Equipment relocation";
-                mw.message.Content = "Successfully equipment relocation!";
-                mw.ShowDialog();
+                RelocationEquipment(timeInterval);
             }
 
-            if (isCurrentRoomAvailable == false || isDestinationRoomAvailable == false)
+
+            if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
             {
-                // 
-            }
+                alternativeTimeIntervals = new List<TimeInterval>();
 
+                for (int i = 1; i <= NUM_TERMS; i++)
+                {
+                    startTime = endTime;
+                    endTime = startTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                    TimeInterval time = new TimeInterval(startTime, endTime);
+
+                    if (roomService.IsRoomAvailableByTime(currentRoom, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
+                        alternativeTimeIntervals.Add(time);
+                }
+
+                searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
+                searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void RelocationEquipment(TimeInterval timeInterval)
+        {
+            Appointment appointmentRelocation = new Appointment(null, null, null, AppointmentType.relocation, timeInterval);
+            appointmentSchedulingService.SaveAppointment(appointmentRelocation);
+            inventoryItem.RoomID = destinationRoom.Id;
+            inventoryService.UpdateInventoryItem(inventoryItem);
+            MessageWindow mw = new MessageWindow();
+            mw.Title = "Equipment relocation";
+            mw.message.Content = "Successfully equipment relocation!";
+            mw.ShowDialog();
+        }
+
+        private void searchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimeInterval i = (TimeInterval)searchAlternativeTerms.SelectedItem;
+            RelocationEquipment(i);
+            alternativeTimeIntervals.Remove(i);
+            searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
         }
 
         private void ToDate_KeyUp(object sender, KeyEventArgs e)
@@ -169,6 +196,5 @@ namespace GraphicEditor.View
         {
             throw new NotImplementedException();
         }
-
     }
 }
