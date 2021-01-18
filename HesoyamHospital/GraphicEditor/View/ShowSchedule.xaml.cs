@@ -34,7 +34,8 @@ namespace GraphicEditor.View
         private void buttonScheduledAppointments_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
-            
+            List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();
+
             appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
             List<Appointment> appointmentNew = new List<Appointment>();
             
@@ -45,7 +46,9 @@ namespace GraphicEditor.View
                     appointmentNew.Add(appointment);
                 }
             }
-            searchApp.ItemsSource = appointmentNew;
+
+            appointmentsDto = AppointmentMapper.AppointmentToAppointmentDto(appointmentNew);
+            searchApp.ItemsSource = appointmentsDto;
            
             
         }
@@ -53,6 +56,7 @@ namespace GraphicEditor.View
         private void buttonScheduledRelocations_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
+            List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();
 
             appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
             List<Appointment> appointmentNew = new List<Appointment>();
@@ -64,13 +68,16 @@ namespace GraphicEditor.View
                     appointmentNew.Add(appointment);
                 }
             }
-            searchApp.ItemsSource = appointmentNew;
+
+            appointmentsDto = AppointmentMapper.AppointmentToAppointmentDto(appointmentNew);
+            searchApp.ItemsSource = appointmentsDto;
 
         }
 
         private void buttonScheduledRenovations_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
+            List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();
 
             appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
             List<Appointment> appointmentNew = new List<Appointment>();
@@ -82,7 +89,9 @@ namespace GraphicEditor.View
                     appointmentNew.Add(appointment);
                 }
             }
-            searchApp.ItemsSource = appointmentNew;
+
+            appointmentsDto = AppointmentMapper.AppointmentToAppointmentDto(appointmentNew);
+            searchApp.ItemsSource = appointmentsDto;
 
         }
     }
