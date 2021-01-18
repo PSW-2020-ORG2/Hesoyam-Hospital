@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Backend.DTOs;
 using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
 using Backend.Service.MedicalService;
 
 namespace GraphicEditor.View
@@ -21,39 +22,67 @@ namespace GraphicEditor.View
     public partial class ShowSchedule : Window
     {
         private readonly AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
+        private Room room;
 
-        public ShowSchedule()
+        public ShowSchedule(Room room1)
         {
             InitializeComponent();
+            room = room1;
         }
+
 
         private void buttonScheduledAppointments_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
-            //MessageBox.Show(appointments.ToString());
-            List<AppointmentDTO> appointmentDTO = new List<AppointmentDTO>();
+            
+            appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
+            List<Appointment> appointmentNew = new List<Appointment>();
+            
             foreach (Appointment appointment in appointments) 
             {
-                MessageBox.Show(appointment.ToString());
-                if (appointment.AppointmentType == AppointmentType.checkup) 
+                if (appointment.AppointmentType == AppointmentType.checkup || appointment.AppointmentType == AppointmentType.operation) 
                 {
-                        
+                    appointmentNew.Add(appointment);
                 }
             }
-            searchApp.ItemsSource = appointmentDTO;
-            // List<PriorityIntervalDTO> priorityIntervalDTOs = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
-            //searchApp.ItemsSource = priorityIntervalDTOs;
-            
+            searchApp.ItemsSource = appointmentNew;
+           
             
         }
 
         private void buttonScheduledRelocations_Click(object sender, RoutedEventArgs e)
         {
+            List<Appointment> appointments = new List<Appointment>();
+
+            appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
+            List<Appointment> appointmentNew = new List<Appointment>();
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.AppointmentType == AppointmentType.relocation)
+                {
+                    appointmentNew.Add(appointment);
+                }
+            }
+            searchApp.ItemsSource = appointmentNew;
 
         }
 
         private void buttonScheduledRenovations_Click(object sender, RoutedEventArgs e)
         {
+            List<Appointment> appointments = new List<Appointment>();
+
+            appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
+            List<Appointment> appointmentNew = new List<Appointment>();
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.AppointmentType == AppointmentType.renovation)
+                {
+                    appointmentNew.Add(appointment);
+                }
+            }
+            searchApp.ItemsSource = appointmentNew;
 
         }
     }
