@@ -11,10 +11,12 @@ namespace Appointments.DTOs
         public string DoctorName { get; set; }
         public string RoomNumber { get; set; }
         public bool AbleToFillOutSurvey { get; set; }
+        public bool HasReport { get; set; }
+        public bool HasPrescription { get; set; }
 
         public AppointmentForObservationDTO() { }
 
-        public AppointmentForObservationDTO(long appointmentId, string appointmentState, TimeInterval timeInterval, string department, string doctorName, string roomNumber, bool ableToFillOutSurvey)
+        public AppointmentForObservationDTO(long appointmentId, string appointmentState, TimeInterval timeInterval, string department, string doctorName, string roomNumber, bool ableToFillOutSurvey, bool hasReport, bool hasPrescription)
         {
             AppointmentId = appointmentId;
             AppointmentState = appointmentState;
@@ -23,6 +25,8 @@ namespace Appointments.DTOs
             DoctorName = doctorName;
             RoomNumber = roomNumber;
             AbleToFillOutSurvey = ableToFillOutSurvey;
+            HasReport = hasReport;
+            HasPrescription = hasPrescription;
         }
     }
 }

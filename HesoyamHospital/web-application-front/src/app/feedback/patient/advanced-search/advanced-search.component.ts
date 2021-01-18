@@ -15,7 +15,7 @@ import { FormBuilder, FormArray } from '@angular/forms';
 export class AdvancedSearchComponent implements AfterViewInit {
 
   data : DocumentDTO[] = [];
-  displayedColumns: string[] = ['Type', 'DateCreated', 'DoctorName', 'DiagnosisName', 'Observe'];
+  displayedColumns: string[] = ['Type', 'DateCreated', 'DoctorName', 'DiagnosisName'];
   searchCriteria : AdvancedSearchCriteria = new AdvancedSearchCriteria(true, true, [], [], [], []);
   minDate: Date;
   maxDate: Date;

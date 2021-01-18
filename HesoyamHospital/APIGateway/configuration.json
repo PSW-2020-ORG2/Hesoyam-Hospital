@@ -220,6 +220,18 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
+      "DownstreamPathTemplate": "/api/patient/getAllPatients",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57746
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patient/getAllPatients",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/doctor/allGeneralDoctors",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -325,6 +337,44 @@
       ],
       "UpstreamPathTemplate": "/gateway/document/advanced-search/{id}",
       "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Patient"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/document/report/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57748
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/document/report/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Patient"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/document/prescription/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 57748
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/document/prescription/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "TestKey",
         "AllowedScopes": []
@@ -593,7 +643,7 @@
       }
     }
   ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:57874"
-  }
+"GlobalConfiguration": {
+"BaseUrl": "http://localhost:57874"
+}
 }

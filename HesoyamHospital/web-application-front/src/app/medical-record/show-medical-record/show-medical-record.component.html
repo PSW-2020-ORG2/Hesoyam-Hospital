@@ -151,6 +151,20 @@
                 <button mat-stroked-button color="primary" *ngIf="element.ableToFillOutSurvey && element.appointmentState == 'FINISHED'" (click)="fillOutSurvey(element.appointmentId)">Fill out</button>                                      
               </td>
             </ng-container>
+
+            <ng-container matColumnDef="Report">
+              <th mat-header-cell *matHeaderCellDef> REPORT </th>
+              <td mat-cell *matCellDef="let element"> 
+                <button mat-stroked-button style="color: rgb(22, 155, 189);" *ngIf="element.hasReport && element.appointmentState == 'FINISHED'" (click)="viewReport(element.appointmentId)">Report</button>                                      
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Prescription">
+              <th mat-header-cell *matHeaderCellDef> PRESCRIPTION </th>
+              <td mat-cell *matCellDef="let element"> 
+                <button mat-stroked-button style="color: rgb(22, 155, 189);" *ngIf="element.hasPrescription && element.appointmentState == 'FINISHED'" (click)="viewPrescription(element.appointmentId)">Prescription</button>                                      
+              </td>
+            </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

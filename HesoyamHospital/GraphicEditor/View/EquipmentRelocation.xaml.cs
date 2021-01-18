@@ -64,7 +64,7 @@ namespace GraphicEditor.View
 
             String t = "8:00";
 
-            for (int i = 0; i <= 16; i++)
+            for (int i = 0; i <= 20; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 DateTime d = toDatePicker.SelectedDate.Value;
@@ -154,11 +154,15 @@ namespace GraphicEditor.View
 
         private void ToDate_KeyUp(object sender, KeyEventArgs e)
         {
-
             if (e.Key == Key.F1)
             {
                 toDatePicker.IsDropDownOpen = true;
             }
         }
+        private void buttonEquipmentRelocation_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -50,6 +50,6 @@ export class AuthenticationService {
       localStorage.removeItem('id');
       localStorage.removeItem('username');
       localStorage.removeItem('role');
-      this.router.navigate(['login']);
+      this.router.navigate(['hesoyamhospital']);
   }
 }
