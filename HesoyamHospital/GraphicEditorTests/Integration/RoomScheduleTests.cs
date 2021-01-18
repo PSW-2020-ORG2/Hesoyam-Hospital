@@ -26,5 +26,18 @@ namespace GraphicEditorTests.Unit
 
         }
 
+        [Fact]
+        public void Check_room_in_appointment()
+        {
+            AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
+            Room room = new Room(101);
+            List<Appointment> appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
+            foreach (Appointment a in appointments)
+            { 
+                a.Room.Id.ShouldBe(101);
+            }
+            
+        }
+
     }
 }
