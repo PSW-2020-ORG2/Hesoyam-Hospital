@@ -115,15 +115,43 @@ namespace GraphicEditor.View
             {
                 MessageBox.Show("No available terms in the next 30minutes. Some appointments have to be rescheduled!");
                 //Vrati sve zakazane u narednih pola sata, nadje 3 najbolja
+                Dictionary<double, Appointment> appointmentsForRescheduling = getAppointmentsForRescheduing(type);
 
 
 
             }
         }
 
-        private List<Appointment> GetAppointmentsForRescheduing(DoctorType type)
+        private Dictionary<double, Appointment> getAppointmentsForRescheduing(DoctorType type)
         {
             List<Appointment> appointments = appointmentService.GetAppointmentsForDoctorInNex30Minutes(type);
+            Dictionary<double, Appointment> score = new Dictionary<double, Appointment>();
+            Dictionary<double, Appointment> result = new Dictionary<double, Appointment>();
+            List<double> keys = new List<double>();
+            foreach (Appointment a in appointments)
+            {
+                double res1 = analyseAppointment(a);
+                score[res1] = a;
+                keys.Add(res1);
+            }
+            keys.Sort();
+            for (int i = 0; i < 3; i++)
+            {
+                if (appointments.Count == i)
+                    break;
+                result[keys[i]] = score[keys[i]];
+            }
+            return result;
+            
+
+
+        }
+
+        private double analyseAppointment(Appointment appointment)
+        {
+            PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Now, DateTime.Now.AddDays(5), appointment.DoctorInAppointment.Name, appointment.DoctorInAppointment.Id, true);
+            List<Appointment> appointments = (List<Appointment>)appointmentSchedulingService.GetRecommendedTimes(dto);
+            return (appointments[0].TimeInterval.StartTime - appointment.TimeInterval.StartTime).TotalMinutes;
         }
 
         private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
