@@ -28,6 +28,7 @@ namespace GraphicEditor.View
         private readonly DoctorService doctorService = Backend.AppResources.getInstance().doctorService;
         private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
+        private readonly AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
 
         public EmergencyExamination()
         {
@@ -113,7 +114,16 @@ namespace GraphicEditor.View
             else 
             {
                 MessageBox.Show("No available terms in the next 30minutes. Some appointments have to be rescheduled!");
+                //Vrati sve zakazane u narednih pola sata, nadje 3 najbolja
+
+
+
             }
+        }
+
+        private List<Appointment> GetAppointmentsForRescheduing(DoctorType type)
+        {
+            List<Appointment> appointments = appointmentService.GetAppointmentsForDoctorInNex30Minutes(type);
         }
 
         private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)

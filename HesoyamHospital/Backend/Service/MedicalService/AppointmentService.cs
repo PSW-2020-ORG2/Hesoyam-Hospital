@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Backend.Exceptions;
+using Backend.Model.DoctorModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
 using Backend.Repository.Abstract.MedicalAbstractRepository;
@@ -57,6 +58,20 @@ namespace Backend.Service.MedicalService
 
         protected void CheckType(Appointment appointment)
             => _appointmentStrategy.CheckType(appointment);
+
+        public List<Appointment> GetAppointmentsForDoctorInNex30Minutes(DoctorType type)
+        {
+            List<Appointment> allAppointments = (List<Appointment>)GetAll();
+            List<Appointment> result = new List<Appointment>();
+            foreach (Appointment a in allAppointments) 
+            {
+                if (a.DoctorInAppointment.Specialisation == type && a.TimeInterval.StartTime <= DateTime.Now.AddMinutes(30))
+                {
+                    result.Add(a);
+                }
+            }
+            return result;
+        }
 
         public Appointment CancelAppointment(Appointment appointment)
         {
