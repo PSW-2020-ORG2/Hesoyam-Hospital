@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {UserLoginDTO} from '../DTOs/user-login-dto';
 import { AuthenticationService } from '../service/authentication.service';
 import decode from 'jwt-decode';
@@ -10,13 +10,17 @@ import { Router } from '@angular/router';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
   username: string = "";
   password: string = "";
   role: number = 0;
   constructor(private _authService : AuthenticationService, private _snackBar: MatSnackBar, private router : Router) { }
+  ngOnDestroy(): void {
+    this._authService.loginComponent = false;
+  }
 
   ngOnInit(): void {
+    this._authService.loginComponent = true;
   }
 
   login() {
