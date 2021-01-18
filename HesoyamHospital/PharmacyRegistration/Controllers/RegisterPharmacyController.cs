@@ -41,7 +41,7 @@ namespace PharmacyRegistration.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return StatusCode(500);
+                return StatusCode(500, e.Message);
             }
         }
         [HttpGet("all")]

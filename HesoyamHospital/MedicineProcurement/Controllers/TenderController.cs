@@ -36,6 +36,10 @@ namespace MedicineProcurement.Controllers
             {
                 Console.WriteLine(e.Message);
                 return BadRequest(e.Message);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500, e.Message);
             }
         }
         [HttpPut("concludeTender/{tenderId}/{winnerOfferId}")]

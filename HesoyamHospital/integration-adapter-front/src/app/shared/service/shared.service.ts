@@ -20,7 +20,7 @@ export class SharedService {
     return this._http.get(this._APIUrl + '/medicine/all' );
   }
 
-  getAllPharmacy(): Observable<any> {
-    return this._http.get(this._APIUrl + '/registerpharmacy/all' );
+  getAllPharmacy(): Promise<any> {
+    return this._http.get(this._APIUrl + '/registerpharmacy/all' ).toPromise();
   }
 }

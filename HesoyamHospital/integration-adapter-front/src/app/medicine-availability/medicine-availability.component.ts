@@ -20,6 +20,7 @@ export class MedicineAvailabilityComponent implements OnInit {
   medID:number;
   
   pharmacies:RegisteredPharmacy[]=[];
+  selectedPharmacy:RegisteredPharmacy;
 
   pharmacyName:string;
   
@@ -31,8 +32,8 @@ export class MedicineAvailabilityComponent implements OnInit {
     this.FillMedicines();
   }
 
-  FillPharmacy(){
-    this.sharedService.getAllPharmacy().subscribe(data => {
+  async FillPharmacy(){
+    await this.sharedService.getAllPharmacy().then(data => {
       this.pharmacies = data
     })
   }
@@ -43,28 +44,31 @@ export class MedicineAvailabilityComponent implements OnInit {
   }
 
   CheckMedicine(){
-    this.medicineAvailabilityService.getPharmacy(this.GetPharmacy(this.pharmacyName),this.medicines[this.medID-1].Name)
+    this.GetSelectedPharmacy()
+    this.availableAdresses = '';
+    this.medicineAvailabilityService.getPharmacy(this.selectedPharmacy,this.medicines[this.medID-1].Name)
     .subscribe(data => {
       this.available = data;
-      this.available.Addresses.forEach(
-        a=>this.availableAdresses+=a
-      )
-      
+      if(this.available.Addresses != null){
+        console.log("IF IS TRUE");
+        this.available.Addresses.forEach(
+          a=> this.availableAdresses+=a)
+      } else {
+        console.log("IF IS FALSE");
+        this.availableAdresses = "Medicine unavailable!";
+      }
     })
   }
-
-
-GetPharmacy(name:string):any{
+  
+GetSelectedPharmacy(){
     this.pharmacies.forEach(p=>
      {
-       if(p.PharmacyName==name)
+       if(p.PharmacyName==this.pharmacyName)
         {
-          console.log(p.PharmacyName);
-          return p
+          this.selectedPharmacy=p;
         }
      })
   
-}
-
+  }
 }
 

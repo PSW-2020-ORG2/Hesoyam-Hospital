@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Medicines.DTOs;
+using Medicines.Exceptions;
 using Medicines.Model;
 using Medicines.Service;
 using Medicines.Service.Abstract;
@@ -33,16 +34,21 @@ namespace Medicines.Controllers
         }
 
         [HttpPost("getAvailability/{medicineName}")]
-        public IActionResult GetMedicineAvailability([FromBody] RegisteredPharmacyDTO registeredPharmacy, string medicineName)
+        public IActionResult GetMedicineAvailability(RegisteredPharmacyDTO registeredPharmacy, string medicineName)
         {
+            Console.WriteLine(registeredPharmacy.Endpoint);
             try
             {
                 MedicineAvailabilityDTO medicineAvailability = _medicineService.GetMedicineAvailability(medicineName, registeredPharmacy);
                 return Ok(medicineAvailability);
+            } catch (MedicineServiceException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(500, e.Message);
             }
             
         }
@@ -50,8 +56,16 @@ namespace Medicines.Controllers
         [HttpGet("specification/{name}")]
         public IActionResult GetSpecification(string name)
         {
-            string text = SFTPService.ConnectAndReceiveSpecifications(name + ".txt");
-            return Ok(text);
+            try
+            {
+                string text = SFTPService.ConnectAndReceiveSpecifications(name + ".txt");
+                return Ok(text);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500, e.Message);
+            }
+                
         }
     }
 }

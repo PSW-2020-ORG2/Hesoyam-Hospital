@@ -46,6 +46,10 @@ namespace Medicines.Controllers
             {
                 Console.WriteLine(e.Message);
                 return BadRequest();
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 

@@ -21,9 +21,9 @@ export class TenderOfferService {
     return this._http.get(this._APIUrl+'/getoffers/'+tenderId);
   }
 
-  GetAllOfferEmails(tenderId:number):Observable<any>
+  GetAllOfferEmails(tenderId:number):Promise<any>
   {
-    return this._http.get(this._APIUrl+'/getAllOfferEmails/'+tenderId);
+    return this._http.get(this._APIUrl+'/getAllOfferEmails/'+tenderId).toPromise();
   }
 
   

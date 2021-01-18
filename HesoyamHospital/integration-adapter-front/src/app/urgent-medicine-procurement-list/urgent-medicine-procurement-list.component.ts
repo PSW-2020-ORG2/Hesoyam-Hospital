@@ -38,24 +38,26 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
 
   requests:UrgentMedicineProcurementRequest[]=[];
   selectedRequest:UrgentMedicineProcurementRequest=new UrgentMedicineProcurementRequest;
+  allPharmacies:RegisteredPharmacy[]=[];
   pharmacies:RegisteredPharmacy[]=[];
  
   async Request(requestId:number){
-    await this.urgentMedicineProcurementService.getAllPharmacies(requestId,this.GetAllPharmacies())
+    await this.GetAllPharmacies();
+    await this.urgentMedicineProcurementService.getAllPharmacies(requestId,this.allPharmacies)
     .then(
       (data => {
         this.pharmacies=data
+        console.log(data);
       })
     );
     this.selectedRequest=this.GetSelectedRequest(requestId);
     this.openDialog();
   }
-  GetAllPharmacies():RegisteredPharmacy[]{
-    var p;
-    this.sharedService.getAllPharmacy().subscribe(
-      data=>p=data
+  
+  async GetAllPharmacies(){
+    await this.sharedService.getAllPharmacy().then(
+      data=>this.allPharmacies = data
     )
-    return p;
   }
   
 

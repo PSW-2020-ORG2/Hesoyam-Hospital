@@ -41,16 +41,25 @@ namespace ActionsAndBenefits.Controllers
         public IActionResult ApproveActionBenefit(long id)
         {
             ActionBenefit actionBenefit = _actionBenefitService.GetByID(id);
-            _actionBenefitService.Approve(actionBenefit);
-            return Ok();
+            if(actionBenefit != null)
+            {
+                _actionBenefitService.Approve(actionBenefit);
+                return Ok();
+            }
+            return NotFound("Notification with id " + id + " could not be found.");
         }
 
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteActionBenefit(long id)
         {
             ActionBenefit action = _actionBenefitService.GetByID(id);
-            _actionBenefitService.Delete(action);
-            return Ok();
+            if(action != null)
+            {
+                _actionBenefitService.Delete(action);
+                return Ok();
+            }
+            return NotFound("Notification with id " + id + " could not be found.");
+            
         }
     }
 }

@@ -21,7 +21,7 @@ export class ActionBenefitService {
      return this._http.put(this._APIUrl+'/approve/'+val,{id:val});
   }
   
-  /*Delete(val:any): Observable<any>{
-    return this._http.delete(this._APIUrl+'/delete'+val);
-  }*/
+  Delete(val:any): Observable<any>{
+    return this._http.delete(this._APIUrl+'/delete/'+val);
+  }
 }
