@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System;
+using GraphicEditor.View;
 
 namespace GraphicEditor
 {
@@ -149,7 +150,8 @@ namespace GraphicEditor
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
             MainWindow mainWindow = new MainWindow();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-
+            ShowSchedule showSchedule = new ShowSchedule();
+            showSchedule.Show();
             foreach (FileInformation inf in menuInformation)
                 if (inf.Name == rectangle.Name) mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
         }
