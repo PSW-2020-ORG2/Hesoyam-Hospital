@@ -12,6 +12,7 @@ export class StatisticsComponent implements OnInit {
   averageTimeSecondsSucc = 0;
   averageTimeSecondsUnsucc = 0;
   averageNumberOfSteps = 0;
+  averageNumberOfBackSteps = 0;
   successful = [
     { name: "Successful", value: 100 },
     { name: "Unsuccessful", value: 0 },
@@ -120,6 +121,15 @@ export class StatisticsComponent implements OnInit {
     this._http.get<number>("http://localhost:57874/gateway/schedulingevent/mean-value-of-steps-per-scheduling").subscribe(
           (data) => {
             this.averageNumberOfSteps = data;
+            this.averageNumberOfBackStepsForScheduling();
+          }
+        );
+  }
+
+  averageNumberOfBackStepsForScheduling(){
+    this._http.get<number>("http://localhost:57874/gateway/schedulingevent/mean-value-of-back-steps-per-scheduling").subscribe(
+          (data) => {
+            this.averageNumberOfBackSteps = data;
             this.averageDurationOfScheduling();
           }
         );

@@ -12,7 +12,10 @@
         </ngx-charts-pie-chart>
         <span style="display: flex; width: 50%; display: inline-block; margin-left: 50px; float: right; margin-top: 50px;">
             <div style="display: inline;">
-                <p style="display: inline; font-weight: 500; font-size: 15px;">Average number of steps per scheduling: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">{{averageNumberOfSteps}}</label></p>
+                <p style="display: inline; font-weight: 500; font-size: 15px;">Average number of steps per scheduling: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">{{averageNumberOfSteps | number}}</label></p>
+            </div>
+            <div style="display: block; margin-top: 20px;">
+                <p style="display: inline; font-weight: 500; font-size: 15px;">Average number of back steps per scheduling: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">{{averageNumberOfBackSteps | number}}</label></p>
             </div>
             <div style="display: block; margin-top: 20px;">
                 <p style="display: inline; font-weight: 500; font-size: 15px;">Average duration of scheduling: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">{{averageTimeSeconds}} sec</label></p>
