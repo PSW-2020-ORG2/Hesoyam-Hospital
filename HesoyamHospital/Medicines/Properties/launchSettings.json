@@ -15,6 +15,7 @@
       "launchUrl": "weatherforecast",
       "environmentVariables": {
         "HospitalEmail": "heshospital@gmail.com",
+        "MyDbConnectionString": "port=3306;database=mydb1;user=root;password=root",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "SFTPServerIPAddress": "192.168.0.13",
         "SFTPUsername": "tester",

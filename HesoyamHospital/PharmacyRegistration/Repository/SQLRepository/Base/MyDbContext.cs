@@ -37,12 +37,7 @@ namespace PharmacyRegistration.Repository.SQLRepository.Base
         private string GenerateConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
-
-            // if (Environment.GetEnvironmentVariable("MyDbConnectionString") == null)
-            //     return "server=localhost;port=3306;database=mydb1;user=root;password=root";
-
-            //return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
-            return "server=localhost;port=3306;database=mydb1;user=root;password=root";
+            return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
         private string GeneratePostgresConnectionString()
         {
