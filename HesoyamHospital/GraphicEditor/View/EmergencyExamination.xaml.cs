@@ -115,31 +115,34 @@ namespace GraphicEditor.View
             {
                 MessageBox.Show("No available terms in the next 30minutes. Some appointments have to be rescheduled!");
                 //Vrati sve zakazane u narednih pola sata, nadje 3 najbolja
-                Dictionary<double, Appointment> appointmentsForRescheduling = getAppointmentsForRescheduing(type);
+                Dictionary<Appointment, double> appointmentsForRescheduling = getAppointmentsForRescheduing(type);
+                AppointmentAnalysisDataGrid dataGrid = new AppointmentAnalysisDataGrid();
+                dataGrid.searchAvailable.ItemsSource = appointmentsForRescheduling;
+                dataGrid.Show();
 
 
 
             }
         }
 
-        private Dictionary<double, Appointment> getAppointmentsForRescheduing(DoctorType type)
+        private Dictionary<Appointment, double> getAppointmentsForRescheduing(DoctorType type)
         {
             List<Appointment> appointments = appointmentService.GetAppointmentsForDoctorInNex30Minutes(type);
-            Dictionary<double, Appointment> score = new Dictionary<double, Appointment>();
-            Dictionary<double, Appointment> result = new Dictionary<double, Appointment>();
-            List<double> keys = new List<double>();
+            List<double> score = new List<double>();
+            List<double> sortedScore = new List<double>();
+            Dictionary<Appointment, double> result = new Dictionary<Appointment, double>();
             foreach (Appointment a in appointments)
             {
-                double res1 = analyseAppointment(a);
-                score[res1] = a;
-                keys.Add(res1);
+                score.Add(analyseAppointment(a));
+                sortedScore.Add(analyseAppointment(a));
             }
-            keys.Sort();
+            sortedScore.Sort();
             for (int i = 0; i < 3; i++)
             {
                 if (appointments.Count == i)
                     break;
-                result[keys[i]] = score[keys[i]];
+                int index = score.IndexOf(sortedScore[i]);
+                result[appointments[index]] = score[index];
             }
             return result;
             
@@ -150,8 +153,11 @@ namespace GraphicEditor.View
         private double analyseAppointment(Appointment appointment)
         {
             PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Now, DateTime.Now.AddDays(5), appointment.DoctorInAppointment.Name, appointment.DoctorInAppointment.Id, true);
-            List<Appointment> appointments = (List<Appointment>)appointmentSchedulingService.GetRecommendedTimes(dto);
-            return (appointments[0].TimeInterval.StartTime - appointment.TimeInterval.StartTime).TotalMinutes;
+            List<PriorityIntervalDTO> appointments = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(dto);
+            if (!appointments.IsNullOrEmpty())
+                return (appointments[0].StartTime - appointment.TimeInterval.StartTime).TotalMinutes;
+            else
+                return 12000;
         }
 
         private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)

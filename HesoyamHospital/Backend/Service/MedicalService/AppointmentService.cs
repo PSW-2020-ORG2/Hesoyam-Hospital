@@ -65,7 +65,8 @@ namespace Backend.Service.MedicalService
             List<Appointment> result = new List<Appointment>();
             foreach (Appointment a in allAppointments) 
             {
-                if (a.DoctorInAppointment.Specialisation == type && a.TimeInterval.StartTime <= DateTime.Now.AddMinutes(30))
+                if (a.DoctorInAppointment.Specialisation == type && DateTime.Now <= a.TimeInterval.StartTime && !a.Canceled &&
+                    a.TimeInterval.StartTime <= DateTime.Now.AddMinutes(30))
                 {
                     result.Add(a);
                 }
