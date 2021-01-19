@@ -144,6 +144,7 @@ namespace GraphicEditor.View
                     break;
                 int index = score.IndexOf(sortedScore[i]);
                 result[appointments[index]] = score[index];
+                appointments.RemoveAt(index);
             }
             return result;
             
