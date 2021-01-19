@@ -10,9 +10,7 @@ using Backend.Exceptions;
 using Backend.Model.DoctorModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.MySQLRepository.MedicalRepository;
-using Backend.Service.MiscService;
 using Backend.Util;
 
 namespace Backend.Service.MedicalService
