@@ -8,6 +8,7 @@ using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
 using Backend.Util;
 using Castle.Core.Internal;
+using GraphicEditor.DTOs;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -116,11 +117,11 @@ namespace GraphicEditor.View
                 MessageBox.Show("No available terms in the next 30minutes. Some appointments have to be rescheduled!");
                 //Vrati sve zakazane u narednih pola sata, nadje 3 najbolja
                 Dictionary<Appointment, double> appointmentsForRescheduling = getAppointmentsForRescheduing(type);
+                List<RescheduleAppointmentDTO> rescheduleAppointmentDTOs = new List<RescheduleAppointmentDTO>();
                 AppointmentAnalysisDataGrid dataGrid = new AppointmentAnalysisDataGrid();
-                dataGrid.searchAvailable.ItemsSource = appointmentsForRescheduling;
+                rescheduleAppointmentDTOs = RescheduleAppointmentMapper.AppointmentToRescheduleAppointmentDto(appointmentsForRescheduling);
+                dataGrid.searchAvailable.ItemsSource = rescheduleAppointmentDTOs;
                 dataGrid.Show();
-
-
 
             }
         }
