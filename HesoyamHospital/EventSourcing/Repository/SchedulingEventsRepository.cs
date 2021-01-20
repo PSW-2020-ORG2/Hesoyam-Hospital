@@ -1,5 +1,6 @@
 ﻿using EventSourcing.Model.Scheduling;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EventSourcing.Repository
 {
@@ -12,12 +13,12 @@ namespace EventSourcing.Repository
         }
 
         public IEnumerable<SchedulingStartedEvent> GetSchedulingStartedEvents()
-            => eventDbContext.SchedulingStartedEvents;
+            => eventDbContext.SchedulingStartedEvents.OrderBy(e => e.Timestamp);
 
         public IEnumerable<SchedulingStepChangedEvent> GetSchedulingStepChangedEvents()
-            => eventDbContext.SchedulingStepChangedEvents;
+            => eventDbContext.SchedulingStepChangedEvents.OrderBy(e => e.Timestamp);
 
         public IEnumerable<SchedulingEndedEvent> GetSchedulingEndedEvents()
-            => eventDbContext.SchedulingEndedEvents;
+            => eventDbContext.SchedulingEndedEvents.OrderBy(e => e.Timestamp);
     }
 }
