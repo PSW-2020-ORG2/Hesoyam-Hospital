@@ -45,7 +45,7 @@ namespace EventSourcing.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies().UseMySql(Environment.GetEnvironmentVariable("MyDbConnectionString"));
+                optionsBuilder.UseLazyLoadingProxies().UseMySql(Environment.GetEnvironmentVariable("EventDbConnectionString"));
             }
                 
         }

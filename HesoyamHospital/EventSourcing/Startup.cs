@@ -43,7 +43,7 @@ namespace EventSourcing
             });
             services.AddControllers().AddNewtonsoftJson();
 
-            services.AddDbContext<EventDbContext>(options => options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbConnectionString")).UseLazyLoadingProxies());
+            services.AddDbContext<EventDbContext>(options => options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "EventDbConnectionString")).UseLazyLoadingProxies());
             services.AddSingleton<ISchedulingAnalysis, SchedulingAnalysis>(s => new SchedulingAnalysis(new EventDbContext()));
         }
 
