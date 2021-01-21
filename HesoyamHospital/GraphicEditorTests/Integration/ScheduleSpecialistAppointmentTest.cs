@@ -11,7 +11,7 @@ using Xunit;
 namespace GraphicEditorTests.Integration
 {
     public class ScheduleSpecialistAppointmentTest
-    {
+    {   /*
         [Fact]
         public void Find_room_with_equipment()
         {
@@ -32,6 +32,6 @@ namespace GraphicEditorTests.Integration
             Room room = inventoryService.FindAvailableRoomWithEquipment(rooms, items);
             long id = room.Id;
             id.ShouldBe(209);
-        }
+        }*/
     }
 }
