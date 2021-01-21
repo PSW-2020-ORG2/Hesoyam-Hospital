@@ -91,12 +91,36 @@ namespace APIGateway
                 //{
                 //    spa.Options.SourcePath = "/Public";
                 //});
-
+                Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
                 });
             }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Resources")),
+                RequestPath = "/Resources"
+            });
+
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //    Path.Combine(env.ContentRootPath, "Public")),
+            //    RequestPath = ""
+            //});
+
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "/Public";
+            //});
+            Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
+            });
 
             app.UseEndpoints(endpoints =>
             {
@@ -104,13 +128,6 @@ namespace APIGateway
             });
             app.UseOcelot();
             app.UseAuthentication();
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //    Path.Combine(env.ContentRootPath, "Resources")),
-            //    RequestPath = "/Resources"
-            //});
-
         }
     }
 }
