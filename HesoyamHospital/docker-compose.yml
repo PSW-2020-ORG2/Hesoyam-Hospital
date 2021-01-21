@@ -1,0 +1,147 @@
+version: "3.8"
+
+volumes:
+  mysql_data: {}
+  mysql-data:
+  web-sql:
+  sql:
+
+networks:
+  hesoyamnet:
+    name: hesoyamnet
+    driver: bridge
+
+services:
+  apigateway:
+    build: 
+      context: .
+      dockerfile: APIGateway/Dockerfile
+    image: gregvader/apigateway:latest
+    depends_on:
+      # - feedback
+      # - authentication
+      # - documents
+      - postgres
+      # - appointment
+    restart: on-failure
+    environment:
+      DATABASE_HOST: postgres
+      STAGE: "DEPLOY"
+      USES_POSTGRES: "TRUE"
+      MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+      shouldLogEvents: "false"
+      appointmentEventLoggerURL: "irrelevant"
+    volumes:
+      - web-sql:/app/sql
+    expose: 
+      - "80"
+    networks: 
+      - hesoyamnet
+    ports:
+      - "57874:80"
+
+  
+  # appointment:
+  #   build: 
+  #     context: .
+  #     dockerfile: Appointment/Dockerfile
+  #   image: gregvader/appointment:latest
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  #   environment: 
+  #     DATABASE_HOST: postgres
+  #     USES_POSTGRES: "TRUE"
+  #     MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+  #     shouldLogEvents: "false"
+  #     appointmentEventLoggerURL: "irrelevant"
+  #   volumes:
+  #     - web-sql:/app/sql
+  #   expose: 
+  #     - "80"
+  #   networks: 
+  #     - hesoyamnet
+  #   ports:
+  #     - "57733:80"
+  
+  # authentication:
+  #   build: 
+  #     context: .
+  #     dockerfile: Authentication/Dockerfile
+  #   image: gregvader/authentication:latest
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  #   environment: 
+  #     DATABASE_HOST: postgres
+  #     USES_POSTGRES: "TRUE"
+  #     MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+  #     shouldLogEvents: "false"
+  #     appointmentEventLoggerURL: "irrelevant"
+  #   volumes:
+  #     - web-sql:/app/sql
+  #   expose: 
+  #     - "80"
+  #   networks: 
+  #     - hesoyamnet
+  #   ports:
+  #     - "57746:80"
+
+  # documents:
+  #   build: 
+  #     context: .
+  #     dockerfile: Documents/Dockerfile
+  #   image: gregvader/documents:latest
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  #   environment: 
+  #     DATABASE_HOST: postgres
+  #     USES_POSTGRES: "TRUE"
+  #     MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+  #     shouldLogEvents: "false"
+  #     appointmentEventLoggerURL: "irrelevant"
+  #   volumes:
+  #     - web-sql:/app/sql
+  #   expose: 
+  #     - "80"
+  #   networks: 
+  #     - hesoyamnet
+  #   ports:
+  #     - "57748:80"
+
+  # feedback:
+  #   build: 
+  #     context: .
+  #     dockerfile: Feedback/Dockerfile
+  #   image: gregvader/feedback:latest
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  #   environment: 
+  #     DATABASE_HOST: postgres
+  #     USES_POSTGRES: "TRUE"
+  #     MyDbConnectionString: "Port=5432;Database=mydb1;User Id=username;Password=secret"
+  #     shouldLogEvents: "false"
+  #     appointmentEventLoggerURL: "irrelevant"
+  #   volumes:
+  #     - web-sql:/app/sql
+  #   expose: 
+  #     - "80"
+  #   networks: 
+  #     - hesoyamnet
+  #   ports:
+  #     - "57741:80"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    networks:
+      - hesoyamnet
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: mydb1
+    volumes:
+      - mysql-data:/var/lib/mysql

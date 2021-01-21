@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "web-application-front"
+  "defaultProject": "web-application-front",
+  "cli": {
+    "analytics": false
+  }
 }

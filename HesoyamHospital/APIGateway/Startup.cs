@@ -33,6 +33,15 @@ namespace APIGateway
                                       .AllowAnyMethod();
                                   });
             });
+            
+            if(Environment.GetEnvironmentVariable("STAGE") != "DEV")
+            {
+                services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "Publish/dist";
+                });
+            }
+
             services.AddOcelot();
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
@@ -61,15 +70,40 @@ namespace APIGateway
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
 
+            if (Environment.GetEnvironmentVariable("STAGE") != "DEV")
+            {
+
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Resources")),
+                    RequestPath = "/Resources"
+                });
+
+                //app.UseStaticFiles(new StaticFileOptions
+                //{
+                //    FileProvider = new PhysicalFileProvider(
+                //    Path.Combine(env.ContentRootPath, "Public")),
+                //    RequestPath = ""
+                //});
+
+                //app.UseSpa(spa =>
+                //{
+                //    spa.Options.SourcePath = "/Public";
+                //});
+
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
+                });
+            }
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
             app.UseOcelot();
             app.UseAuthentication();
-
-            app.UseRouting();
-
             //app.UseStaticFiles(new StaticFileOptions
             //{
             //    FileProvider = new PhysicalFileProvider(
@@ -77,19 +111,6 @@ namespace APIGateway
             //    RequestPath = "/Resources"
             //});
 
-            if (Environment.GetEnvironmentVariable("STAGE") != "DEV")
-            {
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "Public")),
-                    RequestPath = ""
-                });
-                app.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "Public";
-                });
-            }
         }
     }
 }

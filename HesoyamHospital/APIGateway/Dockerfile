@@ -7,6 +7,7 @@ WORKDIR /app/
 COPY ./APIGateway/bin/Release/netcoreapp3.1/ .
 COPY ./APIGateway/bin/Release/netcoreapp3.1/ /app/publish/
 COPY ./APIGateway .
+COPY ./Authentication/Resources ./Resources
 
 COPY ./APIGateway/APIGateway.csproj .
 
