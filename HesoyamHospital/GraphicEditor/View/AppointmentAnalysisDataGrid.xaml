@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="AppointmentAnalysisDataGrid" Height="330" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-
-        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="0" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}"></DataGrid> 
+    <Grid Background="Beige">
+        <DataGrid x:Name="searchAvailable" Grid.Row="8" Grid.Column="0" ColumnWidth="*" SelectionChanged="SearchAvailable_SelectionChanged" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}"/>
     </Grid>
 </Window>
