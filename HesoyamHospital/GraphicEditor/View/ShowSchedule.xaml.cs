@@ -31,7 +31,7 @@ namespace GraphicEditor.View
         }
 
 
-        private void buttonScheduledAppointments_Click(object sender, RoutedEventArgs e)
+        private void ButtonScheduledAppointments_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
             List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();
@@ -53,7 +53,7 @@ namespace GraphicEditor.View
             
         }
 
-        private void buttonScheduledRelocations_Click(object sender, RoutedEventArgs e)
+        private void ButtonScheduledRelocations_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
             List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();
@@ -74,7 +74,7 @@ namespace GraphicEditor.View
 
         }
 
-        private void buttonScheduledRenovations_Click(object sender, RoutedEventArgs e)
+        private void ButtonScheduledRenovations_Click(object sender, RoutedEventArgs e)
         {
             List<Appointment> appointments = new List<Appointment>();
             List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();

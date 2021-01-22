@@ -20,11 +20,11 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="buttonScheduledAppointments" Content="Scheduled appointment" ToolTip="Scheduled appointment" VerticalAlignment="Top" Height="70" Width="250" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonScheduledAppointments_Click"/>
+        <Button x:Name="buttonScheduledAppointments" Content="Scheduled appointment" ToolTip="Scheduled appointment" VerticalAlignment="Top" Height="70" Width="250" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonScheduledAppointments_Click"/>
 
-        <Button x:Name="buttonScheduledRelocations" Content="Scheduled relocations" ToolTip="Scheduled relocations" VerticalAlignment="Top" Height="70" Width="250" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonScheduledRelocations_Click"/>
+        <Button x:Name="buttonScheduledRelocations" Content="Scheduled relocations" ToolTip="Scheduled relocations" VerticalAlignment="Top" Height="70" Width="250" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonScheduledRelocations_Click"/>
 
-        <Button x:Name="buttonScheduledRenovations" Content="Scheduled renovations" ToolTip="Scheduled renovations" VerticalAlignment="Top" Height="70" Width="250" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonScheduledRenovations_Click"/>
+        <Button x:Name="buttonScheduledRenovations" Content="Scheduled renovations" ToolTip="Scheduled renovations" VerticalAlignment="Top" Height="70" Width="250" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonScheduledRenovations_Click"/>
 
         <DataGrid x:Name="searchApp" Grid.Row="8" Grid.Column="0" Height="225" VerticalAlignment="Bottom" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" >
         </DataGrid>

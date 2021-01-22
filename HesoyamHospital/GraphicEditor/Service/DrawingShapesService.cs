@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System;
 using GraphicEditor.View;
 using Backend.Service.MedicalService;
 
@@ -158,9 +157,9 @@ namespace GraphicEditor
 
                 RoomService roomService = Backend.AppResources.getInstance().roomService;
                 Room roomS = roomService.GetRoomByName(rectangle.Name);
-               
-                ShowSchedule showSchedule = new ShowSchedule(roomS);
-                showSchedule.Show();
+
+                ChooseActionWindow chooseActionWindow = new ChooseActionWindow(roomS);
+                chooseActionWindow.Show();
         
             }
 
