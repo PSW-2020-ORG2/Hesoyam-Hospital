@@ -10,7 +10,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System;
+using GraphicEditor.View;
+using Backend.Service.MedicalService;
 
 namespace GraphicEditor
 {
@@ -20,6 +21,7 @@ namespace GraphicEditor
         private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
         private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
+        private readonly AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
         private readonly User loggedIn = Backend.AppResources.getInstance().loggedInUser;
        
         public DrawingShapesService()
@@ -149,6 +151,13 @@ namespace GraphicEditor
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
             MainWindow mainWindow = new MainWindow();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
+            if (rectangle.Name.Contains("room")) {
+
+                Room roomS = roomService.GetRoomByName(rectangle.Name);
+                ChooseActionWindow chooseActionWindow = new ChooseActionWindow(roomS);
+                chooseActionWindow.Show();
+        
+            }
 
             foreach (FileInformation inf in menuInformation)
                 if (inf.Name == rectangle.Name) mainWindow.DisplayHospital(sender, e, inf.FilePath, inf.Name);
@@ -160,7 +169,6 @@ namespace GraphicEditor
             if (rectangle.Name.Contains("room"))
             {
                 Information information = new Information();
-                RoomService roomService = Backend.AppResources.getInstance().roomService;
                 Room room = roomService.GetRoomByName(rectangle.Name);
 
                 information.name.Text = room.RoomNumber;
