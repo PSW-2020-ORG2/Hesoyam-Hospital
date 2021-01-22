@@ -63,7 +63,7 @@ namespace GraphicEditor.View
                 chooseDestinationRoom.Items.Add(item);
             }
 
-            String t = "8:00";
+            string t = "8:00";
 
             for (int i = 0; i <= 20; i++)
             {
@@ -79,7 +79,7 @@ namespace GraphicEditor.View
             }
         }
 
-        private void chooseTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChooseTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)chooseTime.SelectedItem;
 
@@ -140,34 +140,41 @@ namespace GraphicEditor.View
                 MapLocation mapLocation = searchService.GetLocationByRoomName(destinationRoom.RoomNumber);
                 searchService.DisplayResults(mapLocation);
             }
-            else
-            {
-                RelocationEquipment(timeInterval);
-            }
-
+            else RelocationEquipment(timeInterval);
+            
 
             if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
+                FillAlternativeTimeIntervals(timeInterval);
+            
+        }
+
+        private void FillAlternativeTimeIntervals(TimeInterval timeInterval)
+        {
+            alternativeTimeIntervals = new List<TimeInterval>();
+
+            int counterTerms = 0;
+            while (counterTerms <= NUM_TERMS)
             {
-                alternativeTimeIntervals = new List<TimeInterval>();
+                timeInterval.StartTime = timeInterval.EndTime;
+                timeInterval.EndTime = timeInterval.StartTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
-                for (int i = 1; i <= NUM_TERMS; i++)
+                if (roomService.IsRoomAvailableByTime(currentRoom, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
                 {
-                    startTime = endTime;
-                    endTime = startTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-                    TimeInterval time = new TimeInterval(startTime, endTime);
-
-                    if (roomService.IsRoomAvailableByTime(currentRoom, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
-                        alternativeTimeIntervals.Add(time);
+                    alternativeTimeIntervals.Add(time);
+                    counterTerms++;   
                 }
-
-                searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
-                searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
             }
+
+            searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
+            searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
         }
 
         private void RelocationEquipment(TimeInterval timeInterval)
         {
             Appointment appointmentRelocation = new Appointment(null, null, null, AppointmentType.relocation, timeInterval);
+            
+
             appointmentSchedulingService.SaveAppointment(appointmentRelocation);
             inventoryItem.RoomID = destinationRoom.Id;
             inventoryService.UpdateInventoryItem(inventoryItem);
@@ -177,12 +184,10 @@ namespace GraphicEditor.View
             mw.ShowDialog();
         }
 
-        private void searchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TimeInterval i = (TimeInterval)searchAlternativeTerms.SelectedItem;
-            RelocationEquipment(i);
-            alternativeTimeIntervals.Remove(i);
-            searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
+            TimeInterval selectedTimeInterval = (TimeInterval)searchAlternativeTerms.SelectedItem;
+            RelocationEquipment(selectedTimeInterval);
         }
 
         private void ToDate_KeyUp(object sender, KeyEventArgs e)

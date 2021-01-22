@@ -47,11 +47,11 @@
 
         <Label Content="Choose time for relocation: "  Grid.Row="6" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <ComboBox x:Name="chooseTime" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="chooseTime_SelectionChanged"/>
+        <ComboBox x:Name="chooseTime" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="ChooseTime_SelectionChanged"/>
 
         <Button x:Name="buttonEquipmentRelocation" Content="Schedule" ToolTip="Schedule" Grid.Row="7" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonEquipmentRelocation_Click"/>
 
-        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="8" Grid.Column="0" Height="225" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="searchAlternativeTerms_SelectionChanged">
+        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="8" Grid.Column="0" Height="225" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged">
         </DataGrid>
 
     </Grid>
