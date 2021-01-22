@@ -150,14 +150,10 @@ namespace GraphicEditor
         {
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
             MainWindow mainWindow = new MainWindow();
-            List<Room> rooms = (List<Room>)roomService.GetAll();
-            List<Appointment> appointments = (List<Appointment>)appointmentService.GetAll();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
             if (rectangle.Name.Contains("room")) {
 
-                RoomService roomService = Backend.AppResources.getInstance().roomService;
                 Room roomS = roomService.GetRoomByName(rectangle.Name);
-
                 ChooseActionWindow chooseActionWindow = new ChooseActionWindow(roomS);
                 chooseActionWindow.Show();
         
@@ -173,7 +169,6 @@ namespace GraphicEditor
             if (rectangle.Name.Contains("room"))
             {
                 Information information = new Information();
-                RoomService roomService = Backend.AppResources.getInstance().roomService;
                 Room room = roomService.GetRoomByName(rectangle.Name);
 
                 information.name.Text = room.RoomNumber;
