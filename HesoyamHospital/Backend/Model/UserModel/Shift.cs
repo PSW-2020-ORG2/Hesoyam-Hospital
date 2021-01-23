@@ -125,5 +125,10 @@ namespace Backend.Model.UserModel
         public long GetId() => Id;
 
         public void SetId(long id) => Id = id;
+
+        public object GetFirstTenAppointments(long aPPOINTMENT_DURATION_MINUTES)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

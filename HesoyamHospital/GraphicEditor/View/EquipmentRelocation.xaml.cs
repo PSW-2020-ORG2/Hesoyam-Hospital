@@ -27,14 +27,15 @@ namespace GraphicEditor.View
         private readonly InventoryService inventoryService;
         private readonly RoomService roomService;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
+        public readonly int NUM_TERMS = 6; 
         private Room currentRoom;
         private Room destinationRoom;
         private InventoryItem inventoryItem;
         private List<Room> availableRooms;
         private DateTime date;
         private SearchService searchService;
-        private TimeInterval timeInterval;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
+        private List<TimeInterval> alternativeTimeIntervals;
 
         public EquipmentRelocation()
         {
@@ -62,7 +63,7 @@ namespace GraphicEditor.View
                 chooseDestinationRoom.Items.Add(item);
             }
 
-            String t = "8:00";
+            string t = "8:00";
 
             for (int i = 0; i <= 20; i++)
             {
@@ -78,7 +79,7 @@ namespace GraphicEditor.View
             }
         }
 
-        private void chooseTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChooseTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem item = (ComboBoxItem)chooseTime.SelectedItem;
 
@@ -98,7 +99,7 @@ namespace GraphicEditor.View
 
             DateTime startTime = date;
             DateTime endTime = date.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-            timeInterval = new TimeInterval(startTime, endTime);
+            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
             availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
             bool isCurrentRoomAvailable = false;
@@ -139,17 +140,54 @@ namespace GraphicEditor.View
                 MapLocation mapLocation = searchService.GetLocationByRoomName(destinationRoom.RoomNumber);
                 searchService.DisplayResults(mapLocation);
             }
-            else
+            else RelocationEquipment(timeInterval);
+            
+
+            if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
+                FillAlternativeTimeIntervals(timeInterval);
+            
+        }
+
+        private void FillAlternativeTimeIntervals(TimeInterval timeInterval)
+        {
+            alternativeTimeIntervals = new List<TimeInterval>();
+
+            int counterTerms = 0;
+            while (counterTerms <= NUM_TERMS)
             {
-                Appointment appointmentForPatient = new Appointment(null, null, null, AppointmentType.renovation, timeInterval);
-                appointmentSchedulingService.SaveAppointment(appointmentForPatient);
-                inventoryItem.RoomID = destinationRoom.Id;
-                inventoryService.UpdateInventoryItem(inventoryItem);
-                MessageWindow mw = new MessageWindow();
-                mw.Title = "Equipment relocation";
-                mw.message.Content = "Successfully equipment relocation!";
-                mw.ShowDialog();
+                timeInterval.StartTime = timeInterval.EndTime;
+                timeInterval.EndTime = timeInterval.StartTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
+
+                if (roomService.IsRoomAvailableByTime(currentRoom, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
+                {
+                    alternativeTimeIntervals.Add(time);
+                    counterTerms++;   
+                }
             }
+
+            searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
+            searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
+        }
+
+        private void RelocationEquipment(TimeInterval timeInterval)
+        {
+            Appointment appointmentRelocation = new Appointment(null, null, null, AppointmentType.relocation, timeInterval);
+            
+
+            appointmentSchedulingService.SaveAppointment(appointmentRelocation);
+            inventoryItem.RoomID = destinationRoom.Id;
+            inventoryService.UpdateInventoryItem(inventoryItem);
+            MessageWindow mw = new MessageWindow();
+            mw.Title = "Equipment relocation";
+            mw.message.Content = "Successfully equipment relocation!";
+            mw.ShowDialog();
+        }
+
+        private void SearchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimeInterval selectedTimeInterval = (TimeInterval)searchAlternativeTerms.SelectedItem;
+            RelocationEquipment(selectedTimeInterval);
         }
 
         private void ToDate_KeyUp(object sender, KeyEventArgs e)
@@ -163,6 +201,5 @@ namespace GraphicEditor.View
         {
             throw new NotImplementedException();
         }
-
     }
 }

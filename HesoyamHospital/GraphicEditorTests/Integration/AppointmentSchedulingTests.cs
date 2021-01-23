@@ -32,7 +32,7 @@ namespace GraphicEditorTests.Unit
         public void Find_recommended_appointments_priority_interval()
         {
             AppointmentSchedulingService appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
-            var priorityInterval = new PriorityIntervalDTO(new DateTime(2020, 12, 28), new DateTime(2021, 1, 2), "Ivan Ivanovic", 101, false);
+            var priorityInterval = new PriorityIntervalDTO(new DateTime(2020, 1, 30), new DateTime(2021, 2, 2), "Ivan Ivanovic", 101, false);
             List<PriorityIntervalDTO> appointments = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(priorityInterval);
             appointments.ShouldNotBeNull();
             appointments.ShouldNotBeEmpty();

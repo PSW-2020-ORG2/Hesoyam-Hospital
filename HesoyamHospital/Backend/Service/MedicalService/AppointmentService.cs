@@ -84,7 +84,20 @@ namespace Backend.Service.MedicalService
             => GetPatientAppointments(patient).Where(appointment => IsCompleted(appointment));
 
         public IEnumerable<Appointment> GetAppointmentsByRoom(Room room)
-            => _appointmentRepository.GetAppointmentsByRoom(room);
+        {
+            List<Appointment> appointments = (List<Appointment>)GetAll();
+            List<Appointment> result = new List<Appointment>();
+            foreach (Appointment a in appointments)
+            {
+                if (a.Room.Id == room.Id)
+                {
+                    result.Add(a);
+                }
+                
+            }
+            return result;
+        }
+           
 
         public IEnumerable<Appointment> GetFilteredAppointment(AppointmentFilter appointmentFilter)
             => _appointmentRepository.GetFilteredAppointment(appointmentFilter);
