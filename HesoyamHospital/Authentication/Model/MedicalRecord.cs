@@ -1,4 +1,3 @@
-using Authentication.Model;
 using System.Collections.Generic;
 
 namespace Authentication.Model
@@ -8,26 +7,7 @@ namespace Authentication.Model
         public long Id { get; set; }
         public BloodType PatientBloodType { get; set; }
         public virtual Patient Patient { get; set; }
-
-        private List<Allergy> _allergy;
-        public virtual List<Allergy> Allergy
-        {
-            get
-            {
-                if (_allergy == null)
-                    _allergy = new List<Allergy>();
-                return _allergy;
-            }
-            set
-            {
-                RemoveAllAllergy();
-                if (value != null)
-                {
-                    foreach (Allergy oAllergy in value)
-                        AddAllergy(oAllergy);
-                }
-            }
-        }
+        public virtual List<Allergy> Allergy { get; set; }
 
         public MedicalRecord(long id)
         {
@@ -69,29 +49,6 @@ namespace Authentication.Model
 
         public void SetId(long id)
             => Id = id;
-        
-        public void AddAllergy(Allergy newAllergy)
-        {
-            if (newAllergy == null)
-                return;
-            if (Allergy == null)
-                Allergy = new List<Allergy>();
-            if (!Allergy.Contains(newAllergy))
-                Allergy.Add(newAllergy);
-        }
-
-        public void RemoveAllergy(Allergy oldAllergy)
-        {
-            if (oldAllergy == null)
-                return;
-            if (Allergy != null && Allergy.Contains(oldAllergy))
-                Allergy.Remove(oldAllergy);
-        }
-
-        public void RemoveAllAllergy()
-        {
-            if (Allergy != null) Allergy.Clear();
-        }
 
         public override bool Equals(object obj)
         {

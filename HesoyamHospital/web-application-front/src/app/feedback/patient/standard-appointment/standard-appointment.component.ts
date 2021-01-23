@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { logging } from 'protractor';
 import { DoctorDto } from 'src/app/medical-record/DTOs/doctor-dto';
@@ -10,6 +10,10 @@ import { IntervalDTO } from './DTOs/IntervalDTO';
 import { MatStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
+import { SchedulingStepChangedEvent } from '../../DTOs/scheduling-step-changed-event';
+import { SchedulingEndedEvent } from '../../DTOs/scheduling-ended-event';
+import { SchedulingStartedEvent } from '../../DTOs/scheduling-started-event';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-standard-appointment',
@@ -17,8 +21,9 @@ import { AuthenticationService } from 'src/app/authentication/service/authentica
   styleUrls: ['./standard-appointment.component.css']
   
 })
-export class StandardAppointmentComponent implements OnInit {
+export class StandardAppointmentComponent implements OnInit, OnDestroy {
 
+  appointmentScheduled : boolean;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   scheduledTime : string = "";
@@ -38,6 +43,9 @@ export class StandardAppointmentComponent implements OnInit {
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 11, 31);
   }
+  ngOnDestroy(): void {
+    if (!this.appointmentScheduled) this.sendUnsuccessfulSchedulingEvent();
+  }
 
   ngOnInit() {
     
@@ -47,6 +55,7 @@ export class StandardAppointmentComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+    this.sendSchedulingStartedEvent();
   }
 
   getDoctors(stepper : MatStepper){
@@ -100,6 +109,7 @@ export class StandardAppointmentComponent implements OnInit {
     this._appoService.createAppointment(this.appointment).subscribe(
       (data) => {
         stepper.next();
+        this.sendSuccessfulSchedulingEvent();
       },
       error => {
         if (error.error == "SCHEDULING FAILED"){
@@ -113,6 +123,33 @@ export class StandardAppointmentComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 20000,
     });
+  }
+
+  stepForward(currentStep : number) {
+    let step : SchedulingStepChangedEvent = new SchedulingStepChangedEvent(this.authService.getUsername(), 0, currentStep);
+    this._appoService.postSchedulingStepChangeddEvent(step).subscribe((val) => console.log('smth happened'));
+  }
+
+  stepBackward(currentStep : number) {
+    let step : SchedulingStepChangedEvent = new SchedulingStepChangedEvent(this.authService.getUsername(), 1, currentStep);
+    this._appoService.postSchedulingStepChangeddEvent(step).subscribe((val) => console.log('smth happened'));
+  }
+
+  sendSuccessfulSchedulingEvent() {
+    let scheduledEvent : SchedulingEndedEvent = new SchedulingEndedEvent(this.authService.getUsername(), 0);
+    this._appoService.postSchedulingEndedEvent(scheduledEvent).subscribe((val) => console.log('smth happened'));
+    this.appointmentScheduled = true;
+  }
+
+  sendUnsuccessfulSchedulingEvent() {
+    let scheduledEvent : SchedulingEndedEvent = new SchedulingEndedEvent(this.authService.getUsername(), 1);
+    this._appoService.postSchedulingEndedEvent(scheduledEvent).subscribe((val) => console.log('smth happened'));
+  }
+
+  sendSchedulingStartedEvent() {
+    let startEvent : SchedulingStartedEvent = new SchedulingStartedEvent(this.authService.getUsername());
+    this._appoService.postSchedulingStartedEvent(startEvent).subscribe((val) => console.log('smth happened'));
+    this.appointmentScheduled = false;
   }
 
 }

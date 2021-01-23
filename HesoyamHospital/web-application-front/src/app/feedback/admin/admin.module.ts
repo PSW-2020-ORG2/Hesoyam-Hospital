@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AdminRoutingModule } from './admin-routing.module';
 import { PublishListComponent } from './publish-list/publish-list.component';
 import { MatTableModule } from '@angular/material/table';
@@ -12,9 +12,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import { SurveysResultsComponent } from './surveys-results/surveys-results.component';
 import { SurveysDoctorsComponent } from './surveys-doctors/surveys-doctors.component';
 import { BlockPatientsComponent } from './block-patients/block-patients.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
-  declarations: [PublishListComponent, SurveysAndSectionsComponent, SurveysResultsComponent, SurveysDoctorsComponent, BlockPatientsComponent],
+  declarations: [PublishListComponent, SurveysAndSectionsComponent, SurveysResultsComponent, SurveysDoctorsComponent, BlockPatientsComponent, StatisticsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -22,7 +23,8 @@ import { BlockPatientsComponent } from './block-patients/block-patients.componen
     MatButtonModule,
     MaterialModule,
     FormsModule,
-    MatDividerModule
+    MatDividerModule,
+    NgxChartsModule
   ]
 })
 export class AdminModule { }
