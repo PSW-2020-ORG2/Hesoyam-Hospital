@@ -35,7 +35,8 @@ EXPOSE 80
 WORKDIR /app/
 
 COPY --from=build /app .
-COPY ./Resources /app/dist/Resources
+COPY --from=build /app/Resources /app/dist/
+
 #COPY --from=build /app/Resources /app/publish/Resources
 COPY --from=nodebuilder /usr/src/app/dist/web-application-front/. /app/dist/
 

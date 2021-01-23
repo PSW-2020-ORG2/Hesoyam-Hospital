@@ -42,6 +42,11 @@ namespace APIGateway
                 });
             }
 
+            services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "Publish/dist";
+                });
+
             services.AddOcelot();
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
@@ -79,48 +84,27 @@ namespace APIGateway
                     Path.Combine(env.ContentRootPath, "Resources")),
                     RequestPath = "/Resources"
                 });
-
-                //app.UseStaticFiles(new StaticFileOptions
-                //{
-                //    FileProvider = new PhysicalFileProvider(
-                //    Path.Combine(env.ContentRootPath, "Public")),
-                //    RequestPath = ""
-                //});
-
-                //app.UseSpa(spa =>
-                //{
-                //    spa.Options.SourcePath = "/Public";
-                //});
                 Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
                 });
             }
-
-            app.UseStaticFiles(new StaticFileOptions
+            else
             {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(env.ContentRootPath, "Resources")),
-                RequestPath = "/Resources"
-            });
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Resources")),
+                    RequestPath = "/Resources"
+                });
 
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //    Path.Combine(env.ContentRootPath, "Public")),
-            //    RequestPath = ""
-            //});
-
-            //app.UseSpa(spa =>
-            //{
-            //    spa.Options.SourcePath = "/Public";
-            //});
-            Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
-            });
+                Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
+                });
+            }
 
             app.UseEndpoints(endpoints =>
             {

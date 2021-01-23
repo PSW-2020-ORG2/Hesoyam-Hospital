@@ -5,7 +5,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -24,7 +24,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -43,7 +43,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -62,7 +62,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -81,7 +81,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -100,7 +100,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -119,7 +119,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -138,7 +138,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "appointment",
                     "Port": 57733
                 }
             ],
@@ -157,7 +157,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -169,7 +169,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -188,7 +188,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -200,7 +200,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -212,7 +212,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -220,11 +220,23 @@
             "UpstreamHttpMethod": [ "POST" ]
         },
         {
+            "DownstreamPathTemplate": "/api/patient/getAllPatients",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "authentication",
+                    "Port": 57746
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/patient/getAllPatients",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/doctor/allGeneralDoctors",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -243,7 +255,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -262,7 +274,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -281,7 +293,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57746
                 }
             ],
@@ -300,7 +312,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "authentication",
                     "Port": 57748
                 }
             ],
@@ -319,7 +331,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "documents",
                     "Port": 57748
                 }
             ],
@@ -338,7 +350,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "documents",
                     "Port": 57748
                 }
             ],
@@ -357,7 +369,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "documents",
                     "Port": 57748
                 }
             ],
@@ -376,7 +388,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "documents",
                     "Port": 57748
                 }
             ],
@@ -395,7 +407,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -414,7 +426,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -433,7 +445,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -445,7 +457,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -464,7 +476,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -483,7 +495,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -502,7 +514,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -521,7 +533,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -540,7 +552,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -559,7 +571,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -578,7 +590,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -597,7 +609,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
@@ -616,7 +628,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "localhost",
+                    "Host": "feedback",
                     "Port": 57741
                 }
             ],
