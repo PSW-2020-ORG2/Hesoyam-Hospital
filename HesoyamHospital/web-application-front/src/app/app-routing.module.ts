@@ -19,6 +19,7 @@ import { MainPageComponent } from './authentication/main-page/main-page.componen
 import { ReportComponent } from './feedback/patient/report/report.component';
 import { PrescriptionComponent } from './feedback/patient/prescription/prescription.component';
 import { LandingPageComponent } from './feedback/public/landing-page/landing-page.component';
+import { StatisticsComponent } from './feedback/admin/statistics/statistics.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/hesoyamhospital', pathMatch: 'full'},
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'selected-doctor', component: SelectedDoctorComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'main-page', component: MainPageComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},
   {path: 'block-patients', component: BlockPatientsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
+  {path: 'scheduling-statistics', component: StatisticsComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Admin'}},
   {path: 'feedback', loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)},
   {path: 'registration', loadChildren: () => import('./registration/registration.module').then(mod => mod.RegistrationModule)},
   {path: 'documents/simple-search', component: SimpleSearchComponent, canActivate: [RouteGuardService], data: { expectedRole: 'Patient'}},

@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+  public loginComponent = false;
+  public registerComponent = false;
   loginUrl = "http://localhost:57874/gateway/login";
 
   constructor( private _http : HttpClient, public router: Router) { }

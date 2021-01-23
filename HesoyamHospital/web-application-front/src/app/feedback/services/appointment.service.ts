@@ -11,6 +11,9 @@ import { PriorityIntervalDTO } from '../DTOs/priority-interval-dto';
 import { BlockPatientDto } from '../DTOs/block-patient-dto';
 import { BlockPatientsComponent } from '../admin/block-patients/block-patients.component';
 import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
+import { SchedulingStartedEvent } from '../DTOs/scheduling-started-event';
+import { SchedulingEndedEvent } from '../DTOs/scheduling-ended-event';
+import { SchedulingStepChangedEvent } from '../DTOs/scheduling-step-changed-event';
 
 
 export interface Doctor {
@@ -31,6 +34,9 @@ export class AppointmentService {
   private _urlgetrecommendedtimes:string = "http://localhost:57874/gateway/appointmentscheduling/recommendation";
   private _urlSuspicious:string = "http://localhost:57874/gateway/appointment/getSuspiciousPatients";
   private _urlBlock:string = "http://localhost:57874/gateway/appointment/block/";
+  private _urlSchedulingStarted:string = "http://localhost:63725/api/schedulingevent/create/start";
+  private _urlSchedulingEnded:string = "http://localhost:63725/api/schedulingevent/create/end";
+  private _urlSchedulingStepChanged:string = "http://localhost:63725/api/schedulingevent/create/step-changed";
 
   constructor( private _http : HttpClient, private authService : AuthenticationService) { }
 
@@ -64,5 +70,17 @@ export class AppointmentService {
 
   blockPatient(username : string){
     return this._http.put(this._urlBlock + username, "");
+  }
+
+  postSchedulingStartedEvent(event : SchedulingStartedEvent) {
+    return this._http.post(this._urlSchedulingStarted, event);
+  }
+
+  postSchedulingEndedEvent(event : SchedulingEndedEvent) {
+    return this._http.post(this._urlSchedulingEnded, event);
+  }
+
+  postSchedulingStepChangeddEvent(event : SchedulingStepChangedEvent) {
+    return this._http.post(this._urlSchedulingStepChanged, event);
   }
 }
