@@ -31,7 +31,7 @@ namespace Medicines.Service
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             generatorTimer.Elapsed += new ElapsedEventHandler(GenerateMessage);
-            generatorTimer.Interval = 7000; //number in miliseconds  
+            generatorTimer.Interval = 700000; //number in miliseconds  
             generatorTimer.Enabled = true;
 
             return Task.CompletedTask;

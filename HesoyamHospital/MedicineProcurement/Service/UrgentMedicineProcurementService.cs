@@ -61,7 +61,7 @@ namespace MedicineProcurement.Service
 
         private bool IsRequiredMedicineAvailableGrpc(RegisteredPharmacyDTO pharmacy, UrgentMedicineProcurement urgentMedicine)
         {
-            Channel channel = new Channel(pharmacy.Endpoint + ":" + pharmacy.GrpcPort, ChannelCredentials.Insecure);
+            Channel channel = new Channel(pharmacy.ExtractDomainName() + ":" + pharmacy.GrpcPort, ChannelCredentials.Insecure);
             MedicineQuantityAvailableService.MedicineQuantityAvailableServiceClient client = new MedicineQuantityAvailableService.MedicineQuantityAvailableServiceClient(channel);
             MedicineProcurementProto request = new MedicineProcurementProto { MedicineName = urgentMedicine.Medicine, Quantity = urgentMedicine.Quantity };
             MedicineQuantityAvailableProto proto = client.IsQuantityAvailable(request);
@@ -110,7 +110,7 @@ namespace MedicineProcurement.Service
 
         private bool SendMedicineProcurementRequestGrpc(RegisteredPharmacyDTO pharmacy, UrgentMedicineProcurement urgentMedicine)
         {
-            Channel channel = new Channel(pharmacy.Endpoint + ":" + pharmacy.GrpcPort, ChannelCredentials.Insecure);
+            Channel channel = new Channel(pharmacy.ExtractDomainName() + ":" + pharmacy.GrpcPort, ChannelCredentials.Insecure);
             MedicineProcurementService.MedicineProcurementServiceClient client = new MedicineProcurementService.MedicineProcurementServiceClient(channel);
             MedicineProcurementProto request = new MedicineProcurementProto { MedicineName = urgentMedicine.Medicine, Quantity = urgentMedicine.Quantity };
             MedicinePurchasedSuccessfullyProto proto = client.PurchaseMedicine(request);

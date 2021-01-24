@@ -32,12 +32,16 @@ namespace PharmacyRegistration.Repository.SQLRepository.Base
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RegisteredPharmacy>().OwnsOne(rp => rp.ApiKey);
+            modelBuilder.Entity<RegisteredPharmacy>().OwnsOne(rp => rp.Endpoint);
+        }
 
         private string GenerateConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
-            return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
+            return "server=" + server.Trim() + ";" + "port = 3306; database = mydb1; user = root; password = root";
         }
         private string GeneratePostgresConnectionString()
         {

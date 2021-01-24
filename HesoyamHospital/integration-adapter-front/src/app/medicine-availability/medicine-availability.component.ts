@@ -30,6 +30,7 @@ export class MedicineAvailabilityComponent implements OnInit {
     this.FillPharmacy();
     this.availabilityForm=this.fb.group({});
     this.FillMedicines();
+    console.log(this.medicines);
   }
 
   async FillPharmacy(){
@@ -50,14 +51,15 @@ export class MedicineAvailabilityComponent implements OnInit {
     .subscribe(data => {
       this.available = data;
       if(this.available.Addresses != null){
-        console.log("IF IS TRUE");
         this.available.Addresses.forEach(
           a=> this.availableAdresses+=a)
       } else {
-        console.log("IF IS FALSE");
         this.availableAdresses = "Medicine unavailable!";
       }
-    })
+    }, err => {
+      alert(err.error);
+    } 
+    )
   }
   
 GetSelectedPharmacy(){
