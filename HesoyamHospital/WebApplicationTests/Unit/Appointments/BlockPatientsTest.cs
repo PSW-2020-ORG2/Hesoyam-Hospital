@@ -1,12 +1,9 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Repository.Abstract.UsersAbstractRepository;
-using Backend.Repository.MySQLRepository.UsersRepository;
+﻿using Authentication.Model;
+using Authentication.Repository.Abstract;
+using Authentication.Service;
 using Moq;
 using Shouldly;
 using System.Collections.Generic;
-using WebApplication.Appointments.Service;
 using Xunit;
 
 namespace WebApplicationTests.Unit.Appointments
@@ -17,7 +14,7 @@ namespace WebApplicationTests.Unit.Appointments
         [MemberData(nameof(Data))]
         public void Blocking_suspicious_patients(Patient patient)
         {
-            AppointmentService service = new AppointmentService(CreatePatientStubRepository(), CreateAppointmentStubRepository(), CreateCancellationStubRepository());
+            PatientService service = new PatientService(CreatePatientStubRepository(), null, null);
 
             Patient blockedPatient = service.BlockPatient(patient);
 
@@ -27,16 +24,6 @@ namespace WebApplicationTests.Unit.Appointments
         private static IPatientRepository CreatePatientStubRepository()
         {
             return new Mock<IPatientRepository>().Object;
-        }
-
-        private static IAppointmentRepository CreateAppointmentStubRepository()
-        {
-            return new Mock<IAppointmentRepository>().Object;
-        }
-
-        private static ICancellationRepository CreateCancellationStubRepository()
-        {
-            return new Mock<ICancellationRepository>().Object;
         }
 
         public static IEnumerable<object[]> Data =>

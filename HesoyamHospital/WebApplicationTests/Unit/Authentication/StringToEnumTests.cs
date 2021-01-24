@@ -1,9 +1,8 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
-using System.Collections.Generic;
-using WebApplication.Authentication;
+﻿using System.Collections.Generic;
 using Xunit;
 using Shouldly;
+using Authentication.Model;
+using Authentication.Mappers;
 
 namespace WebApplicationTests.Unit.Authentication
 {

@@ -10,7 +10,7 @@
         [view]="[700,300]"
         [labels]="true" >
         </ngx-charts-pie-chart>
-        <span style="display: flex; width: 50%; display: inline-block; margin-left: 50px; float: right; margin-top: 50px;">
+        <span style="width: 50%; display: inline-block; margin-left: 50px; float: right; margin-top: 50px; width: 40%">
             <div style="display: inline;">
                 <p style="display: inline; font-weight: 500; font-size: 15px;">Average number of steps per scheduling: <label style="color: rgb(121, 164, 224); font-weight: normal; font-size: 20px;">{{averageNumberOfSteps | number : '1.2-2'}}</label></p>
             </div>
@@ -30,7 +30,7 @@
     </div>
     <div style="height: 60px;"></div>
     <div style="padding-top: 0px;">
-        <ngx-charts-bar-vertical style="display: inline-flex; margin-right: 20px;"
+        <ngx-charts-bar-vertical style="display: inline-flex; margin-right: 20px; width: 45%;"
             [view]="[700,300]"
             [results]="quittingStep"
             [xAxisLabel]="'Step'"
@@ -44,7 +44,7 @@
             [yScaleMax]="100"
             [gradient]="false">
         </ngx-charts-bar-vertical>
-        <ngx-charts-bar-horizontal style="display: inline-flex; margin-left: 20px; background-color: white;"
+        <ngx-charts-bar-horizontal style="display: inline-flex; margin-left: 20px; background-color: white; width: 45%;"
             [view]="[700,300]"
             [results]="returningStep"
             [xAxisLabel]="'Percentage of returning to step'"
@@ -60,8 +60,8 @@
         </ngx-charts-bar-horizontal>
     </div>
     <div style="height: 50px; background-color: white;"></div>
-    <ngx-charts-pie-grid style="background-color: white; margin-top: 100px;"
-        [view]="[1500,300]"
+    <ngx-charts-pie-grid style="background-color: white; margin-top: 100px; width: 90%"
+        [view]="[1400,300]"
         [results]="averageTime" >
     </ngx-charts-pie-grid>
     <p style="text-align: center; padding-bottom: 50px;">Average time spent on each step (in seconds)</p>

@@ -2,15 +2,9 @@
 using Shouldly;
 using System.Net;
 using Xunit;
-using WebApplication;
 using System.Net.Http;
-using WebApplication.Documents;
-using System;
-using Backend.Util;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Backend.Model.UserModel;
-using WebApplication.HospitalSurvey;
+using Feedbacks;
 
 namespace WebApplicationTests.Integration.HospitalSurvey
 {
@@ -22,76 +16,81 @@ namespace WebApplicationTests.Integration.HospitalSurvey
         {
             _factory = factory;
         }
-        //[Theory]
-        //[MemberData(nameof(Data))]
-        //public async void Getting_answers_status_code_tests(HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
 
-        //    HttpResponseMessage response = await client.GetAsync("/api/survey/get-answers");
+        [Theory]
+        [MemberData(nameof(Data))]
+        public async void Getting_answers_status_code_tests(HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
 
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
-        //[Theory]
-        //[MemberData(nameof(Data2))]
-        //public async void Getting_answers_per_each_doctor_status_code_tests(int id , HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
+            HttpResponseMessage response = await client.GetAsync("/api/survey/get-answers");
 
-        //    HttpResponseMessage response = await client.GetAsync("/api/survey/answers-per-doctors/" + id);
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
 
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
+        [Fact]
+        public async void Getting_answers_per_each_doctor_status_code_tests()
+        {
+            HttpClient client = _factory.CreateClient();
+            long id = 0;
 
-        //[Theory]
-        //[MemberData(nameof(Data2))]
-        //public async void Getting_average_grade_per_each_doctor_status_code_tests(int id, HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
+            HttpResponseMessage response = await client.GetAsync("/api/survey/answers-per-doctors/" + id);
 
-        //    HttpResponseMessage response = await client.GetAsync("/api/survey/average-grade-per-doctor/" + id);
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.BadRequest };
+            response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
+        }
 
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
-        //[Theory]
-        //[MemberData(nameof(Data))]
-        //public async void Mean_values_per_section_status_code_tests( HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
+        [Fact]
+        public async void Getting_average_grade_per_each_doctor_status_code_tests()
+        {
+            HttpClient client = _factory.CreateClient();
+            long id = 0;
 
-        //    HttpResponseMessage response = await client.GetAsync("/api/survey/mean-value-per-section" );
+            HttpResponseMessage response = await client.GetAsync("/api/survey/average-grade-per-doctor/" + id);
 
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.BadRequest };
+            response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
+        }
 
-        //[Theory]
-        //[MemberData(nameof(Data1))]
-        //public async void Mean_values_per_questions_status_code_tests(string section, HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
+        [Theory]
+        [MemberData(nameof(Data))]
+        public async void Mean_values_per_section_status_code_tests(HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
 
-        //    HttpResponseMessage response = await client.GetAsync("/api/survey/mean-value-per-question/" + section);
+            HttpResponseMessage response = await client.GetAsync("/api/survey/mean-value-per-section");
 
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
 
-        //[Theory]
-        //[MemberData(nameof(Data1))]
-        //public async void Frequencies_per_answers_to_questions_status_code_tests(string section, HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
+        [Theory]
+        [MemberData(nameof(Data1))]
+        public async void Mean_values_per_questions_status_code_tests(string section, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
 
-        //    HttpResponseMessage response = await client.GetAsync("/api/survey/frequencies-per-question/" + section);
+            HttpResponseMessage response = await client.GetAsync("/api/survey/mean-value-per-question/" + section);
 
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
 
+        [Theory]
+        [MemberData(nameof(Data1))]
+        public async void Frequencies_per_answers_to_questions_status_code_tests(string section, HttpStatusCode expectedStatusCode)
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.GetAsync("/api/survey/frequencies-per-question/" + section);
+
+            response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
+        }
 
         public static IEnumerable<object[]> Data =>
        new List<object[]>
        {
             new object[] {  HttpStatusCode.OK }
        };
+
         public static IEnumerable<object[]> Data1 =>
        new List<object[]>
        {
@@ -99,13 +98,5 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             new object[] {"Scs", HttpStatusCode.BadRequest},
             new object[] { "Doctor" ,HttpStatusCode.OK }
        };
-        public static IEnumerable<object[]> Data2 =>
-       new List<object[]>
-       {   
-           new object[] { 356 , HttpStatusCode.BadRequest},
-            new object[] { 600 , HttpStatusCode.OK}
-            
-       };
-
     }
 }
