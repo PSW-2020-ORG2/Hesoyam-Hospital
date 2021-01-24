@@ -49,7 +49,11 @@ namespace PharmacyRegistration.Controllers
         public IActionResult GetAll()
         {
             List<RegisteredPharmacy> pharmacyList = _registeredPharmacyService.GetAll().ToList();
-            return Ok(pharmacyList);
+            List<RegisterPharmacyDTO> retVal = new List<RegisterPharmacyDTO>();
+            foreach(RegisteredPharmacy p in pharmacyList){
+                retVal.Add(new RegisterPharmacyDTO(p));
+            }
+            return Ok(retVal);
         }
     }
 }

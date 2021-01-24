@@ -24,5 +24,13 @@ namespace PharmacyRegistration.DTOs
             Endpoint = endpoint;
         }
         public RegisterPharmacyDTO() { }
+
+        public RegisterPharmacyDTO(RegisteredPharmacy pharmacy)
+        {
+            ApiKey = pharmacy.ApiKey.KeyID;
+            PharmacyName = pharmacy.PharmacyName;
+            Endpoint = pharmacy.Endpoint.EndpointURL;
+            GrpcPort = GrpcPort;
+        }
     }
 }
