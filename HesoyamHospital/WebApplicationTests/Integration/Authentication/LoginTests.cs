@@ -19,7 +19,7 @@ namespace WebApplicationTests.Integration.Authentication
         }
 
         [Fact]
-        public async void UnsuccessfulLoginNullObjectSent()
+        public async void Unsuccessful_login_null_object_sent()
         {
             HttpClient client = _factory.CreateClient();
             StringContent bodyContent = new StringContent("", System.Text.Encoding.UTF8, "application/json");
@@ -30,7 +30,7 @@ namespace WebApplicationTests.Integration.Authentication
         }
 
         [Fact]
-        public async void LoginPatient()
+        public async void Login_patient()
         {
             HttpClient client = _factory.CreateClient();
             UserLoginDTO patient = new UserLoginDTO("username", "password", "Patient");
@@ -43,7 +43,7 @@ namespace WebApplicationTests.Integration.Authentication
         }
 
         [Fact]
-        public async void LoginAdmin()
+        public async void Login_admin()
         {
             HttpClient client = _factory.CreateClient();
             UserLoginDTO admin = new UserLoginDTO("username", "password", "Admin");

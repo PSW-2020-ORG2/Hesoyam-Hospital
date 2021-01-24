@@ -61,6 +61,16 @@ namespace Backend.Service.HospitalManagementService
             return examinationRooms;
         }
 
+        public bool IsRoomAvailableByTime(Room room, TimeInterval timeInterval)
+        {
+            var appointments = _appointmentRepository.GetAppointmentsByTime(timeInterval);
+            foreach (Appointment a in appointments)
+                if (a.Room == room)
+                    return false;
+                
+            return true;
+        }
+
         public void DivideRooms(Room initialRoom, String newNumber)
         {
             initialRoom.RoomNumber = newNumber;

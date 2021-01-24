@@ -11,6 +11,7 @@ namespace Backend.Model.PatientModel
     {
         checkup,
         operation,
-        renovation
+        renovation,
+        relocation
     }
 }

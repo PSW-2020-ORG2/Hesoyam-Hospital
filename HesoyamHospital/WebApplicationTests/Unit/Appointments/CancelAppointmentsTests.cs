@@ -1,11 +1,9 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Repository.Abstract.UsersAbstractRepository;
+﻿using Appointments.Model;
+using Appointments.Repository.Abstract;
+using Appointments.Service;
 using Moq;
 using Shouldly;
 using System.Collections.Generic;
-using WebApplication.Appointments.Service;
 using Xunit;
 
 namespace WebApplicationTests.Unit.Appointments
@@ -16,26 +14,11 @@ namespace WebApplicationTests.Unit.Appointments
         [MemberData(nameof(Data))]
         public void Cancel_appointment(long patientId, long appointmentId, bool canceledStatus)
         {
-            AppointmentService service = new AppointmentService(CreatePatientStubRepository(), CreateAppointmentStubRepository(), CreateCancellationStubRepository());
+            AppointmentService service = new AppointmentService(CreateAppointmentStubRepository(), CreateCancellationStubRepository());
 
             service.Cancel(patientId, appointmentId);
 
             service.GetByID(appointmentId).Canceled.ShouldBe(canceledStatus);
-        }
-
-        private static IPatientRepository CreatePatientStubRepository()
-        {
-            var stubRepository = new Mock<IPatientRepository>();
-
-            Patient patient = new Patient(0)
-            {
-                Appointments = new List<Appointment>()
-            };
-            patient.Appointments.Add(Appointment);
-
-            stubRepository.Setup(r => r.GetByID(0)).Returns(patient);
-
-            return stubRepository.Object;
         }
 
         private static IAppointmentRepository CreateAppointmentStubRepository()
