@@ -20,15 +20,27 @@ export class UrgentRequestDialogComponent implements OnInit {
     } ,private urgentMedicineProcurementService:UrgentMedicineProcurementService) { }
 
   pharmacyName:string;
+  selectedPharmacy:RegisteredPharmacy;
   ngOnInit(): void {
     console.log(this.data.pharmacies);
     
   }
   
+GetPharmacy(){
+  this.data.pharmacies.forEach(p=>
+   {
+     if(p.PharmacyName==this.pharmacyName)
+      {
+        this.selectedPharmacy=p;
+      }
+   })
+
+}
+  
   Order(){
-    console.log(this.pharmacyName);
-    console.log(this.data.selectedRequest);
-    this.urgentMedicineProcurementService.OrderMedicine(this.pharmacyName,this.data.selectedRequest).subscribe(
+    this.GetPharmacy();
+    console.log(this.selectedPharmacy);
+    this.urgentMedicineProcurementService.OrderMedicine(this.selectedPharmacy,this.data.selectedRequest.Id).subscribe(
       m=>{
       this.dialogRef.close()
     }

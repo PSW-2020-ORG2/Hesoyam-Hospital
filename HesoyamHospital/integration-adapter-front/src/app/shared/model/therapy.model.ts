@@ -1,4 +1,5 @@
 export class Therapy {
+    Id:number;
     StartTime:Date ;
     EndTime :Date
     DateCreated:Date

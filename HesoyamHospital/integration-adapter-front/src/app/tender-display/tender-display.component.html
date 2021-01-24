@@ -9,7 +9,7 @@
             </ul>    
             <br>
             <br>
-            <p class="date">{{t.EndDate| date}}</p>
+            <p class="date">{{t.EndDate| date}} {{t.EndDate| date:'shortTime'}}</p>
         </div> 
            <div class="action-button">
             <button mat-raised-button (click)="Offer(t.Id)"> Offer </button>

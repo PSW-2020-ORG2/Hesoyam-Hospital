@@ -95,10 +95,7 @@ namespace IntegrationAdapter.Tendering.Service
 
         public void Validate(Tender entity)
         {
-            if(entity.EndDate < DateTime.Now)
-            {
-                throw new InvalidDateException("Tender end date must be in the future!");
-            }
+            
             if(entity.TenderListings.Count == 0 || entity.TenderListings == null)
             {
                 throw new TenderListingsEmptyException("Tender must contain listings!");

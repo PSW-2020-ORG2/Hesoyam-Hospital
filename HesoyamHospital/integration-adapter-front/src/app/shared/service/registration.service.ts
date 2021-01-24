@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class RegistrationService {
 
 
-  readonly _APIUrl="http://localhost:54574/api/registerpharmacy"
+  readonly _APIUrl="http://localhost:54297/gateway/registerpharmacy"
 
   constructor(private _http : HttpClient) { }
 

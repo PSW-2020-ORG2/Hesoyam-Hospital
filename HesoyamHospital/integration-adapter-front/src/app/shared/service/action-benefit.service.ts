@@ -8,7 +8,7 @@ import { ActionBenefit } from '../model/action-benefit.model';
   providedIn: 'root'
 })
 export class ActionBenefitService {
-  readonly _APIUrl="http://localhost:54574/api/actionsbenefits"
+  readonly _APIUrl="http://localhost:54297/gateway"
 
   constructor(private _http : HttpClient) { }
   
@@ -21,7 +21,7 @@ export class ActionBenefitService {
      return this._http.put(this._APIUrl+'/approve/'+val,{id:val});
   }
   
-  /*Delete(val:any): Observable<any>{
-    return this._http.delete(this._APIUrl+'/delete'+val);
-  }*/
+  Delete(val:any): Observable<any>{
+    return this._http.delete(this._APIUrl+'/delete/'+val);
+  }
 }

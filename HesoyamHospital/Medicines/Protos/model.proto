@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option csharp_namespace = "Medicines.Protos";
+package medicine_availability;
+
+message MedicineNameProto {
+	string medicineName = 1;
+}
+
+message MedicineAvailabilityProto {
+	bool available = 1;
+	repeated string addresses = 2;
+}

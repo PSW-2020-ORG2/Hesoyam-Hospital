@@ -1,0 +1,295 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/actionsbenefits/approved",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63162
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/approved",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/actionsbenefits/approvedtext",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63162
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/approvedtext",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/actionsbenefits/unapproved",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63162
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/unapproved",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/actionsbenefits/approve/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63162
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/approve/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/actionsbenefits/delete/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 63162
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/delete/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/registerpharmacy",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 60007
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/registerpharmacy",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/registerpharmacy/all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 60007
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/registerpharmacy/all",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medicine",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 56514
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/medicine/all",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medicine/getavailability/{medicinename}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 56514
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/getavailability/{medicinename}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/medicine/specification/{name}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 56514
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/specification/{name}",
+      "UpstreamHttpMethod": [ "GET" ]
+    }
+    ,{
+      "DownstreamPathTemplate": "/api/therapy/addtherapy",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 56514
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/addtherapy",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/therapy/sendprescription/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 56514
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/sendprescription{id}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tender/createtender",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/createtender",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tender/concludetender/{tenderid}/{winnerofferid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/concludetender/{tenderid}/{winnerofferid}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tender/active",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/active",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tender/unconcluded",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/unconcluded",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tenderoffer/createoffer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/createoffer",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tenderoffer/getoffers/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/getoffers/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tenderoffer/getAllOfferEmails/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/getAllOfferEmails/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/urgentmedicineprocurement/createrequest",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/createrequest",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/urgentmedicineprocurement/getMedicineByID/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/getMedicineByID/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/urgentmedicineprocurement",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/urgentmedicineprocurement/allunconcluded",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/urgentmedicineprocurement/getPharmacies/{urgentMedicineId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/getPharmacies/{urgentMedicineId}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/urgentmedicineprocurement/{urgentMedicineId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 59080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/{urgentMedicineId}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:54297"
+  }
+}

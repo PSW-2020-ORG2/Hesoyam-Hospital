@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup , Validators} from '@angular/forms'
 import { Medicine } from '../shared/model/medicine.model';
 import { MedicineAvailabilityService } from 'src/app/shared/service/medicine-availability.service';
-import {SharedService } from 'src/app/shared/service/shared.service'
 import { RegisteredPharmacy } from '../shared/model/registered-pharmacy.model';
 import { MedicineAvailability } from '../shared/model/medicine-availability.model';
+import { SharedService } from '../shared/service/shared.service';
 
 @Component({
   selector: 'app-medicine-availability',
@@ -16,46 +16,59 @@ export class MedicineAvailabilityComponent implements OnInit {
   constructor(private fb: FormBuilder,private sharedService:SharedService,private medicineAvailabilityService:MedicineAvailabilityService) { }
 
   availabilityForm:FormGroup;
-  medicines: Medicine[]=[{
-    Id:1,
-    Name:"Paracetamol"
-    },{
-    Id:2,
-    Name:"Andol"
-    },{
-    Id:3,
-    Name:"Brufen"
-    }];
-    
+  medicines: Medicine[]=[];
   medID:number;
   
   pharmacies:RegisteredPharmacy[]=[];
+  selectedPharmacy:RegisteredPharmacy;
 
-  pyrmacyName:number;
+  pharmacyName:string;
   
   available: MedicineAvailability=new MedicineAvailability();
   availableAdresses:string="";
   ngOnInit(): void {
     this.FillPharmacy();
-	this.availabilityForm=this.fb.group({})
+    this.availabilityForm=this.fb.group({});
+    this.FillMedicines();
   }
 
-  FillPharmacy(){
-    this.sharedService.getAllPharmacy().subscribe(data => {
+  async FillPharmacy(){
+    await this.sharedService.getAllPharmacy().then(data => {
       this.pharmacies = data
     })
   }
-
-  CheckMedicine(){
-    this.medicineAvailabilityService.getPharmacy(this.pharmacies[this.pyrmacyName-1].PharmacyName,this.medicines[this.medID-1].Name)
-    .subscribe(data => {
-      this.available = data;
-      this.available.Addresses.forEach(
-        a=>this.availableAdresses+=a+"\n" 
-      )
-      
-    })
-    this.availableAdresses = ""
+  FillMedicines(){
+    this.sharedService.getAllMedicines().subscribe(
+      data=>this.medicines=data
+    );
   }
 
+  CheckMedicine(){
+    this.GetSelectedPharmacy()
+    this.availableAdresses = '';
+    this.medicineAvailabilityService.getPharmacy(this.selectedPharmacy,this.medicines[this.medID-1].Name)
+    .subscribe(data => {
+      this.available = data;
+      if(this.available.Addresses != null){
+        console.log("IF IS TRUE");
+        this.available.Addresses.forEach(
+          a=> this.availableAdresses+=a)
+      } else {
+        console.log("IF IS FALSE");
+        this.availableAdresses = "Medicine unavailable!";
+      }
+    })
+  }
+  
+GetSelectedPharmacy(){
+    this.pharmacies.forEach(p=>
+     {
+       if(p.PharmacyName==this.pharmacyName)
+        {
+          this.selectedPharmacy=p;
+        }
+     })
+  
+  }
 }
+
