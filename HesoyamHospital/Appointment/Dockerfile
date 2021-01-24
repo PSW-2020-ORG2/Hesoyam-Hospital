@@ -7,10 +7,10 @@ COPY ./Appointment ./Appointment
 COPY ./EventSourceClasses ./EventSourceClasses
 COPY ./Appointment/Appointment.csproj .
 
-WORKDIR /app/Appointment
-ENV PATH $PATH:/root/.dotnet/tools
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
-RUN dotnet-ef migrations add InitialCreate -p "Appointment.csproj"
+# WORKDIR /app/Appointment
+# ENV PATH $PATH:/root/.dotnet/tools
+# RUN dotnet tool install --global dotnet-ef --version 3.1.0
+# RUN dotnet-ef migrations add InitialCreate -p "Appointment.csproj"
 # CMD [ "dotnet-ef", "database update" ]
 
 
