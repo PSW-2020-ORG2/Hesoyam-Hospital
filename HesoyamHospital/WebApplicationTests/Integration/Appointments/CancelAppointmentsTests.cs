@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Appointments;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using WebApplication;
 using Xunit;
 
 namespace WebApplicationTests.Integration.Appointments
@@ -17,15 +17,15 @@ namespace WebApplicationTests.Integration.Appointments
             _factory = factory;
         }
 
-        //[Fact]
-        //public async void Cancel_appointment()
-        //{
-        //    HttpClient client = _factory.CreateClient();
+        [Fact]
+        public async void Cancel_appointment()
+        {
+            HttpClient client = _factory.CreateClient();
 
-        //    HttpResponseMessage response = await client.PutAsync("/api/appointment/cancel", new StringContent("1", Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await client.PutAsync("/api/appointment/cancel", new StringContent("1", Encoding.UTF8, "application/json"));
 
-        //    HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound};
-        //    response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
-        //}
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound, HttpStatusCode.BadRequest };
+            response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
+        }
     }
 }

@@ -2,14 +2,9 @@
 using Shouldly;
 using System.Net;
 using Xunit;
-using WebApplication;
 using System.Net.Http;
-using System;
-using Backend.Util;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using WebApplication.Authentication;
+using Authentication;
 
 namespace WebApplicationTests.Integration.Authentication
 {
@@ -22,25 +17,18 @@ namespace WebApplicationTests.Integration.Authentication
             _factory = factory;
         }
 
-        //[Theory]
-        //[MemberData(nameof(Data))]
-        //public async void Account__activation_by_id(long id, HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
-        //    string prefix = "acdxFDRhijklmno88st3";
-        //    string path = "/api/registration/activate/" + prefix + id.ToString();
-
-        //    HttpResponseMessage response = await client.PostAsync(path, null);
-
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
-
-
-        public static IEnumerable<object[]> Data =>
-        new List<object[]>
+        [Fact]
+        public async void Account_activation_by_id()
         {
-            new object[] { 1, HttpStatusCode.BadRequest },
-            new object[] { 501, HttpStatusCode.OK }
-        };
+            HttpClient client = _factory.CreateClient();
+            long id = 1501;
+            string prefix = "acdxFDRhijklmno88st3";
+            string path = "/api/registration/activate/" + prefix + id.ToString();
+
+            HttpResponseMessage response = await client.PostAsync(path, null);
+
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound, HttpStatusCode.BadRequest };
+            response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
+        }
     }
 }

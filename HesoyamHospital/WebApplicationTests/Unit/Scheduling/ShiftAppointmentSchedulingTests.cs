@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Xunit;
 using Shouldly;
-using Backend.Model.UserModel;
 using System;
-using Backend.Model.PatientModel;
-using Backend.Util;
+using Appointments.Model;
+using Appointments.Util;
 
 namespace WebApplicationTests.Unit.Scheduling
 {
@@ -66,12 +65,12 @@ namespace WebApplicationTests.Unit.Scheduling
         private List<Appointment> FillAppointmentList()   //free appointments: 10:00-10:30 and 11:00-11:30
             => new List<Appointment>
             {
-                new Appointment(1, null, null, null, 0, new TimeInterval(new DateTime(2021, 12, 20, 8, 0, 0), new DateTime(2020, 12, 20, 8, 30, 0))),
-                new Appointment(2, null, null, null, 0, new TimeInterval(new DateTime(2021, 12, 20, 8, 30, 0), new DateTime(2020, 12, 20, 9, 0, 0))),
-                new Appointment(3, null, null, null, 0, new TimeInterval(new DateTime(2021, 12, 20, 9, 00, 0), new DateTime(2020, 12, 20, 9, 30, 0))),
-                new Appointment(4, null, null, null, 0, new TimeInterval(new DateTime(2021, 12, 20, 9, 30, 0), new DateTime(2020, 12, 20, 10, 0, 0))),
-                new Appointment(5, null, null, null, 0, new TimeInterval(new DateTime(2021, 12, 20, 10, 30, 0), new DateTime(2020, 12, 20, 11, 0, 0))),
-                new Appointment(6, null, null, null, 0, new TimeInterval(new DateTime(2021, 12, 20, 11, 30, 0), new DateTime(2020, 12, 20, 12, 0, 0)))
+                new Appointment(1, 0, 0, 0, 0, new TimeInterval(new DateTime(2022, 12, 20, 8, 0, 0), new DateTime(2022, 12, 20, 8, 30, 0))),
+                new Appointment(2, 0, 0, 0, 0, new TimeInterval(new DateTime(2022, 12, 20, 8, 30, 0), new DateTime(2022, 12, 20, 9, 0, 0))),
+                new Appointment(3, 0, 0, 0, 0, new TimeInterval(new DateTime(2022, 12, 20, 9, 00, 0), new DateTime(2022, 12, 20, 9, 30, 0))),
+                new Appointment(4, 0, 0, 0, 0, new TimeInterval(new DateTime(2022, 12, 20, 9, 30, 0), new DateTime(2022, 12, 20, 10, 0, 0))),
+                new Appointment(5, 0, 0, 0, 0, new TimeInterval(new DateTime(2022, 12, 20, 10, 30, 0), new DateTime(2022, 12, 20, 11, 0, 0))),
+                new Appointment(6, 0, 0, 0, 0, new TimeInterval(new DateTime(2022, 12, 20, 11, 30, 0), new DateTime(2022, 12, 20, 12, 0, 0)))
             };
     }
 }

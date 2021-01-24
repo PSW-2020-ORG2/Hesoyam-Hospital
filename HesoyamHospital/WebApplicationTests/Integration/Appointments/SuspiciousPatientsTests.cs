@@ -7,24 +7,23 @@ using Xunit;
 
 namespace WebApplicationTests.Integration.Appointments
 {
-    public class ObserveAppointmentsTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class SuspiciousPatientsTests : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly WebApplicationFactory<Startup> _factory;
 
-        public ObserveAppointmentsTests(WebApplicationFactory<Startup> factory)
+        public SuspiciousPatientsTests(WebApplicationFactory<Startup> factory)
         {
             _factory = factory;
         }
 
         [Fact]
-        public async void Observe_appointments_status_code()
+        public async void Get_list_of_patients_with_three_or_more_cancellations()
         {
             HttpClient client = _factory.CreateClient();
-            long patientId = 500;
 
-            HttpResponseMessage response = await client.GetAsync("/api/appointment/" + patientId);
+            HttpResponseMessage response = await client.GetAsync("/api/appointment/getSuspiciousPatients");
 
-            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.BadRequest };
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound };
             response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
         }
     }

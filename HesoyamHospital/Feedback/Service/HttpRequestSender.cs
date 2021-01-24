@@ -1,5 +1,6 @@
 ﻿using Feedbacks.Service.Abstract;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,8 +18,14 @@ namespace Feedbacks.Service
 
         public bool GetAbleToFillOutSurvey(long appointmentId)
         {
-            var responseStream = SendRequest("http://localhost:57733/api/appointment/surveyCanBeFilledOut/" + appointmentId, HttpMethod.Get);            
-            return JsonConvert.DeserializeObject<bool>(responseStream.Result);
+            try
+            {
+                var responseStream = SendRequest("http://localhost:57733/api/appointment/surveyCanBeFilledOut/" + appointmentId, HttpMethod.Get);
+                return JsonConvert.DeserializeObject<bool>(responseStream.Result);
+            } catch (Exception)
+            {
+                return false;
+            }
         }
 
         public long GetDoctorId(long appointmentId)
