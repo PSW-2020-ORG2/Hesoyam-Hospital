@@ -49,12 +49,12 @@ namespace Medicines.Service
             return _therapyRepository.GetByID(id);
         }
 
-        public void SendTherapyToPharmacy(Therapy therapy, string patientFullName, RegisteredPharmacyDTO registeredPharmacy)
+        public void SendTherapyToPharmacy(Therapy therapy, string patientFullName, string uidn, RegisteredPharmacyDTO registeredPharmacy)
         {
             string text = _prescriptionTextGenerator.GeneratePrescriptionText(therapy, patientFullName);
             if (_environment.IsDevelopment())
             {
-                SendViaSFTP(text, patientFullName);
+                SendViaSFTP(text, patientFullName, uidn);
             }
             else
             {
@@ -62,10 +62,10 @@ namespace Medicines.Service
             }
         }
 
-        private void SendViaSFTP(string text, string patientFullName)
+        private void SendViaSFTP(string text, string patientFullName, string uidn)
         {
             string startupPath = Directory.GetCurrentDirectory();
-            string filepath = @"\PrescribedMedicineReport\prescriptions\" + patientFullName + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + ".txt";
+            string filepath = @"\PrescribedMedicineReport\prescriptions\" + patientFullName + "_" + uidn + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + ".txt";
             using (StreamWriter sw = System.IO.File.CreateText(startupPath + filepath))
             {
                 sw.WriteLine(text);

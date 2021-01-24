@@ -53,14 +53,14 @@ namespace Medicines.Controllers
             }
         }
 
-        [HttpPost("sendPrescription/{id}")]
-        public IActionResult SendPrescription([FromBody] RegisteredPharmacyDTO registeredPharmacy, long id)
+        [HttpPost("sendPrescription/{id}/{uidn}")]
+        public IActionResult SendPrescription([FromBody] RegisteredPharmacyDTO registeredPharmacy, long id, string uidn)
         {
             try
             {
                 Therapy therapy = _therapyService.GetByID(id);
                 string patientFullName = _httpRequestSender.GetPatientFullName(therapy.Prescription.PatientId);
-                _therapyService.SendTherapyToPharmacy(therapy, patientFullName, registeredPharmacy);
+                _therapyService.SendTherapyToPharmacy(therapy, patientFullName, uidn, registeredPharmacy);
                 return Ok();
             } catch (Exception e)
             {

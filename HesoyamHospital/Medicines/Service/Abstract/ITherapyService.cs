@@ -7,7 +7,7 @@ namespace Medicines.Service.Abstract
 {
     public interface ITherapyService : IService<Therapy, long>
     {
-        public void SendTherapyToPharmacy(Therapy therapy, string patientFullName, RegisteredPharmacyDTO registeredPharmacy);
+        public void SendTherapyToPharmacy(Therapy therapy, string patientFullName, string uidn, RegisteredPharmacyDTO registeredPharmacy);
         public IEnumerable<Therapy> GetTherapyByDatePrescribed(TimeInterval dateRange);
     }
 }
