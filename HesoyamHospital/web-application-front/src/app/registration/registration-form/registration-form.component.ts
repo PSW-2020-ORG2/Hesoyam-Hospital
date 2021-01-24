@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormControl, Validators} from '@angular/forms';
 import {RegistrationService } from '../services/registration.service';
 import { NewPatientDto } from '../DTOs/new-patient-dto';
+import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 
 interface BloodType {
   bloodId: string;
@@ -14,7 +15,7 @@ interface BloodType {
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.css']
 })
-export class RegistrationFormComponent implements OnInit {
+export class RegistrationFormComponent implements OnInit, OnDestroy {
   selectedFile: File = null;
   button = true;
   selectedFileHide = true;
@@ -50,13 +51,18 @@ export class RegistrationFormComponent implements OnInit {
 
   public patientDTO = new NewPatientDto();
 
-  constructor(private _registrationService : RegistrationService, private _http: HttpClient, private _snackBar: MatSnackBar) {
+  constructor(private _registrationService : RegistrationService, private _http: HttpClient, private _snackBar: MatSnackBar, private _authService : AuthenticationService) {
     this._name = '';
     this._surname = '';
    }
 
+  ngOnDestroy(): void {
+    this._authService.registerComponent = false;
+  }
+
   ngOnInit(): void {
     this.button = false;
+    this._authService.registerComponent = true;
   }
 
   onFileSelected(event) {

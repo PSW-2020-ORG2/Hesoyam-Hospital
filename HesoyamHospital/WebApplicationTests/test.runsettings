@@ -4,6 +4,7 @@
     <EnvironmentVariables>
       <MyDbConnectionString>server=localhost;port=3306;database=mydb1;user=root;password=root</MyDbConnectionString>
       <SecretKey>SecretKey1234567</SecretKey>
+      <EventDbConnectionString>server=localhost;port=3306;database=eventstorage;user=root;password=root</EventDbConnectionString>
     </EnvironmentVariables>
   </RunConfiguration>
 </RunSettings>

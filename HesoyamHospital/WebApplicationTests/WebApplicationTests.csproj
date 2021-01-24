@@ -25,6 +25,7 @@
     <ProjectReference Include="..\Appointment\Appointment.csproj" />
     <ProjectReference Include="..\Documents\Documents.csproj" />
     <ProjectReference Include="..\Feedback\Feedback.csproj" />
+    <ProjectReference Include="..\EventSourcing\EventSourcing.csproj" />
   </ItemGroup>
 
 </Project>

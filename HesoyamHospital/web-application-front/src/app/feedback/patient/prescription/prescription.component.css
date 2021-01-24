@@ -1,0 +1,29 @@
+.left{
+    padding: 10px;
+    padding-left: 50px;
+    margin: 5px;
+}
+
+.constLbl{
+    color:rgb(93,147,235);
+    font-weight: bold;
+    font-size: 15px;
+}
+
+label{
+    font-size: 15px;
+}
+
+table {
+    width: 80%;
+}
+
+.mat-header-cell {
+    background-color: rgb(66, 65, 68);
+    font-size: larger;
+    color: white;
+  }
+  
+.mat-row:hover {
+    background-color: rgb(250, 242, 231);
+}

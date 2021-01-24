@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Authentication.DTOs;
 using EventSourceClasses;
 using EventSourceClasses.Authentication;
+using Authentication.Mappers;
+using System.Linq;
 
 namespace Authentication.Controllers
 {
@@ -48,6 +50,10 @@ namespace Authentication.Controllers
         [HttpGet("getSelectedDoctorId/{id}")]
         public IActionResult GetSelectedDoctorId(long id)
             => Ok(_patientService.GetSelectedDoctor(id));
+
+        [HttpGet("getAllPatients")]
+        public IActionResult GetAllPatients()
+            => Ok(PatientMapper.PatientsToPatientDTOs(_patientService.GetAll().ToList()).ToArray());
 
         [HttpGet("getFullName/{id}")]
         public IActionResult GetFullName(long id)

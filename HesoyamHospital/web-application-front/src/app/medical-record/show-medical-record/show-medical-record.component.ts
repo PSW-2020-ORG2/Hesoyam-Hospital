@@ -21,7 +21,7 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
   public selectedD : SelectedDoctorDto;
   public imagePath = "";
   public imgPath = "";
-  displayedColumns: string[] = ['State', 'Date', 'From', 'To', 'Department', 'Doctor', 'Room', 'Cancel', 'Survey'];
+  displayedColumns: string[] = ['State', 'Date', 'From', 'To', 'Department', 'Doctor', 'Room', 'Cancel', 'Survey', 'Report', 'Prescription'];
   public doctors : DoctorDto[] = [];
   
   constructor(private _medService: MedicalRecordService, private _appService : AppointmentService, private _router : Router, private _snackBar: MatSnackBar) { }
@@ -38,6 +38,13 @@ export class ShowMedicalRecordComponent implements AfterViewInit, OnInit {
     this._router.navigate(['/survey/survey-form', appointmentId])
   }
 
+  viewReport(appointmentId) {
+    this._router.navigate(['/report', appointmentId])
+  }
+
+  viewPrescription(appointmentId) {
+    this._router.navigate(['/prescription', appointmentId])
+  }
   getDoctors(){
     this._medService.getGeneralDoctor().subscribe((data) => this.doctors = data);
   };

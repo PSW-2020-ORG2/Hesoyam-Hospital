@@ -1,0 +1,15 @@
+.left{
+    padding: 10px;
+    padding-left: 50px;
+    margin: 5px;
+}
+
+.constLbl{
+    color:rgb(93,147,235);
+    font-weight: bold;
+    font-size: 15px;
+}
+
+label{
+    font-size: 15px;
+}

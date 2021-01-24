@@ -12,7 +12,7 @@ import { SearchCriteriaDTO } from '../../DTOs/search-criteria-dto';
 export class SimpleSearchComponent implements AfterViewInit {
 
   data : DocumentDTO[] = [];
-  displayedColumns: string[] = ['Type', 'DateCreated', 'DoctorName', 'DiagnosisName', 'Observe'];
+  displayedColumns: string[] = ['Type', 'DateCreated', 'DoctorName', 'DiagnosisName'];
   minDate: Date;
   maxDate: Date;
   searchCriteria = new SearchCriteriaDTO(true, true, new TimeInterval(new Date(), new Date()), "", "", "", "");
