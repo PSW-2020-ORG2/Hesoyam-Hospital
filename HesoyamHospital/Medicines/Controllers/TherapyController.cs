@@ -65,7 +65,7 @@ namespace Medicines.Controllers
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(500, "An unknown error has occured.");
             }
         }
     }
