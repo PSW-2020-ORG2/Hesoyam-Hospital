@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Medicines.Service
 {
-    public class SFTPService
+    public static class SFTPService
     {
         private static readonly string serverIP = Environment.GetEnvironmentVariable("SFTPServerIPAddress");
         private static readonly string user = Environment.GetEnvironmentVariable("SFTPUsername");
@@ -17,7 +17,7 @@ namespace Medicines.Service
                 using (Stream stream = File.OpenRead(fileToSend))
                 {
                     client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend));
-                    SMTPNotificationSender.SendMessageToAllPharmacies("heshospital@gmail.com",
+                    SMTPNotificationSender.SendMessageToAllPharmacies(Environment.GetEnvironmentVariable("HospitalEmail"),
                                                                       "Weekly report about medicine consumption in Hesoyam hospital",
                                                                       "Report has been successfully sent to all pharmacies.");
                 }

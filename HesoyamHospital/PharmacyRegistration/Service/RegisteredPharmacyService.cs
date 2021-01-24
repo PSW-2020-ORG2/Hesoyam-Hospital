@@ -11,7 +11,7 @@ namespace PharmacyRegistration.Service
 {
     public class RegisteredPharmacyService : IRegisteredPharmacyService
     {
-        private IRegisteredPharmacyRepository _registeredPharmacyRepository;
+        private readonly IRegisteredPharmacyRepository _registeredPharmacyRepository;
 
         public RegisteredPharmacyService(IRegisteredPharmacyRepository registeredPharmacyRepository)
         {

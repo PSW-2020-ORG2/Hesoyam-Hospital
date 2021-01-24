@@ -13,6 +13,6 @@ namespace MedicineProcurement.Repository
         }
 
         public IEnumerable<UrgentMedicineProcurement> GetAllUnconcluded()
-            => GetAll().Where(medicine => medicine.Concluded == false);
+            => GetAll().Where(medicine => !medicine.Concluded);
     }
 }

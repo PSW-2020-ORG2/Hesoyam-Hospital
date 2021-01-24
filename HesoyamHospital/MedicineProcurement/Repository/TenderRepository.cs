@@ -13,8 +13,8 @@ namespace MedicineProcurement.Repository
         }
 
         public IEnumerable<Tender> GetAllActiveTenders()
-            => GetAll().Where(tender => tender.IsActive() == true);
+            => GetAll().Where(tender => tender.IsActive());
         public IEnumerable<Tender> GetAllUnconcludedTenders()
-            => GetAll().Where(tender => tender.Concluded == false && tender.IsActive() == false);
+            => GetAll().Where(tender => !tender.Concluded && !tender.IsActive());
     }
 }

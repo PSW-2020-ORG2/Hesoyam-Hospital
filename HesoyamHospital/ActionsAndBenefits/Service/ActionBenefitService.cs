@@ -9,7 +9,7 @@ namespace ActionsAndBenefits.Service
 {
     public class ActionBenefitService : IActionBenefitService
     {
-        private IActionBenefitRepository _actionBenefitRepository;
+        private readonly IActionBenefitRepository _actionBenefitRepository;
 
         public ActionBenefitService(IActionBenefitRepository actionBenefitRepository)
         {

@@ -5,12 +5,10 @@ using System.Text.RegularExpressions;
 
 namespace MedicineProcurement.Service
 {
-    public class SMTPNotificationSender
+    public static class SMTPNotificationSender
     {
         public static void SendMessageToAllPharmacies(string to, string subject, string body)
         {
-            // TEST: staviti outlook ili nesto slicno i pogledati da li salje na tu adresu
-
             MailMessage message = new MailMessage(Environment.GetEnvironmentVariable("HospitalEmail"), to, subject, body);
 
             SmtpClient smtpClient = new SmtpClient
@@ -26,12 +24,11 @@ namespace MedicineProcurement.Service
 
             try
             {
-                // Proci kroz sve mejlove i menjati host/post po potrebi i slati na sve apoteke
                 smtpClient.Send(message);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // U slucaju da ne prodje mozda javiti da nije mogao poslati ili mozda pokusati ponovo
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -61,7 +58,6 @@ namespace MedicineProcurement.Service
             }
             catch (Exception e)
             {
-                //Bice izmenjeno u sprintu koji se bavi sigurnoscu
                 Console.WriteLine(e.StackTrace);
             }
         }

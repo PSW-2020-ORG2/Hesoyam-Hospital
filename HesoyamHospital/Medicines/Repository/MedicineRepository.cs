@@ -36,6 +36,6 @@ namespace Medicines.Repository
             => GetAll().Where(med => med.Name.Contains(partOfTheName));
 
         public IEnumerable<Medicine> GetMedicinePendingApproval()
-            => GetAll().Where(med => med.IsValid == false);
+            => GetAll().Where(med => !med.IsValid);
     }
 }

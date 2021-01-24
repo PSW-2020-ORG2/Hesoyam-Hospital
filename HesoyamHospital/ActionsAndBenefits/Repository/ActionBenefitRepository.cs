@@ -13,9 +13,9 @@ namespace Backend.Repository.MySQLRepository.MiscRepository
         }
 
         public IEnumerable<ActionBenefit> GetAllApprovedActionBenefits()
-            => GetAll().Where(action => action.Approved == true);
+            => GetAll().Where(action => action.Approved);
         public IEnumerable<ActionBenefit> GetAllUnapprovedActionBenefits()
-            => GetAll().Where(action => action.Approved == false);
+            => GetAll().Where(action => !action.Approved);
         public IEnumerable<string> GetAllApprovedActionBenefitsText()
         {
             List<ActionBenefit> actionBenefits = GetAllApprovedActionBenefits().ToList();

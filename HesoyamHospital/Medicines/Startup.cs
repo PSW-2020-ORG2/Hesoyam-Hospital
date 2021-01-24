@@ -18,7 +18,6 @@ namespace Medicines
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         private readonly IWebHostEnvironment _env;
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {

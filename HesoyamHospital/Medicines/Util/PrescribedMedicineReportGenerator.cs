@@ -12,7 +12,6 @@ namespace Medicines.Util
     public class PrescribedMedicineReportGenerator
     {
         private readonly ITherapyService _therapyService;
-        private readonly IHttpRequestSender _requestSender;
         public PrescribedMedicineReportGenerator(ITherapyService therapyService)
         {
             _therapyService = therapyService;
@@ -36,7 +35,7 @@ namespace Medicines.Util
             List<Tuple<MedicineType, int>> other = medicineSortedByTypeCount.Skip(10).Take(medicineSortedByTypeCount.Count() - 10).ToList();
             text.Append("\nMost prescribed medicine types:");
             WriteMedicineTypes(text, topFive);
-            if (other.Count() > 0)
+            if (other.Any())
             {
                 text.Append("\nOther prescribed medicine types:");
                 WriteMedicineTypes(text, other);
@@ -51,7 +50,7 @@ namespace Medicines.Util
             text.Append("\nTotal number of different medicines prescribed: " + medicineSortedByCount.Count() + ".");
             text.Append("\nMost prescribed medicines:");
             WriteMedicine(text, topTen);
-            if (other.Count() > 0)
+            if (other.Any())
             {
                 text.Append("\nOther prescribed medicines:");
                 WriteMedicine(text, other);

@@ -19,15 +19,10 @@ namespace ActionsAndBenefits.Service.Background
             _actionBenefitService = actionBenefitService;
         }
 
-        public override Task StartAsync(CancellationToken cancellationToken)
-        {
-            return base.StartAsync(cancellationToken);
-        }
-
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             collectTimer.Elapsed += new ElapsedEventHandler(CollectMessage);
-            collectTimer.Interval = 5000; //number in miliseconds  
+            collectTimer.Interval = 5000; 
             collectTimer.Enabled = true;
 
             return Task.CompletedTask;
@@ -39,11 +34,6 @@ namespace ActionsAndBenefits.Service.Background
         }
         private void CollectMessage(object source, ElapsedEventArgs e)
         {
-            /*foreach (ActionBenefit message in _queue)
-            {
-                AppResources.getInstance().actionBenefitService.Create(message);
-            }
-            _queue.Clear();*/
             while (_queue.Count > 0)
             {
                 ActionBenefit message;

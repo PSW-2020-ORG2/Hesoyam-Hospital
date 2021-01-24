@@ -7,6 +7,6 @@ namespace ActionsAndBenefits.Repository.Abstract
         where T : IIdentifiable<long>
     {
         public long GetMaxId(IEnumerable<T> entities)
-        => entities.Count() == 0 ? 0 : entities.Max(entity => entity.GetId());
+        => entities.Any() ? 0 : entities.Max(entity => entity.GetId());
     }
 }
