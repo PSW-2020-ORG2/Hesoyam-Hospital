@@ -8,10 +8,10 @@ COPY ./Documents .
 COPY ./EventSourceClasses ./EventSourceClasses
 COPY ./Documents/Documents.csproj .
 
-WORKDIR /app/Documents
-ENV PATH $PATH:/root/.dotnet/tools
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
-RUN dotnet-ef migrations add InitialCreate -p "Documents.csproj"
+# WORKDIR /app/Documents
+# ENV PATH $PATH:/root/.dotnet/tools
+# RUN dotnet tool install --global dotnet-ef --version 3.1.0
+# RUN dotnet-ef migrations add InitialCreate -p "Documents.csproj"
 # CMD [ "dotnet-ef", "database update" ]
 
 

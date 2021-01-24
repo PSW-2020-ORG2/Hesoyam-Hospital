@@ -16,13 +16,13 @@ services:
     build: 
       context: .
       dockerfile: APIGateway/Dockerfile
-    image: gregvader/apigateway:latest
+    image: krickovicluka/apigateway:latest
     depends_on:
-      # - feedback
-      # - authentication
-      # - documents
+      - feedback
+      - authentication
+      - documents
       - postgres
-      # - appointment
+      - appointment
     restart: on-failure
     environment:
       launchUrl: "index.html"
@@ -46,7 +46,7 @@ services:
     build: 
       context: .
       dockerfile: Appointment/Dockerfile
-    image: gregvader/appointment:latest
+    image: krickovicluka/appointment:latest
     depends_on:
       - postgres
     restart: always
@@ -69,7 +69,7 @@ services:
     build: 
       context: .
       dockerfile: Authentication/Dockerfile
-    image: gregvader/authentication:latest
+    image: krickovicluka/authentication:latest
     depends_on:
       - postgres
     restart: always
@@ -92,7 +92,7 @@ services:
     build: 
       context: .
       dockerfile: Documents/Dockerfile
-    image: gregvader/documents:latest
+    image: krickovicluka/documents:latest
     depends_on:
       - postgres
     restart: always
@@ -115,7 +115,7 @@ services:
     build: 
       context: .
       dockerfile: Feedback/Dockerfile
-    image: gregvader/feedback:latest
+    image: krickovicluka/feedback:latest
     depends_on:
       - postgres
     restart: always

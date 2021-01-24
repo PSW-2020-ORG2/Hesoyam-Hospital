@@ -38,13 +38,13 @@ namespace APIGateway
             {
                 services.AddSpaStaticFiles(configuration =>
                 {
-                    configuration.RootPath = "Publish/dist";
+                    configuration.RootPath = "dist";
                 });
             }
 
             services.AddSpaStaticFiles(configuration =>
                 {
-                    configuration.RootPath = "Publish/dist";
+                    configuration.RootPath = "dist";
                 });
 
             services.AddOcelot();
@@ -75,23 +75,6 @@ namespace APIGateway
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
 
-            if (Environment.GetEnvironmentVariable("STAGE") != "DEV")
-            {
-
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "Resources")),
-                    RequestPath = "/Resources"
-                });
-                Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
-                });
-            }
-            else
-            {
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(
@@ -99,12 +82,18 @@ namespace APIGateway
                     RequestPath = "/Resources"
                 });
 
-                Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory() + "dist"));
                 app.UseStaticFiles(new StaticFileOptions
                 {
-                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "dist"))
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "dist")),
+                    RequestPath = ""
                 });
-            }
+
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "dist";
+                });
+            
 
             app.UseEndpoints(endpoints =>
             {

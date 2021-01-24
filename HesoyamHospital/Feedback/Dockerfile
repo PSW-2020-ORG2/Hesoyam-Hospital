@@ -8,10 +8,10 @@ COPY ./Feedback .
 COPY ./EventSourceClasses ./EventSourceClasses
 COPY ./Feedback/Feedback.csproj .
 
-WORKDIR /app/Feedback
-ENV PATH $PATH:/root/.dotnet/tools
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
-RUN dotnet-ef migrations add InitialCreate -p "Feedback.csproj"
+# WORKDIR /app/Feedback
+# ENV PATH $PATH:/root/.dotnet/tools
+# RUN dotnet tool install --global dotnet-ef --version 3.1.0
+# RUN dotnet-ef migrations add InitialCreate -p "Feedback.csproj"
 # CMD [ "dotnet-ef", "database update" ]
 
 
