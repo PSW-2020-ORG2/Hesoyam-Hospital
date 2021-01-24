@@ -33,6 +33,20 @@ namespace APIGateway
                                       .AllowAnyMethod();
                                   });
             });
+            
+            if(Environment.GetEnvironmentVariable("STAGE") != "DEV")
+            {
+                services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "dist";
+                });
+            }
+
+            services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "dist";
+                });
+
             services.AddOcelot();
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
@@ -61,35 +75,32 @@ namespace APIGateway
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
 
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Resources")),
+                    RequestPath = "/Resources"
+                });
+
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "dist")),
+                    RequestPath = ""
+                });
+
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "dist";
+                });
+            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
             app.UseOcelot();
             app.UseAuthentication();
-
-            app.UseRouting();
-
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //    Path.Combine(env.ContentRootPath, "Resources")),
-            //    RequestPath = "/Resources"
-            //});
-
-            if (Environment.GetEnvironmentVariable("STAGE") != "DEV")
-            {
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "Public")),
-                    RequestPath = ""
-                });
-                app.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "Public";
-                });
-            }
         }
     }
 }

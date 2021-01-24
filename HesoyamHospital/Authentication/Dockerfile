@@ -8,10 +8,10 @@ COPY ./Authentication .
 COPY ./EventSourceClasses ./EventSourceClasses
 COPY ./Authentication/Authentication.csproj .
 
-WORKDIR /app/Authentication
-ENV PATH $PATH:/root/.dotnet/tools
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
-RUN dotnet-ef migrations add InitialCreate -p "Authentication.csproj"
+# WORKDIR /app/Authentication
+# ENV PATH $PATH:/root/.dotnet/tools
+# RUN dotnet tool install --global dotnet-ef --version 3.1.0
+# RUN dotnet-ef migrations add InitialCreate -p "Authentication.csproj"
 # CMD [ "dotnet-ef", "database update" ]
 
 

@@ -94,7 +94,8 @@ namespace WebApplication
             }
 
             app.UseRouting();
-            
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(

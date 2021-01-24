@@ -23,6 +23,8 @@ namespace APIGateway
             {
                 if(Environment.GetEnvironmentVariable("STAGE") == "DEV")
                     config.AddJsonFile("configuration.json");
+                else if(Environment.GetEnvironmentVariable("STAGE") == "HEROKU")
+                    config.AddJsonFile("configuration_deploy_heroku.json");
                 else
                     config.AddJsonFile("configuration_deploy.json");
             })
