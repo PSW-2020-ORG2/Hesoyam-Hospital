@@ -1,6 +1,7 @@
 ﻿using ActionsAndBenefits.Model;
 using ActionsAndBenefits.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,8 +56,16 @@ namespace ActionsAndBenefits.Controllers
             ActionBenefit action = _actionBenefitService.GetByID(id);
             if(action != null)
             {
-                _actionBenefitService.Delete(action);
-                return Ok();
+                try
+                {
+                    _actionBenefitService.Delete(action);
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return StatusCode(500, "An error has occured.");
+                }
             }
             return NotFound("Notification with id " + id + " could not be found.");
             

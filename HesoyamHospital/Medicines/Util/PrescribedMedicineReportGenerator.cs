@@ -59,16 +59,18 @@ namespace Medicines.Util
 
         private void WriteMedicine(StringBuilder text, List<Tuple<string, int>> other)
         {
+            text.Append("\n");
             foreach (Tuple<string, int> pair in other)
             {
-                text.Append(pair.Item1 + " : " + pair.Item2);
+                text.Append(pair.Item1 + " : " + pair.Item2 + "\n");
             }
         }
         private void WriteMedicineTypes(StringBuilder text, List<Tuple<MedicineType, int>> other)
         {
+            text.Append("\n");
             foreach (Tuple<MedicineType, int> pair in other)
             {
-                text.Append(pair.Item1 + " : " + pair.Item2);
+                text.Append(pair.Item1 + " : " + pair.Item2 + "\n");
             }
         }
 

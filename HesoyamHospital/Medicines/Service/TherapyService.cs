@@ -49,12 +49,12 @@ namespace Medicines.Service
             return _therapyRepository.GetByID(id);
         }
 
-        public void SendTherapyToPharmacy(Therapy therapy, string patientFullName, RegisteredPharmacyDTO registeredPharmacy)
+        public void SendTherapyToPharmacy(Therapy therapy, string patientFullName, string uidn, RegisteredPharmacyDTO registeredPharmacy)
         {
             string text = _prescriptionTextGenerator.GeneratePrescriptionText(therapy, patientFullName);
             if (_environment.IsDevelopment())
             {
-                SendViaSFTP(text, patientFullName);
+                SendViaSFTP(text, patientFullName, uidn);
             }
             else
             {
@@ -62,10 +62,10 @@ namespace Medicines.Service
             }
         }
 
-        private void SendViaSFTP(string text, string patientFullName)
+        private void SendViaSFTP(string text, string patientFullName, string uidn)
         {
             string startupPath = Directory.GetCurrentDirectory();
-            string filepath = @"\PrescribedMedicineReport\prescriptions\" + patientFullName + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + ".txt";
+            string filepath = @"\PrescribedMedicineReport\prescriptions\" + patientFullName + "_" + uidn + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + ".txt";
             using (StreamWriter sw = System.IO.File.CreateText(startupPath + filepath))
             {
                 sw.WriteLine(text);
@@ -78,6 +78,7 @@ namespace Medicines.Service
             var client = new RestClient(registeredPharmacy.Endpoint);
             var request = new RestRequest("/prescription");
             request.AddParameter("prescription", text);
+            request.AddHeader("Authorization", registeredPharmacy.ApiKey);
             client.Put<string>(request);
         }
 
@@ -93,6 +94,10 @@ namespace Medicines.Service
                 throw new TherapyServiceException("Start time must be before end time!");
             if (entity.TimeInterval.StartTime < DateTime.Now)
                 throw new TherapyServiceException("Therapy start time must be in the future!");
+            if(!entity.Prescription.MedicalTherapies.Any())
+            {
+                throw new TherapyServiceException("Therapy must contain medicines!");
+            }
         }
 
         public IEnumerable<Therapy> GetTherapyByDatePrescribed(TimeInterval dateRange)

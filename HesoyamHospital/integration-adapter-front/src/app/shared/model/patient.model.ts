@@ -1,6 +1,6 @@
 export class Patient {
-    firstName:string;
-    lastName:string;
-    JMBG:string;
-    id:number;
+    name:string;
+    surname:string;
+    jmbg:string;
+    patientId:number;
 }

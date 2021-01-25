@@ -10,7 +10,7 @@ namespace IntegrationAdapterTests.Unit
 {
     public class RabbitMQTests
     {
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public void Check_if_received_object_contains_message()
         {
             ActionBenefitService receivedMessages = new ActionBenefitService(PharmacyIntegrationStubRepository.CreateIncomingActionsAndBenefits());
@@ -25,7 +25,7 @@ namespace IntegrationAdapterTests.Unit
                 message.Text.ShouldNotBeEmpty();
             }
         }
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public void Check_if_n_messages_arrived()
         {
             int i = 0;
@@ -45,7 +45,7 @@ namespace IntegrationAdapterTests.Unit
             return i;
         }
 
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public void Check_if_received_message_is_same_as_expected()
         {
             ActionBenefitService receivedMessages = new ActionBenefitService(PharmacyIntegrationStubRepository.CreateIncomingActionsAndBenefits());

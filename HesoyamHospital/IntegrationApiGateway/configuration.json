@@ -133,7 +133,7 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/therapy/sendprescription/{id}",
+      "DownstreamPathTemplate": "/api/therapy/sendprescription/{id}/{uidn}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -141,7 +141,7 @@
           "Port": 56514
         }
       ],
-      "UpstreamPathTemplate": "/gateway/sendprescription{id}",
+      "UpstreamPathTemplate": "/gateway/sendprescription/{id}/{uidn}",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {

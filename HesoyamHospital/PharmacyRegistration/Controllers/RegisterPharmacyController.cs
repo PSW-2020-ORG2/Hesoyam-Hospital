@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PharmacyRegistration.DTOs;
 using PharmacyRegistration.Exceptions;
 using PharmacyRegistration.Model;
 using PharmacyRegistration.Service.Abstract;
@@ -21,11 +22,11 @@ namespace PharmacyRegistration.Controllers
             _registeredPharmacyService = registeredPharmacyService;
         }
         [HttpPost]
-        public IActionResult Register(RegisteredPharmacy pharmacy)
+        public IActionResult Register(RegisterPharmacyDTO pharmacy)
         {
             try
             {
-                _registeredPharmacyService.Create(pharmacy);
+                _registeredPharmacyService.Create(new RegisteredPharmacy(pharmacy));
                 return Ok();
             }
             catch (RegisteredPharmacyNameNotUniqueException e)
@@ -40,7 +41,7 @@ namespace PharmacyRegistration.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 return StatusCode(500, e.Message);
             }
         }
@@ -48,7 +49,11 @@ namespace PharmacyRegistration.Controllers
         public IActionResult GetAll()
         {
             List<RegisteredPharmacy> pharmacyList = _registeredPharmacyService.GetAll().ToList();
-            return Ok(pharmacyList);
+            List<RegisterPharmacyDTO> retVal = new List<RegisterPharmacyDTO>();
+            foreach(RegisteredPharmacy p in pharmacyList){
+                retVal.Add(new RegisterPharmacyDTO(p));
+            }
+            return Ok(retVal);
         }
     }
 }

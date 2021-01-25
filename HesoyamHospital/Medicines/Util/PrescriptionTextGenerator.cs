@@ -18,7 +18,7 @@ namespace Medicines.Util
         }
         private void WriteComment(Therapy therapy, StringBuilder text)
         {
-            text.AppendLine(therapy.Comment);
+            text.AppendLine("\n" + therapy.Comment);
         }
         private void WriteMedicines(Therapy therapy, StringBuilder text)
         {

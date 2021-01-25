@@ -17,9 +17,11 @@ namespace Medicines.Service
                 using (Stream stream = File.OpenRead(fileToSend))
                 {
                     client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend));
-                    SMTPNotificationSender.SendMessageToAllPharmacies(Environment.GetEnvironmentVariable("HospitalEmail"),
-                                                                      "Weekly report about medicine consumption in Hesoyam hospital",
-                                                                      "Report has been successfully sent to all pharmacies.");
+                    SMTPNotificationSender.SendMessage(Environment.GetEnvironmentVariable("HospitalEmail"),
+                                                       Environment.GetEnvironmentVariable("HospitalEmailPassword"),
+                                                       Environment.GetEnvironmentVariable("HospitalEmail"),
+                                                       "Weekly report about medicine consumption in Hesoyam hospital",
+                                                       "Report has been successfully sent to the server.");
                 }
                 client.Disconnect();
             }
@@ -33,10 +35,7 @@ namespace Medicines.Service
                 client.Connect();
                 using (Stream stream = File.OpenRead(prescriptionToSend))
                 {
-                    client.UploadFile(stream, filePath, uploaded =>
-                    {
-                        Console.WriteLine($"Uploaded {Math.Round((double)uploaded / stream.Length * 100)}% of the file.");
-                    });
+                    client.UploadFile(stream, filePath);
                 }
                 client.Disconnect();
 
