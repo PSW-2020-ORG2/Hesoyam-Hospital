@@ -31,15 +31,10 @@ namespace GraphicEditor.View
             overviewEquipmentandMedicine.Show();
         }
 
-        private void ShowRoomSchedule_Click(object sender, RoutedEventArgs e)
+        private void showRoomSchedule_Click(object sender, RoutedEventArgs e)
         {
             ShowSchedule showSchedule = new ShowSchedule(room);
             showSchedule.Show();
-        }
-
-        private void ScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
