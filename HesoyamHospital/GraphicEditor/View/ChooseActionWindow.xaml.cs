@@ -39,7 +39,7 @@ namespace GraphicEditor.View
 
         private void ScheduleComplexRenovation_Click(object sender, RoutedEventArgs e)
         {
-            ComplexRenovation complexRenovation = new ComplexRenovation();
+            ComplexRenovation complexRenovation = new ComplexRenovation(room);
             complexRenovation.Show();
         }
 

@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:GraphicEditor.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="ComplexRenovation" Height="450" Width="800"
+        Title="ComplexRenovation" Height="600" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid Background="Beige">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -35,20 +37,31 @@
 
         <Label Content="Choose option of renovation: " Grid.Row="3" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <ComboBox x:Name="chooseOption" Grid.Row="3" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True">
+        <ComboBox x:Name="chooseOption" Grid.Row="3" Grid.Column="3" SelectionChanged="chooseOption_SelectionChanged" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True">
             <ComboBoxItem IsSelected="True">Devision</ComboBoxItem>
             <ComboBoxItem>Merging</ComboBoxItem>
         </ComboBox>
 
-        <Label Content="Choose date for renovation: "  Grid.Row="5" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
+        <Label Content="From: "  Grid.Row="5" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <DatePicker x:Name="toDatePicker" Grid.Row="5" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
+        <DatePicker x:Name="fromDatePicker" Grid.Row="5" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
-        <Label Content="Choose a room for merging: "  Grid.Row="6" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
+        <ComboBox x:Name="chooseFromTime" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="ChooseFromTime_SelectionChanged"/>
 
-        <ComboBox x:Name="chooseDestinationRoom" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True"/>
+        <Label Content="To: "  Grid.Row="7" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <Button x:Name="buttonComplexRenovation" Content="Schedule" ToolTip="Schedule" Grid.Row="7" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonComplexRenovation_Click"/>
+        <DatePicker x:Name="toDatePicker" Grid.Row="7" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="ToDate_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
+        <ComboBox x:Name="chooseToTime" Grid.Row="8" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="ChooseToTime_SelectionChanged"/>
+
+        <Label Content="Choose a room for merging: "  Grid.Row="9" Grid.Column="1" Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
+
+        <ComboBox x:Name="chooseDestinationRoom" Grid.Row="9" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEnabled="False" IsTextSearchEnabled="True"/>
+
+        <Button x:Name="buttonComplexRenovation" Content="Schedule" ToolTip="Schedule" Grid.Row="10" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonComplexRenovation_Click"/>
+        
+        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="11" Grid.Column="0" Height="225" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged">
+        </DataGrid>
+        
     </Grid>
 </Window>
