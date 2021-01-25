@@ -7,11 +7,19 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="ChooseActionWindow" Height="170" Width="800">
+        Title="ChooseActionWindow" Height="250" Width="800">
     <Grid Background="Beige">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
@@ -33,6 +41,19 @@
                 Grid.Column="3" Grid.Row="1"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Click="showRoomSchedule_Click"/>
+                Click="ShowRoomSchedule_Click"/>
+
+        <Button x:Name="ScheduleBasicRenovation" Content="Schedule a basic renovation for room" 
+                Width="350" Height="50"
+                Grid.Column="1" Grid.Row="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Click="ScheduleBasicRenovation_Click"/>
+
+        <Button x:Name="ScheduleComplexRenovation" Content="Schedule a complex renovation for room" 
+                Width="350" Height="50"
+                Grid.Column="3" Grid.Row="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"/>
     </Grid>
 </Window>
