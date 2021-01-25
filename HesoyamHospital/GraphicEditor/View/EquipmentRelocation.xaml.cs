@@ -172,10 +172,11 @@ namespace GraphicEditor.View
 
         private void RelocationEquipment(TimeInterval timeInterval)
         {
-            Appointment appointmentRelocation = new Appointment(null, null, null, AppointmentType.relocation, timeInterval);
-            
+            Appointment appointmentRelocation1 = new Appointment(null, null, destinationRoom, AppointmentType.relocation, timeInterval);
+            Appointment appointmentRelocation2 = new Appointment(null, null, currentRoom, AppointmentType.relocation, timeInterval);
 
-            appointmentSchedulingService.SaveAppointment(appointmentRelocation);
+            appointmentSchedulingService.Create(appointmentRelocation1);
+            appointmentSchedulingService.Create(appointmentRelocation2);
             inventoryItem.RoomID = destinationRoom.Id;
             inventoryService.UpdateInventoryItem(inventoryItem);
             MessageWindow mw = new MessageWindow();
@@ -196,10 +197,6 @@ namespace GraphicEditor.View
             {
                 toDatePicker.IsDropDownOpen = true;
             }
-        }
-        private void buttonEquipmentRelocation_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

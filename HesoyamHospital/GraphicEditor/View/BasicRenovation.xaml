@@ -41,13 +41,11 @@
 
         <Label Content="Description of renovation: " Grid.Row="4" Grid.Column="1" FontSize="16"/>
 
-        <TextBlock x:Name="descriptioOfRenovation" Grid.Row="4" Grid.Column="2" Width="370" Margin="0,0,20,0" Height="35" HorizontalAlignment="Center" Style="{StaticResource ResourceKey=textBlockInforamtion}"/>
-        
+        <TextBox x:Name="descriptioOfRenovation" Grid.Row="4" Grid.Column="2" Width="370" Margin="20,0,0,0" Height="35" HorizontalAlignment="Left" Style="{StaticResource ResourceKey=textBox}"/>
+
         <Button x:Name="buttonScheduleBasicRenovation" Content="Schedule a basic renovation" ToolTip="Schedule a basic renovation" Grid.Row="5" Grid.Column="2" Style="{StaticResource ResourceKey=buttonScheduleBasicRenovation}" Click="ButtonScheduleBasicRenovation_Click"/>
 
-        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="6" Grid.Column="1" Height="180" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged"/>
-
-
+        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="6" Grid.Column="1" Height="190" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged" Visibility="Hidden"/>
 
     </Grid>
 </Window>

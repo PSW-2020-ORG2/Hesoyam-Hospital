@@ -1,4 +1,7 @@
-﻿using Backend.Model.UserModel;
+﻿using Backend.Model.PatientModel;
+using Backend.Model.UserModel;
+using Backend.Service.HospitalManagementService;
+using Backend.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,10 +21,13 @@ namespace GraphicEditor.View
     /// </summary>
     public partial class BasicRenovation : Window
     {
+        private readonly RoomService roomService;
+        public readonly long APPOINTMENT_DURATION_MINUTES = 30;
         private Room room;
         public BasicRenovation(Room r)
         {
             InitializeComponent();
+            roomService = Backend.AppResources.getInstance().roomService;
             room = r;
         }
 
@@ -42,9 +48,20 @@ namespace GraphicEditor.View
         }
         private void ButtonScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
         {
-            MessageWindow ms = new MessageWindow();
-            ms.Title = " Soba id " + room.Id;
-            ms.ShowDialog();
+
+            DateTime starDate = startDatePicker.SelectedDate.Value;
+            DateTime endDate = endDatePicker.SelectedDate.Value;
+            TimeInterval timeInterval = new TimeInterval(starDate, endDate);
+
+            if (roomService.IsRoomAvailableByTime(room, timeInterval))
+            {
+                Appointment appointmentRenovation = new Appointment(null, null, room, AppointmentType.renovation, timeInterval);
+
+                MessageWindow ms = new MessageWindow();
+                ms.Title = "Scheduled renovation";
+                ms.message.Content = descriptioOfRenovation.Text + " is scheduled in room " + room.Id;
+                ms.ShowDialog();
+            }
         }
 
         private void SearchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
