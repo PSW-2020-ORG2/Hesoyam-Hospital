@@ -3,7 +3,7 @@
         <mat-form-field >
             <mat-select [(value)]="patientJMBG" placeholder="Patient"  #selectedPatient>
                 <mat-option *ngFor="let patient of patients" [value]="patient.jmbg">
-                {{patient.name}}
+                {{patient.name}} {{patient.surname}}: {{patient.jmbg}}
                 </mat-option>
             </mat-select>
             </mat-form-field>

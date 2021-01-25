@@ -23,13 +23,14 @@ export class PrescribeTherapyComponent implements OnInit {
 
   patients:Patient[]=[]; 
   therapy:Therapy=new Therapy;
-  patientJMBG:number;
+  patientJMBG:string;
   pharmacyName:string;
   pharmacy:RegisteredPharmacy=new RegisteredPharmacy;
   pharmacies:RegisteredPharmacy[]=[];
+  patient:Patient=new Patient;
+  selectedMedicine: Medicine=new Medicine;
 
   constructor(private fb: FormBuilder,private sharedService:SharedService,private therapyService:TherapyService) {
-    //this.minDate=moment(new Date().add(1,'d');
     this.minDate=new Date();
    }
 
@@ -48,18 +49,18 @@ export class PrescribeTherapyComponent implements OnInit {
 
   SendTherapy(){
     this.GetSelectedPharmacy();
+    this.GetSelectedPatient();
     this.therapy.StartTime=this.therapyForm.get('Start').value;
     this.therapy.EndTime=this.therapyForm.get('End').value;
     this.therapy.DateCreated =new Date();
     
-    this.therapy.PatientID=this.patientJMBG;
+    this.therapy.PatientID=this.patient.patientId;
     this.therapy.DoctorID=1;
     this.therapy.Comment=this.therapyForm.get('Comment').value;
     console.log(this.therapy);
     this.therapyService.AddTherapy(this.therapy).subscribe(
       id=>{
           this.therapy.Id=id;
-          console.log(this.patientJMBG);
           this.therapyService.SendPrescription(this.pharmacy,this.therapy.Id,this.patientJMBG).subscribe(
               data=>alert("Therapy sent"),
               err=>alert(err.error)
@@ -91,6 +92,19 @@ export class PrescribeTherapyComponent implements OnInit {
     this.selectedMed.push(this.medicines[this.medID-1].Name);
     this.therapy.MedicineIDs.push(this.medID);
   }
+
+  GetSelectedPatient(){
+    this.patients.forEach(p=>
+     {
+       if(p.jmbg==this.patientJMBG)
+        {
+          this.patient=p;
+        }
+     })
+  
+  }
+
+
   GetSelectedPharmacy(){
     this.pharmacies.forEach(p=>
      {
