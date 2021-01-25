@@ -48,7 +48,7 @@
 
         <ComboBox x:Name="chooseDestinationRoom" Grid.Row="6" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True"/>
 
-        <Button x:Name="buttonComplexRenovation" Content="Schedule" ToolTip="Schedule" Grid.Row="7" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonEquipmentRelocation_Click"/>
+        <Button x:Name="buttonComplexRenovation" Content="Schedule" ToolTip="Schedule" Grid.Row="7" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonComplexRenovation_Click"/>
 
     </Grid>
 </Window>

@@ -48,13 +48,13 @@
                 Grid.Column="1" Grid.Row="3"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Click="scheduleBasicRenovation_Click"/>
+                Click="ScheduleBasicRenovation_Click"/>
 
-        <Button x:Name="ScheduleComplexRenovation" Content="Schedule a compolex renovation for room" 
+        <Button x:Name="ScheduleComplexRenovation" Content="Schedule a complex renovation for room" 
                 Width="350" Height="50"
                 Grid.Column="3" Grid.Row="3"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Click="showRoomSchedule_Click"/>
+                Click="ScheduleComplexRenovation_Click"/>
     </Grid>
 </Window>

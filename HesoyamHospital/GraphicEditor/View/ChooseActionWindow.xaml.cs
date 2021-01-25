@@ -36,5 +36,16 @@ namespace GraphicEditor.View
             ShowSchedule showSchedule = new ShowSchedule(room);
             showSchedule.Show();
         }
+
+        private void ScheduleComplexRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            ComplexRenovation complexRenovation = new ComplexRenovation();
+            complexRenovation.Show();
+        }
+
+        private void ScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
