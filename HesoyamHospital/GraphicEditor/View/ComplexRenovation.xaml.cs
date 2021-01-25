@@ -219,7 +219,7 @@ namespace GraphicEditor.View
         {
             Appointment appointmentRenovation = new Appointment(null, null, null, AppointmentType.renovation, timeInterval);
 
-            appointmentSchedulingService.SaveAppointment(appointmentRenovation);
+            appointmentSchedulingService.Create(appointmentRenovation);
             MessageWindow mw = new MessageWindow();
             mw.Title = "Complex renovation";
             mw.message.Content = "Successfully complex renovation!";
