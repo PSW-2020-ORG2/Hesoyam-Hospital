@@ -72,6 +72,7 @@ namespace Medicines.Service
             {
                 var prescriptionClient = new RestClient(pharmacy.Endpoint);
                 var prescriptionRequest = new RestRequest("/prescription");
+                prescriptionRequest.AddHeader("Authorization", pharmacy.ApiKey);
                 prescriptionRequest.AddParameter("prescription", ReadFromFile(filePath));
                 IRestResponse prescriptionResponse = prescriptionClient.Post(prescriptionRequest);
                 Console.WriteLine("Status: " + prescriptionResponse.StatusCode.ToString());

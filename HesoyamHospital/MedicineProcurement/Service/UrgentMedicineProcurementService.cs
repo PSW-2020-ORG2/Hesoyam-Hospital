@@ -128,6 +128,7 @@ namespace MedicineProcurement.Service
             var request = new RestRequest("/api/purchasemedicine");
             request.AddParameter("medicine", urgentMedicine.Medicine);
             request.AddParameter("quantity", urgentMedicine.Quantity);
+            request.AddHeader("Authorization", pharmacy.ApiKey);
             var response = client.Post<bool>(request);
             return response.Data;
         }

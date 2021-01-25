@@ -78,6 +78,7 @@ namespace Medicines.Service
             var client = new RestClient(registeredPharmacy.Endpoint);
             var request = new RestRequest("/prescription");
             request.AddParameter("prescription", text);
+            request.AddHeader("Authorization", registeredPharmacy.ApiKey);
             client.Put<string>(request);
         }
 

@@ -119,6 +119,7 @@ namespace Medicines.Service
             var client = new RestClient(registeredPharmacy.Endpoint);
             var request = new RestRequest("/api/availablemedicine");
             request.AddParameter("medicine", medicineName);
+            request.AddHeader("Authorization", registeredPharmacy.ApiKey);
             var response = client.Get<MedicineAvailabilityDTO>(request);
             MedicineAvailabilityDTO retVal = response.Data;
             return retVal;
