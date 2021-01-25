@@ -93,6 +93,10 @@ namespace Medicines.Service
                 throw new TherapyServiceException("Start time must be before end time!");
             if (entity.TimeInterval.StartTime < DateTime.Now)
                 throw new TherapyServiceException("Therapy start time must be in the future!");
+            if(!entity.Prescription.MedicalTherapies.Any())
+            {
+                throw new TherapyServiceException("Therapy must contain medicines!");
+            }
         }
 
         public IEnumerable<Therapy> GetTherapyByDatePrescribed(TimeInterval dateRange)

@@ -45,7 +45,7 @@ namespace Medicines.Controllers
             } catch (TherapyServiceException e)
             {
                 Console.WriteLine(e.Message);
-                return BadRequest();
+                return BadRequest(e.Message);
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
