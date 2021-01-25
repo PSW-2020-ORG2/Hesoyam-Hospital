@@ -21,6 +21,7 @@ export class MedicineAvailabilityComponent implements OnInit {
   
   pharmacies:RegisteredPharmacy[]=[];
   selectedPharmacy:RegisteredPharmacy;
+  selectedMedicine:Medicine=new Medicine;
 
   pharmacyName:string;
   
@@ -30,6 +31,7 @@ export class MedicineAvailabilityComponent implements OnInit {
     this.FillPharmacy();
     this.availabilityForm=this.fb.group({});
     this.FillMedicines();
+    console.log(this.medicines);
   }
 
   async FillPharmacy(){
@@ -44,22 +46,35 @@ export class MedicineAvailabilityComponent implements OnInit {
   }
 
   CheckMedicine(){
-    this.GetSelectedPharmacy()
+    this.GetSelectedPharmacy();
+    this.GetSelectedMedicine();
     this.availableAdresses = '';
-    this.medicineAvailabilityService.getPharmacy(this.selectedPharmacy,this.medicines[this.medID-1].Name)
+    this.medicineAvailabilityService.getPharmacy(this.selectedPharmacy,this.selectedMedicine.Name)
     .subscribe(data => {
       this.available = data;
       if(this.available.Addresses != null){
-        console.log("IF IS TRUE");
         this.available.Addresses.forEach(
-          a=> this.availableAdresses+=a)
+          a=> this.availableAdresses+=a+'\n')
       } else {
-        console.log("IF IS FALSE");
         this.availableAdresses = "Medicine unavailable!";
       }
-    })
+    }, err => {
+      alert(err.error);
+    } 
+    )
   }
+
+  GetSelectedMedicine(){
+    this.medicines.forEach(m=>
+     {
+       if(m.Id==this.medID)
+        {
+          this.selectedMedicine=m;
+        }
+     })
   
+  }
+
 GetSelectedPharmacy(){
     this.pharmacies.forEach(p=>
      {

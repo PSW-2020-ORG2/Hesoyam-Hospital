@@ -26,13 +26,11 @@ export class ActionBenefitComponent implements OnInit {
       (data) =>{
         console.log(data);
         this.ngOnInit();
-
       }, 
       err => {
-        
-        console.log(err);
+        alert(err.error);
       } 
-     );
+    );
   }
   Delete(val:any){
     this.service.Delete(val).subscribe(res=>{
@@ -42,7 +40,6 @@ export class ActionBenefitComponent implements OnInit {
         err => {
           alert(err.error);
         }
-        );
+    );
   }
-
 }

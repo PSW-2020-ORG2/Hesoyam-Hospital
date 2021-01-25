@@ -42,9 +42,12 @@ export class TenderOfferDialogComponent implements OnInit {
     this.tenderOffer.TenderOfferListings=this.tenderOfferListing;
     console.log(this.tenderOffer);
     this.tenderOfferService.PostOffer(this.tenderOffer).subscribe(
-      data=>console.log("proslo")
+      data=>{
+        alert("Tender offer submitted successfilly.");
+        this.dialogRef.close();
+      },
+      err=>alert(err.error)
     );
-    this.dialogRef.close();
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -56,5 +59,8 @@ export class TenderOfferDialogComponent implements OnInit {
     currentElement.Quantity=this.offerForm.get('quantity').value;
     currentElement.UnitPrice=this.offerForm.get('price').value;
     this.tenderOfferListing.push(currentElement);
+  }
+  Delete(index: number){
+    this.tenderOfferListing.splice(index, 1);
   }
 }

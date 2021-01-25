@@ -52,6 +52,28 @@ namespace Medicines.Controllers
             }
             
         }
+        [HttpPut("medicinePurchased/{name}/{quantity}")]
+        public IActionResult IncrementQuantity(string name, int quantity)
+        {
+            try
+            {
+                Medicine medicine = _medicineService.GetMedicineByName(name);
+                medicine.InStock += quantity;
+                _medicineService.Update(medicine);
+                return Ok("Medicine quantity updated.");
+            }
+            catch (MedicineServiceException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500, e.Message);
+            }
+        }
+
 
         [HttpGet("specification/{name}")]
         public IActionResult GetSpecification(string name)

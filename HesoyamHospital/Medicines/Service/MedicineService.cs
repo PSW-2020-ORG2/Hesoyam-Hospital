@@ -108,7 +108,7 @@ namespace Medicines.Service
 
         private MedicineAvailabilityDTO GetMedicineAvailabilityGrpc(string medicineName, RegisteredPharmacyDTO registeredPharmacy)
         {
-            Channel channel = new Channel(registeredPharmacy.Endpoint + ":" + registeredPharmacy.GrpcPort, ChannelCredentials.Insecure);
+            Channel channel = new Channel(registeredPharmacy.ExtractDomainName() + ":" + registeredPharmacy.GrpcPort, ChannelCredentials.Insecure);
             MedicineAvailabilityService.MedicineAvailabilityServiceClient client = new MedicineAvailabilityService.MedicineAvailabilityServiceClient(channel);
             MedicineAvailabilityProto proto = client.IsMedicineAvailable(new MedicineNameProto { MedicineName = medicineName });
             return JsonConvert.DeserializeObject<MedicineAvailabilityDTO>(proto.ToString());
@@ -119,6 +119,7 @@ namespace Medicines.Service
             var client = new RestClient(registeredPharmacy.Endpoint);
             var request = new RestRequest("/api/availablemedicine");
             request.AddParameter("medicine", medicineName);
+            request.AddHeader("Authorization", registeredPharmacy.ApiKey);
             var response = client.Get<MedicineAvailabilityDTO>(request);
             MedicineAvailabilityDTO retVal = response.Data;
             return retVal;

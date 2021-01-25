@@ -32,7 +32,11 @@ namespace PharmacyRegistration.Repository.SQLRepository.Base
             return Environment.GetEnvironmentVariable("USES_POSTGRES") == "TRUE";
         }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RegisteredPharmacy>().OwnsOne(rp => rp.ApiKey);
+            modelBuilder.Entity<RegisteredPharmacy>().OwnsOne(rp => rp.Endpoint);
+        }
 
         private string GenerateConnectionString()
         {
