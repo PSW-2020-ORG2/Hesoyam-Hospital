@@ -45,7 +45,7 @@ namespace Medicines.Controllers
             } catch (TherapyServiceException e)
             {
                 Console.WriteLine(e.Message);
-                return BadRequest();
+                return BadRequest(e.Message);
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -53,19 +53,19 @@ namespace Medicines.Controllers
             }
         }
 
-        [HttpPost("sendPrescription/{id}")]
-        public IActionResult SendPrescription([FromBody] RegisteredPharmacyDTO registeredPharmacy, long id)
+        [HttpPost("sendPrescription/{id}/{uidn}")]
+        public IActionResult SendPrescription([FromBody] RegisteredPharmacyDTO registeredPharmacy, long id, string uidn)
         {
             try
             {
                 Therapy therapy = _therapyService.GetByID(id);
                 string patientFullName = _httpRequestSender.GetPatientFullName(therapy.Prescription.PatientId);
-                _therapyService.SendTherapyToPharmacy(therapy, patientFullName, registeredPharmacy);
+                _therapyService.SendTherapyToPharmacy(therapy, patientFullName, uidn, registeredPharmacy);
                 return Ok();
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(500, "An unknown error has occured.");
             }
         }
     }

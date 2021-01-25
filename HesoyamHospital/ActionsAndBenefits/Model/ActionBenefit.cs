@@ -8,17 +8,14 @@ namespace ActionsAndBenefits.Model
     {
         //[JsonIgnore]
         public long Id { get; set; }
-        public string Text { get; set; }
-        public DateTime Timestamp { get; set; }
-        public bool Approved { get; set; }
-
-        public ActionBenefit()
-        {
-            Approved = false;
-        }
+        public string Text { get; private set; }
+        public DateTime Timestamp { get; private set; }
+        public bool Approved { get; private set; }
 
         public ActionBenefit(string text, DateTime timestamp)
         {
+            if (string.IsNullOrWhiteSpace(text) || timestamp == null)
+                throw new ArgumentNullException();
             Text = text;
             Timestamp = timestamp;
             Approved = false;
@@ -27,6 +24,16 @@ namespace ActionsAndBenefits.Model
         public override string ToString()
         {
             return Text + " sent at " + Timestamp.ToString();
+        }
+        public void ChangeText(string newText)
+        {
+            if (string.IsNullOrWhiteSpace(newText))
+                throw new ArgumentNullException();
+            Text = newText;
+        }
+        public void ChangeTimestamp(DateTime newTimestamp)
+        {
+            Timestamp = newTimestamp;
         }
         public void Approve()
         {

@@ -18,9 +18,11 @@ namespace IntegrationAdapter.SFTPServiceSupport
                 using (Stream stream = File.OpenRead(fileToSend))
                 {
                     client.UploadFile(stream, @"\pharmacy_reports\" + Path.GetFileName(fileToSend));
-                    SMTPNotificationSender.SendMessageToAllPharmacies("heshospital@gmail.com",
-                                                                      "Weekly report about medicine consumption in Hesoyam hospital",
-                                                                      "Report has been successfully sent to all pharmacies.");
+                    SMTPNotificationSender.SendMessage(Environment.GetEnvironmentVariable("HospitalEmail"),
+                                                       Environment.GetEnvironmentVariable("HospitalEmailPassword"),
+                                                       Environment.GetEnvironmentVariable("HospitalEmail"),
+                                                       "Weekly report about medicine consumption in Hesoyam hospital",
+                                                       "Report has been successfully sent to the server.");
                 }
                 client.Disconnect();
             }

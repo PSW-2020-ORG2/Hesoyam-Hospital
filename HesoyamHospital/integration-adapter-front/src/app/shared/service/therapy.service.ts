@@ -17,9 +17,9 @@ export class TherapyService {
     return this._http.post(this._APIUrl + '/addtherapy',therapy);
   }
 
-  SendPrescription(pharmacy:RegisteredPharmacy,id:number):Observable<any>
+  SendPrescription(pharmacy:RegisteredPharmacy,therapyId:number,patientJmbg:string):Observable<any>
   {
-    return this._http.post(this._APIUrl+'/sendPrescription/'+id,pharmacy);
+    return this._http.post(this._APIUrl+'/sendPrescription/'+therapyId+'/'+patientJmbg,pharmacy);
   }
   
 

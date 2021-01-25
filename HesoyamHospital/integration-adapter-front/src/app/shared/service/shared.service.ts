@@ -12,8 +12,8 @@ export class SharedService {
 
   constructor(private _http : HttpClient) { }
 
-  getAllPatients(): Observable<any> {
-    return this._http.get(this._APIUrl + '/medicineSpecificationAcquisition/getALL/patients' );
+  getAllPatients(): Promise<any> {
+    return this._http.get('http://localhost:57746/api/patient/getAllPatients').toPromise();
   }
 
   getAllMedicines(): Observable<any> {

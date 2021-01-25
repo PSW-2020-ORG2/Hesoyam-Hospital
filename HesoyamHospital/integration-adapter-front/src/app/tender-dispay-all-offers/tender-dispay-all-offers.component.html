@@ -1,0 +1,30 @@
+<ul class="display-list">
+    <li *ngFor="let t of tenderOffers">
+        <div>
+            <mat-label>Name: </mat-label>
+            <mat-label>{{t.PharmacyName}}</mat-label>
+        <br>
+            <mat-label>Email: </mat-label>
+            <mat-label>{{t.Email}}</mat-label>
+        </div>
+        <br>
+        <table id="listingtable">
+            <thead>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tl of t.TenderOfferListings">
+                <td><mat-label>{{tl.Medicine}}</mat-label></td>
+                <td><mat-label>{{tl.Quantity}}</mat-label></td>
+                <td><mat-label>{{tl.UnitPrice}}</mat-label></td>
+            </tr>
+        </tbody>
+        </table>
+        <div class="action-button">
+            <button mat-raised-button (click)="Choose(t.Id)" >
+                Choose </button>
+           </div> 
+    </li>
+</ul>
