@@ -132,6 +132,8 @@ namespace GraphicEditor.View
 
                     DateTime startTime = startDate;
                     DateTime endTime = endDate;
+                    TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
+                    int intMinutes = (int)varTime.TotalMinutes;
                     TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
                     availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
@@ -173,13 +175,15 @@ namespace GraphicEditor.View
                     else ScheduleComplexRenovation(timeInterval);
 
                     if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
-                        FillAlternativeTimeIntervals(timeInterval);
+                        FillAlternativeTimeIntervals(timeInterval, intMinutes);
                 }
 
                 else
                 {
                     DateTime startTime = startDate;
                     DateTime endTime = endDate;
+                    TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
+                    int intMinutes = (int)varTime.TotalMinutes;
                     TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
                     availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
@@ -206,7 +210,7 @@ namespace GraphicEditor.View
 
 
                     if (!isCurrentRoomAvailable)
-                        FillAlternativeTimeIntervals(timeInterval);
+                        FillAlternativeTimeIntervals(timeInterval, intMinutes);
                 }
             }
         }
@@ -222,24 +226,21 @@ namespace GraphicEditor.View
             mw.ShowDialog();
         }
 
-        private void FillAlternativeTimeIntervals(TimeInterval timeInterval)
+        private void FillAlternativeTimeIntervals(TimeInterval timeInterval, int minutes)
         {
             alternativeTimeIntervals = new List<TimeInterval>();
 
-            int counterTerms = 0;
-            while (counterTerms <= NUM_TERMS)
-            {
+            
                 timeInterval.StartTime = timeInterval.EndTime;
-                timeInterval.EndTime = timeInterval.StartTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
                 TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
                 if (roomService.IsRoomAvailableByTime(room, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
                 {
                     alternativeTimeIntervals.Add(time);
-                    counterTerms++;
+                   
                 }
-            }
-
+ 
             searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
             searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
         }
