@@ -33,8 +33,6 @@ namespace ActionsAndBenefits.Model
         }
         public void ChangeTimestamp(DateTime newTimestamp)
         {
-            if (newTimestamp == null)
-                throw new ArgumentNullException();
             Timestamp = newTimestamp;
         }
         public void Approve()

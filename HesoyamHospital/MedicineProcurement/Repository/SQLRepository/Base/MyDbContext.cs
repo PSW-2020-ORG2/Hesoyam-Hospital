@@ -42,7 +42,7 @@ namespace MedicineProcurement.Repository.SQLRepository.Base
         private string GenerateConnectionString()
         {
             string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
-            return "server=" + server.Trim() + ";" + "port = 3306; database = mydb1; user = root; password = root";
+            return "server=" + server.Trim() + ";" + Environment.GetEnvironmentVariable("MyDbConnectionString");
         }
         private string GeneratePostgresConnectionString()
         {
