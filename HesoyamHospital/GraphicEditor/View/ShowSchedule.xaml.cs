@@ -24,6 +24,7 @@ namespace GraphicEditor.View
     {
         private readonly AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
         private Room room;
+        private long type;
 
         public ShowSchedule(Room room1)
         {
@@ -34,15 +35,22 @@ namespace GraphicEditor.View
 
         private void ButtonScheduledAppointments_Click(object sender, RoutedEventArgs e)
         {
+
+            LoadAppointmentsInRoom();
+            
+        }
+        private void LoadAppointmentsInRoom() 
+        {
             List<Appointment> appointments = new List<Appointment>();
             List<ScheduledAppointmentDTO> appointmentsDto = new List<ScheduledAppointmentDTO>();
+            type = 0;
 
             appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
             List<Appointment> appointmentNew = new List<Appointment>();
-            
-            foreach (Appointment appointment in appointments) 
+
+            foreach (Appointment appointment in appointments)
             {
-                if ((appointment.AppointmentType == AppointmentType.checkup || appointment.AppointmentType == AppointmentType.operation) && appointment.IsInFuture() && !appointment.Canceled) 
+                if ((appointment.AppointmentType == AppointmentType.checkup || appointment.AppointmentType == AppointmentType.operation) && appointment.IsInFuture() && !appointment.Canceled)
                 {
                     appointmentNew.Add(appointment);
                 }
@@ -50,14 +58,18 @@ namespace GraphicEditor.View
 
             appointmentsDto = ScheduledAppointmentMapper.ScheduledAppointmentToAppointmentDto(appointmentNew);
             searchApp.ItemsSource = appointmentsDto;
-           
-            
+
         }
 
         private void ButtonScheduledRelocations_Click(object sender, RoutedEventArgs e)
         {
+            LoadRelocationsInRoom();
+        }
+        private void LoadRelocationsInRoom()
+        {
             List<Appointment> appointments = new List<Appointment>();
-            List<AppointmentDTO> appointmentsDto = new List<AppointmentDTO>();
+            List<ScheduledAppointmentDTO> appointmentsDto = new List<ScheduledAppointmentDTO>();
+            type = 1;
 
             appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
             List<Appointment> appointmentNew = new List<Appointment>();
@@ -70,15 +82,20 @@ namespace GraphicEditor.View
                 }
             }
 
-            appointmentsDto = AppointmentMapper.AppointmentToAppointmentDto(appointmentNew);
+            appointmentsDto = ScheduledAppointmentMapper.ScheduledAppointmentToAppointmentDto(appointmentNew);
             searchApp.ItemsSource = appointmentsDto;
-
         }
 
         private void ButtonScheduledRenovations_Click(object sender, RoutedEventArgs e)
         {
+            LoadRenovationsInRoom();
+        }
+
+        private void LoadRenovationsInRoom()
+        {
             List<Appointment> appointments = new List<Appointment>();
-            List<ScheduledAppointmentDTO> appointmentsDto = new List<ScheduledAppointmentDTO> ();
+            List<ScheduledAppointmentDTO> appointmentsDto = new List<ScheduledAppointmentDTO>();
+            type = 2;
 
             appointments = (List<Appointment>)appointmentService.GetAppointmentsByRoom(room);
             List<Appointment> appointmentNew = new List<Appointment>();
@@ -93,7 +110,6 @@ namespace GraphicEditor.View
 
             appointmentsDto = ScheduledAppointmentMapper.ScheduledAppointmentToAppointmentDto(appointmentNew);
             searchApp.ItemsSource = appointmentsDto;
-
         }
 
         private void CancelAppointmnet(object sender, SelectionChangedEventArgs e)
@@ -106,13 +122,27 @@ namespace GraphicEditor.View
                 {
                     appointmentService.CancelAppointment(appointmentForCancelation);
                     MessageBox.Show("Appointment canceled!");
-                    searchApp.Items.Refresh();
+                    RefreshTable();
                 }
                 catch
                 {
                     MessageBox.Show("Appointment too soon to be canceled!");
                 }
                 
+            }
+        }
+        private void RefreshTable()
+        {
+            switch (type) {
+                case 0:
+                    LoadAppointmentsInRoom();
+                    break;
+                case 1:
+                    LoadRelocationsInRoom();
+                    break;
+                case 2:
+                    LoadRenovationsInRoom();
+                    break;
             }
         }
     }
