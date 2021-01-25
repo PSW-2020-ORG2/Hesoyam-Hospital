@@ -19,7 +19,7 @@ namespace IntegrationAdapterTests.Integration
         private const string serverIP = "192.168.1.6";
         private const string user = "tester";
         private const string password = "password";
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public async void Check_if_doctor_comment_is_correct()
         {
             string responseText = await Generate_file_for_patient();
@@ -27,7 +27,7 @@ namespace IntegrationAdapterTests.Integration
         }
 
 
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public async void Check_if_patientID_is_correct()
         {
             string responseText = await Generate_file_for_patient();
@@ -35,7 +35,7 @@ namespace IntegrationAdapterTests.Integration
             jmbgResponse.Substring(8, 12).ShouldBe("111111111111");
         }
 
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public async void Read_specification_successfully()
         {
             string path = "test.txt";
@@ -45,7 +45,7 @@ namespace IntegrationAdapterTests.Integration
             client.Disconnect();
             text.ShouldBe("test to pass");
         }
-        [Fact]
+        [IgnoreOnDevelopmentFact]
         public async void Fail_to_read_specification()
         {
 
