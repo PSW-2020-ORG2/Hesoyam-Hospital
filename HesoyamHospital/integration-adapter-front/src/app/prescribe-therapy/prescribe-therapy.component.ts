@@ -4,6 +4,8 @@ import { Medicine } from '../shared/model/medicine.model';
 import { Therapy } from '../shared/model/therapy.model';
 import {TherapyService} from 'src/app/shared/service/therapy.service'
 import { RegisteredPharmacy } from '../shared/model/registered-pharmacy.model';
+import { SharedService } from '../shared/service/shared.service';
+import { Patient } from '../shared/model/patient.model';
 
 @Component({
   selector: 'app-prescribe-therapy',
@@ -14,71 +16,90 @@ export class PrescribeTherapyComponent implements OnInit {
 
   therapyForm :FormGroup;
   minDate : Date ;
-  medicines: Medicine[]=[{
-    Id:1,
-    Name:"Paracetamol"
-    },{
-    Id:2,
-    Name:"Andol"
-    },{
-    Id:3,
-    Name:"Brufen"
-    }];
+  medicines: Medicine[]=[];
   medID:number;
   
   selectedMed:string[]=[];
-  patientID:number;
 
-  patients:number[]=[]; 
+  patients:Patient[]=[]; 
   therapy:Therapy=new Therapy;
-  patientId:number;
-  therapySent:boolean;
+  patientJMBG:number;
+  pharmacyName:string;
   pharmacy:RegisteredPharmacy=new RegisteredPharmacy;
+  pharmacies:RegisteredPharmacy[]=[];
 
-  constructor(private fb: FormBuilder,private therapyService:TherapyService) {
+  constructor(private fb: FormBuilder,private sharedService:SharedService,private therapyService:TherapyService) {
+    //this.minDate=moment(new Date().add(1,'d');
     this.minDate=new Date();
    }
 
   ngOnInit(): void {
     this.therapyForm=this.fb.group({
       Start:['',[Validators.required]],
-      End:['',[Validators.required]]
+      End:['',[Validators.required]],
+      Comment:['']
     });
-    this.patients.push(1);
-    this.therapySent=false;
-    this.pharmacy.ApiKey="apikey";
-    this.pharmacy.Endpoint="http://localhost:8080";
-    this.pharmacy.PharmacyName="apoteka1";
+    
+    this.FillPatients();
+    console.log(this.patients);
+    this.FillPharmacy();
+    this.FillMedicines();  
   }
 
   SendTherapy(){
+    this.GetSelectedPharmacy();
     this.therapy.StartTime=this.therapyForm.get('Start').value;
     this.therapy.EndTime=this.therapyForm.get('End').value;
     this.therapy.DateCreated =new Date();
-    this.therapy.PatientID=1;
-    this.therapy.DoctorID=2;
-    this.therapy.Comment="";
+    
+    this.therapy.PatientID=this.patientJMBG;
+    this.therapy.DoctorID=1;
+    this.therapy.Comment=this.therapyForm.get('Comment').value;
     console.log(this.therapy);
     this.therapyService.AddTherapy(this.therapy).subscribe(
       id=>{
-          this.therapy.Id=id,
-          this.therapySent=true, 
-          console.log("proso")
-        }
+          this.therapy.Id=id;
+          console.log(this.patientJMBG);
+          this.therapyService.SendPrescription(this.pharmacy,this.therapy.Id,this.patientJMBG).subscribe(
+              data=>alert("Therapy sent"),
+              err=>alert(err.error)
+          )
+        },err=>alert(err.error)
     )
-    if(this.therapySent)
-    {
-        this.therapyService.SendPrescription(this.pharmacy,this.therapy.Id).subscribe(
-        data=>alert("Therapy sent")
-        )
-      }
-    this.therapySent=false;
   }
 
+  FillMedicines(){
+    this.sharedService.getAllMedicines().subscribe(
+      data=>this.medicines=data,
+      err=>alert(err.error)
+    );
+  }
+
+  async FillPatients(){
+    await this.sharedService.getAllPatients().then(
+      data=>this.patients=data
+    );
+  }
+
+  async FillPharmacy(){
+    await this.sharedService.getAllPharmacy().then(data => {
+      this.pharmacies = data
+    })
+  }
 
   AddMedicine(){
     this.selectedMed.push(this.medicines[this.medID-1].Name);
-    this.therapy.MedicineIDs.push(this.medicines[this.medID-1].Id);
+    this.therapy.MedicineIDs.push(this.medID);
+  }
+  GetSelectedPharmacy(){
+    this.pharmacies.forEach(p=>
+     {
+       if(p.PharmacyName==this.pharmacyName)
+        {
+          this.pharmacy=p;
+        }
+     })
+  
   }
 
 }

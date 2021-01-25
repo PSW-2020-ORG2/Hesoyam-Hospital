@@ -8,3 +8,4 @@ export class Therapy {
     Comment:string;
     MedicineIDs:number[]=[];
 }
+
