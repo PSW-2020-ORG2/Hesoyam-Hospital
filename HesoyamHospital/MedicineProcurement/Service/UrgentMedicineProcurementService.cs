@@ -9,6 +9,7 @@ using MedicineProcurement.DTOs;
 using MedicineProcurement.Model;
 using MedicineProcurement.Exceptions;
 using MedicineProcurement.Protos;
+using System;
 
 namespace MedicineProcurement.Service
 {
@@ -85,6 +86,7 @@ namespace MedicineProcurement.Service
             {
                 if (SendMedicineProcurementRequestGrpc(pharmacy, urgentMedicine))
                 {
+
                     Conclude(urgentMedicine);
                     return true;
                 }
@@ -102,7 +104,10 @@ namespace MedicineProcurement.Service
 
         private void Conclude(UrgentMedicineProcurement urgentMedicine)
         {
-            //TODO: Povecati kolicinu u bazi
+            var pharmacyClient = new RestClient("http://localhost:56514");
+            var pharmacyRequest = new RestRequest("/api/medicine/medicinePurchased/" + urgentMedicine.Medicine + "/" + urgentMedicine.Quantity);
+            var pharmacyResponse = pharmacyClient.Put<string>(pharmacyRequest);
+            Console.WriteLine(pharmacyResponse.Data);
             UrgentMedicineProcurement procurement = _urgentMedicineProcurementRepository.GetByID(urgentMedicine.Id);
             procurement.Conclude();
             _urgentMedicineProcurementRepository.Update(procurement);

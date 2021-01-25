@@ -30,7 +30,7 @@ namespace PharmacyRegistration.DTOs
             ApiKey = pharmacy.ApiKey.KeyID;
             PharmacyName = pharmacy.PharmacyName;
             Endpoint = pharmacy.Endpoint.EndpointURL;
-            GrpcPort = GrpcPort;
+            GrpcPort = pharmacy.GrpcPort;
         }
     }
 }
