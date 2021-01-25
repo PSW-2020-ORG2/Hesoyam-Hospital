@@ -155,7 +155,7 @@ namespace GraphicEditor
 
                 Room roomS = roomService.GetRoomByName(rectangle.Name);
                 ChooseActionWindow chooseActionWindow = new ChooseActionWindow(roomS);
-                chooseActionWindow.Show();
+                chooseActionWindow.ShowDialog();
         
             }
 

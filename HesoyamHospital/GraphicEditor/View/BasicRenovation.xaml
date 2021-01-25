@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GraphicEditor.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="BasicRenovation" Height="450" Width="800"
+        Title="BasicRenovation" Height="480" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid Background="Beige">
         <Grid.RowDefinitions>
@@ -31,18 +31,23 @@
 
         <Label x:Name="caption" Content="Schedule a basic renovation" Width="400" Grid.ColumnSpan="2" Style="{StaticResource ResourceKey=labelCaptionHospital}"/>
 
-        <Label Content="Choose start date for renovation: " Grid.Row="2" Grid.Column="1"/>
+        <Label Content="Choose start date for renovation: " Grid.Row="2" Grid.Column="1" FontSize="16"/>
 
         <DatePicker x:Name="startDatePicker" Grid.Row="2" Grid.Column="2" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="startDatePicker_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
-        <Label Content="Choose end date for renovation: " Grid.Row="3" Grid.Column="1"/>
+        <Label Content="Choose end date for renovation: " Grid.Row="3" Grid.Column="1" FontSize="16"/>
 
         <DatePicker x:Name="endDatePicker" Grid.Row="3" Grid.Column="2" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="endDatePicker_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
-        <Label Content="Description of renovation: " Grid.Row="4" Grid.Column="1"/>
+        <Label Content="Description of renovation: " Grid.Row="4" Grid.Column="1" FontSize="16"/>
 
         <TextBlock x:Name="descriptioOfRenovation" Grid.Row="4" Grid.Column="2" Width="370" Margin="0,0,20,0" Height="35" HorizontalAlignment="Center" Style="{StaticResource ResourceKey=textBlockInforamtion}"/>
         
         <Button x:Name="buttonScheduleBasicRenovation" Content="Schedule a basic renovation" ToolTip="Schedule a basic renovation" Grid.Row="5" Grid.Column="2" Style="{StaticResource ResourceKey=buttonScheduleBasicRenovation}" Click="ButtonScheduleBasicRenovation_Click"/>
+
+        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="6" Grid.Column="1" Height="180" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged"/>
+
+
+
     </Grid>
 </Window>

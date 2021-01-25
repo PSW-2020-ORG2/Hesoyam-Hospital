@@ -39,7 +39,8 @@ namespace GraphicEditor.View
 
         private void ScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
         {
-
+            BasicRenovation basicRenovation = new BasicRenovation(room);
+            basicRenovation.Show();
         }
     }
 }
