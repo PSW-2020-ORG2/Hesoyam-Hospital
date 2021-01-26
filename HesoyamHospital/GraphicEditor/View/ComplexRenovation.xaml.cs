@@ -58,14 +58,14 @@ namespace GraphicEditor.View
             for (int i = 0; i <= 20; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                DateTime d = fromDatePicker.SelectedDate.Value;
+                DateTime d1 = fromDatePicker.SelectedDate.Value;
                 DateTime result = Convert.ToDateTime(t);
-                DateTime dateTime = new DateTime(d.Year, d.Month, d.Day, result.Hour, result.Minute, 0);
-                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-                item.Tag = dateTime;
-                item.Content = dateTime.ToShortTimeString();
+                DateTime dateTime1 = new DateTime(d1.Year, d1.Month, d1.Day, result.Hour, result.Minute, 0);
+                if (i > 0) dateTime1 = dateTime1.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                item.Tag = dateTime1;
+                item.Content = dateTime1.ToShortTimeString();
                 chooseFromTime.Items.Add(item);
-                t = dateTime.ToShortTimeString();
+                t = dateTime1.ToShortTimeString();
             }
 
             string p = "8:00";
@@ -73,14 +73,14 @@ namespace GraphicEditor.View
             for (int i = 0; i <= 20; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                DateTime d = toDatePicker.SelectedDate.Value;
+                DateTime d2 = toDatePicker.SelectedDate.Value;
                 DateTime result = Convert.ToDateTime(p);
-                DateTime dateTime = new DateTime(d.Year, d.Month, d.Day, result.Hour, result.Minute, 0);
-                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-                item.Tag = dateTime;
-                item.Content = dateTime.ToShortTimeString();
+                DateTime dateTime2 = new DateTime(d2.Year, d2.Month, d2.Day, result.Hour, result.Minute, 0);
+                if (i > 0) dateTime2 = dateTime2.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                item.Tag = dateTime2;
+                item.Content = dateTime2.ToShortTimeString();
                 chooseToTime.Items.Add(item);
-                p = dateTime.ToShortTimeString();
+                p = dateTime2.ToShortTimeString();
             }
         }
 
@@ -199,9 +199,7 @@ namespace GraphicEditor.View
 
                     else ScheduleComplexRenovation(timeInterval);
 
-
-                    if (!isCurrentRoomAvailable)
-                        FillAlternativeTimeIntervals(timeInterval, intMinutes);
+                    if (!isCurrentRoomAvailable) FillAlternativeTimeIntervals(timeInterval, intMinutes);
                 }
             }
         }
@@ -209,7 +207,6 @@ namespace GraphicEditor.View
         private void ScheduleComplexRenovation(TimeInterval timeInterval)
         {
             Appointment appointmentRenovation = new Appointment(null, null, null, AppointmentType.renovation, timeInterval);
-
             appointmentSchedulingService.Create(appointmentRenovation);
             MessageWindow mw = new MessageWindow();
             mw.Title = "Complex renovation";
@@ -226,9 +223,8 @@ namespace GraphicEditor.View
             TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
             if (roomService.IsRoomAvailableByTime(room, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
-            {
                 alternativeTimeIntervals.Add(time);      
-            }
+  
  
             searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
             searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
@@ -239,13 +235,9 @@ namespace GraphicEditor.View
             if (chooseDestinationRoom != null)
             {
                 if (chooseOption.SelectedIndex == 0)
-                {
                     chooseDestinationRoom.IsEnabled = false;
-                }
                 else
-                {
                     chooseDestinationRoom.IsEnabled = true;
-                }
             }
         }
 
