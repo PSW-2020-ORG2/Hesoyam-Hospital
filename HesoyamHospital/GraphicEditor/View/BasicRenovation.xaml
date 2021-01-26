@@ -27,7 +27,7 @@
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
@@ -44,14 +44,15 @@
         <DatePicker x:Name="endDatePicker" Grid.Row="4" Grid.Column="2" DisplayDateStart="{x:Static sys:DateTime.Today}" Style="{StaticResource ResourceKey=dataPickerStyle}" KeyUp="EndDatePicker_KeyUp" SelectedDate="{x:Static sys:DateTime.Today}" ToolTip="Kalendar se otvara pritiskom na dugme F1"/>
 
         <ComboBox x:Name="chooseEndTime" Grid.Row="5" Grid.Column="2" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True" SelectionChanged="ChooseEndTime_SelectionChanged"/>
-        
+
         <Label Content="Description of renovation: " Grid.Row="6" Grid.Column="1" FontSize="16"/>
 
-        <TextBox x:Name="descriptioOfRenovation" Grid.Row="6" Grid.Column="2" Width="370" Margin="20,0,0,0" Height="35" HorizontalAlignment="Left" Style="{StaticResource ResourceKey=textBox}"/>
+        <TextBox x:Name="descriptioOfRenovation" Grid.Row="6" Grid.Column="3"  Width="370" Height="35" Style="{StaticResource ResourceKey=textBox}"/>
 
         <Button x:Name="buttonScheduleBasicRenovation" Content="Schedule a basic renovation" ToolTip="Schedule a basic renovation" Grid.Row="7" Grid.Column="2" Style="{StaticResource ResourceKey=buttonScheduleBasicRenovation}" Click="ButtonScheduleBasicRenovation_Click"/>
 
-        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="8" Grid.Column="1" Height="190" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged" Visibility="Hidden"/>
-
+        <DataGrid x:Name="searchAlternativeTerms" Grid.Row="8" Grid.Column="0" Height="225" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged">
+        </DataGrid>
     </Grid>
+
 </Window>

@@ -21,9 +21,9 @@ namespace GraphicEditor.View
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
         private Room room;
         private List<TimeInterval> alternativeTimeIntervals;
-        private int minutes;
         private DateTime startDate;
         private DateTime endDate;
+        private List<Room> availableRooms;
         public BasicRenovation(Room r)
         {
             InitializeComponent();
@@ -81,30 +81,46 @@ namespace GraphicEditor.View
             DateTime startTime = startDate;
             DateTime endTime = endDate;
             TimeSpan varTime = endTime - startTime;
-            minutes = (int)varTime.TotalMinutes;
+            int minutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
-          
-            if (!roomService.IsRoomAvailableByTime(room, timeInterval))          
+
+            availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
+            bool isRoomAvailable = false;
+
+            foreach(Room r in availableRooms)
+            {
+                if(room.Id == r.Id)
+                {
+                    isRoomAvailable = true;
+                }
+            }
+
+            if (!isRoomAvailable)
             {
                 MessageWindow mw = new MessageWindow();
                 mw.Title = "Room not available";
-                mw.message.Content = "Room " + room.RoomNumber + " not available!";
+                mw.message.Content = "Room is not available!";
                 mw.ShowDialog();
-                searchAlternativeTerms.Visibility = Visibility.Visible;
-                FillAlternativeTimeIntervals(timeInterval);
-               
+              
             }
-            else ScheduleBasicRoomRenovation(timeInterval);
-           
+            else
+            {
+                ScheduleBasicRoomRenovation(timeInterval);
+            }
+
+            if (!isRoomAvailable)
+            {
+                FillAlternativeTimeIntervals(timeInterval, minutes);
+            }
+         
         }
 
-
-        private void FillAlternativeTimeIntervals(TimeInterval timeInterval)
+        private void FillAlternativeTimeIntervals(TimeInterval timeInterval, int intMinutes)
         {
             alternativeTimeIntervals = new List<TimeInterval>();
 
             timeInterval.StartTime = timeInterval.EndTime;
-            timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
+            timeInterval.EndTime = timeInterval.StartTime.AddMinutes(intMinutes);
             TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
             if (roomService.IsRoomAvailableByTime(room, time)) 
