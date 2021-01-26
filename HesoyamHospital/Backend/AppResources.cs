@@ -155,6 +155,7 @@ namespace Backend
             patientService = new PatientService(patientRepository, medicalRecordRepository, doctorRepository);
             secretaryService = new SecretaryService(secretaryRepository);
             userService = new UserService(userRepository);
+            LoadManagerResources();
         }
 
         private void LoadRepositories()
@@ -180,6 +181,7 @@ namespace Backend
             therapyRepository = new TherapyRepository(new MySQLStream<Therapy>(), new LongSequencer());
             roomRepository = new RoomRepository(new MySQLStream<Room>(), new LongSequencer());
             appointmentRepository = new AppointmentRepository(new MySQLStream<Appointment>(), new LongSequencer());
+           
         }
 
         public static AppResources getInstance()
