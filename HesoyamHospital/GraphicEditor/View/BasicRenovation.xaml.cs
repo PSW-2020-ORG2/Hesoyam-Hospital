@@ -24,6 +24,10 @@ namespace GraphicEditor.View
         private DateTime startDate;
         private DateTime endDate;
         private List<Room> availableRooms;
+        private DateTime startTime;
+        private DateTime endTime;
+        private int minutes;
+
         public BasicRenovation(Room r)
         {
             InitializeComponent();
@@ -77,9 +81,7 @@ namespace GraphicEditor.View
             }
         }
         private void ButtonScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
-        {
-            DateTime startTime = startDate;
-            DateTime endTime = endDate;
+        { 
             TimeSpan varTime = endTime - startTime;
             int minutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
@@ -117,7 +119,7 @@ namespace GraphicEditor.View
 
         private void FillAlternativeTimeIntervals(TimeInterval timeInterval, int intMinutes)
         {
-            alternativeTimeIntervals = new List<TimeInterval>();
+            List<TimeInterval> alternativeTimeIntervals = new List<TimeInterval>();
 
             timeInterval.StartTime = timeInterval.EndTime;
             timeInterval.EndTime = timeInterval.StartTime.AddMinutes(intMinutes);
@@ -153,7 +155,7 @@ namespace GraphicEditor.View
             DateTime d1 = startDatePicker.SelectedDate.Value;
             DateTime d2 = (DateTime)item.Tag;
 
-            startDate = new DateTime(d1.Year, d1.Month, d1.Day, d2.Hour, d2.Minute, 0);
+            startTime = new DateTime(d1.Year, d1.Month, d1.Day, d2.Hour, d2.Minute, 0);
         }
 
         private void ChooseEndTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,7 +165,7 @@ namespace GraphicEditor.View
             DateTime d1 = endDatePicker.SelectedDate.Value;
             DateTime d2 = (DateTime)item.Tag;
 
-            endDate = new DateTime(d1.Year, d1.Month, d1.Day, d2.Hour, d2.Minute, 0);
+            endTime = new DateTime(d1.Year, d1.Month, d1.Day, d2.Hour, d2.Minute, 0);
         }
     }
 }
