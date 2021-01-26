@@ -43,7 +43,10 @@ namespace Backend.Service.HospitalManagementService
                     {
                         allRooms.Remove(allRooms.First(r => r.GetId() == appointmentRoom.GetId()));
                     }
-                    catch { }
+                    catch (Exception e) 
+                    {
+                        Console.WriteLine("{0} Exception caught.", e);
+                    }
                 }
             }
 
