@@ -42,9 +42,9 @@ namespace GraphicEditor.View
             roomService = Backend.AppResources.getInstance().roomService;
 
             List<Room> rooms = (List<Room>)roomService.GetAll();
-            foreach(Room r in rooms)
+            foreach (Room r in rooms)
             {
-                if(room.Id == r.Id + 1 || room.Id == r.Id - 1)
+                if (room.Id == r.Id + 1 || room.Id == r.Id - 1)
                 {
                     ComboBoxItem item = new ComboBoxItem();
                     item.Tag = r;
@@ -129,18 +129,42 @@ namespace GraphicEditor.View
             bool isDestinationRoomAvailable = false;
             availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
 
-            if (chooseDestinationRoom == null)
+            foreach (Room r in availableRooms)
             {
+                if (room.Id == r.Id)
+                {
+                    isCurrentRoomAvailable = true;
+                    break;
+                }
+            }
+
+            if (chooseOption.SelectedIndex == 0)
+            {
+                if (!isCurrentRoomAvailable)
+                {
+                    MessageWindow mw = new MessageWindow();
+                    mw.Title = "Room not available";
+                    mw.message.Content = "Current room not available!";
+                    mw.ShowDialog();
+
+                    FillAlternativeTimeIntervals(timeInterval, intMinutes);
+                }
+                else
+                    ScheduleComplexRenovation(timeInterval);
+            }
+            else
+            {
+                ComboBoxItem destRoom = (ComboBoxItem)chooseDestinationRoom.SelectedItem;
+                destinationRoom = (Room)destRoom.Tag;
 
                 foreach (Room r in availableRooms)
                 {
-                    if (room.Id == r.Id)
+                    if (destinationRoom.Id == r.Id)
                     {
-                        isCurrentRoomAvailable = true;
+                        isDestinationRoomAvailable = true;
                         break;
                     }
                 }
-                
                 if (!isCurrentRoomAvailable)
                 {
                     MessageWindow mw = new MessageWindow();
@@ -148,42 +172,21 @@ namespace GraphicEditor.View
                     mw.message.Content = "Current room not available!";
                     mw.ShowDialog();
                 }
-
-                if (chooseOption.SelectedIndex == 0)
+                else if (!isDestinationRoomAvailable)
                 {
-                    if (!isCurrentRoomAvailable)
-                        FillAlternativeTimeIntervals(timeInterval, intMinutes);
-                    else 
-                        ScheduleComplexRenovation(timeInterval);
+                    MessageWindow mw = new MessageWindow();
+                    mw.Title = "Room not available";
+                    mw.message.Content = "Destination room not available!";
+                    mw.ShowDialog();
                 }
                 else
-                {
-                    ComboBoxItem destRoom = (ComboBoxItem)chooseDestinationRoom.SelectedItem;
-                    destinationRoom = (Room)destRoom.Tag;
+                    ScheduleComplexRenovation(timeInterval);
 
-                    foreach (Room r in availableRooms)
-                    {
-                        if (destinationRoom.Id == r.Id)
-                        {
-                            isDestinationRoomAvailable = true;
-                            break;
-                        }
-                    }
-
-                    if (!isDestinationRoomAvailable && isCurrentRoomAvailable)
-                    {
-                        MessageWindow mw = new MessageWindow();
-                        mw.Title = "Room not available";
-                        mw.message.Content = " Destination room not available!";
-                        mw.ShowDialog();
-                    }
-
-                    if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
-                        FillAlternativeTimeIntervals(timeInterval, intMinutes);
-                    else
-                        ScheduleComplexRenovation(timeInterval);
-                }
+                if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
+                    FillAlternativeTimeIntervals(timeInterval, intMinutes);
+               
             }
+
         }
 
         private void ScheduleComplexRenovation(TimeInterval timeInterval)
@@ -199,15 +202,15 @@ namespace GraphicEditor.View
         private void FillAlternativeTimeIntervals(TimeInterval timeInterval, int minutes)
         {
             alternativeTimeIntervals = new List<TimeInterval>();
-            
+
             timeInterval.StartTime = timeInterval.EndTime;
             timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
             TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
             if (roomService.IsRoomAvailableByTime(room, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
-                alternativeTimeIntervals.Add(time);      
-  
- 
+                alternativeTimeIntervals.Add(time);
+
+
             searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
             searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
         }
