@@ -142,17 +142,14 @@ namespace GraphicEditor.View
             {
                 if (!isCurrentRoomAvailable)
                 {
-                    MessageWindow mw = new MessageWindow();
-                    mw.Title = "Room not available";
-                    mw.message.Content = "Current room not available!";
-                    mw.ShowDialog();
-
+                    ShowMessageCurrentRoomNotAvailable();
                     FillAlternativeTimeIntervals(timeInterval, intMinutes);
                 }
                 else
                     ScheduleComplexRenovation(timeInterval);
             }
-            else
+            
+            if (chooseOption.SelectedIndex != 0)
             {
                 ComboBoxItem destRoom = (ComboBoxItem)chooseDestinationRoom.SelectedItem;
                 destinationRoom = (Room)destRoom.Tag;
@@ -166,12 +163,7 @@ namespace GraphicEditor.View
                     }
                 }
                 if (!isCurrentRoomAvailable)
-                {
-                    MessageWindow mw = new MessageWindow();
-                    mw.Title = "Room not available";
-                    mw.message.Content = "Current room not available!";
-                    mw.ShowDialog();
-                }
+                    ShowMessageCurrentRoomNotAvailable();
                 else if (!isDestinationRoomAvailable)
                 {
                     MessageWindow mw = new MessageWindow();
@@ -179,14 +171,19 @@ namespace GraphicEditor.View
                     mw.message.Content = "Destination room not available!";
                     mw.ShowDialog();
                 }
-                else
-                    ScheduleComplexRenovation(timeInterval);
-
                 if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
                     FillAlternativeTimeIntervals(timeInterval, intMinutes);
-               
+                else
+                    ScheduleComplexRenovation(timeInterval);
             }
+        }
 
+        private static void ShowMessageCurrentRoomNotAvailable()
+        {
+            MessageWindow mw = new MessageWindow();
+            mw.Title = "Room not available";
+            mw.message.Content = "Current room not available!";
+            mw.ShowDialog();
         }
 
         private void ScheduleComplexRenovation(TimeInterval timeInterval)
