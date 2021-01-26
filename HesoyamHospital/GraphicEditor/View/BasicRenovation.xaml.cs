@@ -60,11 +60,11 @@ namespace GraphicEditor.View
                 mw.Title = "Room not available";
                 mw.message.Content = "Room " + room.RoomNumber + " not available!";
                 mw.ShowDialog();
-                FillAlternativeTimeIntervals(timeInterval);
                 searchAlternativeTerms.Visibility = Visibility.Visible;
+                FillAlternativeTimeIntervals(timeInterval);
+               
             }
-            else
-                RoomRenovation(timeInterval);
+            else ScheduleBasicRoomRenovation(timeInterval);
         }
 
 
@@ -76,7 +76,8 @@ namespace GraphicEditor.View
             timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
             TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
-            if (roomService.IsRoomAvailableByTime(room, time)) alternativeTimeIntervals.Add(time);
+            if (roomService.IsRoomAvailableByTime(room, time)) 
+                alternativeTimeIntervals.Add(time);
         
             searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
             searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
@@ -85,10 +86,10 @@ namespace GraphicEditor.View
         private void SearchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {  
             TimeInterval selectedTimeInterval = (TimeInterval)searchAlternativeTerms.SelectedItem;
-            RoomRenovation(selectedTimeInterval);
+            ScheduleBasicRoomRenovation(selectedTimeInterval);
         }
 
-        private void RoomRenovation(TimeInterval timeInterval)
+        private void ScheduleBasicRoomRenovation(TimeInterval timeInterval)
         {
             Appointment appointmentRenovation = new Appointment(null, null, room, AppointmentType.renovation, timeInterval);
             appointmentSchedulingService.Create(appointmentRenovation);
