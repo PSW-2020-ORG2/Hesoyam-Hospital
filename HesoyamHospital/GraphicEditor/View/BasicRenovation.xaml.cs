@@ -20,6 +20,8 @@ namespace GraphicEditor.View
         private readonly AppointmentSchedulingService appointmentSchedulingService;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
         private Room room;
+        private List<TimeInterval> alternativeTimeIntervals;
+        private int minutes;
         public BasicRenovation(Room r)
         {
             InitializeComponent();
@@ -49,30 +51,51 @@ namespace GraphicEditor.View
             DateTime startDate = startDatePicker.SelectedDate.Value;
             DateTime endDate = endDatePicker.SelectedDate.Value;
             TimeSpan varTime = endDate - startDate;
-            int minutes = (int)varTime.TotalMinutes;
+            minutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startDate, endDate);
 
-            if (roomService.IsRoomAvailableByTime(room, timeInterval))
-            {
-                Appointment appointmentRenovation = new Appointment(null, null, room, AppointmentType.renovation, timeInterval);
-                appointmentSchedulingService.Create(appointmentRenovation);
-                MessageWindow ms = new MessageWindow();
-                ms.Title = "Scheduled renovation";
-                ms.message.Content = descriptioOfRenovation.Text + " is scheduled in room " + room.Id;
-                ms.ShowDialog();
-            }
-            else
+            if (!roomService.IsRoomAvailableByTime(room, timeInterval))          
             {
                 MessageWindow mw = new MessageWindow();
                 mw.Title = "Room not available";
                 mw.message.Content = "Room " + room.RoomNumber + " not available!";
                 mw.ShowDialog();
+                FillAlternativeTimeIntervals(timeInterval);
+                searchAlternativeTerms.Visibility = Visibility.Visible;
             }
+            else
+                RoomRenovation(timeInterval);
+        }
+
+
+        private void FillAlternativeTimeIntervals(TimeInterval timeInterval)
+        {
+            alternativeTimeIntervals = new List<TimeInterval>();
+
+            timeInterval.StartTime = timeInterval.EndTime;
+            timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
+            TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
+
+            if (roomService.IsRoomAvailableByTime(room, time)) alternativeTimeIntervals.Add(time);
+        
+            searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
+            searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
         }
 
         private void SearchAlternativeTerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {  
+            TimeInterval selectedTimeInterval = (TimeInterval)searchAlternativeTerms.SelectedItem;
+            RoomRenovation(selectedTimeInterval);
+        }
 
+        private void RoomRenovation(TimeInterval timeInterval)
+        {
+            Appointment appointmentRenovation = new Appointment(null, null, room, AppointmentType.renovation, timeInterval);
+            appointmentSchedulingService.Create(appointmentRenovation);
+            MessageWindow ms = new MessageWindow();
+            ms.Title = "Scheduled renovation";
+            ms.message.Content = descriptioOfRenovation.Text + " is scheduled in room " + room.RoomNumber;
+            ms.ShowDialog();
         }
     }
 }
