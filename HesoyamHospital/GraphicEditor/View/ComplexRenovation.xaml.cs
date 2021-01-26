@@ -122,19 +122,18 @@ namespace GraphicEditor.View
 
         private void buttonComplexRenovation_Click(object sender, RoutedEventArgs e)
         {
+            DateTime startTime = startDate;
+            DateTime endTime = endDate;
+            TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
+            int intMinutes = (int)varTime.TotalMinutes;
+            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+
             if (chooseDestinationRoom != null)
             {
                 if (chooseOption.SelectedIndex != 0)
                 {
                     ComboBoxItem destRoom = (ComboBoxItem)chooseDestinationRoom.SelectedItem;
-
                     destinationRoom = (Room)destRoom.Tag;
-
-                    DateTime startTime = startDate;
-                    DateTime endTime = endDate;
-                    TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
-                    int intMinutes = (int)varTime.TotalMinutes;
-                    TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
                     availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
                     bool isCurrentRoomAvailable = false;
@@ -180,12 +179,6 @@ namespace GraphicEditor.View
 
                 else
                 {
-                    DateTime startTime = startDate;
-                    DateTime endTime = endDate;
-                    TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
-                    int intMinutes = (int)varTime.TotalMinutes;
-                    TimeInterval timeInterval = new TimeInterval(startTime, endTime);
-
                     availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
                     bool isCurrentRoomAvailable = false;
 
@@ -229,17 +222,15 @@ namespace GraphicEditor.View
         private void FillAlternativeTimeIntervals(TimeInterval timeInterval, int minutes)
         {
             alternativeTimeIntervals = new List<TimeInterval>();
-
             
-                timeInterval.StartTime = timeInterval.EndTime;
-                timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
-                TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
+            timeInterval.StartTime = timeInterval.EndTime;
+            timeInterval.EndTime = timeInterval.StartTime.AddMinutes(minutes);
+            TimeInterval time = new TimeInterval(timeInterval.StartTime, timeInterval.EndTime);
 
-                if (roomService.IsRoomAvailableByTime(room, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
-                {
-                    alternativeTimeIntervals.Add(time);
-                   
-                }
+            if (roomService.IsRoomAvailableByTime(room, time) && roomService.IsRoomAvailableByTime(destinationRoom, time))
+            {
+                alternativeTimeIntervals.Add(time);      
+            }
  
             searchAlternativeTerms.ItemsSource = alternativeTimeIntervals;
             searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
