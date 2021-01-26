@@ -1,5 +1,5 @@
 ﻿using Authentication.Model;
-using Authentication.Repository;
+using Authentication.Repository.Abstract;
 using Authentication.Service.Abstract;
 using System.Collections.Generic;
 
@@ -7,11 +7,11 @@ namespace Authentication.Service
 {
     public class PatientService : IPatientService
     {
-        readonly PatientRepository _patientRepository;
-        readonly MedicalRecordRepository _medicalRecordRepository;
-        readonly DoctorRepository _doctorRepository;
+        readonly IPatientRepository _patientRepository;
+        readonly IMedicalRecordRepository _medicalRecordRepository;
+        readonly IDoctorRepository _doctorRepository;
 
-        public PatientService(PatientRepository patientRepository, MedicalRecordRepository medicalRecordRepository, DoctorRepository doctorRepository)
+        public PatientService(IPatientRepository patientRepository, IMedicalRecordRepository medicalRecordRepository, IDoctorRepository doctorRepository)
         {
             _patientRepository = patientRepository;
             _medicalRecordRepository = medicalRecordRepository;

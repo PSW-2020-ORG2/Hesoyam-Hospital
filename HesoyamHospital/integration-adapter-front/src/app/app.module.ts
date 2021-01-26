@@ -32,8 +32,15 @@ import { TenderOfferDialogComponent } from './dialog/tender-offer-dialog/tender-
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { UrgentRequestDialogComponent } from './dialog/urgent-request-dialog/urgent-request-dialog.component';
+import { TenderDisplayManagerComponent } from './tender-display-manager/tender-display-manager.component';
+import { TenderDispayAllOffersComponent } from './tender-dispay-all-offers/tender-dispay-all-offers.component';
+import { NewTenderDialogComponent } from './dialog/new-tender-dialog/new-tender-dialog.component';
 
-
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -47,7 +54,10 @@ import { UrgentRequestDialogComponent } from './dialog/urgent-request-dialog/urg
     UrgentMedicineProcurementListComponent,
     UrgentRequestDialogComponent,
     TenderDisplayComponent,
-    TenderOfferDialogComponent
+    TenderOfferDialogComponent,
+    TenderDisplayManagerComponent,
+    TenderDispayAllOffersComponent,
+    NewTenderDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -65,11 +75,15 @@ import { UrgentRequestDialogComponent } from './dialog/urgent-request-dialog/urg
     MatNativeDateModule,
     MatMenuModule,
     MatDialogModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     HttpClientModule
   ],
   entryComponents:[
     UrgentRequestDialogComponent,
-    TenderOfferDialogComponent
+    TenderOfferDialogComponent,
+    NewTenderDialogComponent
   ],
   providers: [ ],
   bootstrap: [AppComponent]

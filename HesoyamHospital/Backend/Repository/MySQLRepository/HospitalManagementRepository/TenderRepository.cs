@@ -19,6 +19,6 @@ namespace Backend.Repository.MySQLRepository.HospitalManagementRepository
         public IEnumerable<Tender> GetAllActiveTenders()
             => GetAll().Where(tender => tender.IsActive() == true);
         public IEnumerable<Tender> GetAllUnconcludedTenders()
-            => GetAll().Where(tender => tender.Concluded == false);
+            => GetAll().Where(tender => tender.Concluded == false && tender.IsActive() == false);
     }
 }

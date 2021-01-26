@@ -1,0 +1,14 @@
+Hesoyam Hospital
+Prescribed medicine report for period: 1/18/2021 5:28:48 PM - 1/25/2021 5:28:48 PM
+Total number of different medicines prescribed: 7.
+Most prescribed medicines:
+Aspirin : 5
+Xanax : 3
+Pronison : 2
+Midol : 1
+Paracetamol : 1
+Femozol : 1
+Emanera : 1
+
+Most prescribed medicine types:
+PILL : 14

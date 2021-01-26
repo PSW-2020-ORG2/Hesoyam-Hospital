@@ -7,6 +7,7 @@ WORKDIR /app/
 COPY ./APIGateway/bin/Release/netcoreapp3.1/ .
 COPY ./APIGateway/bin/Release/netcoreapp3.1/ /app/publish/
 COPY ./APIGateway .
+COPY ./Authentication/Resources ./Resources
 
 COPY ./APIGateway/APIGateway.csproj .
 
@@ -34,8 +35,10 @@ EXPOSE 80
 WORKDIR /app/
 
 COPY --from=build /app .
+COPY --from=build /app/Resources /app/dist/
+
 #COPY --from=build /app/Resources /app/publish/Resources
-COPY --from=nodebuilder /usr/src/app/dist/web-application-front/. /app/Public/
+COPY --from=nodebuilder /usr/src/app/dist/web-application-front/. /app/dist/
 
 WORKDIR /app
 

@@ -2,15 +2,11 @@
 using Shouldly;
 using System.Net;
 using Xunit;
-using WebApplication;
 using System.Net.Http;
-using WebApplication.Documents;
-using System;
-using Backend.Util;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Backend.Model.UserModel;
-using WebApplication.HospitalSurvey;
+using Feedbacks;
+using Feedbacks.DTOs;
 
 namespace WebApplicationTests.Integration.HospitalSurvey
 {
@@ -23,26 +19,25 @@ namespace WebApplicationTests.Integration.HospitalSurvey
             _factory = factory;
         }
 
-        //[Theory]
-        //[MemberData(nameof(Data))]
-        //public async void Sending_answers_status_code_tests(SurveyDTO dto, HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
-        //    StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+        [Theory]
+        [MemberData(nameof(Data))]
+        public async void Sending_answers_status_code_tests(SurveyDTO dto)
+        {
+            HttpClient client = _factory.CreateClient();
+            StringContent bodyContent = new StringContent(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-        //    HttpResponseMessage response = await client.PostAsync("/api/survey/send-answers", bodyContent);
-            
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-          
-        //}
+            HttpResponseMessage response = await client.PostAsync("/api/survey/send-answers/0", bodyContent);
+
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.BadRequest };
+            response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
+        }
 
         public static IEnumerable<object[]> Data =>
         new List<object[]>
         {
-            new object[] {null, HttpStatusCode.BadRequest},
-            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5),  HttpStatusCode.OK },
-            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 8),  HttpStatusCode.BadRequest }
+            new object[] { null },
+            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5) },
+            new object[] { new SurveyDTO( 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 8) }
         };
-
     }
 }

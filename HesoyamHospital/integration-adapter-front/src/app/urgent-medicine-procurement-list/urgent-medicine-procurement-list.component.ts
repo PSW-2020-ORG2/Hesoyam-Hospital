@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UrgentRequestDialogComponent } from '../dialog/urgent-request-dialog/urgent-request-dialog.component';
 import { RegisteredPharmacy } from '../shared/model/registered-pharmacy.model';
 import { UrgentMedicineProcurementRequest } from '../shared/model/urgent-medicine-procurement-request.model'
+import { SharedService } from '../shared/service/shared.service';
 import { UrgentMedicineProcurementService } from '../shared/service/urgent-medicine-procurement.service'
 
 
@@ -13,7 +14,7 @@ import { UrgentMedicineProcurementService } from '../shared/service/urgent-medic
 })
 export class UrgentMedicineProcurementListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,private urgentMedicineProcurementService:UrgentMedicineProcurementService) { }
+  constructor(public dialog: MatDialog,private sharedService:SharedService,private urgentMedicineProcurementService:UrgentMedicineProcurementService) { }
 
   ngOnInit(): void {
     this.urgentMedicineProcurementService.getAllRequests().subscribe(
@@ -37,18 +38,28 @@ export class UrgentMedicineProcurementListComponent implements OnInit {
 
   requests:UrgentMedicineProcurementRequest[]=[];
   selectedRequest:UrgentMedicineProcurementRequest=new UrgentMedicineProcurementRequest;
+  allPharmacies:RegisteredPharmacy[]=[];
   pharmacies:RegisteredPharmacy[]=[];
  
   async Request(requestId:number){
-    await this.urgentMedicineProcurementService.getAllPharmacies(requestId)
+    await this.GetAllPharmacies();
+    await this.urgentMedicineProcurementService.getAllPharmacies(requestId,this.allPharmacies)
     .then(
       (data => {
         this.pharmacies=data
+        console.log(data);
       })
     );
     this.selectedRequest=this.GetSelectedRequest(requestId);
     this.openDialog();
   }
+  
+  async GetAllPharmacies(){
+    await this.sharedService.getAllPharmacy().then(
+      data=>this.allPharmacies = data
+    )
+  }
+  
 
   GetSelectedRequest(id:number):UrgentMedicineProcurementRequest{
     let retVal = null

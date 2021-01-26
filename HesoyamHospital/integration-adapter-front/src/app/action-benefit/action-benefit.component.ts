@@ -26,18 +26,20 @@ export class ActionBenefitComponent implements OnInit {
       (data) =>{
         console.log(data);
         this.ngOnInit();
-
       }, 
       err => {
-        
-        console.log(err);
+        alert(err.error);
       } 
-     );
+    );
   }
-  /*Delete(val:any){
+  Delete(val:any){
     this.service.Delete(val).subscribe(res=>{
-      alert(res.toString());
-        });
-  }*/
-
+      this.ngOnInit();
+      alert("Notification deleted!")
+        },
+        err => {
+          alert(err.error);
+        }
+    );
+  }
 }

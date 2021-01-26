@@ -2,12 +2,8 @@
 using Shouldly;
 using System.Net;
 using Xunit;
-using WebApplication;
 using System.Net.Http;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Backend.Model.PatientModel;
-using System;
+using Authentication;
 
 namespace WebApplicationTests.Integration.MedicalRecords
 {
@@ -20,23 +16,16 @@ namespace WebApplicationTests.Integration.MedicalRecords
             _factory = factory;
         }
 
-        //[Theory]
-        //[MemberData(nameof(Data))]
-        //public async void Medical_Record_Status_Code_Test(long id, HttpStatusCode expectedStatusCode)
-        //{
-        //    HttpClient client = _factory.CreateClient();
-            
-        //    var response = await client.GetAsync("/api/medicalrecord/show/"+ id );
-
-        //    response.StatusCode.ShouldBeEquivalentTo(expectedStatusCode);
-        //}
-
-        public static IEnumerable<object[]> Data =>
-        new List<object[]>
+        [Fact]
+        public async void Medical_record_status_code_test()
         {
-            new object[] {500, HttpStatusCode.OK},
-            new object[] { 400, HttpStatusCode.NotFound}
-            
-        };
+            HttpClient client = _factory.CreateClient();
+            long id = 1500;
+
+            var response = await client.GetAsync("/api/medicalrecord/show/" + id);
+
+            HttpStatusCode[] possibleStatusCodes = { HttpStatusCode.OK, HttpStatusCode.NotFound };
+            response.StatusCode.ShouldBeOneOf(possibleStatusCodes);
+        }
     }
 }

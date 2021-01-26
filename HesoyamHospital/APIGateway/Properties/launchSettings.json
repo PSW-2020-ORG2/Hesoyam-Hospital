@@ -18,13 +18,14 @@
       }
     },
     "APIGateway": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "STAGE": "DEV",
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:5000"
+        "commandName": "Project",
+        "launchBrowser": true,
+        "launchUrl": "index.html",
+        "environmentVariables": {
+            "STAGE": "DEV",
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "applicationUrl": "http://localhost:5000"
     }
   }
 }

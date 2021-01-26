@@ -24,7 +24,7 @@ export class TenderDisplayComponent implements OnInit {
   listing:TenderListing;
 
   GetAllActivTenders() {
-   return this.tenderService.GetAllUnconcludedTenders().subscribe(
+   return this.tenderService.GetAllActiveTenders().subscribe(
      data=>this.activeTenders=data
    )
   }

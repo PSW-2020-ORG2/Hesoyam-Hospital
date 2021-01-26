@@ -10,23 +10,23 @@ import { RegisteredPharmacy } from '../model/registered-pharmacy.model';
 })
 export class UrgentMedicineProcurementService {
 
-  readonly _APIUrl="http://localhost:54574/api/urgentMedicineProcurement"
+  readonly _APIUrl="http://localhost:54297/gateway"
 
   constructor(private _http : HttpClient) { }
 
-  getAllPharmacies(id:number):Promise<any>{
-    return this._http.get(this._APIUrl+'/getPharmacies/'+id).toPromise();
+  getAllPharmacies(id:number,pharmacies:RegisteredPharmacy[]):Promise<any>{
+    return this._http.post(this._APIUrl+'/getPharmacies/'+id,pharmacies).toPromise();
   }
 
   getAllRequests(): Observable<any> {
-    return this._http.get(this._APIUrl);
+    return this._http.get(this._APIUrl+'/urgentmedicineprocurement/allunconcluded');
   }
   
   MakeRequest(request:UrgentMedicineProcurementRequest): Observable<any> {
     return this._http.post(this._APIUrl + '/createRequest',request);
   }
 
-  OrderMedicine(pharmacyName:string,request:UrgentMedicineProcurementRequest):Observable<any>{
-    return this._http.put(this._APIUrl+'/'+pharmacyName,request);
+  OrderMedicine(pharmacy:RegisteredPharmacy,requestId:number):Observable<any>{
+    return this._http.put(this._APIUrl+'/'+requestId,pharmacy);
   }
 }

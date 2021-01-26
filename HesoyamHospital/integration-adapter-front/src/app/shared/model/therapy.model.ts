@@ -1,4 +1,5 @@
 export class Therapy {
+    Id:number;
     StartTime:Date ;
     EndTime :Date
     DateCreated:Date
@@ -7,3 +8,4 @@ export class Therapy {
     Comment:string;
     MedicineIDs:number[]=[];
 }
+

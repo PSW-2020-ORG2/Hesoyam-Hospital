@@ -1,12 +1,13 @@
-﻿using Backend.Model.PatientModel;
-using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MedicalAbstractRepository;
-using Backend.Util;
+﻿using Documents.DTOs;
+using Documents.Model;
+using Documents.Repository.Abstract;
+using Documents.Service;
+using Documents.Service.Abstract;
+using Documents.Util;
 using Moq;
 using Shouldly;
 using System;
 using System.Collections.Generic;
-using WebApplication.Documents.Service;
 using Xunit;
 
 namespace WebApplicationTests.Unit.Documents
@@ -20,7 +21,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(shouldSearchPrescriptions, shouldSearchReports, new TimeInterval(DateTime.Now.AddDays(-10), DateTime.Now.AddDays(1)), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500, CreateStubRequestSender());
 
             ((List<Document>)documents).Count.ShouldBeGreaterThan(0);
         }
@@ -41,9 +42,9 @@ namespace WebApplicationTests.Unit.Documents
             timeIntervalFilters.Add(new TimeIntervalFilter(new TimeInterval(DateTime.Now.AddDays(-20), DateTime.Now), IntervalMatchFilter.CONTAINS));
             AdvancedDocumentSearchCriteria criteria = new AdvancedDocumentSearchCriteria(shouldSearchPrescriptions, shouldSearchReports, filterTypes, logicalOperators, textFilters, timeIntervalFilters);
 
-            IEnumerable<Document> documents = service.AdvanceSearchDocs(criteria, 500);
+            IEnumerable<DocumentDTO> documents = service.AdvanceSearchDocs(criteria, 500, CreateStubRequestSender());
 
-            ((List<Document>)documents).Count.ShouldBeGreaterThan(0);
+            ((List<DocumentDTO>)documents).Count.ShouldBeGreaterThan(0);
         }
 
         [Theory]
@@ -53,7 +54,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(shouldSearchPrescriptions, shouldSearchReports, new TimeInterval(DateTime.Now.AddDays(-20), DateTime.Now.AddDays(-16)), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500, CreateStubRequestSender());
 
             ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
         }
@@ -74,9 +75,9 @@ namespace WebApplicationTests.Unit.Documents
             timeIntervalFilters.Add(new TimeIntervalFilter(new TimeInterval(DateTime.Now.AddDays(-20), DateTime.Now), IntervalMatchFilter.CONTAINS));
             AdvancedDocumentSearchCriteria criteria = new AdvancedDocumentSearchCriteria(shouldSearchPrescriptions, shouldSearchReports, filterTypes, logicalOperators, textFilters, timeIntervalFilters);
 
-            IEnumerable<Document> documents = service.AdvanceSearchDocs(criteria, 500);
+            IEnumerable<DocumentDTO> documents = service.AdvanceSearchDocs(criteria, 500, CreateStubRequestSender());
 
-            ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
+            ((List<DocumentDTO>)documents).Count.ShouldBeEquivalentTo(0);
         }
 
         [Fact]
@@ -85,7 +86,7 @@ namespace WebApplicationTests.Unit.Documents
             DocumentService service = new DocumentService(CreateStubPrescriptionRepository(), CreateStubReportRepository());
             DocumentSearchCriteria criteria = new DocumentSearchCriteria(false, false, new TimeInterval(DateTime.Now.AddDays(-10), DateTime.Now), "pera", "naziv1", "brufen", "nalaz");
 
-            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500);
+            IEnumerable<Document> documents = service.SimpleSearchDocs(criteria, 500, CreateStubRequestSender());
 
             ((List<Document>)documents).Count.ShouldBeEquivalentTo(0);
         }
@@ -99,10 +100,8 @@ namespace WebApplicationTests.Unit.Documents
             {
                 DateCreated = DateTime.Now.AddDays(-10),
                 Diagnosis = new Diagnosis(0, "naziv", "ab12"),
-                Doctor = new Doctor(0)
+                DoctorId = 0
             };
-            p1.Doctor.Name = "Pera";
-            p1.Doctor.Surname = "Peric";
             Medicine m = new Medicine("brufen", MedicineType.TABLET, 10, 5);
             List<SingleTherapyDose> st = new List<SingleTherapyDose>();
             st.Add(new SingleTherapyDose(TherapyTime.Evening, 2));
@@ -113,10 +112,8 @@ namespace WebApplicationTests.Unit.Documents
             {
                 DateCreated = DateTime.Now.AddDays(-5),
                 Diagnosis = new Diagnosis(0, "naziv1", "ab13"),
-                Doctor = new Doctor(0)
+                DoctorId = 0
             };
-            p2.Doctor.Name = "Pera";
-            p2.Doctor.Surname = "Peric";
             p2.MedicalTherapies.Add(new MedicalTherapy(m, td));
 
             prescriptions.Add(p1);
@@ -136,20 +133,16 @@ namespace WebApplicationTests.Unit.Documents
             {
                 DateCreated = DateTime.Now.AddDays(-15),
                 Diagnosis = new Diagnosis(0, "naziv", "ab12"),
-                Doctor = new Doctor(0)
+                DoctorId = 0
             };
-            r1.Doctor.Name = "Pera";
-            r1.Doctor.Surname = "Peric";
             r1.Comment = "nalaz";
 
             Report r2 = new Report(1)
             {
                 DateCreated = DateTime.Now.AddDays(-7),
                 Diagnosis = new Diagnosis(0, "naziv1", "ab13"),
-                Doctor = new Doctor(0)
+                DoctorId = 0
             };
-            r2.Doctor.Name = "Pera";
-            r2.Doctor.Surname = "Peric";
             r2.Comment = "nalaz";
 
             reports.Add(r1);
@@ -158,6 +151,15 @@ namespace WebApplicationTests.Unit.Documents
             stubRepository.Setup(r => r.GetAllByPatient(500)).Returns(reports);
 
             return stubRepository.Object;
+        }
+
+        private static IHttpRequestSender CreateStubRequestSender()
+        {
+            var stubRequestSender = new Mock<IHttpRequestSender>();
+
+            stubRequestSender.Setup(s => s.GetDoctorFullName(0)).Returns("Pera Peric");
+
+            return stubRequestSender.Object;
         }
 
         public static IEnumerable<object[]> Data =>

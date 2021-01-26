@@ -30,7 +30,7 @@ namespace Documents.Mappers
                 {
                     MedicineName = therapy.Medicine != null ? therapy.Medicine.Name : "UNDEFINED"
                 };
-                if (therapy.Dose != null && therapy.Dose.Dosage != null && therapy.Dose.Dosage.Count() > 0)
+                if (therapy.Dose != null && therapy.Dose.Dosage != null && therapy.Dose.Dosage.Count > 0)
                 {
                     t.TherapyTime = therapy.Dose.Dosage[0].TherapyTime.ToString();
                     t.Quantity = therapy.Dose.Dosage[0].Quantity;

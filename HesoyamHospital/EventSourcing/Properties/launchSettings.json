@@ -1,5 +1,4 @@
-﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -8,26 +7,27 @@
       "sslPort": 0
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "api/appointmentevent",
-      "applicationUrl": "http://localhost:63725",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "MyDbConnectionString": "server=localhost;port=3306;database=eventstorage;user=root;password=root"
-      }
+        "EventDbConnectionString": "server=localhost;port=3306;database=eventstorage;user=root;password=root",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:63725"
     },
     "EventSourcing": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/appointmentevent",
-      "applicationUrl": "http://localhost:63725",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "MyDbConnectionString": "server=localhost;port=3306;database=eventstorage;user=root;password=root"
-      }
+        "MyDbConnectionString": "server=localhost;port=3306;database=eventstorage;user=root;password=root",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:63725"
     }
   }
 }
