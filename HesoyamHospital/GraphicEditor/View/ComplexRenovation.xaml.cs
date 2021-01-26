@@ -25,8 +25,8 @@ namespace GraphicEditor.View
         private readonly RoomService roomService;
         private Room room;
         private Room destinationRoom;
-        private DateTime startDate;
-        private DateTime endDate;
+        private DateTime startTime;
+        private DateTime endTime;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
         private List<Room> availableRooms;
         private readonly AppointmentSchedulingService appointmentSchedulingService;
@@ -107,7 +107,7 @@ namespace GraphicEditor.View
             DateTime d = fromDatePicker.SelectedDate.Value;
             DateTime d2 = (DateTime)item.Tag;
 
-            startDate = new DateTime(d.Year, d.Month, d.Day, d2.Hour, d2.Minute, 0);
+            startTime = new DateTime(d.Year, d.Month, d.Day, d2.Hour, d2.Minute, 0);
         }
 
         private void ChooseToTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,14 +117,12 @@ namespace GraphicEditor.View
             DateTime d = toDatePicker.SelectedDate.Value;
             DateTime d2 = (DateTime)item.Tag;
 
-            endDate = new DateTime(d.Year, d.Month, d.Day, d2.Hour, d2.Minute, 0);
+            endTime = new DateTime(d.Year, d.Month, d.Day, d2.Hour, d2.Minute, 0);
         }
 
-        private void buttonComplexRenovation_Click(object sender, RoutedEventArgs e)
+        private void ButtonComplexRenovation_Click(object sender, RoutedEventArgs e)
         {
-            DateTime startTime = startDate;
-            DateTime endTime = endDate;
-            TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
+            TimeSpan varTime = endTime - startTime;
             int intMinutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
@@ -236,7 +234,7 @@ namespace GraphicEditor.View
             searchAlternativeTerms.Columns[0].Visibility = Visibility.Hidden;
         }
 
-        private void chooseOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChooseOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (chooseDestinationRoom != null)
             {

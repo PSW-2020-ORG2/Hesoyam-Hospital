@@ -37,7 +37,7 @@
 
         <Label Content="Choose option of renovation: " Grid.Row="3" Grid.Column="1"  Style="{StaticResource ResourceKey=labeleEmergencyExamination}"/>
 
-        <ComboBox x:Name="chooseOption" Grid.Row="3" Grid.Column="3" SelectionChanged="chooseOption_SelectionChanged" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True">
+        <ComboBox x:Name="chooseOption" Grid.Row="3" Grid.Column="3" SelectionChanged="ChooseOption_SelectionChanged" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEditable="True" IsTextSearchEnabled="True">
             <ComboBoxItem IsSelected="True">Devision</ComboBoxItem>
             <ComboBoxItem>Merging</ComboBoxItem>
         </ComboBox>
@@ -58,7 +58,7 @@
 
         <ComboBox x:Name="chooseDestinationRoom" Grid.Row="9" Grid.Column="3" Style="{StaticResource ResourceKey=comboBoxAppointmentStyle}" IsEnabled="False" IsTextSearchEnabled="True"/>
 
-        <Button x:Name="buttonComplexRenovation" Content="Schedule" ToolTip="Schedule" Grid.Row="10" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="buttonComplexRenovation_Click"/>
+        <Button x:Name="buttonComplexRenovation" Content="Schedule" ToolTip="Schedule" Grid.Row="10" Grid.Column="1" Style="{StaticResource ResourceKey=buttonAppointmentStyle}" Click="ButtonComplexRenovation_Click"/>
         
         <DataGrid x:Name="searchAlternativeTerms" Grid.Row="11" Grid.Column="0" Height="225" ItemsSource="{Binding alternativeTimeIntervals}" ColumnWidth="*" Style="{StaticResource ResourceKey=dataGridSearchAvailableTerms}" SelectionChanged="SearchAlternativeTerms_SelectionChanged">
         </DataGrid>
