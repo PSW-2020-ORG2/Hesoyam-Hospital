@@ -22,15 +22,46 @@ namespace GraphicEditor.View
         private Room room;
         private List<TimeInterval> alternativeTimeIntervals;
         private int minutes;
+        private DateTime startDate;
+        private DateTime endDate;
         public BasicRenovation(Room r)
         {
             InitializeComponent();
             appointmentSchedulingService = Backend.AppResources.getInstance().appointmentSchedulingService;
             roomService = Backend.AppResources.getInstance().roomService;
             room = r;
+
+            string t = "8:00";
+
+            for (int i = 0; i <= 20; i++)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                DateTime d1 = startDatePicker.SelectedDate.Value;
+                DateTime result = Convert.ToDateTime(t);
+                DateTime dateTime = new DateTime(d1.Year, d1.Month, d1.Day, result.Hour, result.Minute, 0);
+                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                item.Tag = dateTime;
+                item.Content = dateTime.ToShortTimeString();
+                chooseStartTime.Items.Add(item);
+                t = dateTime.ToShortTimeString();
+            }
+
+            string v = "8:00";
+            for (int i = 0; i <= 20; i++)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                DateTime d2 = endDatePicker.SelectedDate.Value;
+                DateTime result = Convert.ToDateTime(v);
+                DateTime dateTime = new DateTime(d2.Year, d2.Month, d2.Day, result.Hour, result.Minute, 0);
+                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                item.Tag = dateTime;
+                item.Content = dateTime.ToShortTimeString();
+                chooseEndTime.Items.Add(item);
+                v = dateTime.ToShortTimeString();
+            }
         }
 
-        private void startDatePicker_KeyUp(object sender, KeyEventArgs e)
+        private void StartDatePicker_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F1)
             {
@@ -38,7 +69,7 @@ namespace GraphicEditor.View
             }
         }
 
-        private void endDatePicker_KeyUp(object sender, KeyEventArgs e)
+        private void EndDatePicker_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F1)
             {
@@ -47,14 +78,26 @@ namespace GraphicEditor.View
         }
         private void ButtonScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
         {
-
-            DateTime startDate = startDatePicker.SelectedDate.Value;
-            DateTime endDate = endDatePicker.SelectedDate.Value;
-            TimeSpan varTime = endDate - startDate;
+            DateTime startTime = startDate;
+            DateTime endTime = endDate;
+            TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
             minutes = (int)varTime.TotalMinutes;
-            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
+            TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+/*
+           // List<Room> availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
 
-            if (!roomService.IsRoomAvailableByTime(room, timeInterval))          
+            bool isRoomAvailable = false;
+
+            foreach (Room r in availableRooms)
+            {
+                if (room.Id == r.Id)
+                {
+                    isRoomAvailable = true;
+                    break;
+                }
+            }
+
+            if (!isRoomAvailable)          
             {
                 MessageWindow mw = new MessageWindow();
                 mw.Title = "Room not available";
@@ -65,6 +108,7 @@ namespace GraphicEditor.View
                
             }
             else ScheduleBasicRoomRenovation(timeInterval);
+            */
         }
 
 
@@ -97,6 +141,26 @@ namespace GraphicEditor.View
             ms.Title = "Scheduled renovation";
             ms.message.Content = descriptioOfRenovation.Text + " is scheduled in room " + room.RoomNumber;
             ms.ShowDialog();
+        }
+
+        private void ChooseStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem item = (ComboBoxItem)chooseStartTime.SelectedItem;
+
+            DateTime d1 = startDatePicker.SelectedDate.Value;
+            DateTime d2 = (DateTime)item.Tag;
+
+            startDate = new DateTime(d1.Year, d1.Month, d1.Day, d2.Hour, d2.Minute, 0);
+        }
+
+        private void ChooseEndTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem item = (ComboBoxItem)chooseEndTime.SelectedItem;
+
+            DateTime d1 = endDatePicker.SelectedDate.Value;
+            DateTime d2 = (DateTime)item.Tag;
+
+            endDate = new DateTime(d1.Year, d1.Month, d1.Day, d2.Hour, d2.Minute, 0);
         }
     }
 }
