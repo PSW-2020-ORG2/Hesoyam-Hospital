@@ -80,24 +80,11 @@ namespace GraphicEditor.View
         {
             DateTime startTime = startDate;
             DateTime endTime = endDate;
-            TimeSpan varTime = (DateTime)endTime - (DateTime)startTime;
+            TimeSpan varTime = endTime - startTime;
             minutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
-/*
-           // List<Room> availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
-
-            bool isRoomAvailable = false;
-
-            foreach (Room r in availableRooms)
-            {
-                if (room.Id == r.Id)
-                {
-                    isRoomAvailable = true;
-                    break;
-                }
-            }
-
-            if (!isRoomAvailable)          
+          
+            if (!roomService.IsRoomAvailableByTime(room, timeInterval))          
             {
                 MessageWindow mw = new MessageWindow();
                 mw.Title = "Room not available";
@@ -108,7 +95,7 @@ namespace GraphicEditor.View
                
             }
             else ScheduleBasicRoomRenovation(timeInterval);
-            */
+           
         }
 
 
