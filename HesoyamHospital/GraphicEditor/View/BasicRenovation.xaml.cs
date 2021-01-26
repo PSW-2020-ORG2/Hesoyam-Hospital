@@ -20,9 +20,6 @@ namespace GraphicEditor.View
         private readonly AppointmentSchedulingService appointmentSchedulingService;
         public readonly long APPOINTMENT_DURATION_MINUTES = 30;
         private Room room;
-        private List<TimeInterval> alternativeTimeIntervals;
-        private DateTime startDate;
-        private DateTime endDate;
         private List<Room> availableRooms;
         private DateTime startTime;
         private DateTime endTime;
@@ -42,26 +39,27 @@ namespace GraphicEditor.View
                 ComboBoxItem item = new ComboBoxItem();
                 DateTime d1 = startDatePicker.SelectedDate.Value;
                 DateTime result = Convert.ToDateTime(t);
-                DateTime dateTime = new DateTime(d1.Year, d1.Month, d1.Day, result.Hour, result.Minute, 0);
-                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-                item.Tag = dateTime;
-                item.Content = dateTime.ToShortTimeString();
+                DateTime dateTime1 = new DateTime(d1.Year, d1.Month, d1.Day, result.Hour, result.Minute, 0);
+                if (i > 0) dateTime1 = dateTime1.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                item.Tag = dateTime1;
+                item.Content = dateTime1.ToShortTimeString();
                 chooseStartTime.Items.Add(item);
-                t = dateTime.ToShortTimeString();
+                t = dateTime1.ToShortTimeString();
             }
 
             string v = "8:00";
+
             for (int i = 0; i <= 20; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 DateTime d2 = endDatePicker.SelectedDate.Value;
                 DateTime result = Convert.ToDateTime(v);
-                DateTime dateTime = new DateTime(d2.Year, d2.Month, d2.Day, result.Hour, result.Minute, 0);
-                if (i > 0) dateTime = dateTime.AddMinutes(APPOINTMENT_DURATION_MINUTES);
-                item.Tag = dateTime;
-                item.Content = dateTime.ToShortTimeString();
+                DateTime dateTime2 = new DateTime(d2.Year, d2.Month, d2.Day, result.Hour, result.Minute, 0);
+                if (i > 0) dateTime2 = dateTime2.AddMinutes(APPOINTMENT_DURATION_MINUTES);
+                item.Tag = dateTime2;
+                item.Content = dateTime2.ToShortTimeString();
                 chooseEndTime.Items.Add(item);
-                v = dateTime.ToShortTimeString();
+                v = dateTime2.ToShortTimeString();
             }
         }
 
@@ -83,19 +81,19 @@ namespace GraphicEditor.View
         private void ButtonScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
         { 
             TimeSpan varTime = endTime - startTime;
-            int minutes = (int)varTime.TotalMinutes;
+            minutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
 
             availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
             bool isRoomAvailable = false;
 
             foreach(Room r in availableRooms)
-            {
                 if(room.Id == r.Id)
                 {
                     isRoomAvailable = true;
+                    break;
                 }
-            }
+            
 
             if (!isRoomAvailable)
             {
@@ -105,16 +103,10 @@ namespace GraphicEditor.View
                 mw.ShowDialog();
               
             }
-            else
-            {
-                ScheduleBasicRoomRenovation(timeInterval);
-            }
-
-            if (!isRoomAvailable)
-            {
-                FillAlternativeTimeIntervals(timeInterval, minutes);
-            }
-         
+            else ScheduleBasicRoomRenovation(timeInterval);
+           
+            if (!isRoomAvailable) FillAlternativeTimeIntervals(timeInterval, minutes);
+           
         }
 
         private void FillAlternativeTimeIntervals(TimeInterval timeInterval, int intMinutes)
