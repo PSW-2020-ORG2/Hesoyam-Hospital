@@ -19,7 +19,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
@@ -28,7 +27,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-
+        
         <Button x:Name="OverviewEquipment" Content="Overview of equipment and medicines" 
                 Width="350" Height="50"
                 Grid.Column="1" Grid.Row="1"
@@ -54,6 +53,8 @@
                 Width="350" Height="50"
                 Grid.Column="3" Grid.Row="3"
                 VerticalAlignment="Top"
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center"
+                Click="ScheduleComplexRenovation_Click"/>
+
     </Grid>
 </Window>

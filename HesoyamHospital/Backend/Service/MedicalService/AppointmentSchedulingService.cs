@@ -137,6 +137,7 @@ namespace Backend.Service.MedicalService
             return appointment;
         }
 
+
         public void Update(Appointment entity)
         {
             throw new NotImplementedException();
