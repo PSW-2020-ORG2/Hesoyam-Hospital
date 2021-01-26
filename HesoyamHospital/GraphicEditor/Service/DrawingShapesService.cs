@@ -17,11 +17,11 @@ namespace GraphicEditor
 {
     class DrawingShapesService
     {
+
         private readonly GraphicRepository graphicRepository;
         private readonly MedicineService medicineService  = Backend.AppResources.getInstance().medicineService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
         private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
-        private readonly AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
         private readonly User loggedIn = Backend.AppResources.getInstance().loggedInUser;
        
         public DrawingShapesService()
@@ -89,11 +89,8 @@ namespace GraphicEditor
                         rectangle.StrokeThickness = 7;
                         rectangle.Stroke = Brushes.Red;
                     }
-                    else
-                    { 
-                        rectangle.Stroke = stroke;
-                    }
-
+                    else rectangle.Stroke = stroke;
+                   
                     rectangle.Stroke = stroke;
                     rectangle.MouseLeftButtonDown += MouseLeftButtonDown;
                     rectangle.MouseRightButtonDown += MouseRightButtonDown;
@@ -155,7 +152,7 @@ namespace GraphicEditor
 
                 Room roomS = roomService.GetRoomByName(rectangle.Name);
                 ChooseActionWindow chooseActionWindow = new ChooseActionWindow(roomS);
-                chooseActionWindow.Show();
+                chooseActionWindow.ShowDialog();
         
             }
 

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>New Tender</h2>
+<div class="dialog" mat-dialog-content>
+<form [formGroup]="newTenderForm">
+     
+    <!--<mat-form-field class="example-full-width">
+        <input matInput [min]="minDate" [matDatepicker]="end" placeholder="Choose a date" formControlName="End">
+        <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+        <mat-datepicker #end ></mat-datepicker>
+      </mat-form-field>-->
+      <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="date">
+        
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+        <ngx-mat-datetime-picker [enableMeridian]="true" #picker></ngx-mat-datetime-picker>
+    </mat-form-field>
+    
+     <table id="listingtable">
+        <thead>
+            <th>Medicine</th>
+            <th>Quantity</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td >
+                    <mat-form-field  >
+                        <mat-select [(value)]="medicineName" placeholder="Medicine"  #selectedMedicine>
+                            <mat-option *ngFor="let tl of medicines" [value]="tl.Name">
+                                {{tl.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>  
+                        <input  matInput formControlName="quantity"> 
+                        </mat-form-field>     
+                </td>
+                <td>
+                    <button mat-raised-button (click)="Add()"> Add</button>
+                </td>
+            </tr>
+          <tr *ngFor="let tl of tender.TenderListings; let i = index">
+              <td><mat-label>{{tl.Medicine}}</mat-label></td>
+              <td><mat-label>{{tl.Quantity}}</mat-label></td>
+              <td><button mat-raised-button (click)="Delete(i)">Delete</button></td>
+              <td></td>
+        </tr>
+    </tbody>
+    </table>
+ </form>
+</div>
+<div mat-dialog-actions class="offerButtons">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button [disabled]="newTenderForm.invalid" (click)="AddTender()" cdkFocusInitial> Add Tender</button>
+</div>

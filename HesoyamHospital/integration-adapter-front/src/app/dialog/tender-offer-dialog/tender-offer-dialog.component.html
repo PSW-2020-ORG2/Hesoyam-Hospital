@@ -53,13 +53,14 @@
                             </mat-form-field>                
                     </td>
                     <td>
-                        <button mat-raised-button (click)="Add()"> Add</button>
+                        <button mat-raised-button (click)="Add()">Add</button>
                     </td>
                 </tr>
-              <tr *ngFor="let tl of tenderOfferListing">
+              <tr *ngFor="let tl of tenderOfferListing; let i = index" #ival>
                   <td><mat-label>{{tl.Medicine}}</mat-label></td>
                   <td><mat-label>{{tl.Quantity}}</mat-label></td>
                   <td><mat-label>{{tl.UnitPrice}}</mat-label></td>
+                  <td><button mat-raised-button (click)="Delete(i)">Delete</button></td>
                     <td>
                     </td>
             </tr>

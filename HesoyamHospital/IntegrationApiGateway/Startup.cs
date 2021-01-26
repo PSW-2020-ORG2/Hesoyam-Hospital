@@ -15,7 +15,6 @@ namespace IntegrationApiGateway
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(c =>

@@ -8,6 +8,7 @@ using Backend.Service.MedicalService;
 using Backend.Service.UsersService;
 using Backend.Util;
 using Castle.Core.Internal;
+using GraphicEditor.DTOs;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,6 +29,7 @@ namespace GraphicEditor.View
         private readonly DoctorService doctorService = Backend.AppResources.getInstance().doctorService;
         private readonly RoomService roomService = Backend.AppResources.getInstance().roomService;
         private readonly InventoryService inventoryService = Backend.AppResources.getInstance().inventoryService;
+        private readonly AppointmentService appointmentService = Backend.AppResources.getInstance().appointmentService;
 
         public EmergencyExamination()
         {
@@ -113,7 +115,51 @@ namespace GraphicEditor.View
             else 
             {
                 MessageBox.Show("No available terms in the next 30minutes. Some appointments have to be rescheduled!");
+                //Vrati sve zakazane u narednih pola sata, nadje 3 najbolja
+                Dictionary<Appointment, double> appointmentsForRescheduling = getAppointmentsForRescheduing(type);
+                List<RescheduleAppointmentDTO> rescheduleAppointmentDTOs = new List<RescheduleAppointmentDTO>();
+                AppointmentAnalysisDataGrid dataGrid = new AppointmentAnalysisDataGrid();
+                rescheduleAppointmentDTOs = RescheduleAppointmentMapper.AppointmentToRescheduleAppointmentDto(appointmentsForRescheduling);
+                dataGrid.searchAvailable.ItemsSource = rescheduleAppointmentDTOs;
+                dataGrid.Show();
+
             }
+        }
+
+        private Dictionary<Appointment, double> getAppointmentsForRescheduing(DoctorType type)
+        {
+            List<Appointment> appointments = appointmentService.GetAppointmentsForDoctorInNex30Minutes(type);
+            List<double> score = new List<double>();
+            List<double> sortedScore = new List<double>();
+            Dictionary<Appointment, double> result = new Dictionary<Appointment, double>();
+            foreach (Appointment a in appointments)
+            {
+                score.Add(analyseAppointment(a));
+                sortedScore.Add(analyseAppointment(a));
+            }
+            sortedScore.Sort();
+            for (int i = 0; i < 3; i++)
+            {
+                if (appointments.Count == i)
+                    break;
+                int index = score.IndexOf(sortedScore[i]);
+                result[appointments[index]] = score[index];
+                appointments.RemoveAt(index);
+            }
+            return result;
+            
+
+
+        }
+
+        private double analyseAppointment(Appointment appointment)
+        {
+            PriorityIntervalDTO dto = new PriorityIntervalDTO(DateTime.Now, DateTime.Now.AddDays(5), appointment.DoctorInAppointment.Name, appointment.DoctorInAppointment.Id, true);
+            List<PriorityIntervalDTO> appointments = (List<PriorityIntervalDTO>)appointmentSchedulingService.GetRecommendedTimes(dto);
+            if (!appointments.IsNullOrEmpty())
+                return (appointments[0].StartTime - appointment.TimeInterval.StartTime).TotalMinutes;
+            else
+                return 12000;
         }
 
         private void ChooseExaminationType_SelectionChanged(object sender, SelectionChangedEventArgs e)

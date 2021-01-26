@@ -29,12 +29,21 @@ namespace GraphicEditor.View
         {
             OverviewEquipmentAndMedicine overviewEquipmentandMedicine = new OverviewEquipmentAndMedicine();
             overviewEquipmentandMedicine.Show();
+            this.Close();
         }
 
-        private void showRoomSchedule_Click(object sender, RoutedEventArgs e)
+        private void ShowRoomSchedule_Click(object sender, RoutedEventArgs e)
         {
             ShowSchedule showSchedule = new ShowSchedule(room);
             showSchedule.Show();
+            this.Close();
+        }
+
+        private void ScheduleBasicRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            BasicRenovation basicRenovation = new BasicRenovation(room);
+            basicRenovation.Show();
+            this.Close();
         }
 
         private void ScheduleComplexRenovation_Click(object sender, RoutedEventArgs e)

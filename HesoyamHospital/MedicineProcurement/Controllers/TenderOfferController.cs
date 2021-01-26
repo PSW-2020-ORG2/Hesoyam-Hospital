@@ -1,4 +1,5 @@
 ﻿using System;
+using MedicineProcurement.Exceptions;
 using MedicineProcurement.Model;
 using MedicineProcurement.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,15 @@ namespace MedicineProcurement.Controllers
                 _tenderOfferService.Create(tenderOffer);
                 return Ok();
             }
+            catch(InvalidPriceException e)
+            {
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
+            }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-                return BadRequest();
+                return StatusCode(500, e.Message);
             }
         }
         [HttpGet("getOffers/{id}")]

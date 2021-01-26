@@ -7,11 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Backend.Exceptions;
+using Backend.Model.DoctorModel;
 using Backend.Model.PatientModel;
 using Backend.Model.UserModel;
-using Backend.Repository.Abstract.MedicalAbstractRepository;
 using Backend.Repository.MySQLRepository.MedicalRepository;
-using Backend.Service.MiscService;
 using Backend.Util;
 
 namespace Backend.Service.MedicalService
@@ -58,13 +57,27 @@ namespace Backend.Service.MedicalService
         protected void CheckType(Appointment appointment)
             => _appointmentStrategy.CheckType(appointment);
 
+        public List<Appointment> GetAppointmentsForDoctorInNex30Minutes(DoctorType type)
+        {
+            List<Appointment> allAppointments = (List<Appointment>)GetAll();
+            List<Appointment> result = new List<Appointment>();
+            foreach (Appointment a in allAppointments) 
+            {
+                if (a.DoctorInAppointment.Specialisation == type && DateTime.Now <= a.TimeInterval.StartTime && !a.Canceled &&
+                    a.TimeInterval.StartTime <= DateTime.Now.AddMinutes(30))
+                {
+                    result.Add(a);
+                }
+            }
+            return result;
+        }
+
         public Appointment CancelAppointment(Appointment appointment)
         {
             // TODO: Proveri da li moze da se otkaze appointment
             _appointmentStrategy.Validate(appointment);
             appointment.Canceled = true;
             _appointmentRepository.Update(appointment);
-            _notificationSender.SendCancelNotification(appointment);
             return appointment;
         }
 

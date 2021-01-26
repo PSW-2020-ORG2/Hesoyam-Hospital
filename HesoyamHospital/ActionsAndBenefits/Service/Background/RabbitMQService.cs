@@ -47,7 +47,6 @@ namespace ActionsAndBenefits.Service.Background
                 {
                     message = JsonConvert.DeserializeObject<ActionBenefit>(jsonMessage, new MyDateTimeConverter());
                 }
-                message.Approved = false;
                 _queue.Enqueue(message);
             };
             channel.BasicConsume(queue: "news",

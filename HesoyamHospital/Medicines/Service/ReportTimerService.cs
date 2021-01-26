@@ -8,6 +8,8 @@ using System.Timers;
 using Microsoft.AspNetCore.Hosting;
 using Medicines.Service.Abstract;
 using Medicines.Util;
+using System.Collections.Generic;
+using Medicines.DTOs;
 
 namespace Medicines.Service
 {
@@ -31,7 +33,7 @@ namespace Medicines.Service
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             generatorTimer.Elapsed += new ElapsedEventHandler(GenerateMessage);
-            generatorTimer.Interval = 7000; //number in miliseconds  
+            generatorTimer.Interval = 60000; //number in miliseconds  
             generatorTimer.Enabled = true;
 
             return Task.CompletedTask;
@@ -61,12 +63,20 @@ namespace Medicines.Service
         }
         private static void SendHttpRequest(string filePath)
         {
-            var client = new RestSharp.RestClient("http://localhost:8080");
-            var request = new RestRequest("/prescribedmedicinereport");
+            var pharmacyClient = new RestClient("http://localhost:60007");
+            var pharmacyRequest = new RestRequest("/api/registerpharmacy/all");
+            var pharmacyResponse = pharmacyClient.Get<List<RegisteredPharmacyDTO>>(pharmacyRequest);
+            List<RegisteredPharmacyDTO> pharmacies = pharmacyResponse.Data;
 
-            request.AddParameter("file", ReadFromFile(filePath));
-            IRestResponse response = client.Post(request);
-            Console.WriteLine("Status: " + response.StatusCode.ToString());
+            foreach(RegisteredPharmacyDTO pharmacy in pharmacies)
+            {
+                var prescriptionClient = new RestClient(pharmacy.Endpoint);
+                var prescriptionRequest = new RestRequest("/prescription");
+                prescriptionRequest.AddHeader("Authorization", pharmacy.ApiKey);
+                prescriptionRequest.AddParameter("prescription", ReadFromFile(filePath));
+                IRestResponse prescriptionResponse = prescriptionClient.Post(prescriptionRequest);
+                Console.WriteLine("Status: " + prescriptionResponse.StatusCode.ToString());
+            }
         }
         private static string ReadFromFile(string filePath)
         {
@@ -85,7 +95,6 @@ namespace Medicines.Service
             string filepath = AppDomain.CurrentDomain.BaseDirectory + "\\SFTPLogs\\ServiceLog_" + DateTime.Now.Date.ToShortDateString().Replace('/', '_') + ".txt";
             if (!File.Exists(filepath))
             {
-                // Create a file to write to.   
                 using (StreamWriter sw = File.CreateText(filepath))
                 {
                     sw.WriteLine(Message);
