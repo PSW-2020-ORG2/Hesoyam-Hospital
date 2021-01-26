@@ -78,7 +78,6 @@ namespace Backend.Service.MedicalService
             _appointmentStrategy.Validate(appointment);
             appointment.Canceled = true;
             _appointmentRepository.Update(appointment);
-            _notificationSender.SendCancelNotification(appointment);
             return appointment;
         }
 
