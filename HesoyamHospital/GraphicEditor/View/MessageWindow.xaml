@@ -21,7 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="message" Content="Successfully scheduled examination!"  Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=labelMessage}"/>
+        <Label x:Name="message" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=labelMessage}"/>
         
         <Button Content="OK" Grid.Row="3" Grid.Column="1" Height="36" Width="120" Click="Button_Click"/>
         

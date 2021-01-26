@@ -37,8 +37,17 @@ namespace Backend.Service.HospitalManagementService
 
             foreach(Appointment appointment in appointments) {
                 Room appointmentRoom = appointment.Room;
-                if(appointmentRoom != null)
-                    allRooms.Remove(allRooms.First(r => r.GetId() == appointmentRoom.GetId()));
+                if (appointmentRoom != null)
+                {
+                    try
+                    {
+                        allRooms.Remove(allRooms.First(r => r.GetId() == appointmentRoom.GetId()));
+                    }
+                    catch (Exception e) 
+                    {
+                        Console.WriteLine("{0} Exception caught.", e);
+                    }
+                }
             }
 
             return allRooms;
