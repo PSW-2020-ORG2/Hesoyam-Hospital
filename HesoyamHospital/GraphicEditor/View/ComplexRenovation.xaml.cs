@@ -125,26 +125,41 @@ namespace GraphicEditor.View
             TimeSpan varTime = endTime - startTime;
             int intMinutes = (int)varTime.TotalMinutes;
             TimeInterval timeInterval = new TimeInterval(startTime, endTime);
+            bool isCurrentRoomAvailable = false;
+            bool isDestinationRoomAvailable = false;
+            availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
 
-            if (chooseDestinationRoom != null)
+            if (chooseDestinationRoom == null)
             {
-                if (chooseOption.SelectedIndex != 0)
+
+                foreach (Room r in availableRooms)
+                {
+                    if (room.Id == r.Id)
+                    {
+                        isCurrentRoomAvailable = true;
+                        break;
+                    }
+                }
+                
+                if (!isCurrentRoomAvailable)
+                {
+                    MessageWindow mw = new MessageWindow();
+                    mw.Title = "Room not available";
+                    mw.message.Content = "Current room not available!";
+                    mw.ShowDialog();
+                }
+
+                if (chooseOption.SelectedIndex == 0)
+                {
+                    if (!isCurrentRoomAvailable)
+                        FillAlternativeTimeIntervals(timeInterval, intMinutes);
+                    else 
+                        ScheduleComplexRenovation(timeInterval);
+                }
+                else
                 {
                     ComboBoxItem destRoom = (ComboBoxItem)chooseDestinationRoom.SelectedItem;
                     destinationRoom = (Room)destRoom.Tag;
-
-                    availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
-                    bool isCurrentRoomAvailable = false;
-                    bool isDestinationRoomAvailable = false;
-
-                    foreach (Room r in availableRooms)
-                    {
-                        if (room.Id == r.Id)
-                        {
-                            isCurrentRoomAvailable = true;
-                            break;
-                        }
-                    }
 
                     foreach (Room r in availableRooms)
                     {
@@ -154,14 +169,8 @@ namespace GraphicEditor.View
                             break;
                         }
                     }
-                    if (!isCurrentRoomAvailable)
-                    {
-                        MessageWindow mw = new MessageWindow();
-                        mw.Title = "Room not available";
-                        mw.message.Content = "Current room not available!";
-                        mw.ShowDialog();
-                    }
-                    else if (!isDestinationRoomAvailable)
+
+                    if (!isDestinationRoomAvailable && isCurrentRoomAvailable)
                     {
                         MessageWindow mw = new MessageWindow();
                         mw.Title = "Room not available";
@@ -169,37 +178,10 @@ namespace GraphicEditor.View
                         mw.ShowDialog();
                     }
 
-                    else ScheduleComplexRenovation(timeInterval);
-
                     if (!isCurrentRoomAvailable || !isDestinationRoomAvailable)
                         FillAlternativeTimeIntervals(timeInterval, intMinutes);
-                }
-
-                else
-                {
-                    availableRooms = (List<Room>)roomService.GetAvailableRoomsByDate(timeInterval);
-                    bool isCurrentRoomAvailable = false;
-
-                    foreach (Room r in availableRooms)
-                    {
-                        if (room.Id == r.Id)
-                        {
-                            isCurrentRoomAvailable = true;
-                            break;
-                        }
-                    }
-
-                    if (!isCurrentRoomAvailable)
-                    {
-                        MessageWindow mw = new MessageWindow();
-                        mw.Title = "Room not available";
-                        mw.message.Content = "Current room not available!";
-                        mw.ShowDialog();
-                    }
-
-                    else ScheduleComplexRenovation(timeInterval);
-
-                    if (!isCurrentRoomAvailable) FillAlternativeTimeIntervals(timeInterval, intMinutes);
+                    else
+                        ScheduleComplexRenovation(timeInterval);
                 }
             }
         }
