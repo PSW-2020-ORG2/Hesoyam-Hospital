@@ -45,5 +45,11 @@ namespace GraphicEditor.View
             basicRenovation.Show();
             this.Close();
         }
+
+        private void ScheduleComplexRenovation_Click(object sender, RoutedEventArgs e)
+        {
+            ComplexRenovation complexRenovation = new ComplexRenovation(room);
+            complexRenovation.Show();
+        }
     }
 }

@@ -148,7 +148,7 @@ namespace GraphicEditor
             Rectangle rectangle = sender as System.Windows.Shapes.Rectangle;
             MainWindow mainWindow = new MainWindow();
             List<FileInformation> menuInformation = graphicRepository.readFileInformation("Map_Files\\buildings.txt");
-            if (rectangle.Name.Contains("room")) {
+            if (rectangle.Name.Contains("room") && loggedIn.GetUserType() == UserType.MANAGER) {
 
                 Room roomS = roomService.GetRoomByName(rectangle.Name);
                 ChooseActionWindow chooseActionWindow = new ChooseActionWindow(roomS);
